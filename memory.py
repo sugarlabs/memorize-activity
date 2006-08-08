@@ -20,6 +20,8 @@ import sys
 import os
 import pango
 import time
+from sugar.activity.Activity import Activity
+
 
 class Communication(gobject.GObject):
     __gsignals__ = {
@@ -53,6 +55,11 @@ class Communication(gobject.GObject):
         # start the communication 
         self.start()
 
+    def __del__(self):
+        # close the multicast sockets
+        self.closeSockMultiSend()
+        self.closeSockMultiSend()
+        
     def openSockMultiSend(self):
         self.socksend = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         # Make the socket multicast-aware, and set TTL.
@@ -191,21 +198,58 @@ class Communication(gobject.GObject):
             print '[Control] Packet: %s arrived.'%temp[2]
             self.members[selection] = []
             return False
-        
-class Gui:
-    def __init__(self, com, maddr, port, numplayers, player):
-        # store the communication object
-        self.com = com
-        self.com.connect('recvdata', self._handle_incomming_data_cb)
 
+class LocalCommunication(gobject.GObject):
+    __gsignals__ = {
+        'recvdata': (gobject.SIGNAL_RUN_FIRST,
+                     gobject.TYPE_NONE,
+                     ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]))
+        }
+
+    def __init__(self):
+        self.sequence = 0
+
+    def send_message(self, message):
+        gobject.idle_add(self._send_message_cb, message)
+
+    def _send_message_cb(self, message):
+        self.sequence += 1
+        self.emit("recvdata", None, message)
+        return False
+                    
+class Gui:
+    def __init__(self, service):
+        self.started = False
+        self._service = service
+        if service:
+            self.seed = service.get_published_value("seed")
+            self.filename = service.get_published_value("file")
+            self.maxplayers = service.get_published_value("maxplayers")
+            self.player = -1
+            self.game_type = service.get_published_value("type")
+            # FIXME: validate game type
+        else:
+            self.seed = random.randint(0, 14567)
+            self.filename = os.path.join(os.path.dirname(__file__),"alphasound.memoson")
+            self.maxplayers = 4
+            self.player = 1
+            self.game_type = "eareye"
+
+        mess = 'deci:%s:-1:eareye:%s:%s'%(self.player, self.filename, self.seed)
+        if self.service:
+            self.com = Communication('0.0.0.0', maddr, port, self.numplayers, self.player)
+        else:
+            self.com = LocalCommunication()
+        self.com.connect('recvdata', self._handle_incoming_data_cb)
+        self.com.send_message(mess)
+        
         # connect to the csound server
-        self.id = player
+        self.id = self.player
         self.csconnect()
                 
         # internal globals
         self.addr = ((maddr, port))
-        self.playername = 'player'+str(player)
-        self.player = player
+        self.playername = "player"+str(self.player)
         # create the list for the elements
         self.grid = []
         self.compkey = -1
@@ -214,7 +258,6 @@ class Gui:
         self.pind = 0
         self.players={'player1':0, 'player2':0, 'player3':0, 'player4':0}
         self.points = 0
-        self.numplayer = numplayers
         self.turn = 1
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_position(gtk.WIN_POS_CENTER)
@@ -322,7 +365,7 @@ class Gui:
         # scale black
         self.scale_x = 80
         self.scale_y = 80
-        self.pixbuf_i = gtk.gdk.pixbuf_new_from_file("pics/black80.jpg")
+        self.pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(os.path.dirname(__file__),"pics/black80.jpg"))
         self.scaledbuf_i = self.pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR) 
         
         # create the grid
@@ -338,8 +381,7 @@ class Gui:
                 self.imageObj[i].show()
                 self.buttonObj.append(gtk.Button())
                 self.buttonObj[i].add(self.imageObj[i])
-                self.funcname = 'self.performance_%d'%i
-                self.buttonObj[i].connect("clicked", eval(self.funcname))
+                self.buttonObj[i].connect("clicked", self.performance, i)
                 self.table.attach(self.buttonObj[i], self.x, self.x+1, self.y, self.y+1)
                 self.x+=1
                 i+=1
@@ -349,17 +391,34 @@ class Gui:
         self.window.show_all()        
         
 
+    def __del__(self):        
+        # close socket to csound server
+        self.cssock.close()
+        if self.com:
+            del self.com
+            self.com = None
+        
     def destroy(self, widget, data=None):
         mess = "csound.SetChannel('sfplay.%d.on', 0)\n" % self.id
         self.cssock.send(mess)
         # close socket to csound server
         self.cssock.close()
-        # close the multicast sockets
-        self.com.closeSockMultiSend()
-        self.com.closeSockMultiSend()
+        if self.com:
+            del self.com
+            self.com = None
         # quit the gtk-loop
         gtk.main_quit()
 
+    def share(self, activity):
+        if self.started:
+            return
+        self.started = True
+
+        self._pservice = PresenceService()
+        properties = {"seed": str(self.seed), "file":self.filename}
+        service = self._pservice.share_activity(activity, stype="_memorygame_olpc_udp", properties=properties)
+        self.com = Communication(service, self.numplayers, self.player)
+    
     def clear(self):
         self.result.set_text(str(''))
         self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
@@ -382,39 +441,10 @@ class Gui:
             # set the retry to zero
             mess = 'game:%s:%d:%d'%(self.playername, self.com.sequence, gridkey)
             self.com.send_message(mess)
-
-    def performance_0(self, widget, data=None):
-        self.console(0)
-    def performance_1(self, widget, data=None):
-        self.console(1)
-    def performance_2(self, widget, data=None):
-        self.console(2)
-    def performance_3(self, widget, data=None):
-        self.console(3)
-    def performance_4(self, widget, data=None):
-        self.console(4)
-    def performance_5(self, widget, data=None):
-        self.console(5)
-    def performance_6(self, widget, data=None):
-        self.console(6)
-    def performance_7(self, widget, data=None):
-        self.console(7)
-    def performance_8(self, widget, data=None):
-        self.console(8)
-    def performance_9(self, widget, data=None):
-        self.console(9)
-    def performance_10(self, widget, data=None):
-        self.console(10)
-    def performance_11(self, widget, data=None):
-        self.console(11)
-    def performance_12(self, widget, data=None):
-        self.console(12)
-    def performance_13(self, widget, data=None):
-        self.console(13)
-    def performance_14(self, widget, data=None):
-        self.console(14)
-    def performance_15(self, widget, data=None):
-        self.console(15)
+            
+    def performance(self, widget, num):
+        self.started = True
+        self.console(num)
 
     # connect to the csound server - open a soundfile player instrument
     def csconnect(self):
@@ -448,7 +478,7 @@ class Gui:
         # shuffle th grid elements
         random.shuffle(self.grid)
         
-    def _handle_incomming_data_cb(self, com, addr, temp):
+    def _handle_incoming_data_cb(self, com, addr, temp):
         # split header from body
         mess = temp.split(':')
         if mess[0] == 'deci':
@@ -467,13 +497,13 @@ class Gui:
             grid = self.grid
             
             if(self.pic):
-                self.pixbuf_p = gtk.gdk.pixbuf_new_from_file(grid[int(gridkey)][0])
+                self.pixbuf_p = gtk.gdk.pixbuf_new_from_file(os.path.join(os.path.dirname(__file__),grid[int(gridkey)][0]))
                 self.scaledbuf_p = self.pixbuf_p.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR) 
                 self.imageObj[int(gridkey)].set_from_pixbuf(self.scaledbuf_p)
             if(self.sound):
                 if not pind:
                     # make visible wich buttons have been pressed
-                    self.imageObj[int(gridkey)].set_from_file('pics/red80.jpg')
+                    self.imageObj[int(gridkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/red80.jpg'))
                 # play notes on the csound-server
                 mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n" % (grid[int(gridkey)][pind], self.id)
                 self.cssock.send(mess)                  
@@ -484,7 +514,7 @@ class Gui:
                 if( grid[int(gridkey)][0] != grid[int(compkey)][0] ):
                     string = "self.ebplayer%d.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))"%self.turn
                     exec string
-                    if(self.turn != self.numplayer):
+                    if(self.turn != self.numplayers):
                         self.turn+=1
                     else:
                         self.turn=1
@@ -523,60 +553,27 @@ class Gui:
             print 'turn'
         elif mess[0] == 'mess':
             print mess[1]
-                   
+        return False
+    
     def reset(self, gridkey2, compkey2):
         # reset buttons if they were not matching
-        self.imageObj[int(gridkey2)].set_from_file('pics/black80.jpg')
-        self.imageObj[int(compkey2)].set_from_file('pics/black80.jpg')
+        self.imageObj[int(gridkey2)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/black80.jpg'))
+        self.imageObj[int(compkey2)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/black80.jpg'))
         return False
 
     def set(self, gridkey, compkey):
         # make visible wich buttons have been pressed
-        self.imageObj[int(gridkey)].set_from_file('pics/white80.jpg')
-        self.imageObj[int(compkey)].set_from_file('pics/white80.jpg')
+        self.imageObj[int(gridkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/white80.jpg'))
+        self.imageObj[int(compkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/white80.jpg'))
         return False
 
-        
-if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print 'Specify number of players and a playernumber (starting from 1).'
-    else:    
-        numplayers = int(sys.argv[1])
-        player = int(sys.argv[2])
-        if len(sys.argv) > 3:
-            seed = sys.argv[3]
-        else:
-            seed = '2006L'
-        if len(sys.argv) > 4:
-            maddr = sys.argv[4]
-        else:
-            maddr = '224.0.0.1'
-        if len(sys.argv) > 5:
-            port = sys.argv[5]
-        else:
-            port = 40003                
 
-        # setup communication        
-        hostname = socket.gethostname() # hostname (i.e.): master, client1, etc
-        interface = socket.gethostbyname(hostname) # ipaddress (i.e.): 192.168.1.100 
-        com = Communication(interface, maddr, port, numplayers, player)
-
+class MemoryActivity(Activity):
+    def __init__(self, service, args):
+        Activity.__init__(self, service)
+        self.set_title("Memory Game")
         # setup the gui
-        guiObject = Gui(com, maddr, port, numplayers, player)
-        # decision what mode to play
-        if(player == 1):
-            filename = 'alphasound.memoson'
-            mess = 'deci:%s:-1:eareye:%s:%s'%(player, filename, seed)
-            com.send_message(mess)
-    
-        try:
-            gtk.main()
-        except KeyboardInterrupt:
-            # close socket to csound server
-            guiObject.cssock.close()
-            # close the multicast sockets
-            com.closeSockMultiSend()
-            com.closeSockMultiSend()
-            print 'Ctrl+C pressed, exiting...'
-          
-    
+        self.guiObject = Gui(service)        
+
+    def share(self):
+        self.guiObject.share(self)
