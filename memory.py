@@ -222,7 +222,7 @@ class Gui:
     def __init__(self, service):
         self.started = False
         self._service = service
-        if service:
+        if self._service:
             self.seed = service.get_published_value("seed")
             self.filename = service.get_published_value("file")
             self.maxplayers = service.get_published_value("maxplayers")
@@ -233,12 +233,13 @@ class Gui:
             self.seed = random.randint(0, 14567)
             self.filename = os.path.join(os.path.dirname(__file__),"alphasound.memoson")
             self.maxplayers = 4
+            self.numplayers = 1
             self.player = 1
             self.game_type = "eareye"
 
         mess = 'deci:%s:-1:eareye:%s:%s'%(self.player, self.filename, self.seed)
         if self._service:
-            self.com = Communication('0.0.0.0', maddr, port, self.numplayers, self.player)
+            self.com = Communication('0.0.0.0', maddr, port, self.maxplayers, self.player)
         else:
             self.com = LocalCommunication()
         self.com.connect('recvdata', self._handle_incoming_data_cb)
@@ -417,7 +418,7 @@ class Gui:
         self._pservice = PresenceService()
         properties = {"seed": str(self.seed), "file":self.filename}
         service = self._pservice.share_activity(activity, stype="_memorygame_olpc_udp", properties=properties)
-        self.com = Communication(service, self.numplayers, self.player)
+        self.com = Communication(service, self.maxplayers, self.player)
     
     def clear(self):
         self.result.set_text(str(''))
