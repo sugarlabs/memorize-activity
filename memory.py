@@ -207,6 +207,7 @@ class LocalCommunication(gobject.GObject):
         }
 
     def __init__(self):
+        gobject.GObject.__init__(self)                    
         self.sequence = 0
 
     def send_message(self, message):
@@ -236,7 +237,7 @@ class Gui:
             self.game_type = "eareye"
 
         mess = 'deci:%s:-1:eareye:%s:%s'%(self.player, self.filename, self.seed)
-        if self.service:
+        if self._service:
             self.com = Communication('0.0.0.0', maddr, port, self.numplayers, self.player)
         else:
             self.com = LocalCommunication()
@@ -248,7 +249,6 @@ class Gui:
         self.csconnect()
                 
         # internal globals
-        self.addr = ((maddr, port))
         self.playername = "player"+str(self.player)
         # create the list for the elements
         self.grid = []
