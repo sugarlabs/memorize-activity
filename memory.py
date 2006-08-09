@@ -218,10 +218,15 @@ class LocalCommunication(gobject.GObject):
         return False
                     
 class Gui:
+    _GAME_TYPE_EAR = "ear"
+    _GAME_TYPE_EYE = "eye"
+    _GAME_TYPE_EAREYE = "eareye"
+
     def __init__(self, service):
         self.started = False
         self._service = service
         if service:
+            # If we are given a service, we are _joining_ an existing game
             self.seed = service.get_published_value("seed")
             self.filename = service.get_published_value("file")
             self.maxplayers = service.get_published_value("maxplayers")
@@ -229,18 +234,19 @@ class Gui:
             self.game_type = service.get_published_value("type")
             # FIXME: validate game type
         else:
+            # Otherwise, we are starting a brand new game
             self.seed = random.randint(0, 14567)
             self.filename = os.path.join(os.path.dirname(__file__),"alphasound.memoson")
             self.maxplayers = 4
             self.player = 1
-            self.game_type = "eareye"
+            self.game_type = self._GAME_TYPE_EAREYE
 
-        mess = 'deci:%s:-1:eareye:%s:%s'%(self.player, self.filename, self.seed)
         if self.service:
             self.com = Communication('0.0.0.0', maddr, port, self.numplayers, self.player)
         else:
             self.com = LocalCommunication()
         self.com.connect('recvdata', self._handle_incoming_data_cb)
+        mess = 'deci:%s:-1:%s:%s:%s'%(self.player, self._GAME_TYPE_EAREYE, self.filename, self.seed)
         self.com.send_message(mess)
         
         # connect to the csound server
@@ -482,12 +488,12 @@ class Gui:
         # split header from body
         mess = temp.split(':')
         if mess[0] == 'deci':
-            if mess[3] == 'eye':
+            if mess[3] == self._GAME_TYPE_EYE:
                 # setup_grid(self, filename, seed, numelems):
                 self.setup_grid(mess[4], mess[5], 8)
-            elif mess[3] == 'ear':
+            elif mess[3] == self._GAME_TYPE_EAR:
                 self.setup_grid(mess[4],mess[5], 8)
-            elif mess[3] == 'eareye':
+            elif mess[3] == self._GAME_TYPE_EAREYE:
                 self.setup_grid(mess[4],mess[5], 8)
         elif mess[0] == 'game':
             playername = mess[1]
