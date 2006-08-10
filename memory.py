@@ -207,6 +207,7 @@ class LocalCommunication(gobject.GObject):
         }
 
     def __init__(self):
+        gobject.GObject.__init__(self)                    
         self.sequence = 0
 
     def send_message(self, message):
@@ -225,7 +226,7 @@ class Gui:
     def __init__(self, service):
         self.started = False
         self._service = service
-        if service:
+        if self._service:
             # If we are given a service, we are _joining_ an existing game
             self.seed = service.get_published_value("seed")
             self.filename = service.get_published_value("file")
@@ -238,10 +239,11 @@ class Gui:
             self.seed = random.randint(0, 14567)
             self.filename = os.path.join(os.path.dirname(__file__),"alphasound.memoson")
             self.maxplayers = 4
+            self.numplayers = 1
             self.player = 1
             self.game_type = self._GAME_TYPE_EAREYE
 
-        if self.service:
+        if self._service:
             self.com = Communication('0.0.0.0', maddr, port, self.numplayers, self.player)
         else:
             self.com = LocalCommunication()
@@ -254,7 +256,6 @@ class Gui:
         self.csconnect()
                 
         # internal globals
-        self.addr = ((maddr, port))
         self.playername = "player"+str(self.player)
         # create the list for the elements
         self.grid = []
@@ -423,7 +424,7 @@ class Gui:
         self._pservice = PresenceService()
         properties = {"seed": str(self.seed), "file":self.filename}
         service = self._pservice.share_activity(activity, stype="_memorygame_olpc_udp", properties=properties)
-        self.com = Communication(service, self.numplayers, self.player)
+        self.com = Communication(service, self.maxplayers, self.player)
     
     def clear(self):
         self.result.set_text(str(''))
