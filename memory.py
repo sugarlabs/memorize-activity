@@ -223,9 +223,9 @@ class Gui:
     _GAME_TYPE_EYE = "eye"
     _GAME_TYPE_EAREYE = "eareye"
 
-    def __init__(self, service):
+    def __init__(self):
         self.started = False
-        self._service = service
+        self._service = None
         if self._service:
             # If we are given a service, we are _joining_ an existing game
             self.seed = service.get_published_value("seed")
@@ -575,12 +575,12 @@ class Gui:
         return False
 
 
-class MemoryActivity(Activity):
-    def __init__(self, service, args):
-        Activity.__init__(self, service)
+class MemoryGameActivity(Activity):
+    def __init__(self):
+        Activity.__init__(self)
         self.set_title("Memory Game")
         # setup the gui
-        self.guiObject = Gui(service)        
+        self.guiObject = Gui()
 
     def share(self):
         self.guiObject.share(self)

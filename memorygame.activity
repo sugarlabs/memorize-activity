@@ -1,6 +1,6 @@
 [Activity]
 name = Memory Game
-id = com.erikos.MemoryActivity
-python_module = memorygame.memory.MemoryActivity
+id = com.erikos.MemoryGameActivity
+python_module = memorygame.memory.MemoryGameActivity
 default_type = _memorygame_olpc._udp
 show_launcher = yes

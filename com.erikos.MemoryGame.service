@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name = com.erikos.MemoryGameActivity.Factory
+Exec = /home/dcbw/Development/olpc/sugar-jhbuild/build/bin/sugar-activity-factory com.erikos.MemoryGameActivity memorygame.memory.MemoryGameActivity
+
