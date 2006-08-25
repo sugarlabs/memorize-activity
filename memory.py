@@ -21,6 +21,7 @@ import os
 import pango
 import time
 from sugar.activity.Activity import Activity
+from sugar.presence import PresenceService
 
 
 class Communication(gobject.GObject):
@@ -225,38 +226,19 @@ class Gui:
 
     def __init__(self):
         self.started = False
-        self._service = None
-        if self._service:
-            # If we are given a service, we are _joining_ an existing game
-            self.seed = service.get_published_value("seed")
-            self.filename = service.get_published_value("file")
-            self.maxplayers = service.get_published_value("maxplayers")
-            self.player = -1
-            self.game_type = service.get_published_value("type")
-            # FIXME: validate game type
-        else:
-            # Otherwise, we are starting a brand new game
-            self.seed = random.randint(0, 14567)
-            self.filename = os.path.join(os.path.dirname(__file__),"alphasound.memoson")
-            self.maxplayers = 4
-            self.numplayers = 1
-            self.player = 1
-            self.game_type = self._GAME_TYPE_EAREYE
+        # Otherwise, we are starting a brand new game
+        self.seed = random.randint(0, 14567)
+        self.filename = os.path.join(os.path.dirname(__file__),"alphasound.memoson")
+        self.maxplayers = 4
+        self.numplayers = 1
+        self.player = 1
+        self.game_type = self._GAME_TYPE_EAREYE
 
-        if self._service:
-            self.com = Communication('0.0.0.0', maddr, port, self.numplayers, self.player)
-        else:
-            self.com = LocalCommunication()
-        self.com.connect('recvdata', self._handle_incoming_data_cb)
-        mess = 'deci:%s:-1:%s:%s:%s'%(self.player, self._GAME_TYPE_EAREYE, self.filename, self.seed)
-        self.com.send_message(mess)
-        
-        # connect to the csound server
-        self.id = self.player
-        self.csconnect()
-                
+        self._pservice = PresenceService.get_instance()
+        owner = self._pservice.get_owner()
+
         # internal globals
-        self.playername = "player"+str(self.player)
+        self.playername = owner.get_name()
         # create the list for the elements
         self.grid = []
         self.compkey = -1
@@ -269,7 +251,7 @@ class Gui:
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_position(gtk.WIN_POS_CENTER)
         
-        title = "Memoson - You are Player %d"%self.player
+        title = "Memoson - You are Player %d" % self.player
         self.window.set_title(title)
         self.window.set_border_width(10)
         self.window.connect("destroy", self.destroy)
@@ -285,65 +267,14 @@ class Gui:
         self.row2 = gtk.HBox(False)
         self.row3 = gtk.HBox(False)
 
-        # create players1
-        self.frame1 = gtk.Frame("Player1: ")
-        self.player1 = gtk.Label('0')
-        self.player1.modify_font(pango.FontDescription("sans 10"))
-        self.ebplayer1 = gtk.EventBox()
-        self.ebplayer1.add(self.player1)
-        self.ebplayer1.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("red"))
-        self.frame1.add(self.ebplayer1)
-        self.row1.pack_start(self.frame1)
-        
-        # create players2
-        self.frame2 = gtk.Frame("Player2: ")
-        self.player2 = gtk.Label('0')
-        self.player2.modify_font(pango.FontDescription("sans 10"))
-        self.ebplayer2 = gtk.EventBox()
-        self.ebplayer2.add(self.player2)
-        self.ebplayer2.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-        self.frame2.add(self.ebplayer2)
-        self.row1.pack_start(self.frame2)
-        
-        # create players3
-        self.frame3 = gtk.Frame("Player3: ")
-        self.player3 = gtk.Label('0')
-        self.player3.modify_font(pango.FontDescription("sans 10"))
-        self.ebplayer3 = gtk.EventBox()
-        self.ebplayer3.add(self.player3)
-        self.ebplayer3.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-        self.frame3.add(self.ebplayer3)
-        self.row1.pack_start(self.frame3)
+        # create players
+        self._create_player("Player1", "red")
+        self._create_player("Player2")
+        self._create_player("Player3")
+        self._create_player("Player4")
+        self._create_player("Player5")
+        self._create_player("Player6")
 
-        # create players4
-        self.frame4 = gtk.Frame("Player4: ")
-        self.player4 = gtk.Label('0')
-        self.player4.modify_font(pango.FontDescription("sans 10"))
-        self.ebplayer4 = gtk.EventBox()
-        self.ebplayer4.add(self.player4)
-        self.ebplayer4.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-        self.frame4.add(self.ebplayer4)
-        self.row1.pack_start(self.frame4)
-
-        # create players5
-        self.frame5 = gtk.Frame("Player5: ")
-        self.player5 = gtk.Label('0')
-        self.player5.modify_font(pango.FontDescription("sans 10"))
-        self.ebplayer5 = gtk.EventBox()
-        self.ebplayer5.add(self.player5)
-        self.ebplayer5.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-        self.frame5.add(self.ebplayer5)
-        self.row1.pack_start(self.frame5)
-        
-        # create players6
-        self.frame6 = gtk.Frame("Player6: ")
-        self.player6 = gtk.Label('0')
-        self.player6.modify_font(pango.FontDescription("sans 10"))
-        self.ebplayer6 = gtk.EventBox()
-        self.ebplayer6.add(self.player6)
-        self.ebplayer6.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-        self.frame6.add(self.ebplayer6)
-        self.row1.pack_start(self.frame6)
         self.mainbox.pack_start(self.row1)
 
         # Console
@@ -363,7 +294,7 @@ class Gui:
         self.mainbox.pack_start(self.row3)
         self.window.add(self.mainbox)
 
-        # Create a table for the grid dependend on the numbber oof players
+        # Create a table for the grid dependend on the numbber of players
         self.num_elem_x = 4
         self.num_elem_y = 4
         self.table = gtk.Table(self.num_elem_y, self.num_elem_x, True)
@@ -396,7 +327,27 @@ class Gui:
             self.y+=1
 
         self.window.show_all()        
+
+    def _setup_network(self):
+        self.com = LocalCommunication()
+        self.com.connect('recvdata', self._handle_incoming_data_cb)
+        mess = 'deci:%s:-1:%s:%s:%s'%(self.player, self._GAME_TYPE_EAREYE, self.filename, self.seed)
+        self.com.send_message(mess)
         
+    def _setup_csound(self):
+        # connect to the csound server
+        self.csconnect()
+
+    def _create_player(self, name, color="white"):
+        # create players6
+        frame = gtk.Frame("%s: " % name)
+        player = gtk.Label('0')
+        player.modify_font(pango.FontDescription("sans 10"))
+        ebplayer = gtk.EventBox()
+        ebplayer.add(player)
+        ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
+        frame.add(ebplayer)
+        self.row1.pack_start(frame)
 
     def __del__(self):        
         # close socket to csound server
@@ -406,7 +357,7 @@ class Gui:
             self.com = None
         
     def destroy(self, widget, data=None):
-        mess = "csound.SetChannel('sfplay.%d.on', 0)\n" % self.id
+        mess = "csound.SetChannel('sfplay.%d.on', 0)\n" % self.player
         self.cssock.send(mess)
         # close socket to csound server
         self.cssock.close()
@@ -421,7 +372,6 @@ class Gui:
             return
         self.started = True
 
-        self._pservice = PresenceService()
         properties = {"seed": str(self.seed), "file":self.filename}
         service = self._pservice.share_activity(activity, stype="_memorygame_olpc_udp", properties=properties)
         self.com = Communication(service, self.maxplayers, self.player)
@@ -457,7 +407,7 @@ class Gui:
     def csconnect(self):
         self.cssock = socket.socket()
         self.cssock.connect(('127.0.0.1', 40002))
-        mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
+        mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.player
         # start the soundfile player instrument
         self.cssock.send(mess)
 
@@ -512,7 +462,7 @@ class Gui:
                     # make visible wich buttons have been pressed
                     self.imageObj[int(gridkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/red80.jpg'))
                 # play notes on the csound-server
-                mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n" % (grid[int(gridkey)][pind], self.id)
+                mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n" % (grid[int(gridkey)][pind], self.player)
                 self.cssock.send(mess)                  
             
             # if a sound/picture is open
