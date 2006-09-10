@@ -219,7 +219,25 @@ class LocalCommunication(gobject.GObject):
         self.sequence += 1
         self.emit("recvdata", None, message)
         return False
-                    
+
+class Players:
+    def __init__(self, guiObject, playername, color="white"):
+         self.playername = playername
+         self.score = 0
+
+         self.frame = gtk.Frame("%s: " % self.playername)
+         self.label = gtk.Label('0')
+         self.label.modify_font(pango.FontDescription("sans 10"))
+         self.ebplayer = gtk.EventBox()
+         self.ebplayer.add(self.label)
+         self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
+         self.frame.add(self.ebplayer)
+         guiObject.row1.pack_start(self.frame)
+                 
+    def increment(self):
+        self.score += 1
+        self.label.set_text(str(self.score))
+    
 class Gui:
     _GAME_TYPE_EAR = "ear"
     _GAME_TYPE_EYE = "eye"
@@ -246,27 +264,21 @@ class Gui:
         self.sound = 0
         self.pic = 0
         self.pind = 0
-        self.players = {}
-        self.players[self.playername] = 0
-        self.players['player2'] = 0
-        self.players['player3'] = 0
-        self.players['player4'] = 0
-        
+
+        # create boxes
         self.points = 0
         self.turn = 1
         self.mainbox = gtk.VBox(False)
         self.row1 = gtk.HBox(False)
         self.row2 = gtk.HBox(False)
         self.row3 = gtk.HBox(False)
-
         # create players
-        self._create_player(self.playername, "red")
-        self._create_player("Player2")
-        self._create_player("Player3")
-        self._create_player("Player4")
-        self._create_player("Player5")
-        self._create_player("Player6")
-
+        self.players = {}
+        self.players[self.playername] = Players(self, self.playername, 'red')
+        self.players['player2'] = Players(self, 'player2')
+        self.players['player3'] = Players(self, 'player3')
+        self.players['player4'] = Players(self, 'player3')
+        
         self.mainbox.pack_start(self.row1)
 
         # Console
@@ -333,18 +345,6 @@ class Gui:
     def _setup_csound(self):
         # connect to the csound server
         self.csconnect()
-
-    def _create_player(self, name, color="white"):
-        self.frame = gtk.Frame("%s: " % name)
-        self.label = gtk.Label('0')
-        self.label.modify_font(pango.FontDescription("sans 10"))
-#        string = "eb%s"%name        
-#        exec string
-        self.ebplayer = gtk.EventBox()
-        self.ebplayer.add(self.label)
-        self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
-        self.frame.add(self.ebplayer)
-        self.row1.pack_start(self.frame)
 
     def __del__(self):        
         # close socket to csound server
@@ -418,9 +418,9 @@ class Gui:
         # read elements from file
         fd = open(filename, 'r')
         if fd == None:
-            logging.debug('Error reading file')
+            logging.debug('Error reading setup file %s.'%filename)
         else:
-            logging.debug('Everything ok.')
+            logging.debug('Read setup for memory from file %s.'%filename)
             
         line = fd.readline()    
         while line:
@@ -449,67 +449,66 @@ class Gui:
             elif mess[3] == self._GAME_TYPE_EAREYE:
                 self.setup_grid(mess[4],mess[5], 8)
         elif mess[0] == 'game':
-            logging.debug(mess)
             playername = mess[1]
             gridkey = mess[3]
             compkey = self.compkey
             pind = self.pind
             grid = self.grid
+
+            # check if player is in players list
+            if playername not in self.players:
+                logging.error('Player %s is not in players list'%playername)
+            else:                
+                if(self.pic):
+                    self.pixbuf_p = gtk.gdk.pixbuf_new_from_file(os.path.join(os.path.dirname(__file__),
+                                                                          grid[int(gridkey)][0]))
+                    self.scaledbuf_p = self.pixbuf_p.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR) 
+                    self.imageObj[int(gridkey)].set_from_pixbuf(self.scaledbuf_p)
+                if(self.sound):
+                    if not pind:
+                        # make visible wich buttons have been pressed
+                        self.imageObj[int(gridkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/red80.jpg'))
+                    # play notes on the csound-server
+                    mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n" % (grid[int(gridkey)][pind], self.player)
+                    self.cssock.send(mess)                  
             
-            if(self.pic):
-                self.pixbuf_p = gtk.gdk.pixbuf_new_from_file(os.path.join(os.path.dirname(__file__),grid[int(gridkey)][0]))
-                self.scaledbuf_p = self.pixbuf_p.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR) 
-                self.imageObj[int(gridkey)].set_from_pixbuf(self.scaledbuf_p)
-            if(self.sound):
-                if not pind:
-                    # make visible wich buttons have been pressed
-                    self.imageObj[int(gridkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/red80.jpg'))
-                # play notes on the csound-server
-                mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n" % (grid[int(gridkey)][pind], self.player)
-                self.cssock.send(mess)                  
-            
-            # if a sound/picture is open
-            if(compkey != -1):
-                # if the pair does not match
-                if( grid[int(gridkey)][0] != grid[int(compkey)][0] ):
-#                    string = "self.ebplayer%d.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))"%self.turn
-                    string = "self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))"
-                    exec string
-                    if(self.turn != self.numplayers):
-                        self.turn+=1
+                # if a sound/picture is open
+                if(compkey != -1):
+                    # if the pair does not match
+                    if( grid[int(gridkey)][0] != grid[int(compkey)][0] ):
+                        self.players[playername].ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))
+                        if(self.turn != self.numplayers):
+                            self.turn+=1
+                        else:
+                            self.turn=1
+                        self.players[playername].ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))
+                        logging.debug('turn: %d'%self.turn)                    
+                        gridkey2 = gridkey
+                        compkey2 = compkey
+                        gobject.timeout_add(3000, self.reset, gridkey2, compkey2)
                     else:
-                        self.turn=1
-                    #string = "self.ebplayer%d.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))"%self.turn
-                    string = "self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))"
-                    exec string
-                    print 'turn: %d'%self.turn
-                    gridkey2 = gridkey
-                    compkey2 = compkey
-                    gobject.timeout_add(3000, self.reset, gridkey2, compkey2)
-                else:
-                    # the pairs does match
-                    self.result.set_text('Point for %s. One more try.'%playername)                    
-                    self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))
-                    gobject.timeout_add(2000, self.clear)
+                        # the pairs does match
+                        self.result.set_text('Point for %s. One more try.'%playername)                    
+                        self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))
+                        gobject.timeout_add(2000, self.clear)
           
-                    # if you play with just sounds make pictures white
-                    if not pind and not self.pic:
-                        gobject.timeout_add(1000, self.set, gridkey, compkey)
-                    # count the points
-                    self.points+=1
-                    self.players[playername]+=1
-                    string = "self.%s.set_text(str(%s))"%(playername,self.players[playername])
-                    exec string
-                    # indicate that the matching pictures can not be pressed anymore
-                    grid[int(compkey)][2] = 1;
-                    grid[int(gridkey)][2] = 1;
-                    # end of game
-                    if(self.points == 8):
-                        self.result.set_text(str('End of the game.'))
-                        self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))                
-                self.compkey = -1
-            else:        
-                self.compkey = gridkey
+                        # if you play with just sounds make pictures white
+                        if not pind and not self.pic:
+                            gobject.timeout_add(1000, self.set, gridkey, compkey)
+                        # count the points
+                        self.points+=1
+                        self.players[playername].increment()
+                    
+                        # indicate that the matching pictures can not be pressed anymore
+                        grid[int(compkey)][2] = 1;
+                        grid[int(gridkey)][2] = 1;
+                        # end of game
+                        if(self.points == 8):
+                            self.result.set_text(str('End of the game.'))
+                            self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))                
+                    self.compkey = -1
+                else:        
+                    self.compkey = gridkey
 
         elif mess[0] == 'turn':
             print 'turn'
