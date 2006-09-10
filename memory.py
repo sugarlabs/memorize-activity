@@ -20,6 +20,7 @@ import sys
 import os
 import pango
 import time
+import logging
 from sugar.activity.Activity import Activity
 from sugar.presence import PresenceService
 
@@ -224,7 +225,7 @@ class Gui:
     _GAME_TYPE_EYE = "eye"
     _GAME_TYPE_EAREYE = "eareye"
 
-    def __init__(self):
+    def __init__(self, memorygameactivity):
         self.started = False
         # Otherwise, we are starting a brand new game
         self.seed = random.randint(0, 14567)
@@ -236,39 +237,30 @@ class Gui:
 
         self._pservice = PresenceService.get_instance()
         owner = self._pservice.get_owner()
-
         # internal globals
         self.playername = owner.get_name()
+
         # create the list for the elements
         self.grid = []
         self.compkey = -1
         self.sound = 0
         self.pic = 0
         self.pind = 0
-        self.players={'player1':0, 'player2':0, 'player3':0, 'player4':0}
+        self.players = {}
+        self.players[self.playername] = 0
+        self.players['player2'] = 0
+        self.players['player3'] = 0
+        self.players['player4'] = 0
+        
         self.points = 0
         self.turn = 1
-        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.window.set_position(gtk.WIN_POS_CENTER)
-        
-        title = "Memoson - You are Player %d" % self.player
-        self.window.set_title(title)
-        self.window.set_border_width(10)
-        self.window.connect("destroy", self.destroy)
-
-        self.new_style = self.window.get_style().copy()
-        # change the style attributes
-        self.new_style.bg[gtk.STATE_NORMAL] = gtk.gdk.color_parse("white")
-        # fill out the new style by attaching it to the self.window
-        self.window.set_style(self.new_style)
-
         self.mainbox = gtk.VBox(False)
         self.row1 = gtk.HBox(False)
         self.row2 = gtk.HBox(False)
         self.row3 = gtk.HBox(False)
 
         # create players
-        self._create_player("Player1", "red")
+        self._create_player(self.playername, "red")
         self._create_player("Player2")
         self._create_player("Player3")
         self._create_player("Player4")
@@ -292,7 +284,7 @@ class Gui:
                                                         
         self.mainbox.pack_start(self.row2)
         self.mainbox.pack_start(self.row3)
-        self.window.add(self.mainbox)
+        memorygameactivity.add(self.mainbox) 
 
         # Create a table for the grid dependend on the numbber of players
         self.num_elem_x = 4
@@ -326,12 +318,16 @@ class Gui:
             self.x=0
             self.y+=1
 
-        self.window.show_all()        
-
+        self.mainbox.show_all()
+        # setup the network and the csound server
+        self._setup_network()
+        self._setup_csound()
+                
     def _setup_network(self):
         self.com = LocalCommunication()
         self.com.connect('recvdata', self._handle_incoming_data_cb)
         mess = 'deci:%s:-1:%s:%s:%s'%(self.player, self._GAME_TYPE_EAREYE, self.filename, self.seed)
+        logging.debug(mess)
         self.com.send_message(mess)
         
     def _setup_csound(self):
@@ -339,15 +335,16 @@ class Gui:
         self.csconnect()
 
     def _create_player(self, name, color="white"):
-        # create players6
-        frame = gtk.Frame("%s: " % name)
-        player = gtk.Label('0')
-        player.modify_font(pango.FontDescription("sans 10"))
-        ebplayer = gtk.EventBox()
-        ebplayer.add(player)
-        ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
-        frame.add(ebplayer)
-        self.row1.pack_start(frame)
+        self.frame = gtk.Frame("%s: " % name)
+        self.label = gtk.Label('0')
+        self.label.modify_font(pango.FontDescription("sans 10"))
+#        string = "eb%s"%name        
+#        exec string
+        self.ebplayer = gtk.EventBox()
+        self.ebplayer.add(self.label)
+        self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
+        self.frame.add(self.ebplayer)
+        self.row1.pack_start(self.frame)
 
     def __del__(self):        
         # close socket to csound server
@@ -420,6 +417,11 @@ class Gui:
         random.seed(seed)
         # read elements from file
         fd = open(filename, 'r')
+        if fd == None:
+            logging.debug('Error reading file')
+        else:
+            logging.debug('Everything ok.')
+            
         line = fd.readline()    
         while line:
             zw = line.split()            
@@ -447,6 +449,7 @@ class Gui:
             elif mess[3] == self._GAME_TYPE_EAREYE:
                 self.setup_grid(mess[4],mess[5], 8)
         elif mess[0] == 'game':
+            logging.debug(mess)
             playername = mess[1]
             gridkey = mess[3]
             compkey = self.compkey
@@ -469,13 +472,15 @@ class Gui:
             if(compkey != -1):
                 # if the pair does not match
                 if( grid[int(gridkey)][0] != grid[int(compkey)][0] ):
-                    string = "self.ebplayer%d.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))"%self.turn
+#                    string = "self.ebplayer%d.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))"%self.turn
+                    string = "self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))"
                     exec string
                     if(self.turn != self.numplayers):
                         self.turn+=1
                     else:
                         self.turn=1
-                    string = "self.ebplayer%d.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))"%self.turn
+                    #string = "self.ebplayer%d.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))"%self.turn
+                    string = "self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))"
                     exec string
                     print 'turn: %d'%self.turn
                     gridkey2 = gridkey
@@ -529,8 +534,8 @@ class MemoryGameActivity(Activity):
     def __init__(self):
         Activity.__init__(self)
         self.set_title("Memory Game")
-        # setup the gui
-        self.guiObject = Gui()
+        # setup the gui - given is the Activity object 
+        self.guiObject = Gui(self)
 
     def share(self):
         self.guiObject.share(self)
