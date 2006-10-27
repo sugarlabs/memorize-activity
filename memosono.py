@@ -29,6 +29,7 @@ import popen2
 import random
 import copy
 import time
+from sugar.activity.Activity import Activity
 
 class Server:
     def __init__(self):
@@ -325,17 +326,13 @@ class Model(gobject.GObject):
         self.emit('updatepointsm', player, self.player[player][pic_id+1][1])
             
 class View:
-    def __init__(self, controler, gamenamme):
+    def __init__(self, controler, gamenamme, memosonoactivity):
         self.log = logging.getLogger(" View ")
         self.log.setLevel(logging.ERROR) 
 
-        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.window.set_title("Memosono - "+gamename)                   
-        self.window.set_border_width(10)
-        self.window.set_position(gtk.WIN_POS_CENTER)
-        self.window.connect("delete_event", self._delete_event)
+#        self.window.connect("delete_event", self._delete_event)
         self.row1 = gtk.HBox(False, 0)
-        self.window.add(self.row1)                                                                        
+        memosonoactivity.add(self.row1)
         # create the grid
         self.imageObj = []
         self.buttonObj = []
@@ -382,7 +379,7 @@ class View:
         self.p1 = 'eva'
         self.p2 = 'simon'        
         self.p_imageObj[self.p1] = gtk.Image()
-        self.p_imageObj[self.p1].set_from_pixbuf(self.pixbuf("player1_0b.jpg",0, self.pscale_x, self.pscale_y))#predp.jpg
+        self.p_imageObj[self.p1].set_from_pixbuf(self.pixbuf("player1_0b.jpg",0, self.pscale_x, self.pscale_y))
         self.p_buttonObj[self.p1] = gtk.Button()
         self.p_buttonObj[self.p1].add(self.p_imageObj[self.p1])
         self.playerbox.pack_start(self.p_buttonObj[self.p1])
@@ -403,7 +400,7 @@ class View:
         self.downbox.pack_start(self.playerbox)
         #self.downbox.pack_start(self.fixed)
         self.row1.pack_start(self.downbox)
-        self.window.show_all()
+        self.mainbox.show_all()
         return False
 
     def pixbuf(self, filename, pictype, pscale_x, pscale_y):
@@ -438,12 +435,12 @@ class View:
         #self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("red"))
         return False
     
-    def _delete_event(self, widget, event, data=None):
+    def _delete_event(self, event, data=None):
         controler.cssock.send("off()")
         controler.cssock.close()
         if controler.child.fromchild is not None:
             controler.child.fromchild.close()                                    
-        gtk.main_quit()
+        #gtk.main_quit()
         return False
 
 
@@ -492,14 +489,14 @@ def pathes(filename):
     mainlog.debug(gamepath)        
     if not os.path.exists(gamepath):
         mainlog.error(" Game path does NOT exist in the home folder ")
-        sys.exit()
+        #sys.exit()
     else:    
         mainlog.debug(" Game path exist in the home folder ")
         configpath = os.path.join(gamepath, filename+".mson")
         if not os.path.exists(configpath):
             mainlog.error(" Config file does NOT exist: "+configpath)
             mainlog.error(" Did you name it correct, ending with .mson? ")
-            sys.exit()
+            #sys.exit()
         else:
             path.append(configpath)
             mainlog.debug(" Config file is placed in the folder ")
@@ -510,28 +507,21 @@ def pathes(filename):
                 path.append(imagespath)
             else:
                 mainlog.error(" Path to images does NOT exist ")
-                sys.exit()                
+                #sys.exit()                
             if os.path.exists(soundspath):
                 mainlog.debug(" Set path for sounds: "+soundspath)
                 path.append(soundspath)
             else:    
                 mainlog.error(" Path to images does NOT exist ")
-                sys.exit()
+                #sys.exit()
     return path 
-                # if os.path.join(os.path.abspath('.'), 'games/'+gamename+filename):        
 
-def usage():
-    print """Usage: memosono <gamename>
-    Specify the name of the game. 
-    """
-        
 
-if __name__ == "__main__":
-    
-    if len(sys.argv)!=2:
-        usage()
-        sys.exit()
-    else:
+class MemosonoActivity(Activity):
+    def __init__(self):
+        Activity.__init__(self)
+        gamename = 'composer'
+        self.set_title("Memosono - "+gamename)
         logging.basicConfig()
         mainlog = logging.getLogger(" Main ")
         mainlog.setLevel(logging.ERROR) 
@@ -539,8 +529,8 @@ if __name__ == "__main__":
         # set path
         _DIR_CSSERVER = os.path.join(os.path.abspath('.'), "csserver")
         _DIR_IMAGES = os.path.join(os.path.abspath('.'), "images")
-        _DIR_SOUNDS = os.path.join(os.path.abspath('.'), "sounds")        
-        path = pathes(sys.argv[1])
+        _DIR_SOUNDS = os.path.join(os.path.abspath('.'), "sounds")
+        path = pathes(gamename)
         _DIR_GIMAGES = path[1]
         _DIR_GSOUNDS = path[2]
         # read config
@@ -549,14 +539,14 @@ if __name__ == "__main__":
         _NUM_ELEMS = 8
         grid = read_config(path[0], seed, _NUM_ELEMS)
                     
-        gamename = sys.argv[1]
         _NUM_PLAYERS = 2
         name_creator = 'eva' 
         
         controler = Controler()
         model = Model(grid)    
-        view = View(controler, gamename)
-
+        view = View(controler, gamename, self)
+        self.connect('destroy', view._delete_event)
+        
 # SLOTS connections:
         model.connect('tileflipped', controler._tile_flipped)
         controler.connect('tileflippedc', view._tile_flipped)
@@ -577,14 +567,14 @@ if __name__ == "__main__":
             view.buttonObj[i].connect('clicked', controler._user_input, i)
             i+=1
 
-        try:
-            gtk.main()
-        except KeyboardInterrupt:
+        #try:
+        #    gtk.main()
+        #except KeyboardInterrupt:
             # close socket to csound server
-            if controler.cssock is not None:
-                controler.cssock.send("off()")
-                controler.cssock.close()
-            if controler.child.fromchild is not None:
-                controler.child.fromchild.close()                                        
-            print 'Ctrl+C pressed, exiting...'                                               
+        #    if controler.cssock is not None:
+        #        controler.cssock.send("off()")
+        #        controler.cssock.close()
+        #    if controler.child.fromchild is not None:
+        #        controler.child.fromchild.close()                                        
+        #    print 'Ctrl+C pressed, exiting...'                                               
             
