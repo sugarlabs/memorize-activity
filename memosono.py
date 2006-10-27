@@ -154,7 +154,6 @@ class Controler(gobject.GObject):
         self.block = 0
 
         # CSOUND-communication
-        #self.child = None
         self.child = popen2.Popen3(os.path.join(_DIR_CSSERVER, "universe.py"))
         self.id = 0
         gobject.timeout_add(1000, self._csconnect)
@@ -330,7 +329,6 @@ class View:
         self.log = logging.getLogger(" View ")
         self.log.setLevel(logging.ERROR) 
 
-#        self.window.connect("delete_event", self._delete_event)
         self.row1 = gtk.HBox(False, 0)
         memosonoactivity.add(self.row1)
         # create the grid
