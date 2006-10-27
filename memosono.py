@@ -1,318 +1,363 @@
-#!/usr/bin/python2.4
-###########################
-# Memoson
-# Messages have the following appaerance:
-# message type: name player: N/R: arg(n): arg(n+1)
+#! /usr/bin/env python
 #
-# ports:
-# csound server: 40002
-# multicast: 40003
-# ack (unicast): 40004
-###########################
-
-import select
-import socket
-import random
-import pygtk
-pygtk.require('2.0')
-import gtk, gobject
-import sys
+#    Copyright (C) 2006 Simon Schampijer
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+                                                
+import gobject
+import gtk, pygtk
 import os
+import socket
 import pango
-import time
+from  osc.oscAPI import *
+from osc.OSC import *
 import logging
-from sugar.activity.Activity import Activity
-from sugar.presence import PresenceService
+import popen2
+import random
+import copy
+import time
 
-
-class Communication(gobject.GObject):
-    __gsignals__ = {
-        'recvdata': (gobject.SIGNAL_RUN_FIRST,
-                     gobject.TYPE_NONE,
-                     ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]))
-        }
-            
-    def __init__(self, interface, maddr, port, numplayers, player, user_data=None):
-        gobject.GObject.__init__(self)                    
-        self.interface = interface
-        self.maddr = maddr
-        self.port = port
-        self.addr_port = ((maddr, port))
-        # create receiver and sender
-        self.interface = interface
-        self.openSockMultiRecv(maddr)
-        self.openSockMultiSend()
-        # no friends yet
-        self.numplayers = numplayers
-        self.player = player
-        self.notfound = 1
-        self.members = [[],[]]
-        self.playlist = []
-        self.sequence = -1
-        # ports for ack        
-        self.openAckSend()
-        self.ackport = 40004
-        self.ackaddr = ((self.interface, self.ackport))
-        self.openAckRecv(self.ackaddr)
-        # start the communication 
-        self.start()
-
-    def __del__(self):
-        # close the multicast sockets
-        self.closeSockMultiSend()
-        self.closeSockMultiSend()
-        
-    def openSockMultiSend(self):
-        self.socksend = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        # Make the socket multicast-aware, and set TTL.
-        self.socksend.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 1) # set TTL
-
-    def openSockMultiRecv(self, maddr):
-        self.sockrecv = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        # allow multiple connections form the same machine
-        # several aplications can reuse the port - after restart the server do not have to wait
-        self.sockrecv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            
-        # set the time to live (TTL) to one
-        # only machines in the subnet will receive the packet
-        self.sockrecv.setsockopt(socket.SOL_IP, socket.IP_MULTICAST_TTL, 1)
-        # to allow to receive our own messages
-#        self.sockrecv.setsockopt(socket.SOL_IP, socket.IP_MULTICAST_LOOP, 1)                                    
-    
-    def start(self):
-        """Let the listener socket start listening for network data."""
-        self.sockrecv.bind(('', self.port))
-        self.sockrecv.settimeout(2)
-        # set the interface you want to use, the real machine address,
-        # a multicast group address is a virtual address
-        self.sockrecv.setsockopt(socket.SOL_IP, socket.IP_MULTICAST_IF, socket.inet_aton(self.interface))
-        # join the multicast group
-        self.sockrecv.setsockopt(socket.SOL_IP, socket.IP_ADD_MEMBERSHIP,
-                                 socket.inet_aton(self.maddr) + socket.inet_aton(self.interface))        
-        # Watch the listener socket for data
-        # gobject.io_add_watch(fd, condition, callback, ...arguments for callback)
-        gobject.io_add_watch(self.sockrecv, gobject.IO_IN, self._handle_incoming_data)
-        # watch the ack socket for data
-        gobject.io_add_watch(self.ackrecv, gobject.IO_IN, self._handle_ack)
-        
-        # watching for other players:
-        #if(self.player == 1):
-        #    gobject.timeout_add(1000, self._search_players_cb)
-
-    def closeSockMultiRecv(self):
-        # drop the membership and close the socket
-        self.sockrecv.setsockopt(socket.SOL_IP, socket.IP_DROP_MEMBERSHIP,
-                                 socket.inet_aton(self.maddr) + socket.inet_aton(self.interface)) 
-        self.sockrecv.close()
-
-    def closeSockMultiSend(self):
-        # close the send-socket 
-        self.socksend.close()
-
-    def openAckSend(self):
-        self.acksend = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-    def ackSend(self, data, addr):
-        print 'acksend: %s --- %s'%(addr,data)
-        ackaddr = ((addr, self.ackport))
-        self.acksend.sendto(data, ackaddr)        
-    def openAckRecv(self, addr):
-        self.ackrecv = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)        
-        self.ackrecv.bind(addr)
-        
-    def _recv_cb(self, addr, data):
-        # signal the message
-        self.emit('recvdata', addr, data)
-
-    def _handle_ack(self, source, condition):
-        print 'handle_ack'
-        # receive the ack
-        data, addr = source.recvfrom(128)
-        print '[ACK] %s  addr: %s '%(data, addr)
-        temp = data.split(':')
-        # extract number of packet, modulo 2
-        selection = int(temp[1])&1
-        # if name of player is not in the list for packet x:
-        if not temp[0] in self.members[selection]:
-            self.members[selection].append(temp[0])
-        print '[ACK] %s'%self.members
-        # return true otherwise the callback function gets removed
-        # from the list of event sources and will not be called again        
-        return True
-
-    def _handle_incoming_data(self, source, condition):
-        # receive the message
-        data, addr = source.recvfrom(1024)
-        print '[Recv] %s | addr: %s '%(data, addr)
-        temp = data.split(':')
-        # received a message - send ack
-        # arg1=name of player, arg2=number of packet
-        mess = '%s:%s'%(temp[1],temp[2])
-        # use loopback-device if you play on one machine
-        if(self.numplayers == 1):
-            ipaddr = '127.0.0.1'
-        else:
-            ipaddr = addr[0]
-        self.ackSend(mess, ipaddr)
-        # if not allready received - play it
-        print '[Recv]: %s'%self.playlist
-        if not temp[2] in self.playlist:
-            print 'Sequence: %d'%self.sequence
-            self.sequence+=1
-            print '[Recv] New package - play it.'
-            self.playlist.append(temp[2])
-            self._recv_cb(addr, data)
-        else:
-            print '[Recv] Received package already.'
-                 
-        # check if it is the first query        
-        #if(temp[0] != 'Querry'):                
-            # send signal/message to the gui
-        # return true otherwise the callback function gets removed
-        # from the list of event sources and will not be called again
-        return True
-    
-    def _search_players_cb(self):
-        if(self.notfound):
-            print 'Not found all the players yet - send out a request.'
-            mess = 'Querry:2:8:1'
-            self.send_message(mess)
-            return True
-        else:
-            print 'All the players found.'
-            return False
-        
-    def send_message(self, mess):
-        print '[Send] %s | addr: %s '%(mess, self.addr_port)
-        self.socksend.sendto(mess, self.addr_port)
-        # try in a few msec if ack's have been arrived
-        gobject.timeout_add(2000, self._have_arrived_cb, mess)
-
-    def _have_arrived_cb(self, mess):
-        print '[Control] See if ack-packets have been arrived yet.'
-        # get packet number 
-        temp = mess.split(':')
-        selection = int(temp[2])&1
-        if(len(self.members[selection]) != self.numplayers):
-            print '***[RETRY]------> Resend packet: %s'%temp[2]
-            self.socksend.sendto(mess+':R', self.addr_port)
-            return True
-        else:
-            print '[Control] Packet: %s arrived.'%temp[2]
-            self.members[selection] = []
-            return False
-
-class LocalCommunication(gobject.GObject):
-    __gsignals__ = {
-        'recvdata': (gobject.SIGNAL_RUN_FIRST,
-                     gobject.TYPE_NONE,
-                     ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]))
-        }
-
+class Server:
     def __init__(self):
-        gobject.GObject.__init__(self)                    
-        self.sequence = 0
+        self.log = logging.getLogger(" Server ")
+        self.log.setLevel(logging.ERROR) 
 
-    def send_message(self, message):
-        gobject.idle_add(self._send_message_cb, message)
+        self.oscapi = OscApi()
+        self.oscrecv = self.oscapi.createListener('127.0.0.1', 7000)
+        gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
+        self.oscapi.bind(self._tile, '/MEMO/tile')
+        self.compkey = ''
+        self.key = ''
+        self.tile = 0
+        self.comtile = 0
+        self.match = 0
+        self.addresses = {}
+        self.addresses['eva'] = ['127.0.0.1', 7001]
+        self.addresses['simon'] = ['127.0.0.1', 7002]
+        self.players = ['eva', 'simon']
+        self.currentplayer = 0
+        self.lastplayer = 0
+        self.numplayers = _NUM_PLAYERS
+        self.count = 0
+        self.numpairs = _NUM_GRIDPOINTS/2
+        
+    def _handle_query(self, source, condition):
+        data, address = source.recvfrom(1024)
+        self.oscapi.recvhandler(data, address)
+        return True
+        
+# OSC-METHODS:    
+    def _tile(self, *msg):
+        self.tile = msg[0][2]
+        self.key = msg[0][3] 
+        self.log.debug(" arg-types: "+str(msg[0][1]))
+        self.log.debug(" numtile: "+str(self.tile))
+        self.log.debug(" pic: "+self.key)
 
-    def _send_message_cb(self, message):
-        self.sequence += 1
-        self.emit("recvdata", None, message)
+        # send to other machines
+        for i in self.addresses:
+            if msg[1][0] == self.addresses[i][0]:
+                if msg[1][1] != self.addresses[i][1]:
+                    self.oscapi.sendMsg("/MEMO/tile", [self.tile, self.key],
+                                        self.addresses[i][0], self.addresses[i][1])        
+            else:
+                self.log.debug(" Send the stuff ")
+                self.oscapi.sendMsg("/MEMO/tile", [self.tile, self.key],
+                                    self.addresses[i][0], self.addresses[i][1])                        
+        # match
+        if self.compkey != '':
+            if self.compkey == self.key:
+                self.log.debug(" Key matches ")
+                self.match = 1
+                self.count += 1                    
+            else:
+                self.log.debug(" Key does NOT match ")
+                self.match = 0
+            self.lastplayer = self.currentplayer   
+            if self.match == 0:
+                if self.currentplayer == self.numplayers-1 :
+                    self.currentplayer = 0
+                else:
+                    self.currentplayer+=1                    
+                i = 0    
+                for i in self.addresses:
+                    self.oscapi.sendMsg("/MEMO/game/next",[self.players[self.currentplayer],
+                                                           self.players[self.lastplayer]],
+                                        self.addresses[i][0], self.addresses[i][1])                    
+            i = 0            
+            for i in self.addresses:
+                self.oscapi.sendMsg("/MEMO/game/match", [self.match, self.players[self.lastplayer],
+                                                         self.comtile, self.tile, self.count&self.numpairs],
+                                    self.addresses[i][0], self.addresses[i][1])        
+            self.compkey = ''
+            self.comptile = 0
+        else:    
+            self.compkey = self.key
+            self.comtile = self.tile
+        
+    
+    
+class Controler(gobject.GObject):
+    __gsignals__ = {
+        'fliptile': (gobject.SIGNAL_RUN_FIRST,
+                    gobject.TYPE_NONE,
+                    ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
+        'game': (gobject.SIGNAL_RUN_FIRST,
+                     gobject.TYPE_NONE,
+                     ([gobject.TYPE_PYOBJECT])),
+        'updatepointsc': (gobject.SIGNAL_RUN_FIRST,
+                 gobject.TYPE_NONE,
+                 ([gobject.TYPE_PYOBJECT])),
+        'nextc': (gobject.SIGNAL_RUN_FIRST,
+                 gobject.TYPE_NONE,
+                 ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
+        'addplayer': (gobject.SIGNAL_RUN_FIRST,
+                 gobject.TYPE_NONE,
+                 ([gobject.TYPE_PYOBJECT])),
+        'gameinit': (gobject.SIGNAL_RUN_FIRST,
+                gobject.TYPE_NONE,
+                ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
+        'tileflippedc': (gobject.SIGNAL_RUN_FIRST,
+                     gobject.TYPE_NONE,
+                     ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
+        }
+    def __init__(self):
+        gobject.GObject.__init__(self)
+        self.log = logging.getLogger(" Controler ")
+        self.log.setLevel(logging.ERROR) 
+
+        # OSC-communication
+        self.oscapi = OscApi()
+        self.replyaddr = (('127.0.0.1', 7000)) 
+        self.serveraddr = (('127.0.0.1', 7000))        
+        self.oscrecv = self.oscapi.createListener('127.0.0.1', 7001)
+        gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
+        self.oscapi.bind(self._addplayer, '/MEMO/addplayer')
+        self.oscapi.bind(self._game_init, '/MEMO/init')
+        self.oscapi.bind(self._tile, '/MEMO/tile')
+        self.oscapi.bind(self._game_match, '/MEMO/game/match')
+        self.oscapi.bind(self._game_next, '/MEMO/game/next')
+        self.block = 0
+
+        # CSOUND-communication
+        #self.child = None
+        self.child = popen2.Popen3(os.path.join(_DIR_CSSERVER, "universe.py"))
+        self.id = 0
+        gobject.timeout_add(1000, self._csconnect)
+
+    def _csconnect(self):
+        i = 0
+        self.cssock = socket.socket()
+        if self.cssock: 
+            while i < 3: 
+                try:
+                    self.cssock.connect(('127.0.0.1', 40002))
+                    i = 3                 
+                except:
+                    self.log.error(" Can not connect to csound server ")
+                    time.sleep(1)
+                    i += 1
+                    if i == 3:
+                        self.cssock.close()
+                        if self.child is not None:
+                            self.child.fromchild.close()
+                        gtk.main_quit()
+        else:                        
+            mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
+            self.cssock.send(mess)        
+                                              
+        
+    def init_game(self, playername, numplayers, gamename):
+        self.emit('gameinit', playername, numplayers, gamename)
+    
+    def _handle_query(self, source, condition):
+        data, self.replyaddr = source.recvfrom(1024)
+        self.oscapi.recvhandler(data, self.replyaddr)            
+        return True
+
+# SLOTS:       
+    def _user_input(self, widget, tile_number):
+        if not self.block:
+            self.emit('fliptile', tile_number, 0)        
+        return False    
+    def _tile_flipped(self, model, tile_number, pic, sound, requesttype, chosen_flag):
+        if chosen_flag == 1:
+            self.emit('game', 'Chosen already!')
+        else:
+            if sound is not '-1':
+                self.emit('tileflippedc', tile_number, pic, sound)
+                if os.path.exists(os.path.join(_DIR_GSOUNDS,sound)):
+                    mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
+                        os.path.join(_DIR_GSOUNDS,sound),self.id)
+                    self.cssock.send(mess)
+            else:
+                self.log.error(" Can not read file: "+os.path.join(_DIR_GSOUNDS,sound))
+
+                                
+            if requesttype == 0:
+                self.oscapi.sendMsg("/MEMO/tile", [tile_number, pic], self.serveraddr[0], self.serveraddr[1])
         return False
 
-class Players:
-    def __init__(self, guiObject, playername, color="white"):
-         self.playername = playername
-         self.score = 0
+# OSC-METHODS:   
+    def _addplayer(self, *msg):
+        self.log.debug(" Addplayer ")
 
-         self.frame = gtk.Frame("%s: " % self.playername)
-         self.label = gtk.Label('0')
-         self.label.modify_font(pango.FontDescription("sans 10"))
-         self.ebplayer = gtk.EventBox()
-         self.ebplayer.add(self.label)
-         self.ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
-         self.frame.add(self.ebplayer)
-         guiObject.row1.pack_start(self.frame)
-                 
-    def increment(self):
-        self.score += 1
-        self.label.set_text(str(self.score))
+    def _game_init(self, *msg):
+        self.init_game(msg[0][2], msg[0][3], msg[0][4])
+
+    def _tile(self, *msg):
+        self.emit('fliptile', msg[0][2], 1)        
+
+    def _game_next(self, *msg):
+        self.emit('nextc', msg[0][2], msg[0][3])
+
+    def _game_match(self, *msg):
+        # flag_match, playername, tile1, tile2
+        self.log.debug(msg)
+        if msg[0][2] == 1:
+            # update points
+            self.emit('updatepointsc', msg[0][3])
+            if not msg[0][6]:
+                self.emit('game', 'Match!')
+            else:
+                self.block = 1
+                self.emit('game', 'The end')
+        else:
+            requesttype = 2 # 0:normal, 1:setback
+            self.emit('game', 'Pairs do not match!')
+            self.emit('fliptile', int(msg[0][4]), requesttype)
+            self.emit('fliptile', int(msg[0][5]), requesttype)        
+
     
-class Gui:
-    _GAME_TYPE_EAR = "ear"
-    _GAME_TYPE_EYE = "eye"
-    _GAME_TYPE_EAREYE = "eareye"
+class Model(gobject.GObject):
+    __gsignals__ = {
+        'tileflipped': (gobject.SIGNAL_RUN_FIRST,
+                    gobject.TYPE_NONE,
+                    ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT,
+                      gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
+        'nextm': (gobject.SIGNAL_RUN_FIRST,
+                  gobject.TYPE_NONE,
+                  ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT,
+                    gobject.TYPE_PYOBJECT])),
+        'updatepointsm': (gobject.SIGNAL_RUN_FIRST,
+                          gobject.TYPE_NONE,
+                          ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
+        }
+    def __init__(self, grid):       
+        gobject.GObject.__init__(self)
+        self.log = logging.getLogger(" Model ")
+        self.log.setLevel(logging.ERROR) 
 
-    def __init__(self, memorygameactivity):
-        self.started = False
-        # Otherwise, we are starting a brand new game
-        self.seed = random.randint(0, 14567)
-        self.filename = os.path.join(os.path.dirname(__file__),"alphasound.memoson")
-        self.maxplayers = 4
-        self.numplayers = 1
-        self.player = 1
-        self.game_type = self._GAME_TYPE_EAREYE
+        # tile - key=id, pic, sound, flag_flipped                    
+        self.tileg = []
+        i = 0
+        for elem in grid:
+            self.tileg.append(elem)
+            i+=1
+        # player - key=name, picture, tiles_won, scores
+        self.player = {}        
+        self.player['eva'] = [0, ['player1_0.jpg', 'player1_0b.jpg'],['player1_1.jpg', 'player1_1b.jpg'],
+                              ['player1_2.jpg', 'player1_2b.jpg'],['player2_3.jpg', 'player2_3b.jpg'],
+                              ['player1_4.jpg', 'player1_4b.jpg'],['player1_5.jpg', 'player1_5b.jpg'],
+                              ['player1_6.jpg', 'player1_6b.jpg'],['player1_7.jpg', 'player1_7b.jpg'],
+                              ['player1_8.jpg', 'player1_8b.jpg']]
+        self.player['simon'] = [0, ['player2_0.jpg', 'player2_0b.jpg'],['player2_1.jpg', 'player2_1b.jpg'],
+                              ['player2_2.jpg', 'player2_2b.jpg'],['player2_3.jpg', 'player2_3b.jpg'],
+                              ['player2_4.jpg', 'player2_4b.jpg'],['player2_5.jpg', 'player2_5b.jpg'],
+                              ['player2_6.jpg', 'player2_6b.jpg'],['player2_7.jpg', 'player2_7b.jpg'],
+                              ['player2_8.jpg', 'player2_8b.jpg']]
+        # game
+        self.numplayers = 2
 
-        self._pservice = PresenceService.get_instance()
-        owner = self._pservice.get_owner()
-        # internal globals
-        self.playername = owner.get_name()
+# SLOTS:
+    def _game_init(self, controler, playername, numplayers, gamename):
+        self.log.debug(" gameinit ")
+        return False
+    def _add_player():
+        self.log.debug(" addplayer ")
+        return False
+    def _flip_tile(self, controler, tile_number, requesttype):        
+        if requesttype == 0 or requesttype == 1:
+            if self.tileg[tile_number][2] == 0: # !!FIX - better switch                
+                self.tileg[tile_number][2] = 1
+                # --->view: number, pic, sound, requesttype, chosen 
+                self.emit('tileflipped', tile_number, self.tileg[tile_number][0],
+                          self.tileg[tile_number][1], requesttype,0)
+            else:                
+                self.emit('tileflipped', tile_number, self.tileg[tile_number][0],
+                          self.tileg[tile_number][1], requesttype,1)
+        else:
+            # set tilestate back
+            self.tileg[tile_number][2] = 0
+            gobject.timeout_add(2000, self._reset, tile_number, requesttype)
+        return False
+    
+    def _reset(self, tile_number, requesttype):
+        self.emit('tileflipped', tile_number, '-1', '-1', requesttype, 0)
+        return False
+    
+    def _next(self, controler, player, lastplayer):
+        gobject.timeout_add(2000, self._next_delayed, player, lastplayer)
+    def _next_delayed(self, player, lastplayer ):
+        count1 = self.player[player][0]
+        self.log.debug( "Count player: "+str(count1) )
+        self.log.debug( self.player[player][count1])
+        count2 = self.player[lastplayer][0]
+        self.emit('nextm', player, self.player[player][count1+1][1], lastplayer,self.player[lastplayer][count2+1][0])
+        return False
+    
+    def _updatepoints(self, controler, player):
+        self.player[player][0] += 1
+        pic_id = self.player[player][0]
+        self.emit('updatepointsm', player, self.player[player][pic_id+1][1])
+            
+class View:
+    def __init__(self, controler, gamenamme):
+        self.log = logging.getLogger(" View ")
+        self.log.setLevel(logging.ERROR) 
 
-        # create the list for the elements
-        self.grid = []
-        self.compkey = -1
-        self.sound = 0
-        self.pic = 0
-        self.pind = 0
-
-        # create boxes
-        self.points = 0
-        self.turn = 1
-        self.mainbox = gtk.VBox(False)
-        self.row1 = gtk.HBox(False)
-        self.row2 = gtk.HBox(False)
-        self.row3 = gtk.HBox(False)
-        # create players
-        self.players = {}
-        self.players[self.playername] = Players(self, self.playername, 'red')
-        self.players['player2'] = Players(self, 'player2')
-        self.players['player3'] = Players(self, 'player3')
-        self.players['player4'] = Players(self, 'player3')
-        
-        self.mainbox.pack_start(self.row1)
-
-        # Console
-        self.framer = gtk.Frame("Console: ")
-        self.result = gtk.Label('')
-        self.result.modify_font(pango.FontDescription("sans 10"))
-        self.ebresult = gtk.EventBox()
-        self.ebresult.add(self.result)
-        self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-        self.framer.add(self.ebresult)
-        self.mainbox.pack_start(self.framer)
-        
-        self.separator = gtk.HSeparator()
-        self.mainbox.pack_start(self.separator, False, True, 5)
-                                                        
-        self.mainbox.pack_start(self.row2)
-        self.mainbox.pack_start(self.row3)
-        memorygameactivity.add(self.mainbox) 
-
-        # Create a table for the grid dependend on the numbber of players
-        self.num_elem_x = 4
-        self.num_elem_y = 4
-        self.table = gtk.Table(self.num_elem_y, self.num_elem_x, True)
-        self.row2.pack_start(self.table)
-
-        # scale black
-        self.scale_x = 80
-        self.scale_y = 80
-        self.pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(os.path.dirname(__file__),"pics/black80.jpg"))
-        self.scaledbuf_i = self.pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR) 
-        
+        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.window.set_title("Memosono - "+gamename)                   
+        self.window.set_border_width(10)
+        self.window.set_position(gtk.WIN_POS_CENTER)
+        self.window.connect("delete_event", self._delete_event)
+        self.row1 = gtk.HBox(False, 0)
+        self.window.add(self.row1)                                                                        
         # create the grid
         self.imageObj = []
         self.buttonObj = []
+        # create the players
+        self.p_imageObj = {}
+        self.p_buttonObj = {}
+        
+# SLOTS:
+    def _game_init(self, controler, playername, numplayers, gamename):
+        self.log.debug(" gameinit ")
+        # Create a table for the grid 
+        self.num_elem_x = 4
+        self.num_elem_y = 4
+        self.table = gtk.Table(self.num_elem_y, self.num_elem_x, True)
+        self.row1.pack_start(self.table)
+
+        # scale black
+        self.scale_x = 100
+        self.scale_y = 100
+        self.pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(_DIR_IMAGES,"black80.jpg"))
+        self.scaledbuf_i = self.pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
+
         self.y = 0
         self.x = 0
         i = 0
@@ -322,219 +367,224 @@ class Gui:
                 self.imageObj[i].set_from_pixbuf(self.scaledbuf_i)
                 self.imageObj[i].show()
                 self.buttonObj.append(gtk.Button())
-                self.buttonObj[i].add(self.imageObj[i])
-                self.buttonObj[i].connect("clicked", self.performance, i)
+                self.buttonObj[i].add(self.imageObj[i])            
                 self.table.attach(self.buttonObj[i], self.x, self.x+1, self.y, self.y+1)
                 self.x+=1
                 i+=1
             self.x=0
             self.y+=1
 
-        self.mainbox.show_all()
-        # setup the network and the csound server
-        self._setup_network()
-        self._setup_csound()
-                
-    def _setup_network(self):
-        self.com = LocalCommunication()
-        self.com.connect('recvdata', self._handle_incoming_data_cb)
-        mess = 'deci:%s:-1:%s:%s:%s'%(self.player, self._GAME_TYPE_EAREYE, self.filename, self.seed)
-        logging.debug(mess)
-        self.com.send_message(mess)
-        
-    def _setup_csound(self):
-        # connect to the csound server
-        self.csconnect()
+        # Players
+        self.pscale_x = 200
+        self.pscale_y = 200       
+        self.downbox = gtk.HBox(False, 0)                        
+        self.playerbox = gtk.VBox(False, 0)                        
+        self.p1 = 'eva'
+        self.p2 = 'simon'        
+        self.p_imageObj[self.p1] = gtk.Image()
+        self.p_imageObj[self.p1].set_from_pixbuf(self.pixbuf("player1_0b.jpg",0, self.pscale_x, self.pscale_y))#predp.jpg
+        self.p_buttonObj[self.p1] = gtk.Button()
+        self.p_buttonObj[self.p1].add(self.p_imageObj[self.p1])
+        self.playerbox.pack_start(self.p_buttonObj[self.p1])
+        self.p_imageObj[self.p2] = gtk.Image()
+        self.p_imageObj[self.p2].set_from_pixbuf(self.pixbuf("player2_0.jpg",0, self.pscale_x, self.pscale_y))
+        self.p_buttonObj[self.p2] = gtk.Button()
+        self.p_buttonObj[self.p2].add(self.p_imageObj[self.p2])
+        self.playerbox.pack_start(self.p_buttonObj[self.p2])
+                        
+        # Console
+        # To display the image, we use a fixed widget to place the image
+        #self.fixed = gtk.Fixed()
+        #self.fixed.set_size_request(200, 200)
+        #self.p_test = gtk.Image()
+        #self.p_test.set_from_pixbuf(self.pixbuf("pgreenp.jpg",0, 200, 200))
+        #self.fixed.put(self.p_test, 0, 0)        
 
-    def __del__(self):        
-        # close socket to csound server
-        self.cssock.close()
-        if self.com:
-            del self.com
-            self.com = None
-        
-    def destroy(self, widget, data=None):
-        mess = "csound.SetChannel('sfplay.%d.on', 0)\n" % self.player
-        self.cssock.send(mess)
-        # close socket to csound server
-        self.cssock.close()
-        if self.com:
-            del self.com
-            self.com = None
-        # quit the gtk-loop
-        gtk.main_quit()
+        self.downbox.pack_start(self.playerbox)
+        #self.downbox.pack_start(self.fixed)
+        self.row1.pack_start(self.downbox)
+        self.window.show_all()
+        return False
 
-    def share(self, activity):
-        if self.started:
-            return
-        self.started = True
-
-        properties = {"seed": str(self.seed), "file":self.filename}
-        service = self._pservice.share_activity(activity, stype="_memorygame_olpc_udp", properties=properties)
-        self.com = Communication(service, self.maxplayers, self.player)
-    
-    def clear(self):
-        self.result.set_text(str(''))
-        self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-	return False
-
-    def console(self, gridkey):            
-        if(self.turn != self.player):
-            self.result.set_text(str('Sorry, it is not your turn.'))
-            self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))
-            gobject.timeout_add(3000, self.clear)
-        elif(int(self.compkey) == gridkey):
-            self.result.set_text(str('Same Item. Please choose another one.'))
-            self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))
-            gobject.timeout_add(3000, self.clear)
-        elif(self.grid[gridkey][2] == 1):
-            self.result.set_text(str('Already found.'))
-            self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))
-            gobject.timeout_add(3000, self.clear)
-        else:
-            # set the retry to zero
-            mess = 'game:%s:%d:%d'%(self.playername, self.com.sequence, gridkey)
-            self.com.send_message(mess)
+    def pixbuf(self, filename, pictype, pscale_x, pscale_y):
+        if pictype is 1:
+            self.ppixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(_DIR_GIMAGES,filename))             
+        if pictype is 0:
+            self.ppixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(_DIR_IMAGES,filename))
             
-    def performance(self, widget, num):
-        self.started = True
-        self.console(num)
+        self.pscaledbuf_i = self.ppixbuf_i.scale_simple(pscale_x, pscale_y, gtk.gdk.INTERP_BILINEAR)
+        return self.pscaledbuf_i
 
-    # connect to the csound server - open a soundfile player instrument
-    def csconnect(self):
-        self.cssock = socket.socket()
-        self.cssock.connect(('127.0.0.1', 40002))
-        mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.player
-        # start the soundfile player instrument
-        self.cssock.send(mess)
+    def _next(self, controler, playername, filename, lastplayer, lastfilename):
+        self.p_imageObj[playername].set_from_pixbuf(self.pixbuf(filename, 0, self.pscale_x, self.pscale_y))
+        self.p_imageObj[lastplayer].set_from_pixbuf(self.pixbuf(lastfilename, 0, self.pscale_x, self.pscale_y))
+        return False
 
-    def setup_grid(self, filename, seed, numelems):
-        self.pic = 1
-        self.sound = 1
-        self.pind = 1
-        temp = []
-        # set random seed
-        random.seed(seed)
-        # read elements from file
+    def _updatepoints(self, controler, playername, pic):
+        self.log.debug(" update ")
+        self.p_imageObj[playername].set_from_pixbuf(self.pixbuf(pic, 0, self.pscale_x, self.pscale_y))  
+        return False
+    
+    def _tile_flipped(self, model, tile_number, pic, sound):
+        self.log.debug(" tile_flipped "+str(tile_number)+" pic: "+pic+" sound: "+sound)
+        if pic == "-1":
+            self.imageObj[tile_number].set_from_pixbuf(self.pixbuf("black80.jpg", 0, self.scale_x, self.scale_y))
+        else:
+            self.imageObj[tile_number].set_from_pixbuf(self.pixbuf(pic, 1, self.scale_x, self.scale_y))          
+        return False
+                                                
+    def _game(self, controler, string):        
+        # self.result.set_text(string)
+        #self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("red"))
+        return False
+    
+    def _delete_event(self, widget, event, data=None):
+        controler.cssock.send("off()")
+        controler.cssock.close()
+        if controler.child.fromchild is not None:
+            controler.child.fromchild.close()                                    
+        gtk.main_quit()
+        return False
+
+
+def read_config(filename, seed, numelems):
+    temp = []
+    grid = []
+    # set random seed
+    random.seed(seed)
+    filecheck = filename.split('.')
+    if filecheck[1] != 'mson':
+        mainlog.error(' File format of %s'%filename)
+        sys.exit()
+    else:
         fd = open(filename, 'r')
         if fd == None:
-            logging.debug('Error reading setup file %s.'%filename)
+            mainlog.error(' Reading setup file %s'%filename)
+            sys.exit()
         else:
-            logging.debug('Read setup for memory from file %s.'%filename)
+            mainlog.info(' Read setup for memosono from file %s'%filename)        
+            line = fd.readline()
+            while line:
+                zw = line.split()
+                zw.append(0)
+                if len(zw) is not 0:
+                    temp.append(zw)
+                line = fd.readline()
+            fd.close()
+            # select randomly numelems of the list
+            grid = random.sample(temp, numelems)
+            # make a complete copy of the list grid[:]
+            # and concatenate it at the end grid.extend()
+            #grid.extend(grid[:])
+            tm = copy.deepcopy(grid)
+            grid.extend(tm)
+            # shuffle th grid elements
+            random.shuffle(grid)        
+            return grid
+
             
-        line = fd.readline()    
-        while line:
-            zw = line.split()            
-            zw.append('0')            
-            temp.append(zw) 
-            line = fd.readline()    
-        fd.close()
-        # select randomly numelems of the list
-        self.grid = random.sample(temp, numelems)
-        # make a complete copy of the list grid[:]
-        # and concatenate it at the end grid.extend()
-        self.grid.extend(self.grid[:])
-        # shuffle th grid elements
-        random.shuffle(self.grid)
+def pathes(filename):
+    # read config file
+    path = []
+    gamename = filename#.split('.')[0]    
+    home = os.environ["HOME"]
+    gamepath = os.path.join(home, gamename)
+    mainlog.debug(gamepath)        
+    if not os.path.exists(gamepath):
+        mainlog.error(" Game path does NOT exist in the home folder ")
+        sys.exit()
+    else:    
+        mainlog.debug(" Game path exist in the home folder ")
+        configpath = os.path.join(gamepath, filename+".mson")
+        if not os.path.exists(configpath):
+            mainlog.error(" Config file does NOT exist: "+configpath)
+            mainlog.error(" Did you name it correct, ending with .mson? ")
+            sys.exit()
+        else:
+            path.append(configpath)
+            mainlog.debug(" Config file is placed in the folder ")
+            imagespath = os.path.join(gamepath, "images")
+            soundspath = os.path.join(gamepath, "sounds") 
+            if os.path.exists(imagespath):
+                mainlog.debug(" Set path for images: "+imagespath)
+                path.append(imagespath)
+            else:
+                mainlog.error(" Path to images does NOT exist ")
+                sys.exit()                
+            if os.path.exists(soundspath):
+                mainlog.debug(" Set path for sounds: "+soundspath)
+                path.append(soundspath)
+            else:    
+                mainlog.error(" Path to images does NOT exist ")
+                sys.exit()
+    return path 
+                # if os.path.join(os.path.abspath('.'), 'games/'+gamename+filename):        
+
+def usage():
+    print """Usage: memosono <gamename>
+    Specify the name of the game. 
+    """
         
-    def _handle_incoming_data_cb(self, com, addr, temp):
-        # split header from body
-        mess = temp.split(':')
-        if mess[0] == 'deci':
-            if mess[3] == self._GAME_TYPE_EYE:
-                # setup_grid(self, filename, seed, numelems):
-                self.setup_grid(mess[4], mess[5], 8)
-            elif mess[3] == self._GAME_TYPE_EAR:
-                self.setup_grid(mess[4],mess[5], 8)
-            elif mess[3] == self._GAME_TYPE_EAREYE:
-                self.setup_grid(mess[4],mess[5], 8)
-        elif mess[0] == 'game':
-            playername = mess[1]
-            gridkey = mess[3]
-            compkey = self.compkey
-            pind = self.pind
-            grid = self.grid
 
-            # check if player is in players list
-            if playername not in self.players:
-                logging.error('Player %s is not in players list'%playername)
-            else:                
-                if(self.pic):
-                    self.pixbuf_p = gtk.gdk.pixbuf_new_from_file(os.path.join(os.path.dirname(__file__),
-                                                                          grid[int(gridkey)][0]))
-                    self.scaledbuf_p = self.pixbuf_p.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR) 
-                    self.imageObj[int(gridkey)].set_from_pixbuf(self.scaledbuf_p)
-                if(self.sound):
-                    if not pind:
-                        # make visible wich buttons have been pressed
-                        self.imageObj[int(gridkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/red80.jpg'))
-                    # play notes on the csound-server
-                    mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n" % (grid[int(gridkey)][pind], self.player)
-                    self.cssock.send(mess)                  
-            
-                # if a sound/picture is open
-                if(compkey != -1):
-                    # if the pair does not match
-                    if( grid[int(gridkey)][0] != grid[int(compkey)][0] ):
-                        self.players[playername].ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('white'))
-                        if(self.turn != self.numplayers):
-                            self.turn+=1
-                        else:
-                            self.turn=1
-                        self.players[playername].ebplayer.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))
-                        logging.debug('turn: %d'%self.turn)                    
-                        gridkey2 = gridkey
-                        compkey2 = compkey
-                        gobject.timeout_add(3000, self.reset, gridkey2, compkey2)
-                    else:
-                        # the pairs does match
-                        self.result.set_text('Point for %s. One more try.'%playername)                    
-                        self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))
-                        gobject.timeout_add(2000, self.clear)
-          
-                        # if you play with just sounds make pictures white
-                        if not pind and not self.pic:
-                            gobject.timeout_add(1000, self.set, gridkey, compkey)
-                        # count the points
-                        self.points+=1
-                        self.players[playername].increment()
-                    
-                        # indicate that the matching pictures can not be pressed anymore
-                        grid[int(compkey)][2] = 1;
-                        grid[int(gridkey)][2] = 1;
-                        # end of game
-                        if(self.points == 8):
-                            self.result.set_text(str('End of the game.'))
-                            self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("yellow"))                
-                    self.compkey = -1
-                else:        
-                    self.compkey = gridkey
-
-        elif mess[0] == 'turn':
-            print 'turn'
-        elif mess[0] == 'mess':
-            print mess[1]
-        return False
+if __name__ == "__main__":
     
-    def reset(self, gridkey2, compkey2):
-        # reset buttons if they were not matching
-        self.imageObj[int(gridkey2)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/black80.jpg'))
-        self.imageObj[int(compkey2)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/black80.jpg'))
-        return False
+    if len(sys.argv)!=2:
+        usage()
+        sys.exit()
+    else:
+        logging.basicConfig()
+        mainlog = logging.getLogger(" Main ")
+        mainlog.setLevel(logging.ERROR) 
 
-    def set(self, gridkey, compkey):
-        # make visible wich buttons have been pressed
-        self.imageObj[int(gridkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/white80.jpg'))
-        self.imageObj[int(compkey)].set_from_file(os.path.join(os.path.dirname(__file__),'pics/white80.jpg'))
-        return False
+        # set path
+        _DIR_CSSERVER = os.path.join(os.path.abspath('.'), "csserver")
+        _DIR_IMAGES = os.path.join(os.path.abspath('.'), "images")
+        _DIR_SOUNDS = os.path.join(os.path.abspath('.'), "sounds")        
+        path = pathes(sys.argv[1])
+        _DIR_GIMAGES = path[1]
+        _DIR_GSOUNDS = path[2]
+        # read config
+        seed = random.randint(0, 14567)
+        _NUM_GRIDPOINTS = 16
+        _NUM_ELEMS = 8
+        grid = read_config(path[0], seed, _NUM_ELEMS)
+                    
+        gamename = sys.argv[1]
+        _NUM_PLAYERS = 2
+        name_creator = 'eva' 
+        
+        controler = Controler()
+        model = Model(grid)    
+        view = View(controler, gamename)
 
+# SLOTS connections:
+        model.connect('tileflipped', controler._tile_flipped)
+        controler.connect('tileflippedc', view._tile_flipped)
+        controler.connect('fliptile', model._flip_tile)
+        controler.connect('addplayer', model._add_player)
+        controler.connect('gameinit', model._game_init)
+        controler.connect('gameinit', view._game_init)
+        controler.connect('game', view._game)
+        controler.connect('nextc', model._next)
+        model.connect('nextm', view._next)
+        controler.connect('updatepointsc', model._updatepoints)
+        model.connect('updatepointsm', view._updatepoints)
 
-class MemoryGameActivity(Activity):
-    def __init__(self):
-        Activity.__init__(self)
-        self.set_title("Memory Game")
-        # setup the gui - given is the Activity object 
-        self.guiObject = Gui(self)
+        server = Server()
+        controler.init_game(name_creator, _NUM_PLAYERS, gamename)
+        i = 0
+        while(i < _NUM_GRIDPOINTS):
+            view.buttonObj[i].connect('clicked', controler._user_input, i)
+            i+=1
 
-    def share(self):
-        self.guiObject.share(self)
+        try:
+            gtk.main()
+        except KeyboardInterrupt:
+            # close socket to csound server
+            if controler.cssock is not None:
+                controler.cssock.send("off()")
+                controler.cssock.close()
+            if controler.child.fromchild is not None:
+                controler.child.fromchild.close()                                        
+            print 'Ctrl+C pressed, exiting...'                                               
+            
