@@ -2,14 +2,15 @@
 import select
 import sys
 import socket
-import csnd
 import threading
 import time
+import os.path
+import csnd
 
 # this is a multiple-client csound server
 # the listener is put in a separate thread
 
-class CsoundServerMult:           
+class CsoundServerMult:
     # server start-up
     def __init__(self, addr):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -27,7 +28,7 @@ class CsoundServerMult:
         # run the universal orchestra        
         csound = csnd.Csound()
         perf = csnd.CsoundPerformanceThread(csound)
-        csound.Compile('univorc.csd')
+        csound.Compile(os.path.abspath(_DIR_CSSERVER+'univorc.csd'))
         perf.Play()
         
         while self.running:
@@ -54,6 +55,7 @@ class CsoundServerMult:
                 else:
                     # handle all other sockets
                     data = s.recv(self.size)
+                    print data
                     if data.strip('\n') == 'off()':
                         csound.SetChannel('udprecv.0.on', 0)
                         perf.Stop()
@@ -88,7 +90,8 @@ if __name__=="__main__":
         port = int(sys.argv[2])
     else:
         port = 40002
-            
+
+    _DIR_CSSERVER = 'csserver/'            
     s = CsoundServerMult((ipaddr, port))
     s.interpret()
     
