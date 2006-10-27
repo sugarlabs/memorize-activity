@@ -4,7 +4,7 @@
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
-PKG_NAME="memorygame"
+PKG_NAME="memosono"
 
 (test -f $srcdir/README) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"

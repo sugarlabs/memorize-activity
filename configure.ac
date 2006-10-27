@@ -1,4 +1,4 @@
-AC_INIT([MemoryGame],[0.1],[],[memorygame])
+AC_INIT([Memosono],[0.2],[],[memosono])
 
 AC_PREREQ([2.59])
 
@@ -13,6 +13,8 @@ AM_PATH_PYTHON
 
 AC_OUTPUT([
 Makefile
-audio/Makefile
-pics/Makefile
+sounds/Makefile
+images/Makefile
+osc/Makefile
+csserver/Makefile
 ])
