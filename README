@@ -1,13 +1,47 @@
-###############
-# Game - Memory
-###############
+********************
+***   Memosono - a two player one machine version
+*******************
+Version: V02
+Simon Schampijer - simon@schampijer.de
 
-Files: 
-       memory.py: The game itself.	
-       alphasound.memory: The definition of the pool of pictures and songs(soundfiles) placed in the 
-			  folders pics and audio.
-       universe.py: The csound server waiting on port 40002 for requests.
-       univorc.csd: Definition of the csound orchestra and score.
-       basic.instruments: The definition of the soundfile player instrument. This file is included in 'univorc.csd'.
-       csnd.py, _csnd.so: Shared csound library with python bindings.
+How to use Memosono:
+
+1) Make sure the python bindings for csound are installed.
+
+You need the two files (csnd.py, _csnd.so) either in: 
+/usr/lib/python2.4/site-packages/ or in the folder csserver 
+in the memoson folder.
+
+
+2) Where to place the memoson sources?
+
+You can place the folder with the sources and the images etc anywhere you want on your harddisk. I used relative paths so I hope there will be never a crash like - can not find file. But it does matter where you place your game files. They should be placed in the home directory. (this can be changed in a later implementation)
+A typical game folder contains:
+
+Example: The game composer
+composer (a)
+ - composer.mson (b)
+ - images/ (c)
+ - sounds/ (d)
+
+a) This folder has got the name of the game. It is important that the name of this folder and the first part of the name of the config file are identical.
+
+b) A config file in the format (<gamename>.mson) containing the names of the sounds and images you want to use. The config file is very very basic but I am planning to use fancy stuff (probably xml) in the future. Put in the pairs you want to use like.
+ bach.jpg bach.wav
+ beethoven.jpg    beethoven.aiff
+
+As you see above it does not matter how many spaces are between the picture and the soundfile. Soundfile formats can be wav and aiff. As Image formats I always used jpeg but maybe gif will work as well. SVG would be an alternative at least for the application pictures.
+
+c) Place here the images.
+d) PLace the soundfiles here
+
+3) Howto start a game:
+To start a game type: ./memoson.py <name of the game>
+
+You do not have to specify the folder or the name of the config file explicitly since the application looks for a folder and a config file in the home directory like described above.
+
+
+
+4) Technical Details:
+Memosono uses the Open SoundControl (OSC) for the communication between the clients and the server. The Python implementation of OSC was done by Daniel Holth and Clinton McChesney. Thanks for their work.
 
