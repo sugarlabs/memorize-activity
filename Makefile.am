@@ -1,11 +1,11 @@
-SUBDIRS = pics audio
+SUBDIRS = images sounds osc csserver
 
-activitydir = $(datadir)/sugar/activities/memorygame
+activitydir = $(datadir)/sugar/activities/memosono
 activity_PYTHON =	\
 	__init__.py		\
-	memory.py
+	memosono.py
 
-EXTRA_DIST = memorygame.activity
+EXTRA_DIST = memosono.activity
 
 install-data-local:
-	sugar-setup-activity $(srcdir)/memorygame.activity
+	sugar-setup-activity $(srcdir)/memosono.activity
