@@ -32,9 +32,9 @@ import time
 from sugar.activity.Activity import Activity
 
 class Server:
-    def __init__(self):
-        self.log = logging.getLogger(" Server ")
-        self.log.setLevel(logging.ERROR) 
+    def __init__(self, _NUM_PLAYERS, _NUM_GRIDPOINTS):
+        ## self.log = logging.getLogger(" Server ")
+        ## self.log.setLevel(logging.ERROR) 
 
         self.oscapi = OscApi()
         self.oscrecv = self.oscapi.createListener('127.0.0.1', 7000)
@@ -64,9 +64,9 @@ class Server:
     def _tile(self, *msg):
         self.tile = msg[0][2]
         self.key = msg[0][3] 
-        self.log.debug(" arg-types: "+str(msg[0][1]))
-        self.log.debug(" numtile: "+str(self.tile))
-        self.log.debug(" pic: "+self.key)
+        ## self.log.debug(" arg-types: "+str(msg[0][1]))
+        ## self.log.debug(" numtile: "+str(self.tile))
+        ## self.log.debug(" pic: "+self.key)
 
         # send to other machines
         for i in self.addresses:
@@ -75,17 +75,17 @@ class Server:
                     self.oscapi.sendMsg("/MEMO/tile", [self.tile, self.key],
                                         self.addresses[i][0], self.addresses[i][1])        
             else:
-                self.log.debug(" Send the stuff ")
+                ## self.log.debug(" Send the stuff ")
                 self.oscapi.sendMsg("/MEMO/tile", [self.tile, self.key],
                                     self.addresses[i][0], self.addresses[i][1])                        
         # match
         if self.compkey != '':
             if self.compkey == self.key:
-                self.log.debug(" Key matches ")
+                ## self.log.debug(" Key matches ")
                 self.match = 1
                 self.count += 1                    
             else:
-                self.log.debug(" Key does NOT match ")
+                ## self.log.debug(" Key does NOT match ")
                 self.match = 0
             self.lastplayer = self.currentplayer   
             if self.match == 0:
@@ -135,10 +135,10 @@ class Controler(gobject.GObject):
                      gobject.TYPE_NONE,
                      ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
         }
-    def __init__(self):
+    def __init__(self, _DIR_CSSERVER):
         gobject.GObject.__init__(self)
-        self.log = logging.getLogger(" Controler ")
-        self.log.setLevel(logging.ERROR) 
+        ## self.log = logging.getLogger(" Controler ")
+        ## self.log.setLevel(logging.ERROR) 
 
         # OSC-communication
         self.oscapi = OscApi()
@@ -167,7 +167,7 @@ class Controler(gobject.GObject):
                     self.cssock.connect(('127.0.0.1', 40002))
                     i = 3                 
                 except:
-                    self.log.error(" Can not connect to csound server ")
+                    logging.error(" Can not connect to csound server ")
                     time.sleep(1)
                     i += 1
                     if i == 3:
@@ -204,7 +204,7 @@ class Controler(gobject.GObject):
                         os.path.join(_DIR_GSOUNDS,sound),self.id)
                     self.cssock.send(mess)
             else:
-                self.log.error(" Can not read file: "+os.path.join(_DIR_GSOUNDS,sound))
+                logging.error(" Can not read file: "+os.path.join(_DIR_GSOUNDS,sound))
 
                                 
             if requesttype == 0:
@@ -213,7 +213,7 @@ class Controler(gobject.GObject):
 
 # OSC-METHODS:   
     def _addplayer(self, *msg):
-        self.log.debug(" Addplayer ")
+        logging.debug(" Addplayer ")
 
     def _game_init(self, *msg):
         self.init_game(msg[0][2], msg[0][3], msg[0][4])
@@ -226,7 +226,7 @@ class Controler(gobject.GObject):
 
     def _game_match(self, *msg):
         # flag_match, playername, tile1, tile2
-        self.log.debug(msg)
+        logging.debug(msg)
         if msg[0][2] == 1:
             # update points
             self.emit('updatepointsc', msg[0][3])
@@ -258,8 +258,8 @@ class Model(gobject.GObject):
         }
     def __init__(self, grid):       
         gobject.GObject.__init__(self)
-        self.log = logging.getLogger(" Model ")
-        self.log.setLevel(logging.ERROR) 
+        ## self.log = logging.getLogger(" Model ")
+        ## self.log.setLevel(logging.ERROR) 
 
         # tile - key=id, pic, sound, flag_flipped                    
         self.tileg = []
@@ -284,10 +284,10 @@ class Model(gobject.GObject):
 
 # SLOTS:
     def _game_init(self, controler, playername, numplayers, gamename):
-        self.log.debug(" gameinit ")
+        ## self.log.debug(" gameinit ")
         return False
     def _add_player():
-        self.log.debug(" addplayer ")
+        ## self.log.debug(" addplayer ")
         return False
     def _flip_tile(self, controler, tile_number, requesttype):        
         if requesttype == 0 or requesttype == 1:
@@ -313,8 +313,8 @@ class Model(gobject.GObject):
         gobject.timeout_add(2000, self._next_delayed, player, lastplayer)
     def _next_delayed(self, player, lastplayer ):
         count1 = self.player[player][0]
-        self.log.debug( "Count player: "+str(count1) )
-        self.log.debug( self.player[player][count1])
+        ## self.log.debug( "Count player: "+str(count1) )
+        ## self.log.debug( self.player[player][count1])
         count2 = self.player[lastplayer][0]
         self.emit('nextm', player, self.player[player][count1+1][1], lastplayer,self.player[lastplayer][count2+1][0])
         return False
@@ -325,9 +325,10 @@ class Model(gobject.GObject):
         self.emit('updatepointsm', player, self.player[player][pic_id+1][1])
             
 class View:
-    def __init__(self, controler, gamenamme, memosonoactivity):
-        self.log = logging.getLogger(" View ")
-        self.log.setLevel(logging.ERROR) 
+    def __init__(self, controler, memosonoactivity, _DIR_IMAGES, _DIR_GIMAGES,
+                    _DIR_SOUNDS, _DIR_GSOUNDS):
+        ## self.log = logging.getLogger(" View ")
+        ## self.log.setLevel(logging.ERROR) 
 
         self.row1 = gtk.HBox(False, 0)
         memosonoactivity.add(self.row1)
@@ -340,7 +341,7 @@ class View:
         
 # SLOTS:
     def _game_init(self, controler, playername, numplayers, gamename):
-        self.log.debug(" gameinit ")
+        ## self.log.debug(" gameinit ")
         # Create a table for the grid 
         self.num_elem_x = 4
         self.num_elem_y = 4
@@ -416,12 +417,12 @@ class View:
         return False
 
     def _updatepoints(self, controler, playername, pic):
-        self.log.debug(" update ")
+        ## self.log.debug(" update ")
         self.p_imageObj[playername].set_from_pixbuf(self.pixbuf(pic, 0, self.pscale_x, self.pscale_y))  
         return False
     
     def _tile_flipped(self, model, tile_number, pic, sound):
-        self.log.debug(" tile_flipped "+str(tile_number)+" pic: "+pic+" sound: "+sound)
+        ## self.log.debug(" tile_flipped "+str(tile_number)+" pic: "+pic+" sound: "+sound)
         if pic == "-1":
             self.imageObj[tile_number].set_from_pixbuf(self.pixbuf("black80.jpg", 0, self.scale_x, self.scale_y))
         else:
@@ -449,15 +450,15 @@ def read_config(filename, seed, numelems):
     random.seed(seed)
     filecheck = filename.split('.')
     if filecheck[1] != 'mson':
-        mainlog.error(' File format of %s'%filename)
-        sys.exit()
+        logging.error(' File format of %s'%filename)
+        ## sys.exit()
     else:
         fd = open(filename, 'r')
         if fd == None:
-            mainlog.error(' Reading setup file %s'%filename)
-            sys.exit()
+            logging.error(' Reading setup file %s'%filename)
+            ## sys.exit()
         else:
-            mainlog.info(' Read setup for memosono from file %s'%filename)        
+            logging.info(' Read setup for memosono from file %s'%filename)        
             line = fd.readline()
             while line:
                 zw = line.split()
@@ -468,9 +469,8 @@ def read_config(filename, seed, numelems):
             fd.close()
             # select randomly numelems of the list
             grid = random.sample(temp, numelems)
-            # make a complete copy of the list grid[:]
+            # make a complete deepcopy of the list 
             # and concatenate it at the end grid.extend()
-            #grid.extend(grid[:])
             tm = copy.deepcopy(grid)
             grid.extend(tm)
             # shuffle th grid elements
@@ -481,37 +481,36 @@ def read_config(filename, seed, numelems):
 def pathes(filename):
     # read config file
     path = []
-    gamename = filename#.split('.')[0]    
+    gamename = filename ##.split('.')[0]    
     home = os.environ["HOME"]
     gamepath = os.path.join(home, gamename)
-    mainlog.debug(gamepath)        
+    logging.debug(gamepath)        
     if not os.path.exists(gamepath):
-        mainlog.error(" Game path does NOT exist in the home folder ")
-        #sys.exit()
+        logging.error(" Game path does NOT exist in the home folder ")
     else:    
-        mainlog.debug(" Game path exist in the home folder ")
+        logging.debug(" Game path exist in the home folder ")
         configpath = os.path.join(gamepath, filename+".mson")
         if not os.path.exists(configpath):
-            mainlog.error(" Config file does NOT exist: "+configpath)
-            mainlog.error(" Did you name it correct, ending with .mson? ")
-            #sys.exit()
+            logging.error(" Config file does NOT exist: "+configpath)
+            logging.error(" Did you name it correct, ending with .mson? ")
+            #sys.exit() ##FIXME
         else:
             path.append(configpath)
-            mainlog.debug(" Config file is placed in the folder ")
+            logging.debug(" Config file is placed in the folder ")
             imagespath = os.path.join(gamepath, "images")
             soundspath = os.path.join(gamepath, "sounds") 
             if os.path.exists(imagespath):
-                mainlog.debug(" Set path for images: "+imagespath)
+                logging.debug(" Set path for images: "+imagespath)
                 path.append(imagespath)
             else:
-                mainlog.error(" Path to images does NOT exist ")
-                #sys.exit()                
+                logging.error(" Path to images does NOT exist ")
+                #sys.exit()    ##FIXME            
             if os.path.exists(soundspath):
-                mainlog.debug(" Set path for sounds: "+soundspath)
+                logging.debug(" Set path for sounds: "+soundspath)
                 path.append(soundspath)
             else:    
-                mainlog.error(" Path to images does NOT exist ")
-                #sys.exit()
+                logging.error(" Path to images does NOT exist ")
+                #sys.exit() ##FIXME
     return path 
 
 
@@ -520,11 +519,12 @@ class MemosonoActivity(Activity):
         Activity.__init__(self)
         gamename = 'composer'
         self.set_title("Memosono - "+gamename)
-        logging.basicConfig()
-        mainlog = logging.getLogger(" Main ")
-        mainlog.setLevel(logging.ERROR) 
+        ## logging.basicConfig()
+        ## logging = logging.getLogger(" Main ")
+        ## logging.setLevel(logging.ERROR) 
 
         # set path
+        
         _DIR_CSSERVER = os.path.join(os.path.abspath('.'), "csserver")
         _DIR_IMAGES = os.path.join(os.path.abspath('.'), "images")
         _DIR_SOUNDS = os.path.join(os.path.abspath('.'), "sounds")
@@ -540,9 +540,10 @@ class MemosonoActivity(Activity):
         _NUM_PLAYERS = 2
         name_creator = 'eva' 
         
-        controler = Controler()
+        controler = Controler(_DIR_CSSERVER)
         model = Model(grid)    
-        view = View(controler, gamename, self)
+        view = View(controler, self, _DIR_IMAGES, _DIR_GIMAGES,
+                    _DIR_SOUNDS, _DIR_GSOUNDS)
         self.connect('destroy', view._delete_event)
         
 # SLOTS connections:
@@ -558,7 +559,7 @@ class MemosonoActivity(Activity):
         controler.connect('updatepointsc', model._updatepoints)
         model.connect('updatepointsm', view._updatepoints)
 
-        server = Server()
+        server = Server(_NUM_PLAYERS, _NUM_GRIDPOINTS)
         controler.init_game(name_creator, _NUM_PLAYERS, gamename)
         i = 0
         while(i < _NUM_GRIDPOINTS):
