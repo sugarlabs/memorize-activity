@@ -1,7 +1,7 @@
 [Activity]
 name = Memosono
 id = com.erikos.MemosonoActivity
-python_module = memosono.MemosonoActivity.MemosonoActivity
+python_module = memosono.memosono.MemosonoActivity
 default_type = _memosono_olpc._udp
 show_launcher = yes
 icon = activity-memorygame
