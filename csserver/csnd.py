@@ -1,4 +1,4 @@
-# This file was created automatically by SWIG 1.3.28.
+# This file was created automatically by SWIG 1.3.29.
 # Don't modify this file, modify the SWIG interface instead.
 # This file is compatible with both classic and new-style classes.
 
@@ -27,6 +27,11 @@ def _swig_getattr(self,class_type,name):
     if method: return method(self)
     raise AttributeError,name
 
+def _swig_repr(self):
+    try: strthis = "proxy of " + self.this.__repr__()
+    except: strthis = ""
+    return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+
 import types
 try:
     _object = types.ObjectType
@@ -50,10 +55,7 @@ class PySwigIterator(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, PySwigIterator, name)
     def __init__(self): raise AttributeError, "No constructor defined"
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ swig::PySwigIterator instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_destroy__ = _csnd.delete_PySwigIterator
     __del__ = lambda self : None;
     def value(*args): return _csnd.PySwigIterator_value(*args)
@@ -71,10 +73,9 @@ class PySwigIterator(_object):
     def __isub__(*args): return _csnd.PySwigIterator___isub__(*args)
     def __add__(*args): return _csnd.PySwigIterator___add__(*args)
     def __sub__(*args): return _csnd.PySwigIterator___sub__(*args)
-    def __iter__(self):
-      return self
-
-_csnd.PySwigIterator_swigregister(PySwigIterator)
+    def __iter__(self): return self
+PySwigIterator_swigregister = _csnd.PySwigIterator_swigregister
+PySwigIterator_swigregister(PySwigIterator)
 
 CSOUND_SUCCESS = _csnd.CSOUND_SUCCESS
 CSOUND_ERROR = _csnd.CSOUND_ERROR
@@ -94,16 +95,15 @@ CSOUND_OUTPUT_CHANNEL = _csnd.CSOUND_OUTPUT_CHANNEL
 CSOUND_CONTROL_CHANNEL_INT = _csnd.CSOUND_CONTROL_CHANNEL_INT
 CSOUND_CONTROL_CHANNEL_LIN = _csnd.CSOUND_CONTROL_CHANNEL_LIN
 CSOUND_CONTROL_CHANNEL_EXP = _csnd.CSOUND_CONTROL_CHANNEL_EXP
+CSOUND_CALLBACK_KBD_EVENT = _csnd.CSOUND_CALLBACK_KBD_EVENT
+CSOUND_CALLBACK_KBD_TEXT = _csnd.CSOUND_CALLBACK_KBD_TEXT
 class csRtAudioParams(_object):
     """Proxy of C++ csRtAudioParams class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, csRtAudioParams, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csRtAudioParams, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csRtAudioParams instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["devName"] = _csnd.csRtAudioParams_devName_set
     __swig_getmethods__["devName"] = _csnd.csRtAudioParams_devName_get
     if _newclass:devName = property(_csnd.csRtAudioParams_devName_get, _csnd.csRtAudioParams_devName_set)
@@ -125,14 +125,15 @@ class csRtAudioParams(_object):
     __swig_setmethods__["sampleRate"] = _csnd.csRtAudioParams_sampleRate_set
     __swig_getmethods__["sampleRate"] = _csnd.csRtAudioParams_sampleRate_get
     if _newclass:sampleRate = property(_csnd.csRtAudioParams_sampleRate_get, _csnd.csRtAudioParams_sampleRate_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csRtAudioParams"""
         this = _csnd.new_csRtAudioParams(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csRtAudioParams
     __del__ = lambda self : None;
-_csnd.csRtAudioParams_swigregister(csRtAudioParams)
+csRtAudioParams_swigregister = _csnd.csRtAudioParams_swigregister
+csRtAudioParams_swigregister(csRtAudioParams)
 
 class RTCLOCK(_object):
     """Proxy of C++ RTCLOCK class"""
@@ -140,24 +141,22 @@ class RTCLOCK(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, RTCLOCK, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, RTCLOCK, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ RTCLOCK instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["starttime_real"] = _csnd.RTCLOCK_starttime_real_set
     __swig_getmethods__["starttime_real"] = _csnd.RTCLOCK_starttime_real_get
     if _newclass:starttime_real = property(_csnd.RTCLOCK_starttime_real_get, _csnd.RTCLOCK_starttime_real_set)
     __swig_setmethods__["starttime_CPU"] = _csnd.RTCLOCK_starttime_CPU_set
     __swig_getmethods__["starttime_CPU"] = _csnd.RTCLOCK_starttime_CPU_get
     if _newclass:starttime_CPU = property(_csnd.RTCLOCK_starttime_CPU_get, _csnd.RTCLOCK_starttime_CPU_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> RTCLOCK"""
         this = _csnd.new_RTCLOCK(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_RTCLOCK
     __del__ = lambda self : None;
-_csnd.RTCLOCK_swigregister(RTCLOCK)
+RTCLOCK_swigregister = _csnd.RTCLOCK_swigregister
+RTCLOCK_swigregister(RTCLOCK)
 
 class opcodeListEntry(_object):
     """Proxy of C++ opcodeListEntry class"""
@@ -165,10 +164,7 @@ class opcodeListEntry(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, opcodeListEntry, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, opcodeListEntry, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ opcodeListEntry instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["opname"] = _csnd.opcodeListEntry_opname_set
     __swig_getmethods__["opname"] = _csnd.opcodeListEntry_opname_get
     if _newclass:opname = property(_csnd.opcodeListEntry_opname_get, _csnd.opcodeListEntry_opname_set)
@@ -178,14 +174,15 @@ class opcodeListEntry(_object):
     __swig_setmethods__["intypes"] = _csnd.opcodeListEntry_intypes_set
     __swig_getmethods__["intypes"] = _csnd.opcodeListEntry_intypes_get
     if _newclass:intypes = property(_csnd.opcodeListEntry_intypes_get, _csnd.opcodeListEntry_intypes_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> opcodeListEntry"""
         this = _csnd.new_opcodeListEntry(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_opcodeListEntry
     __del__ = lambda self : None;
-_csnd.opcodeListEntry_swigregister(opcodeListEntry)
+opcodeListEntry_swigregister = _csnd.opcodeListEntry_swigregister
+opcodeListEntry_swigregister(opcodeListEntry)
 
 class CsoundRandMTState(_object):
     """Proxy of C++ CsoundRandMTState class"""
@@ -193,24 +190,22 @@ class CsoundRandMTState(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundRandMTState, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundRandMTState, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundRandMTState instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["mti"] = _csnd.CsoundRandMTState_mti_set
     __swig_getmethods__["mti"] = _csnd.CsoundRandMTState_mti_get
     if _newclass:mti = property(_csnd.CsoundRandMTState_mti_get, _csnd.CsoundRandMTState_mti_set)
     __swig_setmethods__["mt"] = _csnd.CsoundRandMTState_mt_set
     __swig_getmethods__["mt"] = _csnd.CsoundRandMTState_mt_get
     if _newclass:mt = property(_csnd.CsoundRandMTState_mt_get, _csnd.CsoundRandMTState_mt_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> CsoundRandMTState"""
         this = _csnd.new_CsoundRandMTState(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundRandMTState
     __del__ = lambda self : None;
-_csnd.CsoundRandMTState_swigregister(CsoundRandMTState)
+CsoundRandMTState_swigregister = _csnd.CsoundRandMTState_swigregister
+CsoundRandMTState_swigregister(CsoundRandMTState)
 
 class CsoundChannelListEntry(_object):
     """Proxy of C++ CsoundChannelListEntry class"""
@@ -218,470 +213,523 @@ class CsoundChannelListEntry(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundChannelListEntry, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundChannelListEntry, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundChannelListEntry instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["name"] = _csnd.CsoundChannelListEntry_name_set
     __swig_getmethods__["name"] = _csnd.CsoundChannelListEntry_name_get
     if _newclass:name = property(_csnd.CsoundChannelListEntry_name_get, _csnd.CsoundChannelListEntry_name_set)
     __swig_setmethods__["type"] = _csnd.CsoundChannelListEntry_type_set
     __swig_getmethods__["type"] = _csnd.CsoundChannelListEntry_type_get
     if _newclass:type = property(_csnd.CsoundChannelListEntry_type_get, _csnd.CsoundChannelListEntry_type_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> CsoundChannelListEntry"""
         this = _csnd.new_CsoundChannelListEntry(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundChannelListEntry
     __del__ = lambda self : None;
-_csnd.CsoundChannelListEntry_swigregister(CsoundChannelListEntry)
+CsoundChannelListEntry_swigregister = _csnd.CsoundChannelListEntry_swigregister
+CsoundChannelListEntry_swigregister(CsoundChannelListEntry)
+
+class PVSDATEXT(_object):
+    """Proxy of C++ PVSDATEXT class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PVSDATEXT, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, PVSDATEXT, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["N"] = _csnd.PVSDATEXT_N_set
+    __swig_getmethods__["N"] = _csnd.PVSDATEXT_N_get
+    if _newclass:N = property(_csnd.PVSDATEXT_N_get, _csnd.PVSDATEXT_N_set)
+    __swig_setmethods__["overlap"] = _csnd.PVSDATEXT_overlap_set
+    __swig_getmethods__["overlap"] = _csnd.PVSDATEXT_overlap_get
+    if _newclass:overlap = property(_csnd.PVSDATEXT_overlap_get, _csnd.PVSDATEXT_overlap_set)
+    __swig_setmethods__["winsize"] = _csnd.PVSDATEXT_winsize_set
+    __swig_getmethods__["winsize"] = _csnd.PVSDATEXT_winsize_get
+    if _newclass:winsize = property(_csnd.PVSDATEXT_winsize_get, _csnd.PVSDATEXT_winsize_set)
+    __swig_setmethods__["wintype"] = _csnd.PVSDATEXT_wintype_set
+    __swig_getmethods__["wintype"] = _csnd.PVSDATEXT_wintype_get
+    if _newclass:wintype = property(_csnd.PVSDATEXT_wintype_get, _csnd.PVSDATEXT_wintype_set)
+    __swig_setmethods__["format"] = _csnd.PVSDATEXT_format_set
+    __swig_getmethods__["format"] = _csnd.PVSDATEXT_format_get
+    if _newclass:format = property(_csnd.PVSDATEXT_format_get, _csnd.PVSDATEXT_format_set)
+    __swig_setmethods__["framecount"] = _csnd.PVSDATEXT_framecount_set
+    __swig_getmethods__["framecount"] = _csnd.PVSDATEXT_framecount_get
+    if _newclass:framecount = property(_csnd.PVSDATEXT_framecount_get, _csnd.PVSDATEXT_framecount_set)
+    __swig_setmethods__["frame"] = _csnd.PVSDATEXT_frame_set
+    __swig_getmethods__["frame"] = _csnd.PVSDATEXT_frame_get
+    if _newclass:frame = property(_csnd.PVSDATEXT_frame_get, _csnd.PVSDATEXT_frame_set)
+    def __init__(self, *args): 
+        """__init__(self) -> PVSDATEXT"""
+        this = _csnd.new_PVSDATEXT(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _csnd.delete_PVSDATEXT
+    __del__ = lambda self : None;
+PVSDATEXT_swigregister = _csnd.PVSDATEXT_swigregister
+PVSDATEXT_swigregister(PVSDATEXT)
 
 
 def csoundInitialize(*args):
-    """csoundInitialize(int argc, char argv, int flags) -> int"""
-    return _csnd.csoundInitialize(*args)
+  """csoundInitialize(int argc, char argv, int flags) -> int"""
+  return _csnd.csoundInitialize(*args)
 
 def csoundCreate(*args):
-    """csoundCreate(void hostData) -> CSOUND"""
-    return _csnd.csoundCreate(*args)
+  """csoundCreate(void hostData) -> CSOUND"""
+  return _csnd.csoundCreate(*args)
 
 def csoundPreCompile(*args):
-    """csoundPreCompile(CSOUND ?) -> int"""
-    return _csnd.csoundPreCompile(*args)
+  """csoundPreCompile(CSOUND ?) -> int"""
+  return _csnd.csoundPreCompile(*args)
 
 def csoundInitializeCscore(*args):
-    """csoundInitializeCscore(CSOUND ?, FILE insco, FILE outsco) -> int"""
-    return _csnd.csoundInitializeCscore(*args)
+  """csoundInitializeCscore(CSOUND ?, FILE insco, FILE outsco) -> int"""
+  return _csnd.csoundInitializeCscore(*args)
 
 def csoundQueryInterface(*args):
-    """csoundQueryInterface(char name, void iface, int version) -> int"""
-    return _csnd.csoundQueryInterface(*args)
+  """csoundQueryInterface(char name, void iface, int version) -> int"""
+  return _csnd.csoundQueryInterface(*args)
 
 def csoundDestroy(*args):
-    """csoundDestroy(CSOUND ?)"""
-    return _csnd.csoundDestroy(*args)
+  """csoundDestroy(CSOUND ?)"""
+  return _csnd.csoundDestroy(*args)
 
 def csoundGetVersion(*args):
-    """csoundGetVersion() -> int"""
-    return _csnd.csoundGetVersion(*args)
+  """csoundGetVersion() -> int"""
+  return _csnd.csoundGetVersion(*args)
 
 def csoundGetAPIVersion(*args):
-    """csoundGetAPIVersion() -> int"""
-    return _csnd.csoundGetAPIVersion(*args)
+  """csoundGetAPIVersion() -> int"""
+  return _csnd.csoundGetAPIVersion(*args)
 
 def csoundGetHostData(*args):
-    """csoundGetHostData(CSOUND ?) -> void"""
-    return _csnd.csoundGetHostData(*args)
+  """csoundGetHostData(CSOUND ?) -> void"""
+  return _csnd.csoundGetHostData(*args)
 
 def csoundSetHostData(*args):
-    """csoundSetHostData(CSOUND ?, void hostData)"""
-    return _csnd.csoundSetHostData(*args)
+  """csoundSetHostData(CSOUND ?, void hostData)"""
+  return _csnd.csoundSetHostData(*args)
 
 def csoundGetEnv(*args):
-    """csoundGetEnv(CSOUND csound, char name) -> char"""
-    return _csnd.csoundGetEnv(*args)
+  """csoundGetEnv(CSOUND csound, char name) -> char"""
+  return _csnd.csoundGetEnv(*args)
 
 def csoundSetGlobalEnv(*args):
-    """csoundSetGlobalEnv(char name, char value) -> int"""
-    return _csnd.csoundSetGlobalEnv(*args)
+  """csoundSetGlobalEnv(char name, char value) -> int"""
+  return _csnd.csoundSetGlobalEnv(*args)
 
 def csoundCompile(*args):
-    """csoundCompile(CSOUND ?, int argc, char argv) -> int"""
-    return _csnd.csoundCompile(*args)
+  """csoundCompile(CSOUND ?, int argc, char argv) -> int"""
+  return _csnd.csoundCompile(*args)
 
 def csoundPerform(*args):
-    """csoundPerform(CSOUND ?) -> int"""
-    return _csnd.csoundPerform(*args)
+  """csoundPerform(CSOUND ?) -> int"""
+  return _csnd.csoundPerform(*args)
 
 def csoundPerformKsmps(*args):
-    """csoundPerformKsmps(CSOUND ?) -> int"""
-    return _csnd.csoundPerformKsmps(*args)
+  """csoundPerformKsmps(CSOUND ?) -> int"""
+  return _csnd.csoundPerformKsmps(*args)
 
 def csoundPerformKsmpsAbsolute(*args):
-    """csoundPerformKsmpsAbsolute(CSOUND ?) -> int"""
-    return _csnd.csoundPerformKsmpsAbsolute(*args)
+  """csoundPerformKsmpsAbsolute(CSOUND ?) -> int"""
+  return _csnd.csoundPerformKsmpsAbsolute(*args)
 
 def csoundPerformBuffer(*args):
-    """csoundPerformBuffer(CSOUND ?) -> int"""
-    return _csnd.csoundPerformBuffer(*args)
+  """csoundPerformBuffer(CSOUND ?) -> int"""
+  return _csnd.csoundPerformBuffer(*args)
 
 def csoundStop(*args):
-    """csoundStop(CSOUND ?)"""
-    return _csnd.csoundStop(*args)
+  """csoundStop(CSOUND ?)"""
+  return _csnd.csoundStop(*args)
 
 def csoundCleanup(*args):
-    """csoundCleanup(CSOUND ?) -> int"""
-    return _csnd.csoundCleanup(*args)
+  """csoundCleanup(CSOUND ?) -> int"""
+  return _csnd.csoundCleanup(*args)
 
 def csoundReset(*args):
-    """csoundReset(CSOUND ?)"""
-    return _csnd.csoundReset(*args)
+  """csoundReset(CSOUND ?)"""
+  return _csnd.csoundReset(*args)
 
 def csoundGetSr(*args):
-    """csoundGetSr(CSOUND ?) -> float"""
-    return _csnd.csoundGetSr(*args)
+  """csoundGetSr(CSOUND ?) -> float"""
+  return _csnd.csoundGetSr(*args)
 
 def csoundGetKr(*args):
-    """csoundGetKr(CSOUND ?) -> float"""
-    return _csnd.csoundGetKr(*args)
+  """csoundGetKr(CSOUND ?) -> float"""
+  return _csnd.csoundGetKr(*args)
 
 def csoundGetKsmps(*args):
-    """csoundGetKsmps(CSOUND ?) -> int"""
-    return _csnd.csoundGetKsmps(*args)
+  """csoundGetKsmps(CSOUND ?) -> int"""
+  return _csnd.csoundGetKsmps(*args)
 
 def csoundGetNchnls(*args):
-    """csoundGetNchnls(CSOUND ?) -> int"""
-    return _csnd.csoundGetNchnls(*args)
+  """csoundGetNchnls(CSOUND ?) -> int"""
+  return _csnd.csoundGetNchnls(*args)
 
 def csoundGet0dBFS(*args):
-    """csoundGet0dBFS(CSOUND ?) -> float"""
-    return _csnd.csoundGet0dBFS(*args)
+  """csoundGet0dBFS(CSOUND ?) -> float"""
+  return _csnd.csoundGet0dBFS(*args)
 
 def csoundGetStrVarMaxLen(*args):
-    """csoundGetStrVarMaxLen(CSOUND ?) -> int"""
-    return _csnd.csoundGetStrVarMaxLen(*args)
+  """csoundGetStrVarMaxLen(CSOUND ?) -> int"""
+  return _csnd.csoundGetStrVarMaxLen(*args)
 
 def csoundGetSampleFormat(*args):
-    """csoundGetSampleFormat(CSOUND ?) -> int"""
-    return _csnd.csoundGetSampleFormat(*args)
+  """csoundGetSampleFormat(CSOUND ?) -> int"""
+  return _csnd.csoundGetSampleFormat(*args)
 
 def csoundGetSampleSize(*args):
-    """csoundGetSampleSize(CSOUND ?) -> int"""
-    return _csnd.csoundGetSampleSize(*args)
+  """csoundGetSampleSize(CSOUND ?) -> int"""
+  return _csnd.csoundGetSampleSize(*args)
 
 def csoundGetInputBufferSize(*args):
-    """csoundGetInputBufferSize(CSOUND ?) -> long"""
-    return _csnd.csoundGetInputBufferSize(*args)
+  """csoundGetInputBufferSize(CSOUND ?) -> long"""
+  return _csnd.csoundGetInputBufferSize(*args)
 
 def csoundGetOutputBufferSize(*args):
-    """csoundGetOutputBufferSize(CSOUND ?) -> long"""
-    return _csnd.csoundGetOutputBufferSize(*args)
+  """csoundGetOutputBufferSize(CSOUND ?) -> long"""
+  return _csnd.csoundGetOutputBufferSize(*args)
 
 def csoundGetInputBuffer(*args):
-    """csoundGetInputBuffer(CSOUND ?) -> float"""
-    return _csnd.csoundGetInputBuffer(*args)
+  """csoundGetInputBuffer(CSOUND ?) -> float"""
+  return _csnd.csoundGetInputBuffer(*args)
 
 def csoundGetOutputBuffer(*args):
-    """csoundGetOutputBuffer(CSOUND ?) -> float"""
-    return _csnd.csoundGetOutputBuffer(*args)
+  """csoundGetOutputBuffer(CSOUND ?) -> float"""
+  return _csnd.csoundGetOutputBuffer(*args)
 
 def csoundGetSpin(*args):
-    """csoundGetSpin(CSOUND ?) -> float"""
-    return _csnd.csoundGetSpin(*args)
+  """csoundGetSpin(CSOUND ?) -> float"""
+  return _csnd.csoundGetSpin(*args)
 
 def csoundGetSpout(*args):
-    """csoundGetSpout(CSOUND ?) -> float"""
-    return _csnd.csoundGetSpout(*args)
+  """csoundGetSpout(CSOUND ?) -> float"""
+  return _csnd.csoundGetSpout(*args)
 
 def csoundGetOutputFileName(*args):
-    """csoundGetOutputFileName(CSOUND ?) -> char"""
-    return _csnd.csoundGetOutputFileName(*args)
+  """csoundGetOutputFileName(CSOUND ?) -> char"""
+  return _csnd.csoundGetOutputFileName(*args)
 
 def csoundSetHostImplementedAudioIO(*args):
-    """csoundSetHostImplementedAudioIO(CSOUND ?, int state, int bufSize)"""
-    return _csnd.csoundSetHostImplementedAudioIO(*args)
+  """csoundSetHostImplementedAudioIO(CSOUND ?, int state, int bufSize)"""
+  return _csnd.csoundSetHostImplementedAudioIO(*args)
 
 def csoundGetScoreTime(*args):
-    """csoundGetScoreTime(CSOUND ?) -> double"""
-    return _csnd.csoundGetScoreTime(*args)
+  """csoundGetScoreTime(CSOUND ?) -> double"""
+  return _csnd.csoundGetScoreTime(*args)
 
 def csoundIsScorePending(*args):
-    """csoundIsScorePending(CSOUND ?) -> int"""
-    return _csnd.csoundIsScorePending(*args)
+  """csoundIsScorePending(CSOUND ?) -> int"""
+  return _csnd.csoundIsScorePending(*args)
 
 def csoundSetScorePending(*args):
-    """csoundSetScorePending(CSOUND ?, int pending)"""
-    return _csnd.csoundSetScorePending(*args)
+  """csoundSetScorePending(CSOUND ?, int pending)"""
+  return _csnd.csoundSetScorePending(*args)
 
 def csoundGetScoreOffsetSeconds(*args):
-    """csoundGetScoreOffsetSeconds(CSOUND ?) -> float"""
-    return _csnd.csoundGetScoreOffsetSeconds(*args)
+  """csoundGetScoreOffsetSeconds(CSOUND ?) -> float"""
+  return _csnd.csoundGetScoreOffsetSeconds(*args)
 
 def csoundSetScoreOffsetSeconds(*args):
-    """csoundSetScoreOffsetSeconds(CSOUND ?, float time)"""
-    return _csnd.csoundSetScoreOffsetSeconds(*args)
+  """csoundSetScoreOffsetSeconds(CSOUND ?, float time)"""
+  return _csnd.csoundSetScoreOffsetSeconds(*args)
 
 def csoundRewindScore(*args):
-    """csoundRewindScore(CSOUND ?)"""
-    return _csnd.csoundRewindScore(*args)
+  """csoundRewindScore(CSOUND ?)"""
+  return _csnd.csoundRewindScore(*args)
 
 def csoundScoreSort(*args):
-    """csoundScoreSort(CSOUND ?, FILE inFile, FILE outFile) -> int"""
-    return _csnd.csoundScoreSort(*args)
+  """csoundScoreSort(CSOUND ?, FILE inFile, FILE outFile) -> int"""
+  return _csnd.csoundScoreSort(*args)
 
 def csoundScoreExtract(*args):
-    """csoundScoreExtract(CSOUND ?, FILE inFile, FILE outFile, FILE extractFile) -> int"""
-    return _csnd.csoundScoreExtract(*args)
+  """csoundScoreExtract(CSOUND ?, FILE inFile, FILE outFile, FILE extractFile) -> int"""
+  return _csnd.csoundScoreExtract(*args)
 
 def csoundMessage(*args):
-    """csoundMessage(CSOUND ?, char format, v(...) ?)"""
-    return _csnd.csoundMessage(*args)
+  """csoundMessage(CSOUND ?, char format, v(...) ?)"""
+  return _csnd.csoundMessage(*args)
 
 def csoundMessageS(*args):
-    """csoundMessageS(CSOUND ?, int attr, char format, v(...) ?)"""
-    return _csnd.csoundMessageS(*args)
+  """csoundMessageS(CSOUND ?, int attr, char format, v(...) ?)"""
+  return _csnd.csoundMessageS(*args)
 
 def csoundGetMessageLevel(*args):
-    """csoundGetMessageLevel(CSOUND ?) -> int"""
-    return _csnd.csoundGetMessageLevel(*args)
+  """csoundGetMessageLevel(CSOUND ?) -> int"""
+  return _csnd.csoundGetMessageLevel(*args)
 
 def csoundSetMessageLevel(*args):
-    """csoundSetMessageLevel(CSOUND ?, int messageLevel)"""
-    return _csnd.csoundSetMessageLevel(*args)
+  """csoundSetMessageLevel(CSOUND ?, int messageLevel)"""
+  return _csnd.csoundSetMessageLevel(*args)
 
 def csoundInputMessage(*args):
-    """csoundInputMessage(CSOUND ?, char message)"""
-    return _csnd.csoundInputMessage(*args)
+  """csoundInputMessage(CSOUND ?, char message)"""
+  return _csnd.csoundInputMessage(*args)
 
 def csoundKeyPress(*args):
-    """csoundKeyPress(CSOUND ?, char c)"""
-    return _csnd.csoundKeyPress(*args)
+  """csoundKeyPress(CSOUND ?, char c)"""
+  return _csnd.csoundKeyPress(*args)
 
 def csoundScoreEvent(*args):
-    """csoundScoreEvent(CSOUND ?, char type, float pFields, long numFields) -> int"""
-    return _csnd.csoundScoreEvent(*args)
+  """csoundScoreEvent(CSOUND ?, char type, float pFields, long numFields) -> int"""
+  return _csnd.csoundScoreEvent(*args)
 
 def csoundNewOpcodeList(*args):
-    """csoundNewOpcodeList(CSOUND ?, opcodeListEntry opcodelist) -> int"""
-    return _csnd.csoundNewOpcodeList(*args)
+  """csoundNewOpcodeList(CSOUND ?, opcodeListEntry opcodelist) -> int"""
+  return _csnd.csoundNewOpcodeList(*args)
 
 def csoundDisposeOpcodeList(*args):
-    """csoundDisposeOpcodeList(CSOUND ?, opcodeListEntry opcodelist)"""
-    return _csnd.csoundDisposeOpcodeList(*args)
+  """csoundDisposeOpcodeList(CSOUND ?, opcodeListEntry opcodelist)"""
+  return _csnd.csoundDisposeOpcodeList(*args)
 
 def csoundAppendOpcode(*args):
-    """
+  """
     csoundAppendOpcode(CSOUND ?, char opname, int dsblksiz, int thread, char outypes, 
         char intypes, int iopadr, int kopadr, 
         int aopadr) -> int
     """
-    return _csnd.csoundAppendOpcode(*args)
+  return _csnd.csoundAppendOpcode(*args)
 
 def csoundOpenLibrary(*args):
-    """csoundOpenLibrary(void library, char libraryPath) -> int"""
-    return _csnd.csoundOpenLibrary(*args)
+  """csoundOpenLibrary(void library, char libraryPath) -> int"""
+  return _csnd.csoundOpenLibrary(*args)
 
 def csoundCloseLibrary(*args):
-    """csoundCloseLibrary(void library) -> int"""
-    return _csnd.csoundCloseLibrary(*args)
+  """csoundCloseLibrary(void library) -> int"""
+  return _csnd.csoundCloseLibrary(*args)
 
 def csoundGetLibrarySymbol(*args):
-    """csoundGetLibrarySymbol(void library, char symbolName) -> void"""
-    return _csnd.csoundGetLibrarySymbol(*args)
+  """csoundGetLibrarySymbol(void library, char symbolName) -> void"""
+  return _csnd.csoundGetLibrarySymbol(*args)
 
 def csoundGetDebug(*args):
-    """csoundGetDebug(CSOUND ?) -> int"""
-    return _csnd.csoundGetDebug(*args)
+  """csoundGetDebug(CSOUND ?) -> int"""
+  return _csnd.csoundGetDebug(*args)
 
 def csoundSetDebug(*args):
-    """csoundSetDebug(CSOUND ?, int debug)"""
-    return _csnd.csoundSetDebug(*args)
+  """csoundSetDebug(CSOUND ?, int debug)"""
+  return _csnd.csoundSetDebug(*args)
 
 def csoundTableLength(*args):
-    """csoundTableLength(CSOUND ?, int table) -> int"""
-    return _csnd.csoundTableLength(*args)
+  """csoundTableLength(CSOUND ?, int table) -> int"""
+  return _csnd.csoundTableLength(*args)
 
 def csoundTableGet(*args):
-    """csoundTableGet(CSOUND ?, int table, int index) -> float"""
-    return _csnd.csoundTableGet(*args)
+  """csoundTableGet(CSOUND ?, int table, int index) -> float"""
+  return _csnd.csoundTableGet(*args)
 
 def csoundTableSet(*args):
-    """csoundTableSet(CSOUND ?, int table, int index, float value)"""
-    return _csnd.csoundTableSet(*args)
+  """csoundTableSet(CSOUND ?, int table, int index, float value)"""
+  return _csnd.csoundTableSet(*args)
 
 def csoundGetTable(*args):
-    """csoundGetTable(CSOUND ?, float tablePtr, int tableNum) -> int"""
-    return _csnd.csoundGetTable(*args)
+  """csoundGetTable(CSOUND ?, float tablePtr, int tableNum) -> int"""
+  return _csnd.csoundGetTable(*args)
 
 def csoundCreateThread(*args):
-    """csoundCreateThread(uintptr_t threadRoutine, void userdata) -> void"""
-    return _csnd.csoundCreateThread(*args)
+  """csoundCreateThread(uintptr_t threadRoutine, void userdata) -> void"""
+  return _csnd.csoundCreateThread(*args)
 
 def csoundGetCurrentThreadId(*args):
-    """csoundGetCurrentThreadId() -> void"""
-    return _csnd.csoundGetCurrentThreadId(*args)
+  """csoundGetCurrentThreadId() -> void"""
+  return _csnd.csoundGetCurrentThreadId(*args)
 
 def csoundJoinThread(*args):
-    """csoundJoinThread(void thread) -> uintptr_t"""
-    return _csnd.csoundJoinThread(*args)
+  """csoundJoinThread(void thread) -> uintptr_t"""
+  return _csnd.csoundJoinThread(*args)
 
 def csoundRunCommand(*args):
-    """csoundRunCommand(char argv, int noWait) -> long"""
-    return _csnd.csoundRunCommand(*args)
+  """csoundRunCommand(char argv, int noWait) -> long"""
+  return _csnd.csoundRunCommand(*args)
 
 def csoundCreateThreadLock(*args):
-    """csoundCreateThreadLock() -> void"""
-    return _csnd.csoundCreateThreadLock(*args)
+  """csoundCreateThreadLock() -> void"""
+  return _csnd.csoundCreateThreadLock(*args)
 
 def csoundWaitThreadLock(*args):
-    """csoundWaitThreadLock(void lock, size_t milliseconds) -> int"""
-    return _csnd.csoundWaitThreadLock(*args)
+  """csoundWaitThreadLock(void lock, size_t milliseconds) -> int"""
+  return _csnd.csoundWaitThreadLock(*args)
 
 def csoundWaitThreadLockNoTimeout(*args):
-    """csoundWaitThreadLockNoTimeout(void lock)"""
-    return _csnd.csoundWaitThreadLockNoTimeout(*args)
+  """csoundWaitThreadLockNoTimeout(void lock)"""
+  return _csnd.csoundWaitThreadLockNoTimeout(*args)
 
 def csoundNotifyThreadLock(*args):
-    """csoundNotifyThreadLock(void lock)"""
-    return _csnd.csoundNotifyThreadLock(*args)
+  """csoundNotifyThreadLock(void lock)"""
+  return _csnd.csoundNotifyThreadLock(*args)
 
 def csoundDestroyThreadLock(*args):
-    """csoundDestroyThreadLock(void lock)"""
-    return _csnd.csoundDestroyThreadLock(*args)
+  """csoundDestroyThreadLock(void lock)"""
+  return _csnd.csoundDestroyThreadLock(*args)
 
 def csoundCreateMutex(*args):
-    """csoundCreateMutex(int isRecursive) -> void"""
-    return _csnd.csoundCreateMutex(*args)
+  """csoundCreateMutex(int isRecursive) -> void"""
+  return _csnd.csoundCreateMutex(*args)
 
 def csoundLockMutex(*args):
-    """csoundLockMutex(void mutex_)"""
-    return _csnd.csoundLockMutex(*args)
+  """csoundLockMutex(void mutex_)"""
+  return _csnd.csoundLockMutex(*args)
 
 def csoundLockMutexNoWait(*args):
-    """csoundLockMutexNoWait(void mutex_) -> int"""
-    return _csnd.csoundLockMutexNoWait(*args)
+  """csoundLockMutexNoWait(void mutex_) -> int"""
+  return _csnd.csoundLockMutexNoWait(*args)
 
 def csoundUnlockMutex(*args):
-    """csoundUnlockMutex(void mutex_)"""
-    return _csnd.csoundUnlockMutex(*args)
+  """csoundUnlockMutex(void mutex_)"""
+  return _csnd.csoundUnlockMutex(*args)
 
 def csoundDestroyMutex(*args):
-    """csoundDestroyMutex(void mutex_)"""
-    return _csnd.csoundDestroyMutex(*args)
+  """csoundDestroyMutex(void mutex_)"""
+  return _csnd.csoundDestroyMutex(*args)
 
 def csoundSleep(*args):
-    """csoundSleep(size_t milliseconds)"""
-    return _csnd.csoundSleep(*args)
+  """csoundSleep(size_t milliseconds)"""
+  return _csnd.csoundSleep(*args)
 
 def csoundInitTimerStruct(*args):
-    """csoundInitTimerStruct( ?)"""
-    return _csnd.csoundInitTimerStruct(*args)
+  """csoundInitTimerStruct( ?)"""
+  return _csnd.csoundInitTimerStruct(*args)
 
 def csoundGetRealTime(*args):
-    """csoundGetRealTime( ?) -> double"""
-    return _csnd.csoundGetRealTime(*args)
+  """csoundGetRealTime( ?) -> double"""
+  return _csnd.csoundGetRealTime(*args)
 
 def csoundGetCPUTime(*args):
-    """csoundGetCPUTime( ?) -> double"""
-    return _csnd.csoundGetCPUTime(*args)
+  """csoundGetCPUTime( ?) -> double"""
+  return _csnd.csoundGetCPUTime(*args)
 
 def csoundGetRandomSeedFromTime(*args):
-    """csoundGetRandomSeedFromTime() -> uint32_t"""
-    return _csnd.csoundGetRandomSeedFromTime(*args)
+  """csoundGetRandomSeedFromTime() -> uint32_t"""
+  return _csnd.csoundGetRandomSeedFromTime(*args)
 
 def csoundSetLanguage(*args):
-    """csoundSetLanguage(cslanguage_t lang_code)"""
-    return _csnd.csoundSetLanguage(*args)
+  """csoundSetLanguage(cslanguage_t lang_code)"""
+  return _csnd.csoundSetLanguage(*args)
 
 def csoundLocalizeString(*args):
-    """csoundLocalizeString(char s) -> char"""
-    return _csnd.csoundLocalizeString(*args)
+  """csoundLocalizeString(char s) -> char"""
+  return _csnd.csoundLocalizeString(*args)
 
 def csoundCreateGlobalVariable(*args):
-    """csoundCreateGlobalVariable(CSOUND ?, char name, size_t nbytes) -> int"""
-    return _csnd.csoundCreateGlobalVariable(*args)
+  """csoundCreateGlobalVariable(CSOUND ?, char name, size_t nbytes) -> int"""
+  return _csnd.csoundCreateGlobalVariable(*args)
 
 def csoundQueryGlobalVariable(*args):
-    """csoundQueryGlobalVariable(CSOUND ?, char name) -> void"""
-    return _csnd.csoundQueryGlobalVariable(*args)
+  """csoundQueryGlobalVariable(CSOUND ?, char name) -> void"""
+  return _csnd.csoundQueryGlobalVariable(*args)
 
 def csoundQueryGlobalVariableNoCheck(*args):
-    """csoundQueryGlobalVariableNoCheck(CSOUND ?, char name) -> void"""
-    return _csnd.csoundQueryGlobalVariableNoCheck(*args)
+  """csoundQueryGlobalVariableNoCheck(CSOUND ?, char name) -> void"""
+  return _csnd.csoundQueryGlobalVariableNoCheck(*args)
 
 def csoundDestroyGlobalVariable(*args):
-    """csoundDestroyGlobalVariable(CSOUND ?, char name) -> int"""
-    return _csnd.csoundDestroyGlobalVariable(*args)
+  """csoundDestroyGlobalVariable(CSOUND ?, char name) -> int"""
+  return _csnd.csoundDestroyGlobalVariable(*args)
 
 def csoundGetSizeOfMYFLT(*args):
-    """csoundGetSizeOfMYFLT() -> int"""
-    return _csnd.csoundGetSizeOfMYFLT(*args)
+  """csoundGetSizeOfMYFLT() -> int"""
+  return _csnd.csoundGetSizeOfMYFLT(*args)
 
 def csoundGetRtRecordUserData(*args):
-    """csoundGetRtRecordUserData(CSOUND ?) -> void"""
-    return _csnd.csoundGetRtRecordUserData(*args)
+  """csoundGetRtRecordUserData(CSOUND ?) -> void"""
+  return _csnd.csoundGetRtRecordUserData(*args)
 
 def csoundGetRtPlayUserData(*args):
-    """csoundGetRtPlayUserData(CSOUND ?) -> void"""
-    return _csnd.csoundGetRtPlayUserData(*args)
+  """csoundGetRtPlayUserData(CSOUND ?) -> void"""
+  return _csnd.csoundGetRtPlayUserData(*args)
 
 def csoundRunUtility(*args):
-    """csoundRunUtility(CSOUND ?, char name, int argc, char argv) -> int"""
-    return _csnd.csoundRunUtility(*args)
+  """csoundRunUtility(CSOUND ?, char name, int argc, char argv) -> int"""
+  return _csnd.csoundRunUtility(*args)
 
 def csoundListUtilities(*args):
-    """csoundListUtilities(CSOUND ?) -> char"""
-    return _csnd.csoundListUtilities(*args)
+  """csoundListUtilities(CSOUND ?) -> char"""
+  return _csnd.csoundListUtilities(*args)
 
 def csoundDeleteUtilityList(*args):
-    """csoundDeleteUtilityList(CSOUND ?, char lst)"""
-    return _csnd.csoundDeleteUtilityList(*args)
+  """csoundDeleteUtilityList(CSOUND ?, char lst)"""
+  return _csnd.csoundDeleteUtilityList(*args)
 
 def csoundGetUtilityDescription(*args):
-    """csoundGetUtilityDescription(CSOUND ?, char utilName) -> char"""
-    return _csnd.csoundGetUtilityDescription(*args)
+  """csoundGetUtilityDescription(CSOUND ?, char utilName) -> char"""
+  return _csnd.csoundGetUtilityDescription(*args)
 
 def csoundGetChannelPtr(*args):
-    """csoundGetChannelPtr(CSOUND ?, float p, char name, int type) -> int"""
-    return _csnd.csoundGetChannelPtr(*args)
+  """csoundGetChannelPtr(CSOUND ?, float p, char name, int type) -> int"""
+  return _csnd.csoundGetChannelPtr(*args)
 
 def csoundListChannels(*args):
-    """csoundListChannels(CSOUND ?,  lst) -> int"""
-    return _csnd.csoundListChannels(*args)
+  """csoundListChannels(CSOUND ?,  lst) -> int"""
+  return _csnd.csoundListChannels(*args)
 
 def csoundDeleteChannelList(*args):
-    """csoundDeleteChannelList(CSOUND ?,  lst)"""
-    return _csnd.csoundDeleteChannelList(*args)
+  """csoundDeleteChannelList(CSOUND ?,  lst)"""
+  return _csnd.csoundDeleteChannelList(*args)
 
 def csoundSetControlChannelParams(*args):
-    """
+  """
     csoundSetControlChannelParams(CSOUND ?, char name, int type, float dflt, float min, 
         float max) -> int
     """
-    return _csnd.csoundSetControlChannelParams(*args)
+  return _csnd.csoundSetControlChannelParams(*args)
 
 def csoundGetControlChannelParams(*args):
-    """csoundGetControlChannelParams(CSOUND ?, char name, float dflt, float min, float max) -> int"""
-    return _csnd.csoundGetControlChannelParams(*args)
+  """csoundGetControlChannelParams(CSOUND ?, char name, float dflt, float min, float max) -> int"""
+  return _csnd.csoundGetControlChannelParams(*args)
+
+def csoundSetChannelIOCallback(*args):
+  """csoundSetChannelIOCallback(CSOUND ?, CsoundChannelIOCallback_t func)"""
+  return _csnd.csoundSetChannelIOCallback(*args)
 
 def csoundRand31(*args):
-    """csoundRand31(int seedVal) -> int"""
-    return _csnd.csoundRand31(*args)
+  """csoundRand31(int seedVal) -> int"""
+  return _csnd.csoundRand31(*args)
 
 def csoundSeedRandMT(*args):
-    """csoundSeedRandMT( p, uint32_t initKey, uint32_t keyLength)"""
-    return _csnd.csoundSeedRandMT(*args)
+  """csoundSeedRandMT( p, uint32_t initKey, uint32_t keyLength)"""
+  return _csnd.csoundSeedRandMT(*args)
 
 def csoundRandMT(*args):
-    """csoundRandMT( p) -> uint32_t"""
-    return _csnd.csoundRandMT(*args)
+  """csoundRandMT( p) -> uint32_t"""
+  return _csnd.csoundRandMT(*args)
 
 def csoundChanIKSet(*args):
-    """csoundChanIKSet(CSOUND ?, float value, int n) -> int"""
-    return _csnd.csoundChanIKSet(*args)
+  """csoundChanIKSet(CSOUND ?, float value, int n) -> int"""
+  return _csnd.csoundChanIKSet(*args)
 
 def csoundChanOKGet(*args):
-    """csoundChanOKGet(CSOUND ?, float value, int n) -> int"""
-    return _csnd.csoundChanOKGet(*args)
+  """csoundChanOKGet(CSOUND ?, float value, int n) -> int"""
+  return _csnd.csoundChanOKGet(*args)
 
 def csoundChanIASet(*args):
-    """csoundChanIASet(CSOUND ?, float value, int n) -> int"""
-    return _csnd.csoundChanIASet(*args)
+  """csoundChanIASet(CSOUND ?, float value, int n) -> int"""
+  return _csnd.csoundChanIASet(*args)
 
 def csoundChanOAGet(*args):
-    """csoundChanOAGet(CSOUND ?, float value, int n) -> int"""
-    return _csnd.csoundChanOAGet(*args)
+  """csoundChanOAGet(CSOUND ?, float value, int n) -> int"""
+  return _csnd.csoundChanOAGet(*args)
+
+def csoundPvsinSet(*args):
+  """csoundPvsinSet(CSOUND ?,  fin, int n) -> int"""
+  return _csnd.csoundPvsinSet(*args)
+
+def csoundPvsoutGet(*args):
+  """csoundPvsoutGet(CSOUND csound,  fout, int n) -> int"""
+  return _csnd.csoundPvsoutGet(*args)
+
+def csoundSetCallback(*args):
+  """csoundSetCallback(CSOUND ?, int func, void userData, unsigned int typeMask) -> int"""
+  return _csnd.csoundSetCallback(*args)
+
+def csoundRemoveCallback(*args):
+  """csoundRemoveCallback(CSOUND ?, int func)"""
+  return _csnd.csoundRemoveCallback(*args)
 class csCfgVariableHead_t(_object):
     """Proxy of C++ csCfgVariableHead_t class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariableHead_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariableHead_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariableHead_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["nxt"] = _csnd.csCfgVariableHead_t_nxt_set
     __swig_getmethods__["nxt"] = _csnd.csCfgVariableHead_t_nxt_get
     if _newclass:nxt = property(_csnd.csCfgVariableHead_t_nxt_get, _csnd.csCfgVariableHead_t_nxt_set)
@@ -703,14 +751,15 @@ class csCfgVariableHead_t(_object):
     __swig_setmethods__["longDesc"] = _csnd.csCfgVariableHead_t_longDesc_set
     __swig_getmethods__["longDesc"] = _csnd.csCfgVariableHead_t_longDesc_get
     if _newclass:longDesc = property(_csnd.csCfgVariableHead_t_longDesc_get, _csnd.csCfgVariableHead_t_longDesc_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariableHead_t"""
         this = _csnd.new_csCfgVariableHead_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariableHead_t
     __del__ = lambda self : None;
-_csnd.csCfgVariableHead_t_swigregister(csCfgVariableHead_t)
+csCfgVariableHead_t_swigregister = _csnd.csCfgVariableHead_t_swigregister
+csCfgVariableHead_t_swigregister(csCfgVariableHead_t)
 
 class csCfgVariableInt_t(_object):
     """Proxy of C++ csCfgVariableInt_t class"""
@@ -718,10 +767,7 @@ class csCfgVariableInt_t(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariableInt_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariableInt_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariableInt_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["nxt"] = _csnd.csCfgVariableInt_t_nxt_set
     __swig_getmethods__["nxt"] = _csnd.csCfgVariableInt_t_nxt_get
     if _newclass:nxt = property(_csnd.csCfgVariableInt_t_nxt_get, _csnd.csCfgVariableInt_t_nxt_set)
@@ -749,14 +795,15 @@ class csCfgVariableInt_t(_object):
     __swig_setmethods__["max"] = _csnd.csCfgVariableInt_t_max_set
     __swig_getmethods__["max"] = _csnd.csCfgVariableInt_t_max_get
     if _newclass:max = property(_csnd.csCfgVariableInt_t_max_get, _csnd.csCfgVariableInt_t_max_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariableInt_t"""
         this = _csnd.new_csCfgVariableInt_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariableInt_t
     __del__ = lambda self : None;
-_csnd.csCfgVariableInt_t_swigregister(csCfgVariableInt_t)
+csCfgVariableInt_t_swigregister = _csnd.csCfgVariableInt_t_swigregister
+csCfgVariableInt_t_swigregister(csCfgVariableInt_t)
 
 class csCfgVariableBoolean_t(_object):
     """Proxy of C++ csCfgVariableBoolean_t class"""
@@ -764,10 +811,7 @@ class csCfgVariableBoolean_t(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariableBoolean_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariableBoolean_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariableBoolean_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["nxt"] = _csnd.csCfgVariableBoolean_t_nxt_set
     __swig_getmethods__["nxt"] = _csnd.csCfgVariableBoolean_t_nxt_get
     if _newclass:nxt = property(_csnd.csCfgVariableBoolean_t_nxt_get, _csnd.csCfgVariableBoolean_t_nxt_set)
@@ -789,14 +833,15 @@ class csCfgVariableBoolean_t(_object):
     __swig_setmethods__["longDesc"] = _csnd.csCfgVariableBoolean_t_longDesc_set
     __swig_getmethods__["longDesc"] = _csnd.csCfgVariableBoolean_t_longDesc_get
     if _newclass:longDesc = property(_csnd.csCfgVariableBoolean_t_longDesc_get, _csnd.csCfgVariableBoolean_t_longDesc_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariableBoolean_t"""
         this = _csnd.new_csCfgVariableBoolean_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariableBoolean_t
     __del__ = lambda self : None;
-_csnd.csCfgVariableBoolean_t_swigregister(csCfgVariableBoolean_t)
+csCfgVariableBoolean_t_swigregister = _csnd.csCfgVariableBoolean_t_swigregister
+csCfgVariableBoolean_t_swigregister(csCfgVariableBoolean_t)
 
 class csCfgVariableFloat_t(_object):
     """Proxy of C++ csCfgVariableFloat_t class"""
@@ -804,10 +849,7 @@ class csCfgVariableFloat_t(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariableFloat_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariableFloat_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariableFloat_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["nxt"] = _csnd.csCfgVariableFloat_t_nxt_set
     __swig_getmethods__["nxt"] = _csnd.csCfgVariableFloat_t_nxt_get
     if _newclass:nxt = property(_csnd.csCfgVariableFloat_t_nxt_get, _csnd.csCfgVariableFloat_t_nxt_set)
@@ -835,14 +877,15 @@ class csCfgVariableFloat_t(_object):
     __swig_setmethods__["max"] = _csnd.csCfgVariableFloat_t_max_set
     __swig_getmethods__["max"] = _csnd.csCfgVariableFloat_t_max_get
     if _newclass:max = property(_csnd.csCfgVariableFloat_t_max_get, _csnd.csCfgVariableFloat_t_max_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariableFloat_t"""
         this = _csnd.new_csCfgVariableFloat_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariableFloat_t
     __del__ = lambda self : None;
-_csnd.csCfgVariableFloat_t_swigregister(csCfgVariableFloat_t)
+csCfgVariableFloat_t_swigregister = _csnd.csCfgVariableFloat_t_swigregister
+csCfgVariableFloat_t_swigregister(csCfgVariableFloat_t)
 
 class csCfgVariableDouble_t(_object):
     """Proxy of C++ csCfgVariableDouble_t class"""
@@ -850,10 +893,7 @@ class csCfgVariableDouble_t(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariableDouble_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariableDouble_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariableDouble_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["nxt"] = _csnd.csCfgVariableDouble_t_nxt_set
     __swig_getmethods__["nxt"] = _csnd.csCfgVariableDouble_t_nxt_get
     if _newclass:nxt = property(_csnd.csCfgVariableDouble_t_nxt_get, _csnd.csCfgVariableDouble_t_nxt_set)
@@ -881,14 +921,15 @@ class csCfgVariableDouble_t(_object):
     __swig_setmethods__["max"] = _csnd.csCfgVariableDouble_t_max_set
     __swig_getmethods__["max"] = _csnd.csCfgVariableDouble_t_max_get
     if _newclass:max = property(_csnd.csCfgVariableDouble_t_max_get, _csnd.csCfgVariableDouble_t_max_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariableDouble_t"""
         this = _csnd.new_csCfgVariableDouble_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariableDouble_t
     __del__ = lambda self : None;
-_csnd.csCfgVariableDouble_t_swigregister(csCfgVariableDouble_t)
+csCfgVariableDouble_t_swigregister = _csnd.csCfgVariableDouble_t_swigregister
+csCfgVariableDouble_t_swigregister(csCfgVariableDouble_t)
 
 class csCfgVariableMYFLT_t(_object):
     """Proxy of C++ csCfgVariableMYFLT_t class"""
@@ -896,10 +937,7 @@ class csCfgVariableMYFLT_t(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariableMYFLT_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariableMYFLT_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariableMYFLT_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["nxt"] = _csnd.csCfgVariableMYFLT_t_nxt_set
     __swig_getmethods__["nxt"] = _csnd.csCfgVariableMYFLT_t_nxt_get
     if _newclass:nxt = property(_csnd.csCfgVariableMYFLT_t_nxt_get, _csnd.csCfgVariableMYFLT_t_nxt_set)
@@ -927,14 +965,15 @@ class csCfgVariableMYFLT_t(_object):
     __swig_setmethods__["max"] = _csnd.csCfgVariableMYFLT_t_max_set
     __swig_getmethods__["max"] = _csnd.csCfgVariableMYFLT_t_max_get
     if _newclass:max = property(_csnd.csCfgVariableMYFLT_t_max_get, _csnd.csCfgVariableMYFLT_t_max_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariableMYFLT_t"""
         this = _csnd.new_csCfgVariableMYFLT_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariableMYFLT_t
     __del__ = lambda self : None;
-_csnd.csCfgVariableMYFLT_t_swigregister(csCfgVariableMYFLT_t)
+csCfgVariableMYFLT_t_swigregister = _csnd.csCfgVariableMYFLT_t_swigregister
+csCfgVariableMYFLT_t_swigregister(csCfgVariableMYFLT_t)
 
 class csCfgVariableString_t(_object):
     """Proxy of C++ csCfgVariableString_t class"""
@@ -942,10 +981,7 @@ class csCfgVariableString_t(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariableString_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariableString_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariableString_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["nxt"] = _csnd.csCfgVariableString_t_nxt_set
     __swig_getmethods__["nxt"] = _csnd.csCfgVariableString_t_nxt_get
     if _newclass:nxt = property(_csnd.csCfgVariableString_t_nxt_get, _csnd.csCfgVariableString_t_nxt_set)
@@ -970,14 +1006,15 @@ class csCfgVariableString_t(_object):
     __swig_setmethods__["maxlen"] = _csnd.csCfgVariableString_t_maxlen_set
     __swig_getmethods__["maxlen"] = _csnd.csCfgVariableString_t_maxlen_get
     if _newclass:maxlen = property(_csnd.csCfgVariableString_t_maxlen_get, _csnd.csCfgVariableString_t_maxlen_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariableString_t"""
         this = _csnd.new_csCfgVariableString_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariableString_t
     __del__ = lambda self : None;
-_csnd.csCfgVariableString_t_swigregister(csCfgVariableString_t)
+csCfgVariableString_t_swigregister = _csnd.csCfgVariableString_t_swigregister
+csCfgVariableString_t_swigregister(csCfgVariableString_t)
 
 class csCfgVariable_t(_object):
     """Proxy of C++ csCfgVariable_t class"""
@@ -985,10 +1022,7 @@ class csCfgVariable_t(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, csCfgVariable_t, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, csCfgVariable_t, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csCfgVariable_t instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["h"] = _csnd.csCfgVariable_t_h_set
     __swig_getmethods__["h"] = _csnd.csCfgVariable_t_h_get
     if _newclass:h = property(_csnd.csCfgVariable_t_h_get, _csnd.csCfgVariable_t_h_set)
@@ -1010,14 +1044,15 @@ class csCfgVariable_t(_object):
     __swig_setmethods__["s"] = _csnd.csCfgVariable_t_s_set
     __swig_getmethods__["s"] = _csnd.csCfgVariable_t_s_get
     if _newclass:s = property(_csnd.csCfgVariable_t_s_get, _csnd.csCfgVariable_t_s_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> csCfgVariable_t"""
         this = _csnd.new_csCfgVariable_t(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_csCfgVariable_t
     __del__ = lambda self : None;
-_csnd.csCfgVariable_t_swigregister(csCfgVariable_t)
+csCfgVariable_t_swigregister = _csnd.csCfgVariable_t_swigregister
+csCfgVariable_t_swigregister(csCfgVariable_t)
 
 CSOUNDCFG_INTEGER = _csnd.CSOUNDCFG_INTEGER
 CSOUNDCFG_BOOLEAN = _csnd.CSOUNDCFG_BOOLEAN
@@ -1040,39 +1075,39 @@ CSOUNDCFG_STRING_LENGTH = _csnd.CSOUNDCFG_STRING_LENGTH
 CSOUNDCFG_LASTERROR = _csnd.CSOUNDCFG_LASTERROR
 
 def csoundCreateConfigurationVariable(*args):
-    """
+  """
     csoundCreateConfigurationVariable(CSOUND csound, char name, void p, int type, int flags, 
         void min, void max, char shortDesc, char longDesc) -> int
     """
-    return _csnd.csoundCreateConfigurationVariable(*args)
+  return _csnd.csoundCreateConfigurationVariable(*args)
 
 def csoundSetConfigurationVariable(*args):
-    """csoundSetConfigurationVariable(CSOUND csound, char name, void value) -> int"""
-    return _csnd.csoundSetConfigurationVariable(*args)
+  """csoundSetConfigurationVariable(CSOUND csound, char name, void value) -> int"""
+  return _csnd.csoundSetConfigurationVariable(*args)
 
 def csoundParseConfigurationVariable(*args):
-    """csoundParseConfigurationVariable(CSOUND csound, char name, char value) -> int"""
-    return _csnd.csoundParseConfigurationVariable(*args)
+  """csoundParseConfigurationVariable(CSOUND csound, char name, char value) -> int"""
+  return _csnd.csoundParseConfigurationVariable(*args)
 
 def csoundQueryConfigurationVariable(*args):
-    """csoundQueryConfigurationVariable(CSOUND csound, char name)"""
-    return _csnd.csoundQueryConfigurationVariable(*args)
+  """csoundQueryConfigurationVariable(CSOUND csound, char name)"""
+  return _csnd.csoundQueryConfigurationVariable(*args)
 
 def csoundListConfigurationVariables(*args):
-    """csoundListConfigurationVariables(CSOUND csound)"""
-    return _csnd.csoundListConfigurationVariables(*args)
+  """csoundListConfigurationVariables(CSOUND csound)"""
+  return _csnd.csoundListConfigurationVariables(*args)
 
 def csoundDeleteCfgVarList(*args):
-    """csoundDeleteCfgVarList( lst)"""
-    return _csnd.csoundDeleteCfgVarList(*args)
+  """csoundDeleteCfgVarList( lst)"""
+  return _csnd.csoundDeleteCfgVarList(*args)
 
 def csoundDeleteConfigurationVariable(*args):
-    """csoundDeleteConfigurationVariable(CSOUND csound, char name) -> int"""
-    return _csnd.csoundDeleteConfigurationVariable(*args)
+  """csoundDeleteConfigurationVariable(CSOUND csound, char name) -> int"""
+  return _csnd.csoundDeleteConfigurationVariable(*args)
 
 def csoundCfgErrorCodeToString(*args):
-    """csoundCfgErrorCodeToString(int errcode) -> char"""
-    return _csnd.csoundCfgErrorCodeToString(*args)
+  """csoundCfgErrorCodeToString(int errcode) -> char"""
+  return _csnd.csoundCfgErrorCodeToString(*args)
 CSOUNDMSG_DEFAULT = _csnd.CSOUNDMSG_DEFAULT
 CSOUNDMSG_ERROR = _csnd.CSOUNDMSG_ERROR
 CSOUNDMSG_ORCH = _csnd.CSOUNDMSG_ORCH
@@ -1115,10 +1150,7 @@ class Csound(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, Csound, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Csound, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ Csound instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def GetCsound(*args):
         """GetCsound(self) -> CSOUND"""
         return _csnd.Csound_GetCsound(*args)
@@ -1440,6 +1472,36 @@ class Csound(_object):
         """ChanOAGet(self, float value, int n) -> int"""
         return _csnd.Csound_ChanOAGet(*args)
 
+    def PvsBusInit(*args):
+        """
+        PvsBusInit(self, int N=1024, int olaps=256, int wsize=256, int wtype=1, 
+            int format=0)
+        PvsBusInit(self, int N=1024, int olaps=256, int wsize=256, int wtype=1)
+        PvsBusInit(self, int N=1024, int olaps=256, int wsize=256)
+        PvsBusInit(self, int N=1024, int olaps=256)
+        PvsBusInit(self, int N=1024)
+        PvsBusInit(self)
+        """
+        return _csnd.Csound_PvsBusInit(*args)
+
+    def PvsBusDestroy(*args):
+        """PvsBusDestroy(self)"""
+        return _csnd.Csound_PvsBusDestroy(*args)
+
+    def PvsinSet(*args):
+        """
+        PvsinSet(self, float val, int k, int n)
+        PvsinSet(self,  value, int n) -> int
+        """
+        return _csnd.Csound_PvsinSet(*args)
+
+    def PvsoutGet(*args):
+        """
+        PvsoutGet(self, int k, int n) -> float
+        PvsoutGet(self,  value, int n) -> int
+        """
+        return _csnd.Csound_PvsoutGet(*args)
+
     def CreateConfigurationVariable(*args):
         """
         CreateConfigurationVariable(self, char name, void p, int type, int flags, void min, void max, 
@@ -1467,7 +1529,11 @@ class Csound(_object):
         """DeleteConfigurationVariable(self, char name) -> int"""
         return _csnd.Csound_DeleteConfigurationVariable(*args)
 
-    def __init__(self, *args):
+    def SetChannelIOCallback(*args):
+        """SetChannelIOCallback(self, CsoundChannelIOCallback_t func)"""
+        return _csnd.Csound_SetChannelIOCallback(*args)
+
+    def __init__(self, *args): 
         """
         __init__(self) -> Csound
         __init__(self, void hostData) -> Csound
@@ -1501,7 +1567,8 @@ class Csound(_object):
         """DestroyMessageBuffer(self)"""
         return _csnd.Csound_DestroyMessageBuffer(*args)
 
-_csnd.Csound_swigregister(Csound)
+Csound_swigregister = _csnd.Csound_swigregister
+Csound_swigregister(Csound)
 
 class CsoundThreadLock(_object):
     """Proxy of C++ CsoundThreadLock class"""
@@ -1509,10 +1576,7 @@ class CsoundThreadLock(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundThreadLock, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundThreadLock, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundThreadLock instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def Lock(*args):
         """
         Lock(self, size_t milliseconds) -> int
@@ -1528,7 +1592,7 @@ class CsoundThreadLock(_object):
         """Unlock(self)"""
         return _csnd.CsoundThreadLock_Unlock(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self) -> CsoundThreadLock
         __init__(self, int locked) -> CsoundThreadLock
@@ -1538,7 +1602,8 @@ class CsoundThreadLock(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundThreadLock
     __del__ = lambda self : None;
-_csnd.CsoundThreadLock_swigregister(CsoundThreadLock)
+CsoundThreadLock_swigregister = _csnd.CsoundThreadLock_swigregister
+CsoundThreadLock_swigregister(CsoundThreadLock)
 
 class CsoundMutex(_object):
     """Proxy of C++ CsoundMutex class"""
@@ -1546,10 +1611,7 @@ class CsoundMutex(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundMutex, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundMutex, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundMutex instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def Lock(*args):
         """Lock(self)"""
         return _csnd.CsoundMutex_Lock(*args)
@@ -1562,7 +1624,7 @@ class CsoundMutex(_object):
         """Unlock(self)"""
         return _csnd.CsoundMutex_Unlock(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self) -> CsoundMutex
         __init__(self, int isRecursive) -> CsoundMutex
@@ -1572,7 +1634,8 @@ class CsoundMutex(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundMutex
     __del__ = lambda self : None;
-_csnd.CsoundMutex_swigregister(CsoundMutex)
+CsoundMutex_swigregister = _csnd.CsoundMutex_swigregister
+CsoundMutex_swigregister(CsoundMutex)
 
 class CsoundRandMT(_object):
     """Proxy of C++ CsoundRandMT class"""
@@ -1580,10 +1643,7 @@ class CsoundRandMT(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundRandMT, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundRandMT, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundRandMT instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def Random(*args):
         """Random(self) -> uint32_t"""
         return _csnd.CsoundRandMT_Random(*args)
@@ -1595,7 +1655,7 @@ class CsoundRandMT(_object):
         """
         return _csnd.CsoundRandMT_Seed(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self) -> CsoundRandMT
         __init__(self, uint32_t seedVal) -> CsoundRandMT
@@ -1606,7 +1666,8 @@ class CsoundRandMT(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundRandMT
     __del__ = lambda self : None;
-_csnd.CsoundRandMT_swigregister(CsoundRandMT)
+CsoundRandMT_swigregister = _csnd.CsoundRandMT_swigregister
+CsoundRandMT_swigregister(CsoundRandMT)
 
 class CsoundTimer(_object):
     """Proxy of C++ CsoundTimer class"""
@@ -1614,10 +1675,7 @@ class CsoundTimer(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundTimer, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundTimer, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundTimer instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def GetRealTime(*args):
         """GetRealTime(self) -> double"""
         return _csnd.CsoundTimer_GetRealTime(*args)
@@ -1630,14 +1688,15 @@ class CsoundTimer(_object):
         """Reset(self)"""
         return _csnd.CsoundTimer_Reset(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> CsoundTimer"""
         this = _csnd.new_CsoundTimer(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundTimer
     __del__ = lambda self : None;
-_csnd.CsoundTimer_swigregister(CsoundTimer)
+CsoundTimer_swigregister = _csnd.CsoundTimer_swigregister
+CsoundTimer_swigregister(CsoundTimer)
 
 class CsoundOpcodeList(_object):
     """Proxy of C++ CsoundOpcodeList class"""
@@ -1645,10 +1704,7 @@ class CsoundOpcodeList(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundOpcodeList, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundOpcodeList, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundOpcodeList instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def Count(*args):
         """Count(self) -> int"""
         return _csnd.CsoundOpcodeList_Count(*args)
@@ -1669,7 +1725,7 @@ class CsoundOpcodeList(_object):
         """Clear(self)"""
         return _csnd.CsoundOpcodeList_Clear(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self, CSOUND csound) -> CsoundOpcodeList
         __init__(self, Csound csound) -> CsoundOpcodeList
@@ -1679,7 +1735,8 @@ class CsoundOpcodeList(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundOpcodeList
     __del__ = lambda self : None;
-_csnd.CsoundOpcodeList_swigregister(CsoundOpcodeList)
+CsoundOpcodeList_swigregister = _csnd.CsoundOpcodeList_swigregister
+CsoundOpcodeList_swigregister(CsoundOpcodeList)
 
 class CsoundChannelList(_object):
     """Proxy of C++ CsoundChannelList class"""
@@ -1687,10 +1744,7 @@ class CsoundChannelList(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundChannelList, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundChannelList, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundChannelList instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def Count(*args):
         """Count(self) -> int"""
         return _csnd.CsoundChannelList_Count(*args)
@@ -1743,7 +1797,7 @@ class CsoundChannelList(_object):
         """Clear(self)"""
         return _csnd.CsoundChannelList_Clear(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self, CSOUND csound) -> CsoundChannelList
         __init__(self, Csound csound) -> CsoundChannelList
@@ -1753,7 +1807,8 @@ class CsoundChannelList(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundChannelList
     __del__ = lambda self : None;
-_csnd.CsoundChannelList_swigregister(CsoundChannelList)
+CsoundChannelList_swigregister = _csnd.CsoundChannelList_swigregister
+CsoundChannelList_swigregister(CsoundChannelList)
 
 class CsoundUtilityList(_object):
     """Proxy of C++ CsoundUtilityList class"""
@@ -1761,10 +1816,7 @@ class CsoundUtilityList(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundUtilityList, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundUtilityList, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundUtilityList instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def Count(*args):
         """Count(self) -> int"""
         return _csnd.CsoundUtilityList_Count(*args)
@@ -1777,7 +1829,7 @@ class CsoundUtilityList(_object):
         """Clear(self)"""
         return _csnd.CsoundUtilityList_Clear(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self, CSOUND csound) -> CsoundUtilityList
         __init__(self, Csound csound) -> CsoundUtilityList
@@ -1787,7 +1839,8 @@ class CsoundUtilityList(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundUtilityList
     __del__ = lambda self : None;
-_csnd.CsoundUtilityList_swigregister(CsoundUtilityList)
+CsoundUtilityList_swigregister = _csnd.CsoundUtilityList_swigregister
+CsoundUtilityList_swigregister(CsoundUtilityList)
 
 class CsoundMYFLTArray(_object):
     """Proxy of C++ CsoundMYFLTArray class"""
@@ -1795,10 +1848,7 @@ class CsoundMYFLTArray(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundMYFLTArray, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundMYFLTArray, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundMYFLTArray instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def GetPtr(*args):
         """
         GetPtr(self) -> float
@@ -1857,7 +1907,7 @@ class CsoundMYFLTArray(_object):
         """Clear(self)"""
         return _csnd.CsoundMYFLTArray_Clear(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self) -> CsoundMYFLTArray
         __init__(self, int n) -> CsoundMYFLTArray
@@ -1867,7 +1917,8 @@ class CsoundMYFLTArray(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundMYFLTArray
     __del__ = lambda self : None;
-_csnd.CsoundMYFLTArray_swigregister(CsoundMYFLTArray)
+CsoundMYFLTArray_swigregister = _csnd.CsoundMYFLTArray_swigregister
+CsoundMYFLTArray_swigregister(CsoundMYFLTArray)
 
 class CsoundArgVList(_object):
     """Proxy of C++ CsoundArgVList class"""
@@ -1875,10 +1926,7 @@ class CsoundArgVList(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundArgVList, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundArgVList, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundArgVList instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def argc(*args):
         """argc(self) -> int"""
         return _csnd.CsoundArgVList_argc(*args)
@@ -1902,14 +1950,15 @@ class CsoundArgVList(_object):
         """Clear(self)"""
         return _csnd.CsoundArgVList_Clear(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> CsoundArgVList"""
         this = _csnd.new_CsoundArgVList(*args)
         try: self.this.append(this)
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundArgVList
     __del__ = lambda self : None;
-_csnd.CsoundArgVList_swigregister(CsoundArgVList)
+CsoundArgVList_swigregister = _csnd.CsoundArgVList_swigregister
+CsoundArgVList_swigregister(CsoundArgVList)
 
 class CsoundCallbackWrapper(_object):
     """Proxy of C++ CsoundCallbackWrapper class"""
@@ -1917,10 +1966,7 @@ class CsoundCallbackWrapper(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundCallbackWrapper, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundCallbackWrapper, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundCallbackWrapper instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def MessageCallback(*args):
         """MessageCallback(self, int attr, char msg)"""
         return _csnd.CsoundCallbackWrapper_MessageCallback(*args)
@@ -1944,6 +1990,22 @@ class CsoundCallbackWrapper(_object):
     def MidiOutputCallback(*args):
         """MidiOutputCallback(self, CsoundMidiOutputBuffer p)"""
         return _csnd.CsoundCallbackWrapper_MidiOutputCallback(*args)
+
+    def ControlChannelInputCallback(*args):
+        """ControlChannelInputCallback(self, char chnName) -> double"""
+        return _csnd.CsoundCallbackWrapper_ControlChannelInputCallback(*args)
+
+    def ControlChannelOutputCallback(*args):
+        """ControlChannelOutputCallback(self, char chnName, double value)"""
+        return _csnd.CsoundCallbackWrapper_ControlChannelOutputCallback(*args)
+
+    def StringChannelInputCallback(*args):
+        """StringChannelInputCallback(self, char chnName) -> char"""
+        return _csnd.CsoundCallbackWrapper_StringChannelInputCallback(*args)
+
+    def StringChannelOutputCallback(*args):
+        """StringChannelOutputCallback(self, char chnName, char value)"""
+        return _csnd.CsoundCallbackWrapper_StringChannelOutputCallback(*args)
 
     def SetMessageCallback(*args):
         """SetMessageCallback(self)"""
@@ -1969,6 +2031,10 @@ class CsoundCallbackWrapper(_object):
         """SetMidiOutputCallback(self, CsoundArgVList argv)"""
         return _csnd.CsoundCallbackWrapper_SetMidiOutputCallback(*args)
 
+    def SetChannelIOCallbacks(*args):
+        """SetChannelIOCallbacks(self)"""
+        return _csnd.CsoundCallbackWrapper_SetChannelIOCallbacks(*args)
+
     def GetCsound(*args):
         """GetCsound(self) -> CSOUND"""
         return _csnd.CsoundCallbackWrapper_GetCsound(*args)
@@ -1979,7 +2045,7 @@ class CsoundCallbackWrapper(_object):
 
     if _newclass:CharPtrToString = staticmethod(CharPtrToString)
     __swig_getmethods__["CharPtrToString"] = lambda x: CharPtrToString
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self, Csound csound) -> CsoundCallbackWrapper
         __init__(self, CSOUND csound) -> CsoundCallbackWrapper
@@ -1997,11 +2063,12 @@ class CsoundCallbackWrapper(_object):
         self.this.disown()
         _csnd.disown_CsoundCallbackWrapper(self)
         return weakref_proxy(self)
-_csnd.CsoundCallbackWrapper_swigregister(CsoundCallbackWrapper)
+CsoundCallbackWrapper_swigregister = _csnd.CsoundCallbackWrapper_swigregister
+CsoundCallbackWrapper_swigregister(CsoundCallbackWrapper)
 
 def CsoundCallbackWrapper_CharPtrToString(*args):
-    """CsoundCallbackWrapper_CharPtrToString(char s) -> char"""
-    return _csnd.CsoundCallbackWrapper_CharPtrToString(*args)
+  """CsoundCallbackWrapper_CharPtrToString(char s) -> char"""
+  return _csnd.CsoundCallbackWrapper_CharPtrToString(*args)
 
 class CsoundMidiInputBuffer(_object):
     """Proxy of C++ CsoundMidiInputBuffer class"""
@@ -2009,11 +2076,8 @@ class CsoundMidiInputBuffer(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundMidiInputBuffer, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundMidiInputBuffer, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundMidiInputBuffer instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
-    def __init__(self, *args):
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
         """__init__(self, unsigned char buf, int bufSize) -> CsoundMidiInputBuffer"""
         this = _csnd.new_CsoundMidiInputBuffer(*args)
         try: self.this.append(this)
@@ -2058,7 +2122,8 @@ class CsoundMidiInputBuffer(_object):
         """SendPitchBend(self, int channel, int value)"""
         return _csnd.CsoundMidiInputBuffer_SendPitchBend(*args)
 
-_csnd.CsoundMidiInputBuffer_swigregister(CsoundMidiInputBuffer)
+CsoundMidiInputBuffer_swigregister = _csnd.CsoundMidiInputBuffer_swigregister
+CsoundMidiInputBuffer_swigregister(CsoundMidiInputBuffer)
 
 class CsoundMidiInputStream(CsoundMidiInputBuffer):
     """Proxy of C++ CsoundMidiInputStream class"""
@@ -2068,11 +2133,8 @@ class CsoundMidiInputStream(CsoundMidiInputBuffer):
     __swig_getmethods__ = {}
     for _s in [CsoundMidiInputBuffer]: __swig_getmethods__.update(_s.__swig_getmethods__)
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundMidiInputStream, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundMidiInputStream instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
-    def __init__(self, *args):
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
         """
         __init__(self, CSOUND csound) -> CsoundMidiInputStream
         __init__(self, Csound csound) -> CsoundMidiInputStream
@@ -2086,7 +2148,8 @@ class CsoundMidiInputStream(CsoundMidiInputBuffer):
         """EnableMidiInput(self, CsoundArgVList argv)"""
         return _csnd.CsoundMidiInputStream_EnableMidiInput(*args)
 
-_csnd.CsoundMidiInputStream_swigregister(CsoundMidiInputStream)
+CsoundMidiInputStream_swigregister = _csnd.CsoundMidiInputStream_swigregister
+CsoundMidiInputStream_swigregister(CsoundMidiInputStream)
 
 class CsoundMidiOutputBuffer(_object):
     """Proxy of C++ CsoundMidiOutputBuffer class"""
@@ -2094,11 +2157,8 @@ class CsoundMidiOutputBuffer(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundMidiOutputBuffer, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundMidiOutputBuffer, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundMidiOutputBuffer instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
-    def __init__(self, *args):
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
         """__init__(self, unsigned char buf, int bufSize) -> CsoundMidiOutputBuffer"""
         this = _csnd.new_CsoundMidiOutputBuffer(*args)
         try: self.this.append(this)
@@ -2125,7 +2185,8 @@ class CsoundMidiOutputBuffer(_object):
         """GetData2(self) -> int"""
         return _csnd.CsoundMidiOutputBuffer_GetData2(*args)
 
-_csnd.CsoundMidiOutputBuffer_swigregister(CsoundMidiOutputBuffer)
+CsoundMidiOutputBuffer_swigregister = _csnd.CsoundMidiOutputBuffer_swigregister
+CsoundMidiOutputBuffer_swigregister(CsoundMidiOutputBuffer)
 
 class CsoundMidiOutputStream(CsoundMidiOutputBuffer):
     """Proxy of C++ CsoundMidiOutputStream class"""
@@ -2135,11 +2196,8 @@ class CsoundMidiOutputStream(CsoundMidiOutputBuffer):
     __swig_getmethods__ = {}
     for _s in [CsoundMidiOutputBuffer]: __swig_getmethods__.update(_s.__swig_getmethods__)
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundMidiOutputStream, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundMidiOutputStream instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
-    def __init__(self, *args):
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
         """
         __init__(self, CSOUND csound) -> CsoundMidiOutputStream
         __init__(self, Csound csound) -> CsoundMidiOutputStream
@@ -2153,7 +2211,8 @@ class CsoundMidiOutputStream(CsoundMidiOutputBuffer):
         """EnableMidiOutput(self, CsoundArgVList argv)"""
         return _csnd.CsoundMidiOutputStream_EnableMidiOutput(*args)
 
-_csnd.CsoundMidiOutputStream_swigregister(CsoundMidiOutputStream)
+CsoundMidiOutputStream_swigregister = _csnd.CsoundMidiOutputStream_swigregister
+CsoundMidiOutputStream_swigregister(CsoundMidiOutputStream)
 
 class CsoundPerformanceThread(_object):
     """Proxy of C++ CsoundPerformanceThread class"""
@@ -2161,10 +2220,7 @@ class CsoundPerformanceThread(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundPerformanceThread, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundPerformanceThread, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundPerformanceThread instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def GetCsound(*args):
         """GetCsound(self) -> CSOUND"""
         return _csnd.CsoundPerformanceThread_GetCsound(*args)
@@ -2209,7 +2265,7 @@ class CsoundPerformanceThread(_object):
         """FlushMessageQueue(self)"""
         return _csnd.CsoundPerformanceThread_FlushMessageQueue(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self, Csound ?) -> CsoundPerformanceThread
         __init__(self, CSOUND ?) -> CsoundPerformanceThread
@@ -2219,51 +2275,49 @@ class CsoundPerformanceThread(_object):
         except: self.this = this
     __swig_destroy__ = _csnd.delete_CsoundPerformanceThread
     __del__ = lambda self : None;
-_csnd.CsoundPerformanceThread_swigregister(CsoundPerformanceThread)
+CsoundPerformanceThread_swigregister = _csnd.CsoundPerformanceThread_swigregister
+CsoundPerformanceThread_swigregister(CsoundPerformanceThread)
 
 
 def gatherArgs(*args):
-    """gatherArgs(int argc, char argv, string commandLine)"""
-    return _csnd.gatherArgs(*args)
+  """gatherArgs(int argc, char argv, string commandLine)"""
+  return _csnd.gatherArgs(*args)
 
 def scatterArgs(*args):
-    """
+  """
     scatterArgs(string commandLine, std::vector<(std::string,std::allocator<(std::string)>)> args, 
         std::vector<(p.char,std::allocator<(p.char)>)> argv)
     """
-    return _csnd.scatterArgs(*args)
+  return _csnd.scatterArgs(*args)
 
 def trim(*args):
-    """trim(string value) -> string"""
-    return _csnd.trim(*args)
+  """trim(string value) -> string"""
+  return _csnd.trim(*args)
 
 def trimQuotes(*args):
-    """trimQuotes(string value) -> string"""
-    return _csnd.trimQuotes(*args)
+  """trimQuotes(string value) -> string"""
+  return _csnd.trimQuotes(*args)
 
 def parseInstrument(*args):
-    """
+  """
     parseInstrument(string definition, string preNumber, string id, string name, 
         string postNumber) -> bool
     """
-    return _csnd.parseInstrument(*args)
+  return _csnd.parseInstrument(*args)
 class CsoundFile(_object):
     """Proxy of C++ CsoundFile class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, CsoundFile, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CsoundFile, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CsoundFile instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     __swig_setmethods__["libraryFilename"] = _csnd.CsoundFile_libraryFilename_set
     __swig_getmethods__["libraryFilename"] = _csnd.CsoundFile_libraryFilename_get
     if _newclass:libraryFilename = property(_csnd.CsoundFile_libraryFilename_get, _csnd.CsoundFile_libraryFilename_set)
     __swig_setmethods__["arrangement"] = _csnd.CsoundFile_arrangement_set
     __swig_getmethods__["arrangement"] = _csnd.CsoundFile_arrangement_get
     if _newclass:arrangement = property(_csnd.CsoundFile_arrangement_get, _csnd.CsoundFile_arrangement_set)
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """__init__(self) -> CsoundFile"""
         this = _csnd.new_CsoundFile(*args)
         try: self.this.append(this)
@@ -2497,7 +2551,8 @@ class CsoundFile(_object):
         """
         return _csnd.CsoundFile_loadOrcLibrary(*args)
 
-_csnd.CsoundFile_swigregister(CsoundFile)
+CsoundFile_swigregister = _csnd.CsoundFile_swigregister
+CsoundFile_swigregister(CsoundFile)
 
 class MyfltVector(_object):
     """Proxy of C++ MyfltVector class"""
@@ -2505,17 +2560,12 @@ class MyfltVector(_object):
     __setattr__ = lambda self, name, value: _swig_setattr(self, MyfltVector, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, MyfltVector, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ std::vector<float > instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
+    __repr__ = _swig_repr
     def iterator(*args):
         """iterator(self, PyObject PYTHON_SELF) -> PySwigIterator"""
         return _csnd.MyfltVector_iterator(*args)
 
-    def __iter__(self):
-      return self.iterator()
-
+    def __iter__(self): return self.iterator()
     def __nonzero__(*args):
         """__nonzero__(self) -> bool"""
         return _csnd.MyfltVector___nonzero__(*args)
@@ -2615,7 +2665,7 @@ class MyfltVector(_object):
         """
         return _csnd.MyfltVector_erase(*args)
 
-    def __init__(self, *args):
+    def __init__(self, *args): 
         """
         __init__(self) -> MyfltVector
         __init__(self, MyfltVector ?) -> MyfltVector
@@ -2665,7 +2715,8 @@ class MyfltVector(_object):
 
     __swig_destroy__ = _csnd.delete_MyfltVector
     __del__ = lambda self : None;
-_csnd.MyfltVector_swigregister(MyfltVector)
+MyfltVector_swigregister = _csnd.MyfltVector_swigregister
+MyfltVector_swigregister(MyfltVector)
 
 class CppSound(Csound,CsoundFile):
     """Proxy of C++ CppSound class"""
@@ -2675,11 +2726,8 @@ class CppSound(Csound,CsoundFile):
     __swig_getmethods__ = {}
     for _s in [Csound,CsoundFile]: __swig_getmethods__.update(_s.__swig_getmethods__)
     __getattr__ = lambda self, name: _swig_getattr(self, CppSound, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ CppSound instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
-    def __init__(self, *args):
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
         """__init__(self) -> CppSound"""
         this = _csnd.new_CppSound(*args)
         try: self.this.append(this)
@@ -2760,123 +2808,121 @@ class CppSound(Csound,CsoundFile):
         """setPythonMessageCallback(self)"""
         return _csnd.CppSound_setPythonMessageCallback(*args)
 
-_csnd.CppSound_swigregister(CppSound)
+CppSound_swigregister = _csnd.CppSound_swigregister
+CppSound_swigregister(CppSound)
 
 
 def csoundCsdCreate(*args):
-    """csoundCsdCreate(CSOUND csound)"""
-    return _csnd.csoundCsdCreate(*args)
+  """csoundCsdCreate(CSOUND csound)"""
+  return _csnd.csoundCsdCreate(*args)
 
 def csoundCsdSetOptions(*args):
-    """csoundCsdSetOptions(CSOUND csound, char options)"""
-    return _csnd.csoundCsdSetOptions(*args)
+  """csoundCsdSetOptions(CSOUND csound, char options)"""
+  return _csnd.csoundCsdSetOptions(*args)
 
 def csoundCsdGetOptions(*args):
-    """csoundCsdGetOptions(CSOUND csound) -> char"""
-    return _csnd.csoundCsdGetOptions(*args)
+  """csoundCsdGetOptions(CSOUND csound) -> char"""
+  return _csnd.csoundCsdGetOptions(*args)
 
 def csoundCsdSetOrchestra(*args):
-    """csoundCsdSetOrchestra(CSOUND csound, char orchestra)"""
-    return _csnd.csoundCsdSetOrchestra(*args)
+  """csoundCsdSetOrchestra(CSOUND csound, char orchestra)"""
+  return _csnd.csoundCsdSetOrchestra(*args)
 
 def csoundCsdGetOrchestra(*args):
-    """csoundCsdGetOrchestra(CSOUND csound) -> char"""
-    return _csnd.csoundCsdGetOrchestra(*args)
+  """csoundCsdGetOrchestra(CSOUND csound) -> char"""
+  return _csnd.csoundCsdGetOrchestra(*args)
 
 def csoundCsdAddScoreLine(*args):
-    """csoundCsdAddScoreLine(CSOUND csound, char line)"""
-    return _csnd.csoundCsdAddScoreLine(*args)
+  """csoundCsdAddScoreLine(CSOUND csound, char line)"""
+  return _csnd.csoundCsdAddScoreLine(*args)
 
 def csoundCsdAddEvent11(*args):
-    """
+  """
     csoundCsdAddEvent11(CSOUND csound, double p1, double p2, double p3, double p4, 
         double p5, double p6, double p7, double p8, 
         double p9, double p10, double p11)
     """
-    return _csnd.csoundCsdAddEvent11(*args)
+  return _csnd.csoundCsdAddEvent11(*args)
 
 def csoundCsdAddEvent10(*args):
-    """
+  """
     csoundCsdAddEvent10(CSOUND csound, double p1, double p2, double p3, double p4, 
         double p5, double p6, double p7, double p8, 
         double p9, double p10)
     """
-    return _csnd.csoundCsdAddEvent10(*args)
+  return _csnd.csoundCsdAddEvent10(*args)
 
 def csoundCsdAddEvent9(*args):
-    """
+  """
     csoundCsdAddEvent9(CSOUND csound, double p1, double p2, double p3, double p4, 
         double p5, double p6, double p7, double p8, 
         double p9)
     """
-    return _csnd.csoundCsdAddEvent9(*args)
+  return _csnd.csoundCsdAddEvent9(*args)
 
 def csoundCsdAddEvent8(*args):
-    """
+  """
     csoundCsdAddEvent8(CSOUND csound, double p1, double p2, double p3, double p4, 
         double p5, double p6, double p7, double p8)
     """
-    return _csnd.csoundCsdAddEvent8(*args)
+  return _csnd.csoundCsdAddEvent8(*args)
 
 def csoundCsdAddEvent7(*args):
-    """
+  """
     csoundCsdAddEvent7(CSOUND csound, double p1, double p2, double p3, double p4, 
         double p5, double p6, double p7)
     """
-    return _csnd.csoundCsdAddEvent7(*args)
+  return _csnd.csoundCsdAddEvent7(*args)
 
 def csoundCsdAddEvent6(*args):
-    """
+  """
     csoundCsdAddEvent6(CSOUND csound, double p1, double p2, double p3, double p4, 
         double p5, double p6)
     """
-    return _csnd.csoundCsdAddEvent6(*args)
+  return _csnd.csoundCsdAddEvent6(*args)
 
 def csoundCsdAddEvent5(*args):
-    """
+  """
     csoundCsdAddEvent5(CSOUND csound, double p1, double p2, double p3, double p4, 
         double p5)
     """
-    return _csnd.csoundCsdAddEvent5(*args)
+  return _csnd.csoundCsdAddEvent5(*args)
 
 def csoundCsdAddEvent4(*args):
-    """csoundCsdAddEvent4(CSOUND csound, double p1, double p2, double p3, double p4)"""
-    return _csnd.csoundCsdAddEvent4(*args)
+  """csoundCsdAddEvent4(CSOUND csound, double p1, double p2, double p3, double p4)"""
+  return _csnd.csoundCsdAddEvent4(*args)
 
 def csoundCsdAddEvent3(*args):
-    """csoundCsdAddEvent3(CSOUND csound, double p1, double p2, double p3)"""
-    return _csnd.csoundCsdAddEvent3(*args)
+  """csoundCsdAddEvent3(CSOUND csound, double p1, double p2, double p3)"""
+  return _csnd.csoundCsdAddEvent3(*args)
 
 def csoundCsdSave(*args):
-    """csoundCsdSave(CSOUND csound, char filename) -> int"""
-    return _csnd.csoundCsdSave(*args)
+  """csoundCsdSave(CSOUND csound, char filename) -> int"""
+  return _csnd.csoundCsdSave(*args)
 
 def csoundCsdCompile(*args):
-    """csoundCsdCompile(CSOUND csound, char filename) -> int"""
-    return _csnd.csoundCsdCompile(*args)
+  """csoundCsdCompile(CSOUND csound, char filename) -> int"""
+  return _csnd.csoundCsdCompile(*args)
 
 def csoundCsdPerform(*args):
-    """csoundCsdPerform(CSOUND csound, char filename) -> int"""
-    return _csnd.csoundCsdPerform(*args)
+  """csoundCsdPerform(CSOUND csound, char filename) -> int"""
+  return _csnd.csoundCsdPerform(*args)
 
 def csoundCompileCsd(*args):
-    """csoundCompileCsd(CSOUND ?, char csdFilename) -> int"""
-    return _csnd.csoundCompileCsd(*args)
+  """csoundCompileCsd(CSOUND ?, char csdFilename) -> int"""
+  return _csnd.csoundCompileCsd(*args)
 
 def csoundPerformCsd(*args):
-    """csoundPerformCsd(CSOUND ?, char csdFilename) -> int"""
-    return _csnd.csoundPerformCsd(*args)
+  """csoundPerformCsd(CSOUND ?, char csdFilename) -> int"""
+  return _csnd.csoundPerformCsd(*args)
 class Soundfile(_object):
     """Proxy of C++ Soundfile class"""
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Soundfile, name, value)
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Soundfile, name)
-    def __repr__(self):
-        try: strthis = "at 0x%x" %( self.this, ) 
-        except: strthis = "" 
-        return "<%s.%s; proxy of C++ csound::Soundfile instance %s>" % (self.__class__.__module__, self.__class__.__name__, strthis,)
-    def __init__(self, *args):
+    __repr__ = _swig_repr
+    def __init__(self, *args): 
         """__init__(self) -> Soundfile"""
         this = _csnd.new_Soundfile(*args)
         try: self.this.append(this)
@@ -2975,7 +3021,8 @@ class Soundfile(_object):
         """blank(self, double duration)"""
         return _csnd.Soundfile_blank(*args)
 
-_csnd.Soundfile_swigregister(Soundfile)
+Soundfile_swigregister = _csnd.Soundfile_swigregister
+Soundfile_swigregister(Soundfile)
 
 
 
