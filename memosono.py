@@ -148,6 +148,10 @@ class Controler(gobject.GObject):
         # CSOUND-communication
         self.child = popen2.Popen3(os.path.join(self._MEMO['_DIR_CSSERVER'], "universe.py"))
         self.id = 0
+        if self.child:
+            logging.debug(" Csound server started: "+str(self.child))
+        else:
+            logging.error(" Csound server not started"+str(self.child))
         gobject.timeout_add(1000, self._csconnect)
 
     def _csconnect(self):
@@ -166,7 +170,7 @@ class Controler(gobject.GObject):
                         self.cssock.close()
                         if self.child is not None:
                             self.child.fromchild.close()
-                        gtk.main_quit()
+                        gtk.main_quit() ##FIXME quit what                        
         else:                        
             mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
             self.cssock.send(mess)        
@@ -195,7 +199,7 @@ class Controler(gobject.GObject):
                     mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
                         os.path.join(self._MEMO['_DIR_GSOUNDS'],sound),self.id)
                     self.cssock.send(mess)
-                    logging.error(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
+                    logging.info(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
             else:
                 logging.error(" Can not read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
 
@@ -506,11 +510,10 @@ class MemosonoActivity(Activity):
 
         # set path
         _MEMO = {}
-        _MEMO['_DIR_CSSERVER'] = "/home/erikos/sugar-jhbuild/build/share/sugar/activities/memosono/csserver"
-        _MEMO['_DIR_IMAGES'] = "/home/erikos/sugar-jhbuild/build/share/sugar/activities/memosono/images"
-        logging.error( os.path.abspath('.') )
+        _MEMO['_DIR_CSSERVER'] = os.path.join(os.path.dirname(__file__), "csserver")
+        _MEMO['_DIR_IMAGES'] = os.path.join(os.path.dirname(__file__), "images")
         logging.error( os.path.dirname('.') )
-        _MEMO['_DIR_SOUNDS'] = "/home/erikos/sugar-jhbuild/build/share/sugar/activities/memosono/sounds"
+        _MEMO['_DIR_SOUNDS'] = os.path.join(os.path.dirname(__file__), "sounds")
         path = pathes(gamename)
         _MEMO['_DIR_GIMAGES'] = path[1]
         _MEMO['_DIR_GSOUNDS'] = path[2]
