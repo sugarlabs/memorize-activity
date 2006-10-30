@@ -28,7 +28,7 @@ class CsoundServerMult:
         # run the universal orchestra        
         csound = csnd.Csound()
         perf = csnd.CsoundPerformanceThread(csound)
-        csound.Compile(os.path.abspath(_DIR_CSSERVER+'univorc.csd'))
+        csound.Compile(os.path.join(_DIR_CSSERVER, 'univorc.csd'))
         perf.Play()
         
         while self.running:
@@ -91,7 +91,7 @@ if __name__=="__main__":
     else:
         port = 40002
 
-    _DIR_CSSERVER = 'csserver/'            
+    _DIR_CSSERVER =  os.path.join(os.path.dirname(__file__))
     s = CsoundServerMult((ipaddr, port))
     s.interpret()
     
