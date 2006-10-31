@@ -91,7 +91,7 @@ if __name__=="__main__":
     else:
         port = 40002
 
-    _DIR_CSSERVER =  os.path.join(os.path.dirname(__file__))
+    _DIR_CSSERVER = os.path.dirname(__file__)
     s = CsoundServerMult((ipaddr, port))
     s.interpret()
     
