@@ -427,13 +427,13 @@ class View:
         #self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("red"))
         return False
     
-    def _delete_event(self, event, data=None):
-        controler.cssock.send("off()")
-        controler.cssock.close()
-        if controler.child.fromchild is not None:
-            controler.child.fromchild.close()                                    
+    #def _delete_event(self, event, controler):
+     #   controler.cssock.send("off()")
+      #  controler.cssock.close()
+       # if controler.child.fromchild is not None:
+        #    controler.child.fromchild.close()                                    
         #gtk.main_quit()
-        return False
+        #return False
 
 
 def read_config(filename, seed, numelems):
@@ -535,7 +535,7 @@ class MemosonoActivity(Activity):
         self.controler = Controler(_MEMO)
         self.model = Model(grid)    
         self.view = View(self.controler, self, _MEMO)
-        self.connect('destroy', self.view._delete_event)
+        #self.connect('destroy', self.view._delete_event)
         
 # SLOTS connections:
         self.model.connect('tileflipped', self.controler._tile_flipped)
@@ -556,18 +556,15 @@ class MemosonoActivity(Activity):
         while(i < _MEMO['_NUM_GRIDPOINTS']):
             self.view.buttonObj[i].connect('clicked', self.controler._user_input, i)
             i+=1
-
-        #try:
-        #    gtk.main()
-        #except KeyboardInterrupt:
-            # close socket to csound server
-        #    if controler.cssock is not None:
-        #        controler.cssock.send("off()")
-        #        controler.cssock.close()
-        #    if controler.child.fromchild is not None:
-        #        controler.child.fromchild.close()                                        
-        #    print 'Ctrl+C pressed, exiting...'                                               
             
-    def _cleanup_cb(self):
+    def _cleanup_cb(self, data=None):
         self.controler.oscapi.ioSocket.close()
         self.server.oscapi.ioSocket.close()
+        logging.debug(" Closed OSC sockets ")
+        if self.controler.cssock is not None:
+            self.controler.cssock.send("off()")
+            self.controler.cssock.close()
+            logging.debug(" Sent off signal to server ")
+            if self.controler.child.fromchild is not None:
+                self.controler.child.fromchild.close()
+                logging.debug(" Closed the server app. ")
