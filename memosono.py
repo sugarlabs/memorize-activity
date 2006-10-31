@@ -154,7 +154,7 @@ class Controler(gobject.GObject):
         except ImportError:            
             logging.error( "NO SOUND: Can not load csnd module" )
         if self.sound is 1:    
-            self.child = popen2.Popen3(os.path.join(self._MEMO['_DIR_CSSERVER'], "universe.py"))
+            self.child = popen2.Popen3("python " + os.path.join(self._MEMO['_DIR_CSSERVER'], "universe.py"))
             self.id = 0 ##FIXME give a significant number 
             gobject.timeout_add(1000, self._csconnect)
 
