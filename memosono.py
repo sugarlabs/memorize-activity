@@ -510,16 +510,17 @@ def pathes(filename):
 class MemosonoActivity(Activity):
     def __init__(self):
         Activity.__init__(self)
-        gamename = 'composer'
-        self.set_title("Memosono - "+gamename)
-
+        self.connect('destroy', self._cleanup_cb)
+        self.gamename = 'composer'
+        self.set_title("Memosono - "+self.gamename)
+        
         # set path
         _MEMO = {}
         _MEMO['_DIR_CSSERVER'] = os.path.join(os.path.dirname(__file__), "csserver")
         _MEMO['_DIR_IMAGES'] = os.path.join(os.path.dirname(__file__), "images")
         logging.error( os.path.dirname('.') )
         _MEMO['_DIR_SOUNDS'] = os.path.join(os.path.dirname(__file__), "sounds")
-        path = pathes(gamename)
+        path = pathes(self.gamename)
         _MEMO['_DIR_GIMAGES'] = path[1]
         _MEMO['_DIR_GSOUNDS'] = path[2]
         # read config
@@ -531,29 +532,29 @@ class MemosonoActivity(Activity):
         _MEMO['_NUM_PLAYERS'] = 2
         name_creator = 'eva' 
         
-        controler = Controler(_MEMO)
-        model = Model(grid)    
-        view = View(controler, self, _MEMO)
-        self.connect('destroy', view._delete_event)
+        self.controler = Controler(_MEMO)
+        self.model = Model(grid)    
+        self.view = View(self.controler, self, _MEMO)
+        self.connect('destroy', self.view._delete_event)
         
 # SLOTS connections:
-        model.connect('tileflipped', controler._tile_flipped)
-        controler.connect('tileflippedc', view._tile_flipped)
-        controler.connect('fliptile', model._flip_tile)
-        controler.connect('addplayer', model._add_player)
-        controler.connect('gameinit', model._game_init)
-        controler.connect('gameinit', view._game_init)
-        controler.connect('game', view._game)
-        controler.connect('nextc', model._next)
-        model.connect('nextm', view._next)
-        controler.connect('updatepointsc', model._updatepoints)
-        model.connect('updatepointsm', view._updatepoints)
+        self.model.connect('tileflipped', self.controler._tile_flipped)
+        self.controler.connect('tileflippedc', self.view._tile_flipped)
+        self.controler.connect('fliptile', self.model._flip_tile)
+        self.controler.connect('addplayer', self.model._add_player)
+        self.controler.connect('gameinit', self.model._game_init)
+        self.controler.connect('gameinit', self.view._game_init)
+        self.controler.connect('game', self.view._game)
+        self.controler.connect('nextc', self.model._next)
+        self.model.connect('nextm', self.view._next)
+        self.controler.connect('updatepointsc', self.model._updatepoints)
+        self.model.connect('updatepointsm', self.view._updatepoints)
 
-        server = Server(_MEMO)
-        controler.init_game(name_creator, _MEMO['_NUM_PLAYERS'], gamename)
+        self.server = Server(_MEMO)
+        self.controler.init_game(name_creator, _MEMO['_NUM_PLAYERS'], self.gamename)
         i = 0
         while(i < _MEMO['_NUM_GRIDPOINTS']):
-            view.buttonObj[i].connect('clicked', controler._user_input, i)
+            self.view.buttonObj[i].connect('clicked', self.controler._user_input, i)
             i+=1
 
         #try:
@@ -567,3 +568,6 @@ class MemosonoActivity(Activity):
         #        controler.child.fromchild.close()                                        
         #    print 'Ctrl+C pressed, exiting...'                                               
             
+    def _cleanup_cb(self):
+        self.controler.oscapi.ioSocket.close()
+        self.server.oscapi.ioSocket.close()
