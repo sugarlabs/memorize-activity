@@ -132,6 +132,7 @@ class Controler(gobject.GObject):
     def __init__(self, _MEMO):
         gobject.GObject.__init__(self)
         self._MEMO = _MEMO
+        self.sound = 0
         # OSC-communication
         self.oscapi = OscApi()
         self.replyaddr = (('127.0.0.1', 7000)) 
@@ -146,13 +147,16 @@ class Controler(gobject.GObject):
         self.block = 0
 
         # CSOUND-communication
-        self.child = popen2.Popen3(os.path.join(self._MEMO['_DIR_CSSERVER'], "universe.py"))
-        self.id = 0
-        if self.child:
-            logging.debug(" Csound server started: "+str(self.child))
-        else:
-            logging.error(" Csound server not started"+str(self.child))
-        gobject.timeout_add(1000, self._csconnect)
+        try:
+            import csnd
+            self.sound = 1
+            logging.debug( "You will have SOUND: Loaded csnd module" )
+        except ImportError:            
+            logging.error( "NO SOUND: Can not load csnd module" )
+        if self.sound is 1:    
+            self.child = popen2.Popen3(os.path.join(self._MEMO['_DIR_CSSERVER'], "universe.py"))
+            self.id = 0 ##FIXME give a significant number 
+            gobject.timeout_add(1000, self._csconnect)
 
     def _csconnect(self):
         i = 0
@@ -161,16 +165,17 @@ class Controler(gobject.GObject):
             while i < 3: 
                 try:
                     self.cssock.connect(('127.0.0.1', 40002))
+                    logging.info(" Connected to csound server.")
                     i = 3                 
                 except:
-                    logging.error(" Can not connect to csound server ")
+                    logging.error(" Can not connect to csound server. Try again")
                     time.sleep(1)
                     i += 1
                     if i == 3:
                         self.cssock.close()
                         if self.child is not None:
                             self.child.fromchild.close()
-                        gtk.main_quit() ##FIXME quit what                        
+                        gtk.main_quit() ##FIXME quit what?                        
         else:                        
             mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
             self.cssock.send(mess)        
@@ -195,14 +200,14 @@ class Controler(gobject.GObject):
         else:
             if sound is not '-1':
                 self.emit('tileflippedc', tile_number, pic, sound)
-                if os.path.exists(os.path.join(self._MEMO['_DIR_GSOUNDS'],sound)):
-                    mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
-                        os.path.join(self._MEMO['_DIR_GSOUNDS'],sound),self.id)
-                    self.cssock.send(mess)
-                    logging.info(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
+                if self.sound is 1:
+                    if os.path.exists(os.path.join(self._MEMO['_DIR_GSOUNDS'],sound)):
+                        mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
+                            os.path.join(self._MEMO['_DIR_GSOUNDS'],sound),self.id)
+                        self.cssock.send(mess)
+                        logging.info(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
             else:
                 logging.error(" Can not read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
-
                                 
             if requesttype == 0:
                 self.oscapi.sendMsg("/MEMO/tile", [tile_number, pic], self.serveraddr[0], self.serveraddr[1])
