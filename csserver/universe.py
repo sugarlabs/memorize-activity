@@ -12,7 +12,8 @@ import csnd
 
 class CsoundServerMult:
     # server start-up
-    def __init__(self, addr):
+    def __init__(self, addr, orcfile):
+        self.orcfile = orcfile
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind(addr)
         self.size = 1024
@@ -28,7 +29,7 @@ class CsoundServerMult:
         # run the universal orchestra        
         csound = csnd.Csound()
         perf = csnd.CsoundPerformanceThread(csound)
-        csound.Compile(os.path.join(_DIR_CSSERVER, 'univorc.csd'))
+        csound.Compile( self.orcfile )
         perf.Play()
         
         while self.running:
@@ -90,8 +91,11 @@ if __name__=="__main__":
         port = int(sys.argv[2])
     else:
         port = 40002
+    if len(sys.argv) > 3:
+        orcfile = sys.argv[3]
+    else:
+        orcfile = 'univorc.csd'   
 
-    _DIR_CSSERVER = os.path.dirname(__file__)
-    s = CsoundServerMult((ipaddr, port))
+    s = CsoundServerMult((ipaddr, port), orcfile)
     s.interpret()
     
