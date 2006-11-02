@@ -202,7 +202,7 @@ class Controler(gobject.GObject):
                 self.emit('tileflippedc', tile_number, pic, sound)
                 if self.sound is 1:
                     if os.path.exists(os.path.join(self._MEMO['_DIR_GSOUNDS'],sound)):
-                        mess = "perf.InputMessage('i 102 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
+                        mess = "perf.InputMessage('i 108 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
                             os.path.join(self._MEMO['_DIR_GSOUNDS'],sound),self.id)
                         self.cssock.send(mess)
                         logging.info(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
