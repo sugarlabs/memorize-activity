@@ -442,7 +442,7 @@ def read_config(filename, seed, numelems):
     # set random seed
     random.seed(seed)
     filecheck = filename.split('.')
-    if filecheck[1] != 'mson':
+    if filecheck[2] != 'mson':
         logging.error(' File format of %s'%filename)
         ## sys.exit()
     else:
@@ -475,7 +475,7 @@ def pathes(filename):
     # read config file
     path = []
     gamename = filename ##.split('.')[0]    
-    home = os.environ["HOME"]
+    home = os.path.join(os.path.dirname(os.path.abspath(__file__)), "games")
     gamepath = os.path.join(home, gamename)
     logging.debug(gamepath)        
     if not os.path.exists(gamepath):
@@ -511,7 +511,7 @@ class MemosonoActivity(Activity):
     def __init__(self):
         Activity.__init__(self)
         self.connect('destroy', self._cleanup_cb)
-        self.gamename = 'composer'
+        self.gamename = 'test'
         self.set_title("Memosono - "+self.gamename)
         
         # set path
