@@ -22,6 +22,24 @@ import zipfile
 
 from sugar.activity.bundle import Bundle
 
+class SvnFileList(list):
+	def __init__(self):
+		f = os.popen('svn list -R')
+		for line in f.readlines():
+			filename = line.strip()
+			if os.path.isfile(filename):
+				self.append(filename)
+		f.close()
+
+class GitFileList(list):
+	def __init__(self):
+		f = os.popen('git-ls-files')
+		for line in f.readlines():
+			filename = line.strip()
+			if not filename.startswith('.'):
+				self.append(filename)
+		f.close()
+
 def get_source_path():
 	return os.path.dirname(os.path.abspath(__file__))
 
@@ -59,21 +77,21 @@ def build_package():
 	orig_path = os.getcwd()
 	os.chdir(get_source_path())
 
-	if not os.path.isdir('.git'):
-		print 'ERROR - The package command works only for git repositories.'
+	if os.path.isdir('.git'):
+		file_list = GitFileList()
+	elif os.path.isdir('.svn'):
+		file_list = SvnFileList()
+	else:
+		print 'ERROR - The command works only with git or svn repositories.'
 
 	bundle = Bundle(get_source_path())
 
 	zipname = '%s-%d.zip' % (bundle.get_name(), bundle.get_activity_version())
 	bundle_zip = zipfile.ZipFile(zipname, 'w')
-
-	f = os.popen('git-ls-files')
-	for line in f.readlines():
-		filename = line.strip()
-		if not filename.startswith('.'):
-			arcname = os.path.join(get_bundle_dir(), filename)
-			bundle_zip.write(filename, arcname)
-	f.close()
+	
+	for filename in file_list:
+		arcname = os.path.join(get_bundle_dir(), filename)
+		bundle_zip.write(filename, arcname)
 
 	bundle_zip.close()
 
