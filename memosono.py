@@ -146,17 +146,9 @@ class Controler(gobject.GObject):
         self.oscapi.bind(self._game_next, '/MEMO/game/next')
         self.block = 0
 
-        # CSOUND-communication
-        try:
-            import csnd
-            self.sound = 1
-            logging.debug( "You will have SOUND: Loaded csnd module" )
-        except ImportError:            
-            logging.error( "NO SOUND: Can not load csnd module" )
-        if self.sound is 1:    
-            self.child = popen2.Popen3("python " + os.path.join(self._MEMO['_DIR_CSSERVER'], "universe.py"))
-            self.id = 0 ##FIXME give a significant number 
-            gobject.timeout_add(1000, self._csconnect)
+        # CSOUND-communication        
+        self.id = 0 ##FIXME give a significant number 
+        gobject.timeout_add(1000, self._csconnect)
 
     def _csconnect(self):
         i = 0
@@ -166,6 +158,7 @@ class Controler(gobject.GObject):
                 try:
                     self.cssock.connect(('127.0.0.1', 40002))
                     logging.info(" Connected to csound server.")
+                    self.sound = 1        
                     i = 3                 
                 except:
                     logging.error(" Can not connect to csound server. Try again")
@@ -173,9 +166,7 @@ class Controler(gobject.GObject):
                     i += 1
                     if i == 3:
                         self.cssock.close()
-                        if self.child is not None:
-                            self.child.fromchild.close()
-                        gtk.main_quit() ##FIXME quit what?                        
+                        logging.error(" There will be no sound for memosono.")
         else:                        
             mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
             self.cssock.send(mess)        
@@ -331,7 +322,7 @@ class View:
         self.buttonObj = []
         # create the players
         self.p_imageObj = {}
-        self.p_buttonObj = {}
+        self.p_fixedObj = {}
         
 # SLOTS:
     def _game_init(self, controler, playername, numplayers, gamename):
@@ -371,26 +362,20 @@ class View:
         self.p1 = 'eva'
         self.p2 = 'simon'        
         self.p_imageObj[self.p1] = gtk.Image()
-        self.p_imageObj[self.p1].set_from_pixbuf(self.pixbuf("player1_0b.jpg",0, self.pscale_x, self.pscale_y))
-        self.p_buttonObj[self.p1] = gtk.Button()
-        self.p_buttonObj[self.p1].add(self.p_imageObj[self.p1])
-        self.playerbox.pack_start(self.p_buttonObj[self.p1])
+        self.p_imageObj[self.p1].set_from_pixbuf(self.pixbuf("player1_0b.jpg",0, self.pscale_x, self.pscale_y))        
+        self.p_fixedObj[self.p1] = gtk.Fixed()
+        self.p_fixedObj[self.p1].set_size_request(self.pscale_x, self.pscale_y)
+        self.p_fixedObj[self.p1].add(self.p_imageObj[self.p1])
+        self.playerbox.pack_start(self.p_fixedObj[self.p1])
+        
         self.p_imageObj[self.p2] = gtk.Image()
         self.p_imageObj[self.p2].set_from_pixbuf(self.pixbuf("player2_0.jpg",0, self.pscale_x, self.pscale_y))
-        self.p_buttonObj[self.p2] = gtk.Button()
-        self.p_buttonObj[self.p2].add(self.p_imageObj[self.p2])
-        self.playerbox.pack_start(self.p_buttonObj[self.p2])
-                        
-        # Console
-        # To display the image, we use a fixed widget to place the image
-        #self.fixed = gtk.Fixed()
-        #self.fixed.set_size_request(200, 200)
-        #self.p_test = gtk.Image()
-        #self.p_test.set_from_pixbuf(self.pixbuf("pgreenp.jpg",0, 200, 200))
-        #self.fixed.put(self.p_test, 0, 0)        
+        self.p_fixedObj[self.p2] = gtk.Fixed()
+        self.p_fixedObj[self.p2].set_size_request(self.pscale_x, self.pscale_y)
+        self.p_fixedObj[self.p2].add(self.p_imageObj[self.p2])
+        self.playerbox.pack_start(self.p_fixedObj[self.p2])
 
         self.downbox.pack_start(self.playerbox)
-        #self.downbox.pack_start(self.fixed)
         self.row1.pack_start(self.downbox)
         self.row1.show_all()
         return False
@@ -410,12 +395,10 @@ class View:
         return False
 
     def _updatepoints(self, controler, playername, pic):
-        ## self.log.debug(" update ")
         self.p_imageObj[playername].set_from_pixbuf(self.pixbuf(pic, 0, self.pscale_x, self.pscale_y))  
         return False
     
     def _tile_flipped(self, model, tile_number, pic, sound):
-        ## self.log.debug(" tile_flipped "+str(tile_number)+" pic: "+pic+" sound: "+sound)
         if pic == "-1":
             self.imageObj[tile_number].set_from_pixbuf(self.pixbuf("black80.jpg", 0, self.scale_x, self.scale_y))
         else:
@@ -423,18 +406,8 @@ class View:
         return False
                                                 
     def _game(self, controler, string):        
-        # self.result.set_text(string)
-        #self.ebresult.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("red"))
         return False
     
-    #def _delete_event(self, event, controler):
-     #   controler.cssock.send("off()")
-      #  controler.cssock.close()
-       # if controler.child.fromchild is not None:
-        #    controler.child.fromchild.close()                                    
-        #gtk.main_quit()
-        #return False
-
 
 def read_config(filename, seed, numelems):
     temp = []
@@ -474,7 +447,7 @@ def read_config(filename, seed, numelems):
 def pathes(filename):
     # read config file
     path = []
-    gamename = filename ##.split('.')[0]    
+    gamename = filename 
     home = os.path.join(os.path.dirname(os.path.abspath(__file__)), "games")
     gamepath = os.path.join(home, gamename)
     logging.debug(gamepath)        
@@ -535,7 +508,6 @@ class MemosonoActivity(Activity):
         self.controler = Controler(_MEMO)
         self.model = Model(grid)    
         self.view = View(self.controler, self, _MEMO)
-        #self.connect('destroy', self.view._delete_event)
         
 # SLOTS connections:
         self.model.connect('tileflipped', self.controler._tile_flipped)
@@ -562,9 +534,6 @@ class MemosonoActivity(Activity):
         self.server.oscapi.ioSocket.close()
         logging.debug(" Closed OSC sockets ")
         if self.controler.cssock is not None:
-            self.controler.cssock.send("off()")
+            ## self.controler.cssock.send("off()")
             self.controler.cssock.close()
-            logging.debug(" Sent off signal to server ")
-            if self.controler.child.fromchild is not None:
-                self.controler.child.fromchild.close()
-                logging.debug(" Closed the server app. ")
+            ## logging.debug(" Sent off signal to server ")
