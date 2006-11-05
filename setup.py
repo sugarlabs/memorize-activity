@@ -60,6 +60,7 @@ def print_help():
 	print 'Usage: \n\
 setup.py dev     - setup for development \n\
 setup.py package - create a bundle package \n\
+setup.py clean - cleans the directory \n\
 setup.py help    - print this message \n\
 '
 
@@ -97,9 +98,18 @@ def build_package():
 
 	os.chdir(orig_path)
 
+def clean():
+	os.path.walk('.', delete_backups, None)
+def delete_backups(arg, dirname, names):
+	for name in names:
+		if name.endswith('~') or name.endswith('pyc'):
+			os.remove(os.path.join(dirname, name))
+	
 if len(sys.argv) < 2 or sys.argv[1] == 'help':
 	print_help()
 elif sys.argv[1] == 'dev':
 	setup_dev()
 elif sys.argv[1] == 'package':
 	build_package()
+elif sys.argv[1] == 'clean':
+	clean()
