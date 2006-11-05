@@ -156,7 +156,7 @@ class Controler(gobject.GObject):
         if self.cssock: 
             while i < 3: 
                 try:
-                    self.cssock.connect(('127.0.0.1', 40002))
+                    self.cssock.connect(('127.0.0.1', 6783))
                     logging.info(" Connected to csound server.")
                     self.sound = 1        
                     i = 3                 
