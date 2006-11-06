@@ -3,4 +3,4 @@ name = Memosono
 service_name = com.erikos.MemosonoActivity
 exec = sugar-activity-factory com.erikos.MemosonoActivity memosono.MemosonoActivity
 icon = activity-memorygame
-activity_version = 1
+activity_version = 2

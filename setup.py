@@ -87,7 +87,7 @@ def build_package():
 
 	bundle = Bundle(get_source_path())
 
-	zipname = '%s-%d.zip' % (bundle.get_name(), bundle.get_activity_version())
+	zipname = '%s-%d.xo' % (bundle.get_name(), bundle.get_activity_version())
 	bundle_zip = zipfile.ZipFile(zipname, 'w')
 	
 	for filename in file_list:
@@ -104,7 +104,7 @@ def delete_backups(arg, dirname, names):
 	for name in names:
 		if name.endswith('~') or name.endswith('pyc'):
 			os.remove(os.path.join(dirname, name))
-	
+			
 if len(sys.argv) < 2 or sys.argv[1] == 'help':
 	print_help()
 elif sys.argv[1] == 'dev':
