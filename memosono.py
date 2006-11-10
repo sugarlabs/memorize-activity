@@ -333,8 +333,8 @@ class View:
         self.row1.pack_start(self.table)
 
         # scale black
-        self.scale_x = 100
-        self.scale_y = 100
+        self.scale_x = 200
+        self.scale_y = 200
         self.pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],"black80.jpg"))
         self.scaledbuf_i = self.pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
 
@@ -355,8 +355,8 @@ class View:
             self.y+=1
 
         # Players
-        self.pscale_x = 200
-        self.pscale_y = 200       
+        self.pscale_x = 400
+        self.pscale_y = 400       
         self.downbox = gtk.HBox(False, 0)                        
         self.playerbox = gtk.VBox(False, 0)                        
         self.p1 = 'eva'
