@@ -148,9 +148,8 @@ class Controler(gobject.GObject):
 
         # CSOUND-communication        
         self.id = 0 ##FIXME give a significant number 
-        gobject.timeout_add(1000, self._csconnect)
 
-    def _csconnect(self):
+    def csconnect(self):
         i = 0
         self.cssock = socket.socket()
         if self.cssock: 
@@ -398,7 +397,7 @@ class View:
         self.p_imageObj[playername].set_from_pixbuf(self.pixbuf(pic, 0, self.pscale_x, self.pscale_y))  
         return False
     
-    def _tile_flipped(self, model, tile_number, pic, sound):
+    def _tile_flipped(self, model, tile_number, pic, sound):    
         if pic == "-1":
             self.imageObj[tile_number].set_from_pixbuf(self.pixbuf("black80.jpg", 0, self.scale_x, self.scale_y))
         else:
@@ -484,6 +483,9 @@ class MemosonoActivity(Activity):
     def __init__(self):
         Activity.__init__(self)
         self.connect('destroy', self._cleanup_cb)
+        self.connect('focus_in_event', self._focus_in)
+        self.connect('focus_out_event', self._focus_out)
+        
         self.gamename = 'test'
         self.set_title("Memosono - "+self.gamename)
         
@@ -509,7 +511,7 @@ class MemosonoActivity(Activity):
         self.model = Model(grid)    
         self.view = View(self.controler, self, _MEMO)
         
-# SLOTS connections:
+# SLOTS connections:        
         self.model.connect('tileflipped', self.controler._tile_flipped)
         self.controler.connect('tileflippedc', self.view._tile_flipped)
         self.controler.connect('fliptile', self.model._flip_tile)
@@ -534,6 +536,12 @@ class MemosonoActivity(Activity):
         self.server.oscapi.ioSocket.close()
         logging.debug(" Closed OSC sockets ")
         if self.controler.cssock is not None:
-            ## self.controler.cssock.send("off()")
             self.controler.cssock.close()
-            ## logging.debug(" Sent off signal to server ")
+
+    def _focus_in(self, event, data=None):
+        logging.debug(" Memosono is visible: Connect to the Csound-Server. ")
+        self.controler.csconnect()
+    def _focus_out(self, event, data=None):
+        logging.debug(" Memosono is invisible: Close the connection to the Csound-Server. ")
+        if self.controler.cssock is not None:
+            self.controler.cssock.close()            
