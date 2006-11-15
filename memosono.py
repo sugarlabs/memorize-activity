@@ -29,12 +29,14 @@ import popen2
 import random
 import copy
 import time
+import errno
 from sugar.activity.Activity import Activity
 
 class Server:
-    def __init__(self, _MEMO):
-        self.oscapi = OscApi()
-        self.oscrecv = self.oscapi.createListener('127.0.0.1', 7000)
+    def __init__(self, _MEMO, port):
+        self.oscapi = OscApi()  
+        self.oscrecv = self.oscapi.createListener('127.0.0.1', port)
+        
         gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
         self.oscapi.bind(self._tile, '/MEMO/tile')
         self.compkey = ''
@@ -43,8 +45,8 @@ class Server:
         self.comtile = 0
         self.match = 0
         self.addresses = {}
-        self.addresses['eva'] = ['127.0.0.1', 7001]
-        self.addresses['simon'] = ['127.0.0.1', 7002]
+        self.addresses['eva'] = ['127.0.0.1', port+1]
+        self.addresses['simon'] = ['127.0.0.1', port+2]
         self.players = ['eva', 'simon']
         self.currentplayer = 0
         self.lastplayer = 0
@@ -129,15 +131,15 @@ class Controler(gobject.GObject):
                      gobject.TYPE_NONE,
                      ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
         }
-    def __init__(self, _MEMO):
+    def __init__(self, _MEMO, port):
         gobject.GObject.__init__(self)
         self._MEMO = _MEMO
         self.sound = 0
         # OSC-communication
         self.oscapi = OscApi()
-        self.replyaddr = (('127.0.0.1', 7000)) 
-        self.serveraddr = (('127.0.0.1', 7000))        
-        self.oscrecv = self.oscapi.createListener('127.0.0.1', 7001)
+        self.replyaddr = (('127.0.0.1', port)) 
+        self.serveraddr = (('127.0.0.1', port))        
+        self.oscrecv = self.oscapi.createListener('127.0.0.1', port+1)
         gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
         self.oscapi.bind(self._addplayer, '/MEMO/addplayer')
         self.oscapi.bind(self._game_init, '/MEMO/init')
@@ -483,8 +485,6 @@ class MemosonoActivity(Activity):
     def __init__(self):
         Activity.__init__(self)
         self.connect('destroy', self._cleanup_cb)
-        self.connect('focus_in_event', self._focus_in)
-        self.connect('focus_out_event', self._focus_out)
         
         self.gamename = 'test'
         self.set_title("Memosono - "+self.gamename)
@@ -506,8 +506,26 @@ class MemosonoActivity(Activity):
                     
         _MEMO['_NUM_PLAYERS'] = 2
         name_creator = 'eva' 
+
+        sock_check = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.port = 7000
+        i=0
+        while i < 5:
+            try:
+                sock_check.bind(('127.0.0.1', self.port))
+                logging.debug(" Memosono-Server has port "+str(self.port) )
+                i = 5
+            except socket.error:             
+                if errno.EADDRINUSE:
+                    logging.debug(" Port in use. Try another one. "+str(self.port))
+                    self.port+=1000
+                    i+=1
+                    if i is 5:
+                        logging.debug(" No free port found. Memosono will NOT work.")
+        sock_check.close()                
         
-        self.controler = Controler(_MEMO)
+        self.controler = Controler(_MEMO, self.port)        
+        self.server = Server(_MEMO, self.port)
         self.model = Model(grid)    
         self.view = View(self.controler, self, _MEMO)
         
@@ -523,8 +541,11 @@ class MemosonoActivity(Activity):
         self.model.connect('nextm', self.view._next)
         self.controler.connect('updatepointsc', self.model._updatepoints)
         self.model.connect('updatepointsm', self.view._updatepoints)
+        # connect to the in/out events of the memosono activity
+        self.connect('focus_in_event', self._focus_in)
+        self.connect('focus_out_event', self._focus_out)
 
-        self.server = Server(_MEMO)
+
         self.controler.init_game(name_creator, _MEMO['_NUM_PLAYERS'], self.gamename)
         i = 0
         while(i < _MEMO['_NUM_GRIDPOINTS']):
