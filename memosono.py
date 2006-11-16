@@ -34,19 +34,21 @@ from sugar.activity.Activity import Activity
 
 class Server:
     def __init__(self, _MEMO, port):
-        self.oscapi = OscApi()  
-        self.oscrecv = self.oscapi.createListener('127.0.0.1', port)
-        
+        self.oscapi = OscApi()
+        self.port = 0
+        self.oscrecv, self.port = self.oscapi.createListener('127.0.0.1', port)
+        logging.debug(" Memosono-Server has port "+str(self.port) )
         gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
         self.oscapi.bind(self._tile, '/MEMO/tile')
+        self.oscapi.bind(self._connect, '/MEMO/connect')
         self.compkey = ''
         self.key = ''
         self.tile = 0
         self.comtile = 0
         self.match = 0
         self.addresses = {}
-        self.addresses['eva'] = ['127.0.0.1', port+1]
-        self.addresses['simon'] = ['127.0.0.1', port+2]
+        self.addresses['eva'] = []
+        self.addresses['simon'] = []
         self.players = ['eva', 'simon']
         self.currentplayer = 0
         self.lastplayer = 0
@@ -59,7 +61,11 @@ class Server:
         self.oscapi.recvhandler(data, address)
         return True
         
-# OSC-METHODS:    
+# OSC-METHODS:
+    def _connect(self, *msg):        
+        self.addresses['eva'] = [msg[1][0], int(msg[1][1])]
+        self.addresses['simon'] = [msg[1][0], int(msg[1][1])+1]
+        
     def _tile(self, *msg):
         self.tile = msg[0][2]
         self.key = msg[0][3] 
@@ -137,9 +143,12 @@ class Controler(gobject.GObject):
         self.sound = 0
         # OSC-communication
         self.oscapi = OscApi()
+        self.port = 0
         self.replyaddr = (('127.0.0.1', port)) 
         self.serveraddr = (('127.0.0.1', port))        
-        self.oscrecv = self.oscapi.createListener('127.0.0.1', port+1)
+        self.oscrecv, self.port = self.oscapi.createListener('127.0.0.1', port+1)
+        logging.debug(" Memosono-Client has port "+str(self.port) )
+        self.oscapi.sendMsg("/MEMO/connect", [self.port], self.serveraddr[0], self.serveraddr[1])
         gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
         self.oscapi.bind(self._addplayer, '/MEMO/addplayer')
         self.oscapi.bind(self._game_init, '/MEMO/init')
@@ -507,25 +516,9 @@ class MemosonoActivity(Activity):
         _MEMO['_NUM_PLAYERS'] = 2
         name_creator = 'eva' 
 
-        sock_check = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.port = 7000
-        i=0
-        while i < 5:
-            try:
-                sock_check.bind(('127.0.0.1', self.port))
-                logging.debug(" Memosono-Server has port "+str(self.port) )
-                i = 5
-            except socket.error:             
-                if errno.EADDRINUSE:
-                    logging.debug(" Port in use. Try another one. "+str(self.port))
-                    self.port+=1000
-                    i+=1
-                    if i is 5:
-                        logging.debug(" No free port found. Memosono will NOT work.")
-        sock_check.close()                
-        
-        self.controler = Controler(_MEMO, self.port)        
-        self.server = Server(_MEMO, self.port)
+        self.server = Server(_MEMO, 7000)        
+        self.controler = Controler(_MEMO, self.server.port)        
+
         self.model = Model(grid)    
         self.view = View(self.controler, self, _MEMO)
         

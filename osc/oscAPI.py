@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import OSC
 import socket
+import errno
 
 class OscApi:
     def __init__(self):
@@ -32,9 +33,23 @@ class OscApi:
     def createListener(self, ipAddr, port):
         """create and return an inbound socket
         """
-        self.ioSocket.bind((ipAddr, port))
-        self.ioSocket.setblocking(0) # if not waits for msgs to arrive blocking other events
-        return self.ioSocket
+        i=0
+        while i < 10:
+            try:
+                self.ioSocket.bind(('127.0.0.1', port))
+                #logging.debug(" Memosono-Server has port "+str(self.port) )
+                i = 10
+            except socket.error:             
+                if errno.EADDRINUSE:
+                    #logging.debug(" Port in use. Try another one. "+str(port))
+                    port+=1
+                    i+=1
+                    if i is 10:
+                        #logging.debug(" No free port found. Memosono will NOT work.")
+                        self.ioSocket.bind((ipAddr, port))
+
+        self.ioSocket.setblocking(0) # if not waits for msgs to arrive blocking other events                        
+        return (self.ioSocket, port)
 
     def bind(self, func, oscaddress):
         """ bind certains oscaddresses with certain functions in address manager
