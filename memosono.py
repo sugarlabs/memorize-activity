@@ -31,6 +31,8 @@ import random
 import copy
 import time
 import errno
+import gc
+
 from sugar.activity.Activity import Activity
 
 class Server:
@@ -346,9 +348,13 @@ class View:
         # scale black
         self.scale_x = 200
         self.scale_y = 200
-        self.pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],"black80.jpg"))
-        self.scaledbuf_i = self.pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
+        pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],"black80.jpg"))
+        self.scaledbuf_i = pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
 
+        ### fix to release the memory allocated by the pixbuf call
+        del pixbuf_i
+        gc.collect()
+        
         self.y = 0
         self.x = 0
         i = 0
@@ -393,12 +399,17 @@ class View:
 
     def pixbuf(self, filename, pictype, pscale_x, pscale_y):
         if pictype is 1:
-            self.ppixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_GIMAGES'],filename))             
+            ppixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_GIMAGES'],filename))             
         if pictype is 0:
-            self.ppixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],filename))
+            ppixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],filename))
             
-        self.pscaledbuf_i = self.ppixbuf_i.scale_simple(pscale_x, pscale_y, gtk.gdk.INTERP_BILINEAR)
-        return self.pscaledbuf_i
+        pscaledbuf_i = ppixbuf_i.scale_simple(pscale_x, pscale_y, gtk.gdk.INTERP_BILINEAR)
+
+        ### fix to release the memory allocated by the pixbuf call
+        del ppixbuf_i
+        gc.collect()
+        
+        return pscaledbuf_i
 
     def _next(self, controler, playername, filename, lastplayer, lastfilename):
         self.p_imageObj[playername].set_from_pixbuf(self.pixbuf(filename, 0, self.pscale_x, self.pscale_y))
