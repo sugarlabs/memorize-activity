@@ -159,6 +159,8 @@ class Controler(gobject.GObject):
         self.oscapi.bind(self._game_match, '/MEMO/game/match')
         self.oscapi.bind(self._game_next, '/MEMO/game/next')
         self.block = 0
+        self.count = 0
+    
 
         # CSOUND-communication        
         self.id = 0 ##FIXME give a significant number 
@@ -194,10 +196,15 @@ class Controler(gobject.GObject):
         return True
 
 # SLOTS:       
-    def _user_input(self, widget, tile_number):
+    def _user_input(self, widget, tile_number):        
         if not self.block:
-            self.emit('fliptile', tile_number, 0)        
-        return False    
+            self.count+=1    
+            self.emit('fliptile', tile_number, 0)
+        if self.count == 2:
+            self.block = 1
+            self.count = 0            
+        return False
+    
     def _tile_flipped(self, model, tile_number, pic, sound, requesttype, chosen_flag):
         if chosen_flag == 1:
             self.emit('game', 'Chosen already!')
@@ -228,18 +235,25 @@ class Controler(gobject.GObject):
         self.emit('fliptile', msg[0][2], 1)        
 
     def _game_next(self, *msg):
-        self.emit('nextc', msg[0][2], msg[0][3])
+        gobject.timeout_add(2000, self._game_next_delayed, msg[0][2], msg[0][3])
 
+    def _game_next_delayed(self, player, lastplayer):
+        self.block = 0
+        self.emit('nextc', player, lastplayer)
+        return False
+        
     def _game_match(self, *msg):
         # flag_match, playername, tile1, tile2
         logging.debug(msg)
         if msg[0][2] == 1:
             # update points
             self.emit('updatepointsc', msg[0][3])
+            self.block = 0
             if not msg[0][6]:
                 self.emit('game', 'Match!')
             else:
-                self.block = 1
+                logging.debug("end")
+                self.block = 1        
                 self.emit('game', 'The end')
         else:
             requesttype = 2 # 0:normal, 1:setback
@@ -312,13 +326,10 @@ class Model(gobject.GObject):
         self.emit('tileflipped', tile_number, '-1', '-1', requesttype, 0)
         return False
     
-    def _next(self, controler, player, lastplayer):
-        gobject.timeout_add(2000, self._next_delayed, player, lastplayer)
-    def _next_delayed(self, player, lastplayer ):
+    def _next(self, controler, player, lastplayer ):
         count1 = self.player[player][0]        
         count2 = self.player[lastplayer][0]
         self.emit('nextm', player, self.player[player][count1+1][1], lastplayer,self.player[lastplayer][count2+1][0])
-        return False
     
     def _updatepoints(self, controler, player):
         self.player[player][0] += 1
