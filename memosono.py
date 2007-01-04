@@ -22,11 +22,9 @@ import gobject
 import gtk, pygtk
 import os
 import socket
-import pango
 from  osc.oscAPI import *
 from osc.OSC import *
 import logging
-import popen2
 import random
 import copy
 import time
@@ -72,7 +70,7 @@ class Server:
     def _tile(self, *msg):
         self.tile = msg[0][2]
         self.key = msg[0][3] 
-
+            
         # send to other machines
         for i in self.addresses:
             if msg[1][0] == self.addresses[i][0]:
@@ -103,11 +101,10 @@ class Server:
                     self.oscapi.sendMsg("/MEMO/game/next",[self.players[self.currentplayer],
                                                            self.players[self.lastplayer]],
                                         self.addresses[i][0], self.addresses[i][1])                    
-            i = 0
-            logging.debug("count: "+str(self.count)+"numpairs: "+str(self.numpairs))
+            i = 0           
             for i in self.addresses:
                 self.oscapi.sendMsg("/MEMO/game/match", [self.match, self.players[self.lastplayer],
-                                                         self.comtile, self.tile, self.count==self.numpairs],
+                                                         self.comtile, self.tile, self.count/self.numpairs],
                                     self.addresses[i][0], self.addresses[i][1])        
             self.compkey = ''
             self.comptile = 0
@@ -121,7 +118,7 @@ class Controler(gobject.GObject):
     __gsignals__ = {
         'fliptile': (gobject.SIGNAL_RUN_FIRST,
                     gobject.TYPE_NONE,
-                    ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
+                    ([gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT])),
         'game': (gobject.SIGNAL_RUN_FIRST,
                      gobject.TYPE_NONE,
                      ([gobject.TYPE_PYOBJECT])),
@@ -198,31 +195,42 @@ class Controler(gobject.GObject):
 
 # SLOTS:       
     def _user_input(self, widget, tile_number):        
-        if not self.block:
-            self.count+=1    
-            self.emit('fliptile', tile_number, 0)
-        if self.count == 2:
-            self.block = 1
-            self.count = 0            
+        #if not self.block:
+        #    self.count+=1    
+        self.emit('fliptile', tile_number, 0, self.block)
+        #if self.count == 2:
+        #    self.block = 1
+        #    self.count = 0            
         return False
     
     def _tile_flipped(self, model, tile_number, pic, sound, requesttype, chosen_flag):
         if chosen_flag == 1:
             self.emit('game', 'Chosen already!')
         else:
-            if sound is not '-1':
-                self.emit('tileflippedc', tile_number, pic, sound)
-                if self.sound is 1:
-                    if os.path.exists(os.path.join(self._MEMO['_DIR_GSOUNDS'],sound)):
-                        mess = "perf.InputMessage('i 108 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
-                            os.path.join(self._MEMO['_DIR_GSOUNDS'],sound),self.id)
-                        self.cssock.send(mess)
-                        logging.info(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
-            else:
-                logging.error(" Can not read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
-                                
-            if requesttype == 0:
-                self.oscapi.sendMsg("/MEMO/tile", [tile_number, pic], self.serveraddr[0], self.serveraddr[1])
+            logging.debug("tile_number: "+str(tile_number)+" pic: "+pic+" sound: "+sound)
+            logging.debug("count: "+str(self.count)+" self.block: "+str(self.block))
+            if not self.block:
+                if requesttype is not 2:
+                    self.count+=1
+                
+                if sound is not '-1':
+                    self.emit('tileflippedc', tile_number, pic, sound)
+                    if self.sound is 1:
+                        if os.path.exists(os.path.join(self._MEMO['_DIR_GSOUNDS'],sound)):
+                            mess = "perf.InputMessage('i 108 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
+                                os.path.join(self._MEMO['_DIR_GSOUNDS'],sound),self.id)
+                            self.cssock.send(mess)
+                            logging.info(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
+                else:
+                    logging.error(" Can not read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
+            
+                if requesttype == 0:
+                    logging.debug(" send to server ")
+                    self.oscapi.sendMsg("/MEMO/tile", [tile_number, pic], self.serveraddr[0], self.serveraddr[1])
+            if self.count == 2:
+                self.block = 1
+                self.count = 0
+            
         return False
 
 # OSC-METHODS:   
@@ -233,24 +241,26 @@ class Controler(gobject.GObject):
         self.init_game(msg[0][2], msg[0][3], msg[0][4])
 
     def _tile(self, *msg):
-        self.emit('fliptile', msg[0][2], 1)        
+        self.emit('fliptile', msg[0][2], 1, self.block)        
 
     def _game_next(self, *msg):
-        gobject.timeout_add(2000, self._game_next_delayed, msg[0][2], msg[0][3])
+        logging.debug("next please --- self.block: "+str(self.block))
+        gobject.timeout_add(3000, self._game_next_delayed, msg[0][2], msg[0][3])
 
     def _game_next_delayed(self, player, lastplayer):
         self.block = 0
+        logging.debug("next-delayed please --- self.block: "+str(self.block))
         self.emit('nextc', player, lastplayer)
         return False
         
     def _game_match(self, *msg):
         # flag_match, playername, tile1, tile2
-        logging.debug(msg)
+        logging.debug(msg)        
         if msg[0][2] == 1:
             # update points
-            self.emit('updatepointsc', msg[0][3])
             self.block = 0
-            if not msg[0][6]:
+            self.emit('updatepointsc', msg[0][3])            
+            if msg[0][6] != 1:
                 self.emit('game', 'Match!')
             else:
                 logging.debug("end")
@@ -259,8 +269,8 @@ class Controler(gobject.GObject):
         else:
             requesttype = 2 # 0:normal, 1:setback
             self.emit('game', 'Pairs do not match!')
-            self.emit('fliptile', int(msg[0][4]), requesttype)
-            self.emit('fliptile', int(msg[0][5]), requesttype)        
+            self.emit('fliptile', int(msg[0][4]), requesttype, self.block)
+            self.emit('fliptile', int(msg[0][5]), requesttype, self.block)        
 
     
 class Model(gobject.GObject):
@@ -318,10 +328,12 @@ class Model(gobject.GObject):
     def _add_player():
         ## logging.debug(" addplayer ")
         return False
-    def _flip_tile(self, controler, tile_number, requesttype):        
+            
+    def _flip_tile(self, controler, tile_number, requesttype, blocked):        
         if requesttype == 0 or requesttype == 1:
-            if self.tileg[tile_number][2] == 0: # !!FIX - better switch                
-                self.tileg[tile_number][2] = 1
+            if self.tileg[tile_number][2] == 0: # !!FIX - better switch
+                if not blocked:
+                    self.tileg[tile_number][2] = 1
                 # --->view: number, pic, sound, requesttype, chosen 
                 self.emit('tileflipped', tile_number, self.tileg[tile_number][0],
                           self.tileg[tile_number][1], requesttype,0)
@@ -330,11 +342,12 @@ class Model(gobject.GObject):
                           self.tileg[tile_number][1], requesttype,1)
         else:
             # set tilestate back
-            self.tileg[tile_number][2] = 0
-            gobject.timeout_add(2000, self._reset, tile_number, requesttype)
+            # self.tileg[tile_number][2] = 0
+            gobject.timeout_add(3000, self._reset, tile_number, requesttype)
         return False
     
     def _reset(self, tile_number, requesttype):
+        self.tileg[tile_number][2] = 0
         self.emit('tileflipped', tile_number, '-1', '-1', requesttype, 0)
         return False
     
@@ -369,8 +382,8 @@ class View:
         self.row1.pack_start(self.table)
 
         # scale black
-        self.scale_x = 100
-        self.scale_y = 100
+        self.scale_x = 150
+        self.scale_y = 150
         pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],"black80.jpg"))
         self.scaledbuf_i = pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
 
@@ -395,8 +408,8 @@ class View:
             self.y+=1
 
         # Players
-        self.pscale_x = 100
-        self.pscale_y = 100       
+        self.pscale_x = 200
+        self.pscale_y = 200       
         self.downbox = gtk.HBox(False, 0)                        
         self.playerbox = gtk.VBox(False, 0)                        
         self.p1 = 'eva'
