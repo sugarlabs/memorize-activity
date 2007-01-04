@@ -103,10 +103,11 @@ class Server:
                     self.oscapi.sendMsg("/MEMO/game/next",[self.players[self.currentplayer],
                                                            self.players[self.lastplayer]],
                                         self.addresses[i][0], self.addresses[i][1])                    
-            i = 0            
+            i = 0
+            logging.debug("count: "+str(self.count)+"numpairs: "+str(self.numpairs))
             for i in self.addresses:
                 self.oscapi.sendMsg("/MEMO/game/match", [self.match, self.players[self.lastplayer],
-                                                         self.comtile, self.tile, self.count&self.numpairs],
+                                                         self.comtile, self.tile, self.count==self.numpairs],
                                     self.addresses[i][0], self.addresses[i][1])        
             self.compkey = ''
             self.comptile = 0
@@ -290,12 +291,23 @@ class Model(gobject.GObject):
                               ['player1_2.jpg', 'player1_2b.jpg'],['player2_3.jpg', 'player2_3b.jpg'],
                               ['player1_4.jpg', 'player1_4b.jpg'],['player1_5.jpg', 'player1_5b.jpg'],
                               ['player1_6.jpg', 'player1_6b.jpg'],['player1_7.jpg', 'player1_7b.jpg'],
-                              ['player1_8.jpg', 'player1_8b.jpg']]
+                              ['player1_8.jpg', 'player1_8b.jpg'],['player1_9.jpg', 'player1_9b.jpg'],
+                              ['player1_10.jpg', 'player1_10b.jpg'],['player1_11.jpg', 'player1_11b.jpg'],
+                              ['player1_12.jpg', 'player1_12b.jpg'],['player1_13.jpg', 'player1_13b.jpg'],
+                              ['player1_14.jpg', 'player1_14b.jpg'],['player1_15.jpg', 'player1_15b.jpg'],
+                              ['player1_16.jpg', 'player1_16b.jpg'],['player1_17.jpg', 'player1_17b.jpg'],
+                              ['player1_18.jpg', 'player1_18b.jpg']]
+        
         self.player['simon'] = [0, ['player2_0.jpg', 'player2_0b.jpg'],['player2_1.jpg', 'player2_1b.jpg'],
-                              ['player2_2.jpg', 'player2_2b.jpg'],['player2_3.jpg', 'player2_3b.jpg'],
-                              ['player2_4.jpg', 'player2_4b.jpg'],['player2_5.jpg', 'player2_5b.jpg'],
-                              ['player2_6.jpg', 'player2_6b.jpg'],['player2_7.jpg', 'player2_7b.jpg'],
-                              ['player2_8.jpg', 'player2_8b.jpg']]
+                                ['player2_2.jpg', 'player2_2b.jpg'],['player2_3.jpg', 'player2_3b.jpg'],
+                                ['player2_4.jpg', 'player2_4b.jpg'],['player2_5.jpg', 'player2_5b.jpg'],
+                                ['player2_6.jpg', 'player2_6b.jpg'],['player2_7.jpg', 'player2_7b.jpg'],
+                                ['player2_8.jpg', 'player2_8b.jpg'],['player2_9.jpg', 'player2_9b.jpg'],
+                                ['player2_10.jpg', 'player2_10b.jpg'],['player2_11.jpg', 'player2_11b.jpg'],
+                                ['player2_12.jpg', 'player2_12b.jpg'],['player2_13.jpg', 'player2_13b.jpg'],
+                                ['player2_14.jpg', 'player2_14b.jpg'],['player2_15.jpg', 'player2_15b.jpg'],
+                                ['player2_16.jpg', 'player2_16b.jpg'],['player2_17.jpg', 'player2_17b.jpg'],
+                                ['player2_18.jpg', 'player2_18b.jpg']]
         # game
         self.numplayers = 2
 
@@ -351,14 +363,14 @@ class View:
 # SLOTS:
     def _game_init(self, controler, playername, numplayers, gamename):
         # Create a table for the grid 
-        self.num_elem_x = 4
-        self.num_elem_y = 4
+        self.num_elem_x = 6
+        self.num_elem_y = 6
         self.table = gtk.Table(self.num_elem_y, self.num_elem_x, True)
         self.row1.pack_start(self.table)
 
         # scale black
-        self.scale_x = 200
-        self.scale_y = 200
+        self.scale_x = 100
+        self.scale_y = 100
         pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],"black80.jpg"))
         self.scaledbuf_i = pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
 
@@ -383,8 +395,8 @@ class View:
             self.y+=1
 
         # Players
-        self.pscale_x = 400
-        self.pscale_y = 400       
+        self.pscale_x = 100
+        self.pscale_y = 100       
         self.downbox = gtk.HBox(False, 0)                        
         self.playerbox = gtk.VBox(False, 0)                        
         self.p1 = 'eva'
@@ -518,7 +530,7 @@ class MemosonoActivity(Activity):
         Activity.__init__(self)
         self.connect('destroy', self._cleanup_cb)
         
-        self.gamename = 'test'
+        self.gamename = 'drumgit'
         self.set_title("Memosono - "+self.gamename)
         
         # set path
@@ -532,8 +544,8 @@ class MemosonoActivity(Activity):
         _MEMO['_DIR_GSOUNDS'] = path[2]
         # read config
         seed = random.randint(0, 14567)
-        _MEMO['_NUM_GRIDPOINTS'] = 16
-        _MEMO['_NUM_ELEMS'] = 8
+        _MEMO['_NUM_GRIDPOINTS'] = 36
+        _MEMO['_NUM_ELEMS'] = 18
         grid = read_config(path[0], seed, _MEMO['_NUM_ELEMS'])
                     
         _MEMO['_NUM_PLAYERS'] = 2
