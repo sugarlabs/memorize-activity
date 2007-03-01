@@ -31,7 +31,9 @@ import time
 import errno
 import gc
 
-from sugar.activity.Activity import Activity
+
+from sugar.activity import activity
+
 
 class Server:
     def __init__(self, _MEMO, port):
@@ -538,9 +540,9 @@ def pathes(filename):
     return path 
 
 
-class MemosonoActivity(Activity):
-    def __init__(self):
-        Activity.__init__(self)
+class MemosonoActivity(activity.Activity):
+    def __init__(self, handle):
+        activity.Activity.__init__(self, handle)
         self.connect('destroy', self._cleanup_cb)
         
         self.gamename = 'drumgit'
