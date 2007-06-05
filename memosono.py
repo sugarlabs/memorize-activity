@@ -182,9 +182,9 @@ class Controler(gobject.GObject):
                     if i == 3:
                         self.cssock.close()
                         logging.error(" There will be no sound for memosono.")
-        else:                        
-            mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
-            self.cssock.send(mess)        
+        #else:                        
+        #    mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
+        #    self.cssock.send(mess)        
                                               
         
     def init_game(self, playername, numplayers, gamename):
@@ -367,7 +367,6 @@ class View:
     def __init__(self, controler, memosonoactivity, _MEMO):
         self._MEMO = _MEMO
         self.row1 = gtk.HBox(False, 0)
-        memosonoactivity.add(self.row1)
         # create the grid
         self.imageObj = []
         self.buttonObj = []
@@ -384,8 +383,8 @@ class View:
         self.row1.pack_start(self.table)
 
         # scale black
-        self.scale_x = 150
-        self.scale_y = 150
+        self.scale_x = 120
+        self.scale_y = 120
         pixbuf_i = gtk.gdk.pixbuf_new_from_file(os.path.join(self._MEMO['_DIR_IMAGES'],"black80.jpg"))
         self.scaledbuf_i = pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
 
@@ -571,6 +570,7 @@ class MemosonoActivity(activity.Activity):
 
         self.model = Model(grid)    
         self.view = View(self.controler, self, _MEMO)
+        self.set_canvas(self.view.row1)
         
 # SLOTS connections:        
         self.model.connect('tileflipped', self.controler._tile_flipped)
