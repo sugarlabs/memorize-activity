@@ -22,8 +22,6 @@ import gobject
 import gtk, pygtk
 import os
 import socket
-from  osc.oscAPI import *
-from osc.OSC import *
 import logging
 import random
 import copy
@@ -31,19 +29,24 @@ import time
 import errno
 import gc
 
-
 from sugar.activity import activity
 
+from  osc.oscapi import OscApi
 
 class Server:
     def __init__(self, _MEMO, port):
-        self.oscapi = OscApi()
-        self.port = 0
-        self.oscrecv, self.port = self.oscapi.createListener('127.0.0.1', port)
+
+        isserver = 0
+        while isserver == 0:
+            self.port = port
+            self.oscapi = OscApi(self.port)
+            isserver = self.oscapi.isserver
+            port+=1
+        
         logging.debug(" Memosono-Server has port "+str(self.port) )
-        gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
-        self.oscapi.bind(self._tile, '/MEMO/tile')
-        self.oscapi.bind(self._connect, '/MEMO/connect')
+        gobject.io_add_watch(self.oscapi.iosock, gobject.IO_IN, self._handle_query)
+        self.oscapi.addmethod('/MEMO/tile', 'is', self._tile)
+        self.oscapi.addmethod('/MEMO/connect', 'i', self._connect)
         self.compkey = ''
         self.key = ''
         self.tile = 0
@@ -61,7 +64,7 @@ class Server:
         
     def _handle_query(self, source, condition):
         data, address = source.recvfrom(1024)
-        self.oscapi.recvhandler(data, address)
+        self.oscapi.handlemsg(data, address)
         return True
         
 # OSC-METHODS:
@@ -77,12 +80,12 @@ class Server:
         for i in self.addresses:
             if msg[1][0] == self.addresses[i][0]:
                 if msg[1][1] != self.addresses[i][1]:
-                    self.oscapi.sendMsg("/MEMO/tile", [self.tile, self.key],
-                                        self.addresses[i][0], self.addresses[i][1])        
+                    self.oscapi.send((self.addresses[i][0], self.addresses[i][1]), "/MEMO/tile",
+                                     [self.tile, self.key])        
             else:
                 ## logging.debug(" Send the stuff ")
-                self.oscapi.sendMsg("/MEMO/tile", [self.tile, self.key],
-                                    self.addresses[i][0], self.addresses[i][1])                        
+                self.oscapi.send((self.addresses[i][0], self.addresses[i][1]), "/MEMO/tile",
+                                 [self.tile, self.key])                        
         # match
         if self.compkey != '':
             if self.compkey == self.key:
@@ -100,14 +103,14 @@ class Server:
                     self.currentplayer+=1                    
                 i = 0    
                 for i in self.addresses:
-                    self.oscapi.sendMsg("/MEMO/game/next",[self.players[self.currentplayer],
-                                                           self.players[self.lastplayer]],
-                                        self.addresses[i][0], self.addresses[i][1])                    
+                    self.oscapi.send((self.addresses[i][0], self.addresses[i][1]),"/MEMO/game/next",
+                                     [self.players[self.currentplayer],
+                                      self.players[self.lastplayer]])                    
             i = 0           
             for i in self.addresses:
-                self.oscapi.sendMsg("/MEMO/game/match", [self.match, self.players[self.lastplayer],
-                                                         self.comtile, self.tile, self.count/self.numpairs],
-                                    self.addresses[i][0], self.addresses[i][1])        
+                self.oscapi.send((self.addresses[i][0], self.addresses[i][1]), "/MEMO/game/match",
+                                 [self.match, self.players[self.lastplayer],
+                                  self.comtile, self.tile, self.count/self.numpairs])        
             self.compkey = ''
             self.comptile = 0
         else:    
@@ -144,20 +147,25 @@ class Controler(gobject.GObject):
         gobject.GObject.__init__(self)
         self._MEMO = _MEMO
         self.sound = 0
-        # OSC-communication
-        self.oscapi = OscApi()
-        self.port = 0
         self.replyaddr = (('127.0.0.1', port)) 
-        self.serveraddr = (('127.0.0.1', port))        
-        self.oscrecv, self.port = self.oscapi.createListener('127.0.0.1', port+1)
+        self.serveraddr = (('127.0.0.1', port))
+        port+=1
+        # OSC-communication
+        isserver = 0
+        while isserver == 0:
+            self.port = port
+            self.oscapi = OscApi(self.port)
+            isserver = self.oscapi.isserver
+            port+=1
+
         logging.debug(" Memosono-Client has port "+str(self.port) )
-        self.oscapi.sendMsg("/MEMO/connect", [self.port], self.serveraddr[0], self.serveraddr[1])
-        gobject.io_add_watch(self.oscrecv, gobject.IO_IN, self._handle_query)
-        self.oscapi.bind(self._addplayer, '/MEMO/addplayer')
-        self.oscapi.bind(self._game_init, '/MEMO/init')
-        self.oscapi.bind(self._tile, '/MEMO/tile')
-        self.oscapi.bind(self._game_match, '/MEMO/game/match')
-        self.oscapi.bind(self._game_next, '/MEMO/game/next')
+        self.oscapi.send((self.serveraddr[0], self.serveraddr[1]), "/MEMO/connect", [self.port])
+        gobject.io_add_watch(self.oscapi.iosock, gobject.IO_IN, self._handle_query)
+        self.oscapi.addmethod('/MEMO/addplayer', '', self._addplayer)
+        self.oscapi.addmethod('/MEMO/init', 'sis', self._game_init)
+        self.oscapi.addmethod('/MEMO/tile', 'i', self._tile)
+        self.oscapi.addmethod('/MEMO/game/match', 'isiii', self._game_match)
+        self.oscapi.addmethod('/MEMO/game/next', 'ss', self._game_next)
         self.block = 0
         self.count = 0
     
@@ -192,7 +200,7 @@ class Controler(gobject.GObject):
     
     def _handle_query(self, source, condition):
         data, self.replyaddr = source.recvfrom(1024)
-        self.oscapi.recvhandler(data, self.replyaddr)            
+        self.oscapi.handlemsg(data, self.replyaddr)            
         return True
 
 # SLOTS:       
@@ -228,7 +236,7 @@ class Controler(gobject.GObject):
             
                 if requesttype == 0:
                     logging.debug(" send to server ")
-                    self.oscapi.sendMsg("/MEMO/tile", [tile_number, pic], self.serveraddr[0], self.serveraddr[1])
+                    self.oscapi.send((self.serveraddr[0], self.serveraddr[1]), "/MEMO/tile", [tile_number, pic])
             if self.count == 2:
                 self.block = 1
                 self.count = 0
@@ -546,6 +554,7 @@ class MemosonoActivity(activity.Activity):
         
         self.gamename = 'drumgit'
         self.set_title("Memosono - "+self.gamename)
+        logging.debug(" ---------------------Memosono start-----------------------. ")
         
         # set path
         _MEMO = {}
