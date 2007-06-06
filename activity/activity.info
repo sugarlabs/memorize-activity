@@ -3,4 +3,4 @@ name = Memosono
 service_name = com.erikos.MemosonoActivity
 class = memosono.MemosonoActivity
 icon = activity-memorygame
-activity_version = 10
+activity_version = 11
