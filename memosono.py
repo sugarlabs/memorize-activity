@@ -31,7 +31,9 @@ import gc
 
 from sugar.activity import activity
 
-from  osc.oscapi import OscApi
+from osc.oscapi import OscApi
+from csound.csoundserver import CsoundServer
+
 
 class Server:
     def __init__(self, _MEMO, port):
@@ -146,7 +148,7 @@ class Controler(gobject.GObject):
     def __init__(self, _MEMO, port):
         gobject.GObject.__init__(self)
         self._MEMO = _MEMO
-        self.sound = 0
+        self.sound = 1
         self.replyaddr = (('127.0.0.1', port)) 
         self.serveraddr = (('127.0.0.1', port))
         port+=1
@@ -166,6 +168,7 @@ class Controler(gobject.GObject):
         self.oscapi.addmethod('/MEMO/tile', 'i', self._tile)
         self.oscapi.addmethod('/MEMO/game/match', 'isiii', self._game_match)
         self.oscapi.addmethod('/MEMO/game/next', 'ss', self._game_next)
+        self.oscapi.addmethod('/CSOUND/ping', '', self._ping)
         self.block = 0
         self.count = 0
     
@@ -174,26 +177,7 @@ class Controler(gobject.GObject):
         self.id = 0 ##FIXME give a significant number 
 
     def csconnect(self):
-        i = 0
-        self.cssock = socket.socket()
-        if self.cssock: 
-            while i < 3: 
-                try:
-                    self.cssock.connect(('127.0.0.1', 6783))
-                    logging.info(" Connected to csound server.")
-                    self.sound = 1        
-                    i = 3                 
-                except:
-                    logging.error(" Can not connect to csound server. Try again")
-                    time.sleep(1)
-                    i += 1
-                    if i == 3:
-                        self.cssock.close()
-                        logging.error(" There will be no sound for memosono.")
-        #else:                        
-        #    mess = "csound.SetChannel('sfplay.%d.on', 1)\n" % self.id
-        #    self.cssock.send(mess)        
-                                              
+        self.oscapi.send(('127.0.0.1', 6783), "/CSOUND/connect", [])                                
         
     def init_game(self, playername, numplayers, gamename):
         self.emit('gameinit', playername, numplayers, gamename)
@@ -224,13 +208,12 @@ class Controler(gobject.GObject):
                     self.count+=1
                 
                 if sound is not '-1':
-                    self.emit('tileflippedc', tile_number, pic, sound)
+                    self.emit('tileflippedc', tile_number, pic, sound)              
                     if self.sound is 1:
                         if os.path.exists(os.path.join(self._MEMO['_DIR_GSOUNDS'],sound)):
-                            mess = "perf.InputMessage('i 108 0 3 \"%s\" %s 0.7 0.5 0')\n"%(
-                                os.path.join(self._MEMO['_DIR_GSOUNDS'],sound),self.id)
-                            self.cssock.send(mess)
-                            logging.info(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
+                            file = os.path.join(self._MEMO['_DIR_GSOUNDS'],sound)
+                            self.oscapi.send(('127.0.0.1', 6783), '/CSOUND/perform', ['i 108 0.0 3.0 "%s" 1 0.7 0.5 0'%file])
+                            logging.debug(" Read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
                 else:
                     logging.error(" Can not read file: "+os.path.join(self._MEMO['_DIR_GSOUNDS'],sound))
             
@@ -282,6 +265,9 @@ class Controler(gobject.GObject):
             self.emit('fliptile', int(msg[0][4]), requesttype, self.block)
             self.emit('fliptile', int(msg[0][5]), requesttype, self.block)        
 
+    def _ping(self, *msg):        
+        self.oscapi.send(msg[1], '/CSOUND/pong', [])
+        
     
 class Model(gobject.GObject):
     __gsignals__ = {
@@ -603,18 +589,22 @@ class MemosonoActivity(activity.Activity):
         while(i < _MEMO['_NUM_GRIDPOINTS']):
             self.view.buttonObj[i].connect('clicked', self.controler._user_input, i)
             i+=1
-            
-    def _cleanup_cb(self, data=None):
-        self.controler.oscapi.ioSocket.close()
-        self.server.oscapi.ioSocket.close()
-        logging.debug(" Closed OSC sockets ")
-        if self.controler.cssock is not None:
-            self.controler.cssock.close()
 
+        ### start csound server    
+        self.cs = CsoundServer()
+        gtk.gdk.threads_init()
+        self.controler.csconnect()
+        
+    def _cleanup_cb(self, data=None):
+        self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/quit", [])
+        self.controler.oscapi.iosock.close()
+        self.server.oscapi.iosock.close()
+        logging.debug(" Closed OSC sockets ")
+        
     def _focus_in(self, event, data=None):
         logging.debug(" Memosono is visible: Connect to the Csound-Server. ")
-        self.controler.csconnect()
+        self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/connect", [])
+        
     def _focus_out(self, event, data=None):
         logging.debug(" Memosono is invisible: Close the connection to the Csound-Server. ")
-        if self.controler.cssock is not None:
-            self.controler.cssock.close()            
+        self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/disconnect", [])
