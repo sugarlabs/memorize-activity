@@ -5,18 +5,20 @@ import gtk
 
 from sugar.graphics import color
 
-from gameobject import GameObject
+from selectentry import SelectEntry
 
-class GameSelectView(gtk.ScrolledWindow):
-    __gtype_name__ = 'GameSelectView'
+class SelectView(gtk.ScrolledWindow):
+    __gtype_name__ = 'SelectView'
     
     __gsignals__ = {
         'entry-selected': (gobject.SIGNAL_RUN_FIRST,
                            gobject.TYPE_NONE,
                            ([object]))
         }
-        
-    def __init__(self, name):
+
+    _SELECTED = 1000000
+    _UNSELECTED = 3520189183
+    def __init__(self, names):
         gtk.ScrolledWindow.__init__(self)
 
         root = hippo.CanvasBox()
@@ -30,23 +32,22 @@ class GameSelectView(gtk.ScrolledWindow):
         self.turn = 0
         self.current = 0
         
-        tile_num = 0
-        numtiles = 2
-        while tile_num < numtiles:
-            
-            entry = GameObject(name[tile_num])
+        for name in names:
+            entry = SelectEntry(name)
             entry.connect('button-press-event', self._button_press_cb)
             root.append(entry)
-            self.current = entry
-            tile_num+=1
-
+            if name == names[0]:
+                self.current = entry            
+                entry.props.background_color = self._SELECTED
+                entry.emit_paint_needed(0, 0, -1, -1)
+                
         canvas.show()
         
     def _button_press_cb(self, entry, event, data=None):
-        entry.props.background_color = 1000
+        entry.props.background_color = self._SELECTED 
         entry.emit_paint_needed(0, 0, -1, -1)
         
-        self.current.props.background_color = 1000000
+        self.current.props.background_color = self._UNSELECTED
         self.current.emit_paint_needed(0, 0, -1, -1)
         self.current = entry
         self.emit('entry-selected', entry)

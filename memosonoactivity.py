@@ -20,107 +20,216 @@
 from gettext import gettext as _
 
 import gobject
-import gtk, pygtk
+import gtk
 import os
-import socket
 import logging
-import random
-import copy
-import time
-import errno
-import gc
+import dbus
+import telepathy
+import telepathy.client
 
 from sugar.activity.activity import Activity
 from sugar.activity.activity import ActivityToolbox
-
-from toolbar import ImageToolbar
+from sugar.presence import presenceservice
 
 from osc.oscapi import OscApi
 from csound.csoundserver import CsoundServer
-from gameselectview import GameSelectView
+from selectview import SelectView
+from playview import PlayView
+from toolbar import PlayToolbar
+from model import Game
+
 
 class MemosonoActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
         self.set_title ("Memosono")
 
+        self.sv = None
+        self.pv = None
         toolbox = ActivityToolbox(self)
         self.set_toolbox(toolbox)
         toolbox.show()
-        #toolbox._notebook.connect('select-page', self._select_page)
         toolbox._notebook.connect('switch-page', self._switch_page)
         
-        self.image_toolbar = ImageToolbar(toolbox)        
-        toolbox.add_toolbar(_('Play'), self.image_toolbar)
-        self.image_toolbar.show()
-
-        self.gs = GameSelectView(['drumgit','summer'])
-        self.gs.connect('entry-selected', self._entry_selected_cb)
-        self.set_canvas(self.gs)
-        self.gs.show()
-
-        self.play = GameSelectView(['play', 'play'])
+        self.play_toolbar = PlayToolbar(self)        
+        toolbox.add_toolbar(_('Play'), self.play_toolbar)
+        self.play_toolbar.show()        
         
-        '''
-        # create our main abiword canvas
-        self.abiword_canvas = Canvas()
-        self.abiword_canvas.connect("can-undo", self._can_undo_cb)
-        self.abiword_canvas.connect("can-redo", self._can_redo_cb)
-        self.abiword_canvas.connect('text-selected', self._selection_cb)
-        self.abiword_canvas.connect('image-selected', self._selection_cb)
-        self.abiword_canvas.connect('selection-cleared', self._selection_cleared_cb)
+        self.games = {}
 
-        self._edit_toolbar = EditToolbar()
+        os.path.walk(os.path.join(os.path.dirname(__file__), 'games'), self._find_games, None)
 
-        self._edit_toolbar.undo.set_sensitive(False)
-        self._edit_toolbar.undo.connect('clicked', self._undo_cb)
+        gamelist = self.games.keys()
+        gamelist.sort()
+        logging.debug(gamelist)
+        self.pv = PlayView(None, self.games[gamelist[0]].pairs)
+        self.pv.show()
+        self.sv = SelectView(gamelist)
+        self.sv.connect('entry-selected', self._entry_selected_cb)
+        self.sv.show()
+        
+        self.pservice = presenceservice.get_instance()
+        self.owner = self.pservice.get_owner()
 
-        self._edit_toolbar.redo.set_sensitive(False)
-        self._edit_toolbar.redo.connect('clicked', self._redo_cb)
+        bus = dbus.Bus()
+        name, path = self.pservice.get_preferred_connection()
+        self.tp_conn_name = name
+        self.tp_conn_path = path
+        self.conn = telepathy.client.Connection(name, path)
+        self.initiating = None
+        self.game = None
+        
+        self.connect('shared', self._shared_cb)
 
-        self._edit_toolbar.copy.connect('clicked', self._copy_cb)
-        self._edit_toolbar.paste.connect('clicked', self._paste_cb)
+        if self._shared_activity:
+            # we are joining the activity
+            self.buddies_panel.add_watcher(owner)
+            self.connect('joined', self._joined_cb)
+            self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+            self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+            if self.get_shared():
+                # oh, OK, we've already joined
+                self._joined_cb()
+        else:
+            # we are creating the activity
+            self.pv.buddies_panel .add_player(self.owner)
 
-        toolbox.add_toolbar(_('Edit'), self._edit_toolbar)
-        self._edit_toolbar.show()
 
-        text_toolbar = TextToolbar(toolbox, self.abiword_canvas)
-        toolbox.add_toolbar(_('Text'), text_toolbar)
-        text_toolbar.show()
+    def _shared_cb(self, activity):
+        logging.debug('My Memosono activity was shared')
+        self.initiating = True
+        self._setup()
 
-        image_toolbar = ImageToolbar(toolbox, self.abiword_canvas)
-        toolbox.add_toolbar(_('Image'), image_toolbar)
-        image_toolbar.show()
+        for buddy in self._shared_activity.get_joined_buddies():
+            self.pv.buddies_panel.add_watcher(buddy)
 
-        table_toolbar = TableToolbar(toolbox, self.abiword_canvas)
-        toolbox.add_toolbar(_('Table'), table_toolbar)
-        table_toolbar.show()
+        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
-        view_toolbar = ViewToolbar(self.abiword_canvas)
-        toolbox.add_toolbar(_('View'), view_toolbar)
-        view_toolbar.show()
+        logging.debug('This is my activity: making a tube...')
+        id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferTube(
+            telepathy.TUBE_TYPE_DBUS, 'org.fredektop.Telepathy.Tube.Memosono', {})
+        logging.debug('Tube address: %s', self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].GetDBusServerAddress(id))
+        logging.debug('Waiting for another player to join')
 
-        self.set_canvas(self.abiword_canvas)
-        self.abiword_canvas.show()
+    # FIXME: presence service should be tubes-aware and give us more help
+    # with this
+    def _setup(self):
+        if self._shared_activity is None:
+            logging.error('Failed to share or join activity')
+            return
 
-        self.abiword_canvas.connect_after('map', self._map_cb)
-        '''
+        bus_name, conn_path, channel_paths = self._shared_activity.get_channels()
 
+        # Work out what our room is called and whether we have Tubes already
+        room = None
+        tubes_chan = None
+        text_chan = None
+        for channel_path in channel_paths:
+            channel = telepathy.client.Channel(bus_name, channel_path)
+            htype, handle = channel.GetHandle()
+            if htype == telepathy.HANDLE_TYPE_ROOM:
+                logging.debug('Found our room: it has handle#%d "%s"',
+                    handle, self.conn.InspectHandles(htype, [handle])[0])
+                room = handle
+                ctype = channel.GetChannelType()
+                if ctype == telepathy.CHANNEL_TYPE_TUBES:
+                    logging.debug('Found our Tubes channel at %s', channel_path)
+                    tubes_chan = channel
+                elif ctype == telepathy.CHANNEL_TYPE_TEXT:
+                    logging.debug('Found our Text channel at %s', channel_path)
+                    text_chan = channel
+
+        if room is None:
+            logging.error("Presence service didn't create a room")
+            return
+        if text_chan is None:
+            logging.error("Presence service didn't create a text channel")
+            return
+
+        # Make sure we have a Tubes channel - PS doesn't yet provide one
+        if tubes_chan is None:
+            logging.debug("Didn't find our Tubes channel, requesting one...")
+            tubes_chan = self.conn.request_channel(telepathy.CHANNEL_TYPE_TUBES,
+                telepathy.HANDLE_TYPE_ROOM, room, True)
+
+        self.tubes_chan = tubes_chan
+        self.text_chan = text_chan
+
+        tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal('NewTube',
+            self._new_tube_cb)
+
+    def _list_tubes_reply_cb(self, tubes):
+        for tube_info in tubes:
+            self._new_tube_cb(*tube_info)
+
+    def _list_tubes_error_cb(self, e):
+        logging.error('ListTubes() failed: %s', e)
+
+    def _joined_cb(self, activity):
+        if self.game is not None:
+            return
+
+        if not self._shared_activity:
+            return
+
+        for buddy in self._shared_activity.get_joined_buddies():
+            self.pv.buddies_panel.add_watcher(buddy)
+
+        logging.debug('Joined an existing Connect game')
+        logging.debug('Joined a game. Waiting for my turn...')
+        self.initiating = False
+        self._setup()
+
+        logging.debug('This is not my activity: waiting for a tube...')
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
+            reply_handler=self._list_tubes_reply_cb,
+            error_handler=self._list_tubes_error_cb)
+
+    def _new_tube_cb(self, id, initiator, type, service, params, state):
+        logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
+                     'params=%r state=%d', id, initiator, type, service,
+                     params, state)
+
+        if (self.game is None and type == telepathy.TUBE_TYPE_DBUS and
+            service == 'org.fredektop.Telepathy.Tube.Memosono'):
+            if state == telepathy.TUBE_STATE_LOCAL_PENDING:
+                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptTube(id)
+
+            tube_conn = TubeConnection(self.conn,
+                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES],
+                id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
+            self.game = ConnectGame(tube_conn, self.grid, self.initiating,
+                self.pv.buddies_panel, self.info_panel, self.owner,
+                self._get_buddy, self)
+
+    def _buddy_joined_cb (self, activity, buddy):
+        logging.debug('buddy joined')
+        self.pv.buddies_panel.add_watcher(buddy)
+
+    def _buddy_left_cb (self,  activity, buddy):
+        logging.debug('buddy left')
+        self.pv.buddies_panel.remove_watcher(buddy)
+        
+        
+    def _find_games(self, arg, dirname, names):
+        for name in names:
+            if name.endswith('.mson'): 
+                game = Game(dirname, os.path.dirname(__file__))
+                game.read(name)
+                self.games[name.split('.mson')[0]] = game
+                
     def _entry_selected_cb(self, list_view, entry):
-        self.set_canvas(self.play)
-        self.play.show()
-
-        #def _select_page(self, notebook, move_focus, user_param1 ):
-        #print '+++++ select page'
+        self.pv = PlayView(None, self.games[entry.name].pairs)
+        self.pv.show()
         
     def _switch_page(self, notebook, page, page_num, user_param1=None):
+        if page_num == 1:
+            self.set_canvas(self.pv)
+        elif page_num == 0:
+            if self.sv != None:
+                self.set_canvas(self.sv)
         
-        print '+++++ switch page %s'%str(page_num)
-        
-     # def get_nth_page(page_num)
-     # page_num :	the index of a page in the notebook
-     # Returns :	the child widget, or None if page_num is out of bounds.
-     
     def _cleanup_cb(self, data=None):
         pass
         #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/quit", [])

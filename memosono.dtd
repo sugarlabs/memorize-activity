@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT memosono (#PCDATA|pair)*>
+<!ATTLIST memosono
+  name    CDATA   #REQUIRED
+>
+
+<!ELEMENT pair (#PCDATA)* >
+<!ATTLIST pair
+  id      CDATA  #REQUIRED
+  mother  CDATA  #REQUIRED
+  child	  CDATA  #REQUIRED
+  color	  CDATA  #REQUIRED
+>
