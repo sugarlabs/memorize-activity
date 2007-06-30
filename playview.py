@@ -7,11 +7,9 @@ from sugar.graphics import color
 from sugar.graphics import font
 
 from playtile import PlayTile
-from playpoints import PlayPoints
-from buddiespanel import BuddiesPanel
 
 class PlayView(hippo.Canvas):
-    def __init__(self, oscapi, pairs):
+    def __init__(self, pairs):
         hippo.Canvas.__init__(self)
 
         root = hippo.CanvasBox()
@@ -20,24 +18,9 @@ class PlayView(hippo.Canvas):
         tilebox = hippo.CanvasBox()
         tilebox.props.orientation = hippo.ORIENTATION_VERTICAL
         root.append(tilebox)
-
-        self.buddies_panel = BuddiesPanel()
-        root.append(self.buddies_panel)
-        
-        '''
-        pointsbox = hippo.CanvasBox()
-        pointsbox.props.orientation = hippo.ORIENTATION_VERTICAL
-        root.append(pointsbox)
-
-        point = PlayPoints('erwin')           
-        pointsbox.append(point)
-        point = PlayPoints('richard')           
-        pointsbox.append(point)
-        '''
-        
-        self.oscapi = oscapi
+                        
         self.tiles = []
-        self.turn = 0
+        self.turn = 1
         
         tile_num = 0
         numtiles = len(pairs)*2
@@ -59,7 +42,7 @@ class PlayView(hippo.Canvas):
         
     def _button_press_cb(self, tile, event, data=None):
         if self.turn:
-            self.oscapi.send(('127.0.0.1', 40000), "/MEMOSONO/tile/chosen", [data])
+            print data
         else:
             print 'it is not your turn'
             

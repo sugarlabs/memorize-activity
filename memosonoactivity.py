@@ -31,30 +31,22 @@ from sugar.activity.activity import Activity
 from sugar.activity.activity import ActivityToolbox
 from sugar.presence import presenceservice
 
-from osc.oscapi import OscApi
 from csound.csoundserver import CsoundServer
-from selectview import SelectView
 from playview import PlayView
-from toolbar import PlayToolbar
+#from toolbar import PlayToolbar
 from model import Game
-
+from game import ConnectGame
 
 class MemosonoActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
         self.set_title ("Memosono")
 
-        self.sv = None
         self.pv = None
         toolbox = ActivityToolbox(self)
         self.set_toolbox(toolbox)
         toolbox.show()
-        toolbox._notebook.connect('switch-page', self._switch_page)
-        
-        self.play_toolbar = PlayToolbar(self)        
-        toolbox.add_toolbar(_('Play'), self.play_toolbar)
-        self.play_toolbar.show()        
-        
+                
         self.games = {}
 
         os.path.walk(os.path.join(os.path.dirname(__file__), 'games'), self._find_games, None)
@@ -64,9 +56,6 @@ class MemosonoActivity(Activity):
         logging.debug(gamelist)
         self.pv = PlayView(None, self.games[gamelist[0]].pairs)
         self.pv.show()
-        self.sv = SelectView(gamelist)
-        self.sv.connect('entry-selected', self._entry_selected_cb)
-        self.sv.show()
         
         self.pservice = presenceservice.get_instance()
         self.owner = self.pservice.get_owner()
@@ -219,17 +208,6 @@ class MemosonoActivity(Activity):
                 game.read(name)
                 self.games[name.split('.mson')[0]] = game
                 
-    def _entry_selected_cb(self, list_view, entry):
-        self.pv = PlayView(None, self.games[entry.name].pairs)
-        self.pv.show()
-        
-    def _switch_page(self, notebook, page, page_num, user_param1=None):
-        if page_num == 1:
-            self.set_canvas(self.pv)
-        elif page_num == 0:
-            if self.sv != None:
-                self.set_canvas(self.sv)
-        
     def _cleanup_cb(self, data=None):
         pass
         #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/quit", [])
