@@ -2,7 +2,7 @@ import libxml2
 import os
 import logging
 
-class Game(object):
+class Model(object):
     def __init__(self, gamepath, dtdpath, name='noname'):
         self.name = name
         self.pairs = {}
@@ -71,19 +71,19 @@ class Game(object):
 if __name__ == '__main__':
     
     print "[Read game from file] "        
-    game = Game()
-    game.read('memosono.xml')
-    print "   name=" + game.name
-    print "   pairs=%s" %game.pairs
+    model = Model()
+    model.read('memosono.xml')
+    print "   name=" + model.name
+    print "   pairs=%s" %model.pairs
 
     elemkey = '0'
-    if game.pairs.has_key(elemkey):
-        del game.pairs[elemkey]
+    if model.pairs.has_key(elemkey):
+        del model.pairs[elemkey]
         
-    game.pairs['2'] = ['frettchen.jpg', 'frettchen.wav']
+    model.pairs['2'] = ['frettchen.jpg', 'frettchen.wav']
 
     print "[Write game to file] "        
-    game.save('memosono.xml')
+    model.save('memosono.xml')
         
 
     
