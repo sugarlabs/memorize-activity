@@ -33,6 +33,7 @@ class ConnectGame(ExportedGObject):
         self._get_buddy = get_buddy
         self.activity = activity
 
+        self.turn = None
         # list indexed by player ID
         # 0, 1 are players 0, 1
         # 2+ are the spectator queue, 2 is to play next
@@ -86,7 +87,7 @@ class ConnectGame(ExportedGObject):
         up to date with the game state.
         """
 
-    @method(dbus_interface=IFACE, in_signature='a(nn)', out_signature='')
+    @method(dbus_interface=IFACE, in_signature='a(nn)as', out_signature='')
     def Welcome(self, grid, bus_names):
         """To be called on the incoming player by the other players to
         inform them of the game state.
@@ -122,7 +123,7 @@ class ConnectGame(ExportedGObject):
             path=PATH, sender_keyword='sender')
 
     @signal(dbus_interface=IFACE, signature='nsn')
-    def Flip(self, tilenum):
+    def Flip(self, tilenum, obj, color):
         """Signal that the local player has flipped a tile."""
 
     def hello_cb(self, sender=None):
@@ -142,7 +143,7 @@ class ConnectGame(ExportedGObject):
                           "I go first")
             self.change_turn()
 
-    def flip_cb(self, tilenum, sender=None):
+    def flip_cb(self, tilenum, obj, color, sender=None):
         handle = self.tube.bus_name_to_handle[sender]
         _logger.debug('Flipped tile(%d) from %s', tilenum, sender)
 
@@ -157,7 +158,7 @@ class ConnectGame(ExportedGObject):
 
     def change_turn(self):
         pass
-'''
+    '''
         try:
             bus_name = self.ordered_bus_names[self.get_active_player()]
             buddy = self._get_buddy(self.tube.bus_name_to_handle[bus_name])
@@ -186,7 +187,7 @@ class ConnectGame(ExportedGObject):
             return 1
         else:
             return 0
-'''
+    '''
     def _button_press_cb(self, tile, event, tilenum=None):
         if self.turn is None:
             _logger.debug('Ignoring flip - not my turn')
@@ -198,5 +199,5 @@ class ConnectGame(ExportedGObject):
         color = self.model.pairs[pairkey][2]
         logger.debug('obj=%s color=%s'%(obj, color))
 
-        self.Flipp(tilenum, obj, color)
+        self.Flip(tilenum, obj, color)
         

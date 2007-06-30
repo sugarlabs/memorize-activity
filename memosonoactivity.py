@@ -26,11 +26,13 @@ import logging
 import dbus
 import telepathy
 import telepathy.client
+import hippo
 
 from sugar.activity.activity import Activity
 from sugar.activity.activity import ActivityToolbox
 from sugar.presence import presenceservice
 
+from tubeconn import TubeConnection
 from playview import PlayView
 from buddiespanel import BuddiesPanel
 from infopanel import InfoPanel
@@ -45,7 +47,7 @@ class MemosonoActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
 
-        logger.debug('Starting Memosono activity...')
+        logging.debug('Starting Memosono activity...')
 
         self.set_title(_('Memsosono Activity'))
 
@@ -54,17 +56,16 @@ class MemosonoActivity(Activity):
         self.model.def_grid()
         
         self.pv = PlayView( len(self.model.grid) )
-        self.pv.show()
 
         self.buddies_panel = BuddiesPanel()
 
         self.info_panel = InfoPanel()
 
         vbox = hippo.CanvasBox(spacing=4,
-            orientation=hippo.ORIENTATION_VERTICAL)
+                               orientation=hippo.ORIENTATION_VERTICAL)
 
         hbox = hippo.CanvasBox(spacing=4,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
+                               orientation=hippo.ORIENTATION_HORIZONTAL)
 
         hbox.append(self.buddies_panel)
         hbox.append(self.pv, hippo.PACK_EXPAND)
@@ -77,9 +78,11 @@ class MemosonoActivity(Activity):
         self.set_canvas(canvas)
         self.show_all()
         
-        
+        toolbox = ActivityToolbox(self)
+        self.set_toolbox(toolbox)
+        toolbox.show()
+
         self.pservice = presenceservice.get_instance()
-        self.owner = self.pservice.get_owner()
 
         bus = dbus.Bus()
         name, path = self.pservice.get_preferred_connection()
@@ -87,9 +90,19 @@ class MemosonoActivity(Activity):
         self.tp_conn_path = path
         self.conn = telepathy.client.Connection(name, path)
         self.initiating = None
+
         self.game = None
-        
+
+        toolbox = ActivityToolbox(self)
+        self.set_toolbox(toolbox)
+        toolbox.show()
+
+        self.info_panel.show('To play, share!')
+
         self.connect('shared', self._shared_cb)
+
+        owner = self.pservice.get_owner()
+        self.owner = owner
 
         if self._shared_activity:
             # we are joining the activity
@@ -102,8 +115,9 @@ class MemosonoActivity(Activity):
                 self._joined_cb()
         else:
             # we are creating the activity
-            self.pv.buddies_panel .add_player(self.owner)
-
+            self.buddies_panel.add_player(owner)
+            #self.buddies_panel.set_is_playing(owner)
+            #self.buddies_panel.set_count(owner, 69)
 
     def _shared_cb(self, activity):
         logging.debug('My Memosono activity was shared')
@@ -111,7 +125,7 @@ class MemosonoActivity(Activity):
         self._setup()
 
         for buddy in self._shared_activity.get_joined_buddies():
-            self.pv.buddies_panel.add_watcher(buddy)
+            self.buddies_panel.add_watcher(buddy)
 
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
@@ -184,7 +198,7 @@ class MemosonoActivity(Activity):
             return
 
         for buddy in self._shared_activity.get_joined_buddies():
-            self.pv.buddies_panel.add_watcher(buddy)
+            self.buddies_panel.add_watcher(buddy)
 
         logging.debug('Joined an existing Connect game')
         logging.debug('Joined a game. Waiting for my turn...')
@@ -195,6 +209,30 @@ class MemosonoActivity(Activity):
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self._list_tubes_reply_cb,
             error_handler=self._list_tubes_error_cb)
+
+    def _get_buddy(self, cs_handle):
+        """Get a Buddy from a channel specific handle."""
+        logging.debug('Trying to find owner of handle %u...', cs_handle)
+        group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
+        my_csh = group.GetSelfHandle()
+        logging.debug('My handle in that group is %u', my_csh)
+        if my_csh == cs_handle:
+            handle = self.conn.GetSelfHandle()
+            logging.debug('CS handle %u belongs to me, %u', cs_handle, handle)
+        elif group.GetGroupFlags() & telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
+            handle = group.GetHandleOwners([cs_handle])[0]
+            logging.debug('CS handle %u belongs to %u', cs_handle, handle)
+        else:
+            handle = cs_handle
+            logging.debug('non-CS handle %u belongs to itself', handle)
+
+            # XXX: deal with failure to get the handle owner
+            assert handle != 0
+
+        # XXX: we're assuming that we have Buddy objects for all contacts -
+        # this might break when the server becomes scalable.
+        return self.pservice.get_buddy_by_telepathy_handle(self.tp_conn_name,
+                self.tp_conn_path, handle)
 
     def _new_tube_cb(self, id, initiator, type, service, params, state):
         logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
@@ -210,16 +248,16 @@ class MemosonoActivity(Activity):
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES],
                 id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
             self.game = ConnectGame(tube_conn, self.pv, self.model, self.initiating,
-                self.pv.buddies_panel, self.info_panel, self.owner,
+                self.buddies_panel, self.info_panel, self.owner,
                 self._get_buddy, self)
 
-    def _buddy_joined_cb (self, activity, buddy):
+    def _buddy_joined_cb(self, activity, buddy):
         logging.debug('buddy joined')
-        self.pv.buddies_panel.add_watcher(buddy)
+        self.buddies_panel.add_watcher(buddy)
 
-    def _buddy_left_cb (self,  activity, buddy):
+    def _buddy_left_cb(self,  activity, buddy):
         logging.debug('buddy left')
-        self.pv.buddies_panel.remove_watcher(buddy)
+        self.buddies_panel.remove_watcher(buddy)
         
 
 

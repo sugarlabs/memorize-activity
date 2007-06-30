@@ -8,16 +8,11 @@ from sugar.graphics import font
 
 from playtile import PlayTile
 
-class PlayView(hippo.Canvas):
-    def __init__(self, numtiles):
-        hippo.Canvas.__init__(self)
+class PlayView(hippo.CanvasBox, hippo.CanvasItem):    
+    def __init__(self, numtiles, **kargs):
+        hippo.CanvasBox.__init__(self, **kargs)
 
-        root = hippo.CanvasBox()
-        root.props.orientation = hippo.ORIENTATION_HORIZONTAL
-
-        tilebox = hippo.CanvasBox()
-        tilebox.props.orientation = hippo.ORIENTATION_VERTICAL
-        root.append(tilebox)
+        self.props.orientation = hippo.ORIENTATION_VERTICAL
                         
         self.tiles = []
         
@@ -27,16 +22,13 @@ class PlayView(hippo.Canvas):
             if tile_num == 0 or ((tile_num)%4) == 0:
                 box = hippo.CanvasBox()
                 box.props.orientation = hippo.ORIENTATION_HORIZONTAL
-                tilebox.append(box)
+                self.append(box)
                 
             tile = PlayTile(tile_num)                   
             self.tiles.append(tile)            
             box.append(tile)
         
-            tile_num+=1        
-            
-        self.set_root(root)
-        self.show()
+            tile_num+=1                    
             
     def flip(self, tile_num, obj, color):    
         tile = self.tiles[tile_num]

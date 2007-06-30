@@ -71,7 +71,7 @@ class Model(object):
         doc.freeDoc()    
 
     def def_grid(self):
-        print 'pairs: %s' %self.model.pairs
+        print 'pairs: %s' %self.pairs
         ### create grid from pairs information
         for key in self.pairs.iterkeys():
             self.grid.append((key, 0))
