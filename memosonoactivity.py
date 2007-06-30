@@ -31,31 +31,52 @@ from sugar.activity.activity import Activity
 from sugar.activity.activity import ActivityToolbox
 from sugar.presence import presenceservice
 
-from csound.csoundserver import CsoundServer
 from playview import PlayView
-#from toolbar import PlayToolbar
-from model import Game
+from buddiespanel import BuddiesPanel
+from infopanel import InfoPanel
+from model import Model
 from game import ConnectGame
+
+
+GAME_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit')
+IMAGES_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit/images')
 
 class MemosonoActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
-        self.set_title ("Memosono")
 
-        self.pv = None
-        toolbox = ActivityToolbox(self)
-        self.set_toolbox(toolbox)
-        toolbox.show()
-                
-        self.games = {}
+        logger.debug('Starting Memosono activity...')
 
-        os.path.walk(os.path.join(os.path.dirname(__file__), 'games'), self._find_games, None)
+        self.set_title(_('Memsosono Activity'))
 
-        gamelist = self.games.keys()
-        gamelist.sort()
-        logging.debug(gamelist)
-        self.pv = PlayView(None, self.games[gamelist[0]].pairs)
+        self.model = Model(GAME_PATH, os.path.dirname(__file__))
+        self.model.read('drumgit.mson')        
+        self.model.def_grid()
+        
+        self.pv = PlayView( len(self.model.grid) )
         self.pv.show()
+
+        self.buddies_panel = BuddiesPanel()
+
+        self.info_panel = InfoPanel()
+
+        vbox = hippo.CanvasBox(spacing=4,
+            orientation=hippo.ORIENTATION_VERTICAL)
+
+        hbox = hippo.CanvasBox(spacing=4,
+            orientation=hippo.ORIENTATION_HORIZONTAL)
+
+        hbox.append(self.buddies_panel)
+        hbox.append(self.pv, hippo.PACK_EXPAND)
+        
+        vbox.append(hbox, hippo.PACK_EXPAND)
+        vbox.append(self.info_panel, hippo.PACK_END)
+
+        canvas = hippo.Canvas()
+        canvas.set_root(vbox)
+        self.set_canvas(canvas)
+        self.show_all()
+        
         
         self.pservice = presenceservice.get_instance()
         self.owner = self.pservice.get_owner()
@@ -188,7 +209,7 @@ class MemosonoActivity(Activity):
             tube_conn = TubeConnection(self.conn,
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES],
                 id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
-            self.game = ConnectGame(tube_conn, self.grid, self.initiating,
+            self.game = ConnectGame(tube_conn, self.pv, self.model, self.initiating,
                 self.pv.buddies_panel, self.info_panel, self.owner,
                 self._get_buddy, self)
 
@@ -200,27 +221,5 @@ class MemosonoActivity(Activity):
         logging.debug('buddy left')
         self.pv.buddies_panel.remove_watcher(buddy)
         
-        
-    def _find_games(self, arg, dirname, names):
-        for name in names:
-            if name.endswith('.mson'): 
-                game = Game(dirname, os.path.dirname(__file__))
-                game.read(name)
-                self.games[name.split('.mson')[0]] = game
-                
-    def _cleanup_cb(self, data=None):
-        pass
-        #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/quit", [])
-        #self.controler.oscapi.iosock.close()
-        #self.server.oscapi.iosock.close()
-        #logging.debug(" Closed OSC sockets ")
-        
-    def _focus_in(self, event, data=None):
-        pass
-        #logging.debug(" Memosono is visible: Connect to the Csound-Server. ")
-        #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/connect", [])
-        
-    def _focus_out(self, event, data=None):
-        pass
-        #logging.debug(" Memosono is invisible: Close the connection to the Csound-Server. ")
-        #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/disconnect", [])
+
+

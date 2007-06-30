@@ -1,11 +1,13 @@
 import libxml2
 import os
 import logging
+import random
 
 class Model(object):
     def __init__(self, gamepath, dtdpath, name='noname'):
         self.name = name
         self.pairs = {}
+        self.grid = []
         self.gamepath = gamepath
         self.dtdpath = dtdpath
 
@@ -67,7 +69,19 @@ class Model(object):
         if doc.validateDtd(self.ctxt, self.dtd):
             doc.saveFormatFile(filename, 1)
         doc.freeDoc()    
-            
+
+    def def_grid(self):
+        print 'pairs: %s' %self.model.pairs
+        ### create grid from pairs information
+        for key in self.pairs.iterkeys():
+            self.grid.append((key, 0))
+            self.grid.append((key, 1))
+        print 'self.grid: %s'%self.grid
+
+        ### shuffle the grid tiles
+        random.shuffle(self.grid)
+        print 'self.grid after shufle: %s'%self.grid
+
 if __name__ == '__main__':
     
     print "[Read game from file] "        
