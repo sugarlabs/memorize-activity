@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <memosono name="drumgit">
- <pair id="1" mother="guitar12_2.jpg" child="guitar12_2.jpg" color="12345" />
- <pair id="2" mother="drumkit2_b.jpg" child="drumkit2_b.jpg" color="234567" />
- <pair id="3" mother="guitar8_2.jpg" child="guitar8_2.jpg" color="23456767" /> 
+ <pair id="1" mother="guitar12_2.jpg" child="guitar12_2.jpg" color="100" />
+ <pair id="2" mother="drumkit2_b.jpg" child="drumkit2_b.jpg" color="100" />
+ <pair id="3" mother="guitar8_2.jpg" child="guitar8_2.jpg" color="100" /> 
 </memosono>
 
 <!--

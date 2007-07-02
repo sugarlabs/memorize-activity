@@ -1,6 +1,7 @@
 import logging
 
 import gtk
+import os
 
 from dbus import Interface
 from dbus.service import method, signal
@@ -33,7 +34,10 @@ class ConnectGame(ExportedGObject):
         self._get_buddy = get_buddy
         self.activity = activity
 
-        self.turn = None
+        self.active_player = 1
+        self.count = 0
+        self.points = {}
+        
         # list indexed by player ID
         # 0, 1 are players 0, 1
         # 2+ are the spectator queue, 2 is to play next
@@ -75,6 +79,7 @@ class ConnectGame(ExportedGObject):
                 self.add_hello_handler()
                 self.ordered_bus_names = [self.tube.get_unique_name()]
                 self.player_id = 0
+                self.points[self.player_id] = 0
                 self.buddies_panel.add_player(self.owner)
             else:
                 _logger.debug('Hello, everyone! What did I miss?')
@@ -87,7 +92,7 @@ class ConnectGame(ExportedGObject):
         up to date with the game state.
         """
 
-    @method(dbus_interface=IFACE, in_signature='a(nn)as', out_signature='')
+    @method(dbus_interface=IFACE, in_signature='aanas', out_signature='')
     def Welcome(self, grid, bus_names):
         """To be called on the incoming player by the other players to
         inform them of the game state.
@@ -100,10 +105,12 @@ class ConnectGame(ExportedGObject):
         if self.player_id is None:
             _logger.debug('Welcomed to the game. Player bus names are %r',
                           bus_names)
+            _logger.debug('Received the grid:  %s', str(grid))
             self.model.grid = grid
 
             self.ordered_bus_names = bus_names
             self.player_id = bus_names.index(self.tube.get_unique_name())
+            self.points[self.player_id] = 0
             # OK, now I'm synched with the game, I can welcome others
             self.add_hello_handler()
 
@@ -112,7 +119,7 @@ class ConnectGame(ExportedGObject):
             buddy = self._get_buddy(self.tube.bus_name_to_handle[bus_names[1]])
             self.buddies_panel.add_player(buddy)
 
-            if self.get_active_player() == self.player_id:
+            if self.active_player == self.player_id:
                 _logger.debug("It's my turn already!")
                 self.change_turn()
         else:
@@ -135,9 +142,11 @@ class ConnectGame(ExportedGObject):
             self.buddies_panel.add_player(buddy)
         _logger.debug('Bus names are now: %r', self.ordered_bus_names)
         _logger.debug('Welcoming newcomer and sending them the game state')
+        grid = 0
         self.tube.get_object(sender, PATH).Welcome(self.model.grid,
                                                    self.ordered_bus_names,
                                                    dbus_interface=IFACE)
+        _logger.debug('--- After welcome')
         if (self.player_id == 0 and len(self.ordered_bus_names) == 2):
             _logger.debug("This is my game and an opponent has joined. "
                           "I go first")
@@ -148,56 +157,54 @@ class ConnectGame(ExportedGObject):
         _logger.debug('Flipped tile(%d) from %s', tilenum, sender)
 
         self.pv.flip(tilenum, obj, color)            
-        
-        if winner is not None:
-            _logger.debug('Player with handle %d wins', handle)
-            self.info_panel.show('The other player wins!')
-            return
 
-        self.change_turn()
+        self.count+=1
+        if self.count == 1:
+            self.comp = tilenum
+        if self.count == 2:            
+            self.count = 0
+            # evaluate 
+            if( self.model.same(tilenum, self.comp) == 1):                
+                _logger.debug('Tile(%d) and (%d) are the same', tilenum, self.comp)
+                buddy = self._get_buddy(handle)
+                self.points[self.active_player]+=1
+                self.buddies_panel.set_count(buddy, self.points[self.active_player])
+                self.info_panel.show('Open another one')
+            else:
+                _logger.debug('Tile(%d) and (%d) are NOT the same', tilenum, self.comp)
+                # next player
+                self.change_turn()
 
     def change_turn(self):
-        pass
-    '''
+        self.set_active_player()
         try:
-            bus_name = self.ordered_bus_names[self.get_active_player()]
+            bus_name = self.ordered_bus_names[self.active_player]
             buddy = self._get_buddy(self.tube.bus_name_to_handle[bus_name])
             self.buddies_panel.set_is_playing(buddy)
         except:
             _logger.error('argh!', exc_info=1)
             raise
 
-        if self.get_active_player() == self.player_id:
+        if self.active_player == self.player_id:
             _logger.debug('It\'s my turn now')
             self.info_panel.show('Your turn')
             self.activity.grab_focus()
         else:
             _logger.debug('It\'s not my turn')
+            self.info_panel.show('Other player\'s turn')
+            
 
-
-    def get_active_player(self):
-        count = {}
-
-        for row in self.grid.grid:
-            for player in row:
-                if player > -1:
-                    count[player] = count.get(player, 0) + 1
-
-        if count.get(0, 0) > count.get(1, 0):
-            return 1
+    def set_active_player(self):
+        if self.active_player == 0:
+            self.active_player = 1
         else:
-            return 0
-    '''
-    def _button_press_cb(self, tile, event, tilenum=None):
-        if self.turn is None:
-            _logger.debug('Ignoring flip - not my turn')
-            return
-        
-        _logger.debug('selected tile=%s'%str(tilenum))
-        pairkey, moch = self.grid[tilenum]
-        obj = os.path.join(IMAGES_PATH, self.model.pairs[pairkey][moch])
-        color = self.model.pairs[pairkey][2]
-        logger.debug('obj=%s color=%s'%(obj, color))
+            self.active_player = 0
 
-        self.Flip(tilenum, obj, color)
+    def _button_press_cb(self, tile, event, tilenum=None):
+        if self.active_player != self.player_id:
+            _logger.debug('Ignoring flip - not my turn')
+        else:        
+            _logger.debug('selected tile=%s'%str(tilenum))
+            obj, color = self.model.gettile(tilenum)
+            self.Flip(tilenum, obj, color)
         

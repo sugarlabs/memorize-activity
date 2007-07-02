@@ -3,6 +3,8 @@ import os
 import logging
 import random
 
+IMAGES_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit/images')
+
 class Model(object):
     def __init__(self, gamepath, dtdpath, name='noname'):
         self.name = name
@@ -31,12 +33,12 @@ class Model(object):
                 for elem in res:
                     attributes = elem.get_properties()
                     pair = []
-                    idpair = ''
+                    idpair = 0
                     for attribute in attributes:
                         if(attribute.name == 'text'):
                             pass
                         if(attribute.name == 'id'):
-                            idpair = attribute.content
+                            idpair = int(attribute.content)
                         if(attribute.name == 'mother'):
                             pair.append(attribute.content)
                         if(attribute.name == 'child'):
@@ -82,6 +84,18 @@ class Model(object):
         random.shuffle(self.grid)
         print 'self.grid after shufle: %s'%self.grid
 
+    def gettile(self, tilenum):
+        pairkey, moch = self.grid[tilenum]
+        obj = os.path.join(IMAGES_PATH, self.pairs[pairkey][moch])
+        color = self.pairs[pairkey][2]
+        # logger.debug('obj=%s color=%s'%(obj, color))
+        return (obj, color)
+
+    def same(self, a, b):
+        pairkeya, moch = self.grid[a]
+        pairkeyb, moch = self.grid[b]
+        return (pairkeya == pairkeyb)
+        
 if __name__ == '__main__':
     
     print "[Read game from file] "        

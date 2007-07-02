@@ -41,7 +41,6 @@ from game import ConnectGame
 
 
 GAME_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit')
-IMAGES_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit/images')
 
 class MemosonoActivity(Activity):
     def __init__(self, handle):
@@ -119,6 +118,30 @@ class MemosonoActivity(Activity):
             #self.buddies_panel.set_is_playing(owner)
             #self.buddies_panel.set_count(owner, 69)
 
+    def _get_buddy(self, cs_handle):
+        """Get a Buddy from a channel specific handle."""
+        logging.debug('Trying to find owner of handle %u...', cs_handle)
+        group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
+        my_csh = group.GetSelfHandle()
+        logging.debug('My handle in that group is %u', my_csh)
+        if my_csh == cs_handle:
+            handle = self.conn.GetSelfHandle()
+            logging.debug('CS handle %u belongs to me, %u', cs_handle, handle)
+        elif group.GetGroupFlags() & telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
+            handle = group.GetHandleOwners([cs_handle])[0]
+            logging.debug('CS handle %u belongs to %u', cs_handle, handle)
+        else:
+            handle = cs_handle
+            logging.debug('non-CS handle %u belongs to itself', handle)
+
+            # XXX: deal with failure to get the handle owner
+            assert handle != 0
+
+        # XXX: we're assuming that we have Buddy objects for all contacts -
+        # this might break when the server becomes scalable.
+        return self.pservice.get_buddy_by_telepathy_handle(self.tp_conn_name,
+                self.tp_conn_path, handle)
+
     def _shared_cb(self, activity):
         logging.debug('My Memosono activity was shared')
         self.initiating = True
@@ -134,7 +157,7 @@ class MemosonoActivity(Activity):
         id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferTube(
             telepathy.TUBE_TYPE_DBUS, 'org.fredektop.Telepathy.Tube.Memosono', {})
         logging.debug('Tube address: %s', self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].GetDBusServerAddress(id))
-        logging.debug('Waiting for another player to join')
+        self.info_panel.show('Waiting for another player to join')
 
     # FIXME: presence service should be tubes-aware and give us more help
     # with this
@@ -200,8 +223,8 @@ class MemosonoActivity(Activity):
         for buddy in self._shared_activity.get_joined_buddies():
             self.buddies_panel.add_watcher(buddy)
 
-        logging.debug('Joined an existing Connect game')
-        logging.debug('Joined a game. Waiting for my turn...')
+        logging.debug('Joined an existing Memosono game')
+        self.info_panel.show('Joined a game. Waiting for my turn...')
         self.initiating = False
         self._setup()
 
@@ -209,30 +232,6 @@ class MemosonoActivity(Activity):
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self._list_tubes_reply_cb,
             error_handler=self._list_tubes_error_cb)
-
-    def _get_buddy(self, cs_handle):
-        """Get a Buddy from a channel specific handle."""
-        logging.debug('Trying to find owner of handle %u...', cs_handle)
-        group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
-        my_csh = group.GetSelfHandle()
-        logging.debug('My handle in that group is %u', my_csh)
-        if my_csh == cs_handle:
-            handle = self.conn.GetSelfHandle()
-            logging.debug('CS handle %u belongs to me, %u', cs_handle, handle)
-        elif group.GetGroupFlags() & telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
-            handle = group.GetHandleOwners([cs_handle])[0]
-            logging.debug('CS handle %u belongs to %u', cs_handle, handle)
-        else:
-            handle = cs_handle
-            logging.debug('non-CS handle %u belongs to itself', handle)
-
-            # XXX: deal with failure to get the handle owner
-            assert handle != 0
-
-        # XXX: we're assuming that we have Buddy objects for all contacts -
-        # this might break when the server becomes scalable.
-        return self.pservice.get_buddy_by_telepathy_handle(self.tp_conn_name,
-                self.tp_conn_path, handle)
 
     def _new_tube_cb(self, id, initiator, type, service, params, state):
         logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
