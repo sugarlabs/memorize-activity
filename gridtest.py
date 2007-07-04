@@ -1,6 +1,8 @@
 import gtk
 import os
 import random
+import hippo
+import gobject
 
 from playview import PlayView
 from model import Model
@@ -29,11 +31,18 @@ class Test(object):
         self.pv = PlayView( len(self.grid) )
         for tile in self.pv.tiles:
             tile.connect('button-press-event', self._button_press_cb, self.pv.tiles.index(tile))
-    
+
+        hbox = hippo.CanvasBox(spacing=4,
+                               orientation=hippo.ORIENTATION_HORIZONTAL)
+        hbox.append(self.pv, hippo.PACK_EXPAND)
+        
+        canvas = hippo.Canvas()
+        canvas.set_root(hbox)
+
         window = gtk.Window()
         window.connect('destroy', gtk.main_quit)
         window.connect('key-press-event', self.key_press_cb)
-        window.add(self.pv)
+        window.add(canvas)
         window.show_all()
         try:
             gtk.main()
@@ -51,7 +60,12 @@ class Test(object):
         color = self.model.pairs[pairkey][2]
         print 'obj=%s color=%s'%(obj, color)
         self.pv.flip(tilenum, obj, color)
-        
+        gobject.timeout_add(2000, self._turn_back, tilenum) 
+
+    def _turn_back(self, tilenum):
+        self.pv.flip(tilenum, os.path.join(os.path.dirname(__file__), 'images/black.png'), 100)
+        return False
+    
 if __name__ == '__main__':
     Test()
 

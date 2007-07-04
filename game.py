@@ -1,5 +1,6 @@
 import logging
 
+import gobject
 import gtk
 import os
 
@@ -171,10 +172,16 @@ class ConnectGame(ExportedGObject):
                 self.buddies_panel.set_count(buddy, self.points[self.active_player])
                 self.info_panel.show('Open another one')
             else:
+                gobject.timeout_add(2000, self._turn_back, tilenum, self.comp)
                 _logger.debug('Tile(%d) and (%d) are NOT the same', tilenum, self.comp)
                 # next player
                 self.change_turn()
 
+    def _turn_back(self, tilenuma, tilenumb):
+        self.pv.flip(tilenuma, os.path.join(os.path.dirname(__file__), 'images/black.png'), 100)
+        self.pv.flip(tilenumb, os.path.join(os.path.dirname(__file__), 'images/black.png'), 100)
+        return False
+    
     def change_turn(self):
         self.set_active_player()
         try:
