@@ -3,9 +3,13 @@ import os
 import logging
 import random
 
-IMAGES_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit/images')
+IMAGES_PATH = 'games/drumgit/images'
 
 class Model(object):
+    ''' The model of the activity. Contains methods to read and save
+    the configuration for a game from xml. Stores the pairs and grid
+    information.    
+    '''    
     def __init__(self, gamepath, dtdpath, name='noname'):
         self.name = name
         self.pairs = {}
@@ -95,6 +99,7 @@ class Model(object):
         pairkeya, moch = self.grid[a]
         pairkeyb, moch = self.grid[b]
         return (pairkeya == pairkeyb)
+
         
 if __name__ == '__main__':
     

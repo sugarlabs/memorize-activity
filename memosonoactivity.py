@@ -36,11 +36,9 @@ from tubeconn import TubeConnection
 from playview import PlayView
 from buddiespanel import BuddiesPanel
 from infopanel import InfoPanel
-from model import Model
-from game import ConnectGame
+from controller import Controller
 
 
-GAME_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit')
 
 class MemosonoActivity(Activity):
     def __init__(self, handle):
@@ -49,12 +47,8 @@ class MemosonoActivity(Activity):
         logging.debug('Starting Memosono activity...')
 
         self.set_title(_('Memsosono Activity'))
-
-        self.model = Model(GAME_PATH, os.path.dirname(__file__))
-        self.model.read('drumgit.mson')        
-        self.model.def_grid()
         
-        self.pv = PlayView( len(self.model.grid) )
+        self.pv = PlayView( 6 )
 
         self.buddies_panel = BuddiesPanel()
 
@@ -90,7 +84,7 @@ class MemosonoActivity(Activity):
         self.conn = telepathy.client.Connection(name, path)
         self.initiating = None
 
-        self.game = None
+        self.ctrl = None
 
         toolbox = ActivityToolbox(self)
         self.set_toolbox(toolbox)
@@ -214,7 +208,7 @@ class MemosonoActivity(Activity):
         logging.error('ListTubes() failed: %s', e)
 
     def _joined_cb(self, activity):
-        if self.game is not None:
+        if self.ctrl is not None:
             return
 
         if not self._shared_activity:
@@ -238,7 +232,7 @@ class MemosonoActivity(Activity):
                      'params=%r state=%d', id, initiator, type, service,
                      params, state)
 
-        if (self.game is None and type == telepathy.TUBE_TYPE_DBUS and
+        if (self.ctrl is None and type == telepathy.TUBE_TYPE_DBUS and
             service == 'org.fredektop.Telepathy.Tube.Memosono'):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptTube(id)
@@ -246,7 +240,7 @@ class MemosonoActivity(Activity):
             tube_conn = TubeConnection(self.conn,
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES],
                 id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
-            self.game = ConnectGame(tube_conn, self.pv, self.model, self.initiating,
+            self.ctrl = Controller(tube_conn, self.pv, self.initiating,
                 self.buddies_panel, self.info_panel, self.owner,
                 self._get_buddy, self)
 
