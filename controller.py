@@ -9,7 +9,6 @@ from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 
 from model import Model
-from gamestate import GameState
 
 # XXX: I'm not convinced this is in the right namespace
 SERVICE = "org.freedesktop.Telepathy.Tube.Memosono"
@@ -19,8 +18,9 @@ PATH = "/org/freedesktop/Telepathy/Tube/Memosono"
 
 
 GAME_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit')
+MAX_NUM_PLAYERS = 2
 
-_logger = logging.getLogger('memosono-activity.game')
+_logger = logging.getLogger('controller')
 
 
 class Controller(ExportedGObject):
@@ -40,56 +40,51 @@ class Controller(ExportedGObject):
         self.owner = owner
         self._get_buddy = get_buddy
         self.activity = activity
-
-        self.model = None
-        self.playerid = None
+        self.numplayers = 0
         self.turn = 0
-        # index 0 is the master
-        self.players = []
-        self.started = 0
-        self.count = 0
+        
         if self.is_initiator:
-            self.gs = GameState()
+            self.init_game()
+
         for tile in self.pv.tiles:
             tile.connect('button-press-event', self._button_press_cb, self.pv.tiles.index(tile))
 
+            
         self.tube.watch_participants(self.participant_change_cb)
 
+
     def participant_change_cb(self, added, removed):
-        # Initiator is player 0, other player is player 1.
 
         _logger.debug('adding participants: %r', added)
         _logger.debug('removing participants: %r', removed)
 
         for handle, bus_name in added:
             buddy = self._get_buddy(handle)
-            _logger.debug('Buddy %r was added', buddy)
             if buddy is not None:
-                if len(self.players) < 2:
+                _logger.debug('buddy %r was added', buddy)
+                if self.numplayers < MAX_NUM_PLAYERS:                    
                     self.buddies_panel.add_player(buddy)
-                    self.players.append(self.tube.participants[handle])
-                    if self.is_initiator:
-                        self.gs.points[self.tube.participants[handle]] = 0
-                        _logger.debug('MA: points of players: %s', self.gs.points)
-                    _logger.debug('MA: list of players: %s', self.players)                    
+                    self.numplayers+=1
+                    if self.is_initiator:                
+                        self.model.players[self.tube.participants[handle]] = [buddy.props.nick, 0]
+                        _logger.debug('list of players: %s', self.model.players)                    
                 else:
-                    self.buddies_panel.add_watcher(buddy)
-                                                                        
+                    self.info_panel.show('we are already two players')
+                    
         for handle in removed:
             buddy = self._get_buddy(handle)
-            _logger.debug('Buddy %r was removed', buddy)
             if buddy is not None:
-                self.buddies_panel.remove_watcher(buddy)
-            try:
-                self.players.remove(self.tube.participants[handle])
-            except ValueError:
-                # already absent
-                pass
+                _logger.debug('buddy %r was removed', buddy)
+                self.buddies_panel.remove_player(buddy)
+                self.numplayers-=1
+                if self.is_initiator:
+                    try:
+                        del self.model.players[self.tube.participants[handle]]
+                    except ValueError:
+                        # already absent
+                        pass
 
-        if not self.entered:            
-            if self.is_initiator:
-                _logger.debug('I am the initiator, so making myself the leader of the game.')
-                self.init_game()
+        if not self.entered:
             self.playerid = self.tube.get_unique_name()
             self.tube.add_signal_receiver(self.info_cb, 'Info', IFACE,
                                           path=PATH, sender_keyword='sender')
@@ -99,22 +94,24 @@ class Controller(ExportedGObject):
                                           path=PATH, sender_keyword='sender')
             self.tube.add_signal_receiver(self.points_cb, 'Points', IFACE,
                                           path=PATH, sender_keyword='sender')
-            self.entered = True
 
-        if self.is_initiator:        
-            if len(self.players) == 2 and self.started == 0:
-                _logger.debug('Start the game.')
-                self.Info('Start the game')
-                self.started = 1
-                self.Turn(self.players[self.gs.player_active])
+            self.entered = True
             
-    def init_game(self):        
+        if self.is_initiator:        
+            if len(self.model.players) == 2 and self.model.started == 0:
+                _logger.debug('start the game')
+                self.Info('start the game')
+                self.model.started = 1
+                self.change_turn()
+            
+    def init_game(self):
+        _logger.debug('I am the initiator, so making myself the leader of the game.')
         self.model = Model(GAME_PATH, os.path.dirname(__file__))
         self.model.read('drumgit.mson')        
         self.model.def_grid()
-
         self.tube.add_signal_receiver(self.selected_cb, 'Selected', IFACE,
                                       path=PATH, sender_keyword='sender')
+
         
     @signal(dbus_interface=IFACE, signature='n')
     def Selected(self, tilenum):
@@ -123,24 +120,34 @@ class Controller(ExportedGObject):
     def selected_cb(self, tilenum, sender=None):
         _logger.debug('MA: %s flipped tile %d', sender, tilenum)        
         obj, color = self.model.gettile(tilenum)
-        self.Flip(tilenum, obj, color)
+        if self.model.grid[tilenum][2] == 1:
+            self.Info('selected already')            
+        else:
+            self.Flip(tilenum, obj, color)
                         
-        self.count+=1
-        if self.count == 1:
-            self.gs.selected = tilenum
-        if self.count == 2:            
-            self.count = 0
-            # evaluate 
-            if( self.model.same(tilenum, self.gs.selected) == 1):                
-                _logger.debug('MA: Tile(%d) and (%d) are the same', tilenum, self.gs.selected)
-                self.gs.points[sender]+=1
-                self.Points(sender, self.gs.points[sender])
-                self.info_panel.show('Open another one')
-            else:
-                gobject.timeout_add(2000, self._turn_back, tilenum, self.gs.selected)
-                _logger.debug('Tile(%d) and (%d) are NOT the same', tilenum, self.gs.selected)
-                # next player
-                self.change_turn()
+            self.model.count+=1
+            if self.model.count == 1:
+                self.model.selected = tilenum
+                self.model.grid[tilenum][2] = 1
+                return 
+            if self.model.count == 2:            
+                self.model.count = 0
+                # evaluate 
+                if( self.model.same(tilenum, self.model.selected) == 1):                
+                    _logger.debug('MA: Tile(%d) and (%d) are the same', tilenum, self.model.selected)
+                    self.model.grid[tilenum][2] = 1
+                    self.model.grid[self.model.selected][2] = 1
+                
+                    self.model.players[sender][1]+=1
+                    self.Points(sender, self.model.players[sender][1])
+                    self.Info('found pair, one more try')
+                else:
+                    self.model.grid[tilenum][2] = 0
+                    self.model.grid[self.model.selected][2] = 0
+                    self.change_turn()
+                    self.Info('pair does not match, next player')
+                    gobject.timeout_add(2000, self._turn_back, tilenum, self.model.selected)
+                    _logger.debug('Tile(%d) and (%d) are NOT the same', tilenum, self.model.selected)
 
     def _turn_back(self, tilenuma, tilenumb):
         self.Flip(tilenuma, 'images/black.png', 100)
@@ -148,12 +155,13 @@ class Controller(ExportedGObject):
         return False
     
     def change_turn(self):
-        if self.gs.player_active == 0:
-            self.gs.player_active = 1
+        if self.model.player_active < (len(self.model.players)-1):
+            self.model.player_active+=1
         else:
-            self.gs.player_active = 0
-            
-        self.Turn(self.players[self.gs.player_active])
+            self.model.player_active = 0
+
+        key = self.model.players.keys()[self.model.player_active]
+        self.Turn(key, self.model.players[key][0])
         
         
     @signal(dbus_interface=IFACE, signature='nsn')
@@ -166,17 +174,16 @@ class Controller(ExportedGObject):
         self.pv.flip(tilenum, os.path.join(os.path.dirname(__file__), obj), color)            
 
 
-    @signal(dbus_interface=IFACE, signature='s')
-    def Turn(self, playerid):
+    @signal(dbus_interface=IFACE, signature='ss')
+    def Turn(self, playerid, name):
         """Signal that it is the players turn"""
 
-    def turn_cb(self, playerid, sender=None):
+    def turn_cb(self, playerid, name, sender=None):
         if self.playerid == playerid:
             self.turn = 1
-            self.info_panel.show('It is my turn')
         else:
-            self.turn = 0
-
+            self.turn = 0            
+        self.info_panel.show('hey %s it is your turn'%name)
 
     @signal(dbus_interface=IFACE, signature='sn')
     def Points(self, player, points):

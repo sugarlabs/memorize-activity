@@ -5,6 +5,8 @@ import random
 
 IMAGES_PATH = 'games/drumgit/images'
 
+_logger = logging.getLogger('model')
+
 class Model(object):
     ''' The model of the activity. Contains methods to read and save
     the configuration for a game from xml. Stores the pairs and grid
@@ -12,19 +14,29 @@ class Model(object):
     '''    
     def __init__(self, gamepath, dtdpath, name='noname'):
         self.name = name
-        self.pairs = {}
-        self.grid = []
         self.gamepath = gamepath
         self.dtdpath = dtdpath
-
         try:
             self.dtd = libxml2.parseDTD(None, os.path.join(self.dtdpath, 'memosono.dtd'))
         except libxml2.parserError, e:
-            logging.error('No memosono.dtd found ' +str(e))
+            _logger.error('No memosono.dtd found ' +str(e))
             self.dtd = None
         self.ctxt = libxml2.newValidCtxt()               
+
+        self.pairs = {}
+        self.grid = []
         
+        # used by the leader of the game to keep track of the game state
+        self.players = {}
+        self.player_active = 0
+        self.selected = 0
+        self.turn = 0
+        self.started = 0
+        self.count = 0
+
+
     def read(self, filename):
+        ''' reades the configuration from an xml file '''
         try:
             doc = libxml2.parseFile(os.path.join(self.gamepath, filename))            
             if doc.validateDtd(self.ctxt, self.dtd):
@@ -55,12 +67,14 @@ class Model(object):
                             self.pairs[idpair] = pair
                 xpa.xpathFreeContext()
             else:
-                logging.error('Error in validation of the file')
+                _logger.error('Error in validation of the file')
             doc.freeDoc()
         except libxml2.parserError, e:
-            logging.error('Error parsing file ' +str(e))
+            _logger.error('Error parsing file ' +str(e))
+
             
     def save(self, filename):
+        ''' saves the configuration to an xml file '''
         doc = libxml2.newDoc("1.0")
         root = doc.newChild(None, "memosono", None)
         root.setProp("name", self.name)
@@ -76,47 +90,34 @@ class Model(object):
             doc.saveFormatFile(filename, 1)
         doc.freeDoc()    
 
-    def def_grid(self):
-        print 'pairs: %s' %self.pairs
-        ### create grid from pairs information
-        for key in self.pairs.iterkeys():
-            self.grid.append((key, 0))
-            self.grid.append((key, 1))
-        print 'self.grid: %s'%self.grid
 
-        ### shuffle the grid tiles
+    def def_grid(self):
+        ''' create the grid for the play from the pairs information
+        and shuffles the grid so they always appear in a different
+        place 
+        '''
+        _logger.debug(' pairs: %s', self.pairs)
+        for key in self.pairs.iterkeys():
+            self.grid.append([key, 0, 0])
+            self.grid.append([key, 1, 0])
+        
         random.shuffle(self.grid)
-        print 'self.grid after shufle: %s'%self.grid
+        _logger.debug(' grid: %s', self.grid)
+
 
     def gettile(self, tilenum):
-        pairkey, moch = self.grid[tilenum]
+        ''' gets the information of an object associated with a tile number '''
+        pairkey, moch, state = self.grid[tilenum]
         obj = os.path.join(IMAGES_PATH, self.pairs[pairkey][moch])
         color = self.pairs[pairkey][2]
-        # logger.debug('obj=%s color=%s'%(obj, color))
         return (obj, color)
 
+
     def same(self, a, b):
-        pairkeya, moch = self.grid[a]
-        pairkeyb, moch = self.grid[b]
+        ''' checks wether two tiles are matching '''
+        pairkeya, moch, state = self.grid[a]
+        pairkeyb, moch, state = self.grid[b]
         return (pairkeya == pairkeyb)
 
-        
-if __name__ == '__main__':
-    
-    print "[Read game from file] "        
-    model = Model()
-    model.read('memosono.xml')
-    print "   name=" + model.name
-    print "   pairs=%s" %model.pairs
-
-    elemkey = '0'
-    if model.pairs.has_key(elemkey):
-        del model.pairs[elemkey]
-        
-    model.pairs['2'] = ['frettchen.jpg', 'frettchen.wav']
-
-    print "[Write game to file] "        
-    model.save('memosono.xml')
-        
 
     
