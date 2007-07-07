@@ -65,7 +65,8 @@ class Controller(ExportedGObject):
                 if self.numplayers < MAX_NUM_PLAYERS:                    
                     self.buddies_panel.add_player(buddy)
                     self.numplayers+=1
-                    if self.is_initiator:                
+                    if self.is_initiator:
+                        self.buddies_panel.set_is_playing(buddy)
                         self.model.players[self.tube.participants[handle]] = [buddy.props.nick, 0]
                         _logger.debug('list of players: %s', self.model.players)                    
                 else:
@@ -182,7 +183,10 @@ class Controller(ExportedGObject):
         if self.playerid == playerid:
             self.turn = 1
         else:
-            self.turn = 0            
+            self.turn = 0
+            
+        buddy = self._get_buddy(self.tube.bus_name_to_handle[playerid])
+        self.buddies_panel.set_is_playing(buddy)
         self.info_panel.show('hey %s it is your turn'%name)
 
     @signal(dbus_interface=IFACE, signature='sn')

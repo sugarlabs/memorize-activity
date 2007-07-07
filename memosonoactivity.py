@@ -110,9 +110,7 @@ class MemosonoActivity(Activity):
         else:
             # we are creating the activity
             self.buddies_panel.add_player(owner)
-            #self.buddies_panel.set_is_playing(owner)
-            #self.buddies_panel.set_count(owner, 69)
-
+            
     def _get_buddy(self, cs_handle):
         """Get a Buddy from a channel specific handle."""
         _logger.debug('Trying to find owner of handle %u...', cs_handle)

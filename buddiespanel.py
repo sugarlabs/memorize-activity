@@ -1,11 +1,72 @@
 import gtk
 import hippo
+import math
+
 from sugar.graphics.canvasicon import CanvasIcon
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics import color
 from sugar.graphics import font
+from sugar.graphics import units
+
+
+class BuddyPlayer(hippo.CanvasBox, hippo.CanvasItem):
+    __gtype_name__ = 'BuddyPlayer'
+    _BORDER_DEFAULT = units.points_to_pixels(1.0)
+ 
+    def __init__(self, buddy, **kargs):
+        hippo.CanvasBox.__init__(self, **kargs)
+       
+        self._radius = units.points_to_pixels(5)
+        self.props.border_color = 0
+        self.props.background_color = 0
+        self.props.orientation = hippo.ORIENTATION_VERTICAL
+        self.props.border = self._BORDER_DEFAULT
+        self.props.border_left = self._radius
+        self.props.border_right = self._radius
+        
+        buddy_color = buddy.props.color
+        if not buddy_color:
+            buddy_color = "#000000,#ffffff"
+
+        self.icon = CanvasIcon(
+            icon_name='theme:stock-buddy',
+            xo_color=XoColor(buddy_color))
+
+        nick = buddy.props.nick
+        if not nick:
+            nick = ""
+        self.name = hippo.CanvasText(text=nick, color=color.WHITE.get_int())
+
+        self.append(self.icon)
+        self.append(self.name)
+
+        
+    def do_paint_background(self, cr, damaged_box):
+        [width, height] = self.get_allocation()     
+
+        x = self._BORDER_DEFAULT / 2
+        y = self._BORDER_DEFAULT / 2
+        width -= self._BORDER_DEFAULT
+        height -= self._BORDER_DEFAULT
+
+        cr.move_to(x + self._radius, y);
+        cr.arc(x + width - self._radius, y + self._radius,
+               self._radius, math.pi * 1.5, math.pi * 2);
+        cr.arc(x + width - self._radius, x + height - self._radius,
+               self._radius, 0, math.pi * 0.5);
+        cr.arc(x + self._radius, y + height - self._radius,
+               self._radius, math.pi * 0.5, math.pi);
+        cr.arc(x + self._radius, y + self._radius, self._radius,
+               math.pi, math.pi * 1.5);
+
+        hippo.cairo_set_source_rgba32(cr, self.props.background_color)
+        cr.fill()
+
 
 class BuddiesPanel(hippo.CanvasBox):
+    _COLOR_ACTIVE = 50
+    _COLOR_INACTIVE = 0
+    
     def __init__(self):
         hippo.CanvasBox.__init__(self, spacing=4, padding=5,
                 orientation=hippo.ORIENTATION_VERTICAL)
@@ -22,7 +83,8 @@ class BuddiesPanel(hippo.CanvasBox):
 
         self.players = {}
         self.watchers = {}
-
+        self.last_active = None
+        
     def _create_buddy_vbox (self, buddy):
         buddy_color = buddy.props.color
         if not buddy_color:
@@ -38,6 +100,14 @@ class BuddiesPanel(hippo.CanvasBox):
         name = hippo.CanvasText(text=nick, color=color.WHITE.get_int())
 
         vbox = hippo.CanvasBox(padding=5)
+        vbox._radius = units.points_to_pixels(5)
+        vbox.props.border_color = 100
+        vbox.props.background_color = 200
+        vbox.props.orientation = hippo.ORIENTATION_VERTICAL
+        vbox.props.border = units.points_to_pixels(1.0)
+        vbox.props.border_left = vbox._radius
+        vbox.props.border_right = vbox._radius
+
         vbox.append(icon)
         vbox.append(name)
 
@@ -70,9 +140,7 @@ class BuddiesPanel(hippo.CanvasBox):
 
         hbox = hippo.CanvasBox(spacing=4, padding=5,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
-
-        vbox = self._create_buddy_vbox(buddy)
-        hbox.append(vbox)
+        hbox.append(BuddyPlayer(buddy))
 
         count_font = font.DEFAULT_BOLD.get_pango_desc()
         count_font.set_size(30000)
@@ -83,17 +151,19 @@ class BuddiesPanel(hippo.CanvasBox):
         self.players_box.append(hbox)
 
         self.players[op] = hbox
-
+        
     def set_is_playing(self, buddy):
-        op = buddy.object_path()
-        for player, hbox in self.players.items():
-            vbox = hbox.get_children()[0]
-            icon, name = vbox.get_children()
-            if player == op:
-                name.props.font_desc = font.DEFAULT_BOLD.get_pango_desc()
-            else:
-                name.props.font_desc = font.DEFAULT.get_pango_desc()
-
+        hbox = self.players.get(buddy.object_path())
+        bp = hbox.get_children()[0]
+        bp.props.background_color = self._COLOR_ACTIVE
+        bp.emit_paint_needed(0, 0, -1, -1)
+        if self.last_active is not None:
+            hbox = self.players.get(self.last_active.object_path())
+            lbp = hbox.get_children()[0]
+            lbp.props.background_color = self._COLOR_INACTIVE
+            lbp.emit_paint_needed(0, 0, -1, -1)
+        self.last_active = buddy
+    
     def set_count(self, buddy, val):
         hbox = self.players.get(buddy.object_path())
         if hbox is None:
