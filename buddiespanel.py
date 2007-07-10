@@ -5,7 +5,7 @@ import math
 from sugar.graphics.canvasicon import CanvasIcon
 from sugar.graphics.xocolor import XoColor
 from sugar.graphics import color
-from sugar.graphics import font
+from sugar.graphics import style
 from sugar.graphics import units
 
 
@@ -142,7 +142,7 @@ class BuddiesPanel(hippo.CanvasBox):
                 orientation=hippo.ORIENTATION_HORIZONTAL)
         hbox.append(BuddyPlayer(buddy))
 
-        count_font = font.DEFAULT_BOLD.get_pango_desc()
+        count_font = style.FONT_BOLD.get_pango_desc()
         count_font.set_size(30000)
         count = hippo.CanvasText(text="0", color=color.WHITE.get_int(),
                 font_desc=count_font)
