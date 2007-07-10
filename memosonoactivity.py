@@ -91,6 +91,11 @@ class MemosonoActivity(Activity):
         self.set_toolbox(toolbox)
         toolbox.show()
 
+        # connect to the in/out events of the memosono activity
+        self.connect('focus_in_event', self._focus_in)
+        self.connect('focus_out_event', self._focus_out)
+        self.connect('destroy', self._cleanup_cb)
+        
         self.info_panel.show('To play, share!')
 
         self.connect('shared', self._shared_cb)
@@ -251,5 +256,19 @@ class MemosonoActivity(Activity):
         _logger.debug('buddy left')
         self.buddies_panel.remove_watcher(buddy)
         
-
-
+    def _cleanup_cb(self, data=None):
+        if self.ctrl != None:
+            self.ctrl.cs.quit()        
+            _logger.debug(" Memosono closes: close csound server. ")
+                
+    def _focus_in(self, event, data=None):
+        if self.ctrl != None:
+            self.ctrl.cs.start()
+            _logger.debug(" Memosono is visible: start csound server. ")
+        
+    def _focus_out(self, event, data=None):
+        if self.ctrl != None:
+            self.ctrl.cs.start()
+            _logger.debug(" Memosono is invisible: pause csound server. ")
+        
+        

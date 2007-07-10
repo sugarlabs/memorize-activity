@@ -4,7 +4,6 @@ import cairo
 import gtk
 
 from sugar.graphics import color
-from sugar.graphics import font
 
 from playtile import PlayTile
 

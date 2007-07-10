@@ -7,8 +7,9 @@
 
 <!ELEMENT pair (#PCDATA)* >
 <!ATTLIST pair
-  id      CDATA  #REQUIRED
-  mother  CDATA  #REQUIRED
-  child	  CDATA  #REQUIRED
-  color	  CDATA  #REQUIRED
+  aimg    CDATA  #IMPLIED
+  asnd	  CDATA  #IMPLIED
+  bimg	  CDATA  #IMPLIED
+  bsnd   CDATA  #IMPLIED
+  color	  CDATA  #IMPLIED
 >

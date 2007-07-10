@@ -2,10 +2,57 @@ import libxml2
 import os
 import logging
 import random
+import gobject
 
 IMAGES_PATH = 'games/drumgit/images'
+GAME_PATH = 'games/drumgit'
 
 _logger = logging.getLogger('model')
+
+
+class Pair(gobject.GObject):    
+    __gproperties__ = {
+        'aimg'    : (str, None, None, None, gobject.PARAM_READWRITE),
+        'asnd'    : (str, None, None, None, gobject.PARAM_READWRITE),
+        'bimg'    : (str, None, None, None, gobject.PARAM_READWRITE),        
+        'bsnd'    : (str, None, None, None, gobject.PARAM_READWRITE),
+        'color': (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, gobject.PARAM_READWRITE)
+    }
+        
+    def __init__(self):
+        gobject.GObject.__init__(self)        
+        self._properties = {'aimg':None, 'asnd':None, 'bimg':None, 'bsnd':None, 'color':100}                
+        
+    def do_get_property(self, pspec):
+        """Retrieve a particular property from our property dictionary 
+        """
+        if pspec.name == "aimg":
+            return self._properties["aimg"]
+        elif pspec.name == "asnd":
+            return self._properties["asnd"]
+        elif pspec.name == "bimg":
+            return self._properties["bimg"]
+        elif pspec.name == "bsnd":
+            return self._properties["bsnd"]
+        elif pspec.name == "color":
+            return self._properties["color"]
+
+    def set_property(self, name, value):
+        if name == 'aimg':
+            self._properties['aimg'] = value
+        elif name == "asnd":
+            self._properties["asnd"] = value
+        elif name == "bimg":
+            self._properties["bimg"] = value
+        elif name == "bsnd":
+            self._properties["bsnd"] = value
+        elif name == "color":
+            self._properties["color"] = int(value)
+    '''        
+    def do_set_property(self, props, value):
+        if props.name == 'a_img':
+            self._properties['a_img'] = value
+    '''
 
 class Model(object):
     ''' The model of the activity. Contains methods to read and save
@@ -46,25 +93,22 @@ class Model(object):
                 res = xpa.xpathEval("//*")
 
                 # write their content to the data structure
+                self.idpair = 0
                 for elem in res:
                     attributes = elem.get_properties()
-                    pair = []
-                    idpair = 0
+                    pair = Pair()
                     for attribute in attributes:
                         if(attribute.name == 'text'):
                             pass
-                        if(attribute.name == 'id'):
-                            idpair = int(attribute.content)
-                        if(attribute.name == 'mother'):
-                            pair.append(attribute.content)
-                        if(attribute.name == 'child'):
-                            pair.append(attribute.content)
-                        if(attribute.name == 'color'):
-                            pair.append(int(attribute.content))
-                        if( elem.name == 'memosono' ):    
-                            self.name = attribute.content            
-                        if( elem.name != 'memosono' ):
-                            self.pairs[idpair] = pair
+                        else:
+                            pass
+                            pair.set_property(attribute.name, attribute.content)
+                    if( elem.name == 'pair' ):
+                        self.pairs[self.idpair] = pair
+                        self.idpair+=1
+                    elif( elem.name == 'memosono' ):    
+                        self.name = attribute.content            
+                    
                 xpa.xpathFreeContext()
             else:
                 _logger.error('Error in validation of the file')
@@ -81,10 +125,15 @@ class Model(object):
         for key in self.pairs:
             
             elem = root.newChild(None, "pair", None)
-            elem.setProp("id", key)
-            elem.setProp("mother", self.pairs[key][0])
-            elem.setProp("child", self.pairs[key][1])
-            elem.setProp("color", self.pairs[key][2])
+            if self.pairs[key].props.aimg != None:
+                elem.setProp("aimg", self.pairs[key].props.aimg)
+            if self.pairs[key].props.asnd != None:
+                elem.setProp("asnd", self.pairs[key].props.asnd)
+            if self.pairs[key].props.bimg != None:
+                elem.setProp("bimg", self.pairs[key].props.bimg)
+            if self.pairs[key].props.bsnd != None:
+                elem.setProp("bsnd", self.pairs[key].props.bsnd)
+            elem.setProp("color", str(self.pairs[key].props.color))
         
         if doc.validateDtd(self.ctxt, self.dtd):
             doc.saveFormatFile(filename, 1)
@@ -121,3 +170,14 @@ class Model(object):
 
 
     
+
+if __name__ == '__main__':
+    model = Model(GAME_PATH, os.path.dirname(__file__))
+    model.read('drumgit.mson')
+    print '%s' %model.pairs[0].props.color
+    print '%s' %model.pairs[1]._properties
+    print '%s' %model.pairs[2]._properties
+
+    model.def_grid()
+    print model.grid
+    #model.save('/tmp/mod.txt')

@@ -9,15 +9,16 @@ from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 
 from model import Model
+from csound.csoundserver import CsoundServer
 
-# XXX: I'm not convinced this is in the right namespace
 SERVICE = "org.freedesktop.Telepathy.Tube.Memosono"
 IFACE = SERVICE
 PATH = "/org/freedesktop/Telepathy/Tube/Memosono"
 
 
-
 GAME_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit')
+IMAGES_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit/images')
+SOUNDS_PATH = os.path.join(os.path.dirname(__file__),'games/drumgit/sounds')
 MAX_NUM_PLAYERS = 2
 
 _logger = logging.getLogger('controller')
@@ -42,6 +43,10 @@ class Controller(ExportedGObject):
         self.activity = activity
         self.numplayers = 0
         self.turn = 0
+        
+        self.cs = CsoundServer()        
+        gtk.gdk.threads_init()
+        self.cs.start()
         
         if self.is_initiator:
             self.init_game()
@@ -93,6 +98,8 @@ class Controller(ExportedGObject):
                                           path=PATH, sender_keyword='sender')
             self.tube.add_signal_receiver(self.flip_cb, 'Flip', IFACE,
                                           path=PATH, sender_keyword='sender')
+            self.tube.add_signal_receiver(self.play_cb, 'Play', IFACE,
+                                          path=PATH, sender_keyword='sender')
             self.tube.add_signal_receiver(self.points_cb, 'Points', IFACE,
                                           path=PATH, sender_keyword='sender')
 
@@ -120,11 +127,26 @@ class Controller(ExportedGObject):
 
     def selected_cb(self, tilenum, sender=None):
         _logger.debug('MA: %s flipped tile %d', sender, tilenum)        
-        obj, color = self.model.gettile(tilenum)
         if self.model.grid[tilenum][2] == 1:
             self.Info('selected already')            
         else:
-            self.Flip(tilenum, obj, color)
+            pairkey, moch, state = self.model.grid[tilenum]
+            color = self.model.pairs[pairkey].props.color
+
+            if moch == 0:
+                if self.model.pairs[pairkey].props.aimg != None:
+                    img = os.path.join(IMAGES_PATH, self.model.pairs[pairkey].props.aimg)                
+                    self.Flip(tilenum, img, color)
+                if self.model.pairs[pairkey].props.asnd != None:
+                    snd = os.path.join(SOUNDS_PATH, self.model.pairs[pairkey].props.asnd)
+                    self.Play(tilenum, snd, color)
+            elif moch == 1:
+                if self.model.pairs[pairkey].props.bimg != None:
+                    img = os.path.join(IMAGES_PATH, self.model.pairs[pairkey].props.bimg)
+                    self.Flip(tilenum, img, color)
+                if self.model.pairs[pairkey].props.bsnd != None:
+                    snd = os.path.join(SOUNDS_PATH, self.model.pairs[pairkey].props.bsnd)
+                    self.Play(tilenum, snd, color)
                         
             self.model.count+=1
             if self.model.count == 1:
@@ -171,8 +193,19 @@ class Controller(ExportedGObject):
 
     def flip_cb(self, tilenum, obj, color, sender=None):
         handle = self.tube.bus_name_to_handle[sender]
-        _logger.debug('Flipped tile(%d) from %s', tilenum, sender)
+        _logger.debug('Flipped tile(%d) from %s. Show image.', tilenum, sender)
         self.pv.flip(tilenum, os.path.join(os.path.dirname(__file__), obj), color)            
+
+
+    @signal(dbus_interface=IFACE, signature='nsn')
+    def Play(self, tilenum, obj, color):
+        """Signal that a sound will be played"""
+
+    def play_cb(self, tilenum, obj, color, sender=None):
+        handle = self.tube.bus_name_to_handle[sender]
+        _logger.debug('Flipped tile(%d) from %s. Play sound.', tilenum, sender)        
+        _logger.debug(' Sound: %s', obj)
+        self.cs.perform('i 108 0.0 3.0 "%s" 1 0.7 0.5 0'%(obj))                
 
 
     @signal(dbus_interface=IFACE, signature='ss')

@@ -3,7 +3,6 @@ import hippo
 import math
 import os
 
-from sugar.graphics import font
 from sugar.graphics import units
 
 class PlayTile(hippo.CanvasBox, hippo.CanvasItem):

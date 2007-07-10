@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <memosono name="drumgit">
- <pair id="1" mother="guitar12_2.jpg" child="guitar12_2.jpg" color="100" />
- <pair id="2" mother="drumkit2_b.jpg" child="drumkit2_b.jpg" color="100" />
- <pair id="3" mother="guitar8_2.jpg" child="guitar8_2.jpg" color="100" /> 
+ <pair aimg="guitar10_2.jpg" asnd="guitcello.aiff" bimg="guitar10_2.jpg" bsnd="guitcello.aiff" color="100" />
+ <pair aimg="guitar8_2.jpg" asnd="git_hit1.aiff" bimg="guitar8_2.jpg" bsnd="git_hit1.aiff" color="100" />
+ <pair aimg="drumkit2_b.jpg" asnd="beat1_b.aiff" bimg="drumkit2_b.jpg" bsnd="beat1_b.aiff" color="100" />
+
 </memosono>
 
+
 <!--
+ <pair aimg="guitar12_2.jpg" bimg="guitar12_2.jpg" color="100" />
+ <pair aimg="guitar8_2.jpg" bimg="guitar8_2.jpg"  color="100" />
+ <pair aimg="drumkit2_b.jpg" bimg="drumkit2_b.jpg" color="100" />
+
 drumkit1_b.jpg beat1_a.aiff 
 drumkit2_b.jpg beat1_b.aiff  
 drumkit3_b.jpg beat1_c.aiff  
