@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 #
-#    Copyright (C) 2006 Simon Schampijer
+#    Copyright (C) 2006, 2007 Simon Schampijer
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -23,63 +23,89 @@ import gobject
 import gtk
 import os
 import logging
-import dbus
 import telepathy
 import telepathy.client
+import hippo
 
 from sugar.activity.activity import Activity
 from sugar.activity.activity import ActivityToolbox
 from sugar.presence import presenceservice
 
-from osc.oscapi import OscApi
-from csound.csoundserver import CsoundServer
-from selectview import SelectView
+from tubeconn import TubeConnection
 from playview import PlayView
-from toolbar import PlayToolbar
-from model import Game
+from buddiespanel import BuddiesPanel
+from infopanel import InfoPanel
+from controller import Controller
 
+
+_logger = logging.getLogger('activity')
 
 class MemosonoActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
-        self.set_title ("Memosono")
 
-        self.sv = None
-        self.pv = None
+        _logger.debug('Starting Memosono activity...')
+
+        self.set_title(_('Memsosono Activity'))
+
+        w = self.get_screen().get_width()
+        h = self.get_screen().get_height()
+        ### FIXME: do better grid calculation
+        if w <= 1024:            
+            self.pv = PlayView(600, 600, 32)
+        else:            
+            self.pv = PlayView(800, 800, 32)
+
+        self.buddies_panel = BuddiesPanel()
+
+        self.info_panel = InfoPanel()
+
+        vbox = hippo.CanvasBox(spacing=4,
+                               orientation=hippo.ORIENTATION_VERTICAL)
+
+        hbox = hippo.CanvasBox(spacing=4,
+                               orientation=hippo.ORIENTATION_HORIZONTAL)
+
+        hbox.append(self.buddies_panel)
+        hbox.append(self.pv, hippo.PACK_EXPAND)
+        
+        vbox.append(hbox, hippo.PACK_EXPAND)
+        vbox.append(self.info_panel, hippo.PACK_END)
+
+        canvas = hippo.Canvas()
+        canvas.set_root(vbox)
+        self.set_canvas(canvas)
+        self.show_all()
+        
         toolbox = ActivityToolbox(self)
         self.set_toolbox(toolbox)
         toolbox.show()
-        toolbox._notebook.connect('switch-page', self._switch_page)
-        
-        self.play_toolbar = PlayToolbar(self)        
-        toolbox.add_toolbar(_('Play'), self.play_toolbar)
-        self.play_toolbar.show()        
-        
-        self.games = {}
 
-        os.path.walk(os.path.join(os.path.dirname(__file__), 'games'), self._find_games, None)
-
-        gamelist = self.games.keys()
-        gamelist.sort()
-        logging.debug(gamelist)
-        self.pv = PlayView(None, self.games[gamelist[0]].pairs)
-        self.pv.show()
-        self.sv = SelectView(gamelist)
-        self.sv.connect('entry-selected', self._entry_selected_cb)
-        self.sv.show()
-        
         self.pservice = presenceservice.get_instance()
-        self.owner = self.pservice.get_owner()
 
-        bus = dbus.Bus()
         name, path = self.pservice.get_preferred_connection()
         self.tp_conn_name = name
         self.tp_conn_path = path
         self.conn = telepathy.client.Connection(name, path)
         self.initiating = None
-        self.game = None
+
+        self.ctrl = None
+
+        toolbox = ActivityToolbox(self)
+        self.set_toolbox(toolbox)
+        toolbox.show()
+
+        # connect to the in/out events of the memosono activity
+        self.connect('focus_in_event', self._focus_in)
+        self.connect('focus_out_event', self._focus_out)
+        self.connect('destroy', self._cleanup_cb)
         
+        self.info_panel.show('To play, share!')
+
         self.connect('shared', self._shared_cb)
+
+        owner = self.pservice.get_owner()
+        self.owner = owner
 
         if self._shared_activity:
             # we are joining the activity
@@ -92,31 +118,54 @@ class MemosonoActivity(Activity):
                 self._joined_cb()
         else:
             # we are creating the activity
-            self.pv.buddies_panel .add_player(self.owner)
+            self.buddies_panel.add_player(owner)
+            
+    def _get_buddy(self, cs_handle):
+        """Get a Buddy from a channel specific handle."""
+        _logger.debug('Trying to find owner of handle %u...', cs_handle)
+        group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
+        my_csh = group.GetSelfHandle()
+        _logger.debug('My handle in that group is %u', my_csh)
+        if my_csh == cs_handle:
+            handle = self.conn.GetSelfHandle()
+            _logger.debug('CS handle %u belongs to me, %u', cs_handle, handle)
+        elif group.GetGroupFlags() & telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
+            handle = group.GetHandleOwners([cs_handle])[0]
+            _logger.debug('CS handle %u belongs to %u', cs_handle, handle)
+        else:
+            handle = cs_handle
+            _logger.debug('non-CS handle %u belongs to itself', handle)
 
+            # XXX: deal with failure to get the handle owner
+            assert handle != 0
+
+        # XXX: we're assuming that we have Buddy objects for all contacts -
+        # this might break when the server becomes scalable.
+        return self.pservice.get_buddy_by_telepathy_handle(self.tp_conn_name,
+                self.tp_conn_path, handle)
 
     def _shared_cb(self, activity):
-        logging.debug('My Memosono activity was shared')
+        _logger.debug('My Memosono activity was shared')
         self.initiating = True
         self._setup()
 
         for buddy in self._shared_activity.get_joined_buddies():
-            self.pv.buddies_panel.add_watcher(buddy)
+            self.buddies_panel.add_watcher(buddy)
 
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
-        logging.debug('This is my activity: making a tube...')
+        _logger.debug('This is my activity: making a tube...')
         id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferTube(
             telepathy.TUBE_TYPE_DBUS, 'org.fredektop.Telepathy.Tube.Memosono', {})
-        logging.debug('Tube address: %s', self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].GetDBusServerAddress(id))
-        logging.debug('Waiting for another player to join')
+        _logger.debug('Tube address: %s', self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].GetDBusServerAddress(id))
+        self.info_panel.show('Waiting for another player to join')
 
     # FIXME: presence service should be tubes-aware and give us more help
     # with this
     def _setup(self):
         if self._shared_activity is None:
-            logging.error('Failed to share or join activity')
+            _logger.error('Failed to share or join activity')
             return
 
         bus_name, conn_path, channel_paths = self._shared_activity.get_channels()
@@ -129,27 +178,27 @@ class MemosonoActivity(Activity):
             channel = telepathy.client.Channel(bus_name, channel_path)
             htype, handle = channel.GetHandle()
             if htype == telepathy.HANDLE_TYPE_ROOM:
-                logging.debug('Found our room: it has handle#%d "%s"',
+                _logger.debug('Found our room: it has handle#%d "%s"',
                     handle, self.conn.InspectHandles(htype, [handle])[0])
                 room = handle
                 ctype = channel.GetChannelType()
                 if ctype == telepathy.CHANNEL_TYPE_TUBES:
-                    logging.debug('Found our Tubes channel at %s', channel_path)
+                    _logger.debug('Found our Tubes channel at %s', channel_path)
                     tubes_chan = channel
                 elif ctype == telepathy.CHANNEL_TYPE_TEXT:
-                    logging.debug('Found our Text channel at %s', channel_path)
+                    _logger.debug('Found our Text channel at %s', channel_path)
                     text_chan = channel
 
         if room is None:
-            logging.error("Presence service didn't create a room")
+            _logger.error("Presence service didn't create a room")
             return
         if text_chan is None:
-            logging.error("Presence service didn't create a text channel")
+            _logger.error("Presence service didn't create a text channel")
             return
 
         # Make sure we have a Tubes channel - PS doesn't yet provide one
         if tubes_chan is None:
-            logging.debug("Didn't find our Tubes channel, requesting one...")
+            _logger.debug("Didn't find our Tubes channel, requesting one...")
             tubes_chan = self.conn.request_channel(telepathy.CHANNEL_TYPE_TUBES,
                 telepathy.HANDLE_TYPE_ROOM, room, True)
 
@@ -164,34 +213,34 @@ class MemosonoActivity(Activity):
             self._new_tube_cb(*tube_info)
 
     def _list_tubes_error_cb(self, e):
-        logging.error('ListTubes() failed: %s', e)
+        _logger.error('ListTubes() failed: %s', e)
 
     def _joined_cb(self, activity):
-        if self.game is not None:
+        if self.ctrl is not None:
             return
 
         if not self._shared_activity:
             return
 
         for buddy in self._shared_activity.get_joined_buddies():
-            self.pv.buddies_panel.add_watcher(buddy)
+            self.buddies_panel.add_watcher(buddy)
 
-        logging.debug('Joined an existing Connect game')
-        logging.debug('Joined a game. Waiting for my turn...')
+        _logger.debug('Joined an existing Memosono game')
+        self.info_panel.show('Joined a game. Waiting for my turn...')
         self.initiating = False
         self._setup()
 
-        logging.debug('This is not my activity: waiting for a tube...')
+        _logger.debug('This is not my activity: waiting for a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self._list_tubes_reply_cb,
             error_handler=self._list_tubes_error_cb)
 
     def _new_tube_cb(self, id, initiator, type, service, params, state):
-        logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
+        _logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
                      'params=%r state=%d', id, initiator, type, service,
                      params, state)
 
-        if (self.game is None and type == telepathy.TUBE_TYPE_DBUS and
+        if (self.ctrl is None and type == telepathy.TUBE_TYPE_DBUS and
             service == 'org.fredektop.Telepathy.Tube.Memosono'):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptTube(id)
@@ -199,50 +248,43 @@ class MemosonoActivity(Activity):
             tube_conn = TubeConnection(self.conn,
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES],
                 id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
-            self.game = ConnectGame(tube_conn, self.grid, self.initiating,
-                self.pv.buddies_panel, self.info_panel, self.owner,
+            self.ctrl = Controller(tube_conn, self.pv, self.initiating,
+                self.buddies_panel, self.info_panel, self.owner,
                 self._get_buddy, self)
 
-    def _buddy_joined_cb (self, activity, buddy):
-        logging.debug('buddy joined')
-        self.pv.buddies_panel.add_watcher(buddy)
+    def _buddy_joined_cb(self, activity, buddy):
+        _logger.debug('buddy joined')
+        self.buddies_panel.add_watcher(buddy)
 
-    def _buddy_left_cb (self,  activity, buddy):
-        logging.debug('buddy left')
-        self.pv.buddies_panel.remove_watcher(buddy)
-        
-        
-    def _find_games(self, arg, dirname, names):
-        for name in names:
-            if name.endswith('.mson'): 
-                game = Game(dirname, os.path.dirname(__file__))
-                game.read(name)
-                self.games[name.split('.mson')[0]] = game
-                
-    def _entry_selected_cb(self, list_view, entry):
-        self.pv = PlayView(None, self.games[entry.name].pairs)
-        self.pv.show()
-        
-    def _switch_page(self, notebook, page, page_num, user_param1=None):
-        if page_num == 1:
-            self.set_canvas(self.pv)
-        elif page_num == 0:
-            if self.sv != None:
-                self.set_canvas(self.sv)
-        
-    def _cleanup_cb(self, data=None):
-        pass
-        #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/quit", [])
-        #self.controler.oscapi.iosock.close()
-        #self.server.oscapi.iosock.close()
-        #logging.debug(" Closed OSC sockets ")
-        
+    def _buddy_left_cb(self,  activity, buddy):
+        _logger.debug('buddy left')
+        self.buddies_panel.remove_watcher(buddy)
+                        
+    def write_file(self, file_path):
+        """Store game state in Journal.
+
+        Handling the Journal is provided by Activity - we only need
+        to define this method.
+        """
+        _logger.debug(" Write game state. ")
+        f = open(file_path, 'w')
+        try:
+            f.write('erikos won the game')
+        finally:
+            f.close()
+
     def _focus_in(self, event, data=None):
-        pass
-        #logging.debug(" Memosono is visible: Connect to the Csound-Server. ")
-        #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/connect", [])
+        if self.ctrl != None:
+            self.ctrl.cs.start()
+            _logger.debug(" Memosono is visible: start csound server. ")
         
     def _focus_out(self, event, data=None):
-        pass
-        #logging.debug(" Memosono is invisible: Close the connection to the Csound-Server. ")
-        #self.controler.oscapi.send(('127.0.0.1', 6783), "/CSOUND/disconnect", [])
+        if self.ctrl != None:
+            self.ctrl.cs.start()
+            _logger.debug(" Memosono is invisible: pause csound server. ")
+        
+    def _cleanup_cb(self, data=None):
+        if self.ctrl != None:
+            self.ctrl.cs.quit()        
+            _logger.debug(" Memosono closes: close csound server. ")
+

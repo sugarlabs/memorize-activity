@@ -1,11 +1,29 @@
 <?xml version="1.0"?>
 <memosono name="drumgit">
- <pair id="1" mother="guitar12_2.jpg" child="guitar12_2.jpg" color="12345" />
- <pair id="2" mother="drumkit2_b.jpg" child="drumkit2_b.jpg" color="234567" />
- <pair id="3" mother="guitar8_2.jpg" child="guitar8_2.jpg" color="23456767" /> 
+ <pair aimg="drumkit1_b.jpg" asnd="beat1_a.aiff" bimg="drumkit1_b.jpg" bsnd="beat1_a.aiff" color="100" />
+ <pair aimg="drumkit2_b.jpg" asnd="beat1_b.aiff" bimg="drumkit2_b.jpg" bsnd="beat1_b.aiff" color="100" />
+ <pair aimg="drumkit3_b.jpg" asnd="beat1_c.aiff" bimg="drumkit3_b.jpg" bsnd="beat1_c.aiff" color="100" />
+ <pair aimg="drumkit4_b.jpg" asnd="beat8.aiff" bimg="drumkit4_b.jpg" bsnd="beat8.aiff" color="100" />
+
+ <pair aimg="drumkit6_b.jpg" asnd="beat3.aiff" bimg="drumkit6_b.jpg" bsnd="beat3.aiff" color="100" />
+ <pair aimg="drumkit7_b.jpg" asnd="beat4.aiff" bimg="drumkit7_b.jpg" bsnd="beat4.aiff" color="100" />
+ <pair aimg="drumkit8_b.jpg" asnd="beat14.aiff" bimg="drumkit8_b.jpg" bsnd="beat14.aiff" color="100" />
+ <pair aimg="drumkit9_b.jpg" asnd="beat6_2.aiff" bimg="drumkit9_b.jpg" bsnd="beat6_2.aiff" color="100" />
+
+ <pair aimg="guitar1_2.jpg" asnd="bending_a.aiff" bimg="guitar1_2.jpg" bsnd="bending_a.aiff" color="100" />
+ <pair aimg="guitar2_2.jpg" asnd="bending_b.aiff" bimg="guitar2_2.jpg" bsnd="bending_b.aiff" color="100" />
+ <pair aimg="guitar3_2.jpg" asnd="flashcomp2a.aiff" bimg="guitar3_2.jpg" bsnd="flashcomp2a.aiff" color="100" />
+ <pair aimg="guitar4_2.jpg" asnd="flashcomp2b.aiff" bimg="guitar4_2.jpg" bsnd="flashcomp2b.aiff" color="100" />
+
+ <pair aimg="guitar5_2.jpg" asnd="gedaempft.aiff" bimg="guitar5_2.jpg" bsnd="gedaempft.aiff" color="100" />
+ <pair aimg="guitar6_2.jpg" asnd="gedaempft.aiff" bimg="guitar6_2.jpg" bsnd="gedaempft.aiff" color="100" />
+ <pair aimg="guitar7_2.jpg" asnd="ungedaempft.aiff" bimg="guitar7_2.jpg" bsnd="ungedaempft.aiff" color="100" />
+ <pair aimg="guitar8_2.jpg" asnd="jimi4.aiff" bimg="guitar8_2.jpg" bsnd="jimi4.aiff" color="100" />
+
 </memosono>
 
 <!--
+ <pair aimg="" asnd="" bimg="" bsnd="" color="100" />
 drumkit1_b.jpg beat1_a.aiff 
 drumkit2_b.jpg beat1_b.aiff  
 drumkit3_b.jpg beat1_c.aiff  
