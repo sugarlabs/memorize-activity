@@ -80,7 +80,7 @@ class Controller(ExportedGObject):
         for handle in removed:
             buddy = self._get_buddy(handle)
             if buddy is not None:
-                _logger.debug('buddy %r was removed', buddy)
+                _logger.debug('-----> buddy %r was removed', buddy)
                 self.buddies_panel.remove_player(buddy)
                 self.numplayers-=1
                 if self.is_initiator:

@@ -31,7 +31,7 @@ class CsoundServer(Thread):
 
     def perform(self, msg):
         _logger.debug('     [perform_cb] %s'%str(msg))
-        self.perf.InputMessage(msg)
+        self.perf.InputMessage(str(msg))
 
     def quit(self):
         _logger.info('quit')

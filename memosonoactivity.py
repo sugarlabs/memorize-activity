@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 #
-#    Copyright (C) 2006 Simon Schampijer
+#    Copyright (C) 2006, 2007 Simon Schampijer
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@ import gobject
 import gtk
 import os
 import logging
-import dbus
 import telepathy
 import telepathy.client
 import hippo
@@ -48,8 +47,14 @@ class MemosonoActivity(Activity):
         _logger.debug('Starting Memosono activity...')
 
         self.set_title(_('Memsosono Activity'))
-        
-        self.pv = PlayView( 6 )
+
+        w = self.get_screen().get_width()
+        h = self.get_screen().get_height()
+        ### FIXME: do better grid calculation
+        if w <= 1024:            
+            self.pv = PlayView(600, 600, 32)
+        else:            
+            self.pv = PlayView(800, 800, 32)
 
         self.buddies_panel = BuddiesPanel()
 
@@ -78,7 +83,6 @@ class MemosonoActivity(Activity):
 
         self.pservice = presenceservice.get_instance()
 
-        bus = dbus.Bus()
         name, path = self.pservice.get_preferred_connection()
         self.tp_conn_name = name
         self.tp_conn_path = path
@@ -255,12 +259,20 @@ class MemosonoActivity(Activity):
     def _buddy_left_cb(self,  activity, buddy):
         _logger.debug('buddy left')
         self.buddies_panel.remove_watcher(buddy)
-        
-    def _cleanup_cb(self, data=None):
-        if self.ctrl != None:
-            self.ctrl.cs.quit()        
-            _logger.debug(" Memosono closes: close csound server. ")
-                
+                        
+    def write_file(self, file_path):
+        """Store game state in Journal.
+
+        Handling the Journal is provided by Activity - we only need
+        to define this method.
+        """
+        _logger.debug(" Write game state. ")
+        f = open(file_path, 'w')
+        try:
+            f.write('erikos won the game')
+        finally:
+            f.close()
+
     def _focus_in(self, event, data=None):
         if self.ctrl != None:
             self.ctrl.cs.start()
@@ -271,4 +283,8 @@ class MemosonoActivity(Activity):
             self.ctrl.cs.start()
             _logger.debug(" Memosono is invisible: pause csound server. ")
         
-        
+    def _cleanup_cb(self, data=None):
+        if self.ctrl != None:
+            self.ctrl.cs.quit()        
+            _logger.debug(" Memosono closes: close csound server. ")
+

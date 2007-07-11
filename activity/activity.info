@@ -1,6 +1,6 @@
 [Activity]
 name = Memosono
-service_name = com.erikos.MemosonoActivity
+service_name = org.laptop.Memosono
 class = memosonoactivity.MemosonoActivity
-icon = activity-memorygame
+icon = activity-memosono
 activity_version = 11

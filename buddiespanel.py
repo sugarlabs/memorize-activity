@@ -35,7 +35,7 @@ class BuddyPlayer(hippo.CanvasBox, hippo.CanvasItem):
         nick = buddy.props.nick
         if not nick:
             nick = ""
-        self.name = hippo.CanvasText(text=nick, color=color.WHITE.get_int())
+        self.name = hippo.CanvasText(text=nick, size_mode=hippo.CANVAS_SIZE_WRAP_WORD, color=color.WHITE.get_int())
 
         self.append(self.icon)
         self.append(self.name)

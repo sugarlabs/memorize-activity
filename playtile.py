@@ -9,11 +9,13 @@ class PlayTile(hippo.CanvasBox, hippo.CanvasItem):
     __gtype_name__ = 'PlayTile'
     _BORDER_DEFAULT = units.points_to_pixels(1.0)
  
-    def __init__(self, num, **kargs):
+    def __init__(self, num, x, y, **kargs):
         hippo.CanvasBox.__init__(self, **kargs)
 
         self.num = num
         self.image = os.path.join(os.path.dirname(__file__), 'images/black.png')
+        self.scale_x = x
+        self.scale_y = y
         
         self._radius = units.points_to_pixels(5)
         self.props.border_color = 100
@@ -52,10 +54,11 @@ class PlayTile(hippo.CanvasBox, hippo.CanvasItem):
         hbox.props.spacing = units.points_to_pixels(5)
         hbox.props.padding_top = units.points_to_pixels(5)
         hbox.props.padding_bottom = units.points_to_pixels(5)
-                
+
         self.img_widget = gtk.Image()
-        self.img_pixbuf = gtk.gdk.pixbuf_new_from_file(self.image)
-        self.img_widget.set_from_pixbuf(self.img_pixbuf)
+        pixbuf_i = gtk.gdk.pixbuf_new_from_file(self.image)
+        self.scaledbuf_i = pixbuf_i.scale_simple(self.scale_x, self.scale_y, gtk.gdk.INTERP_BILINEAR)
+        self.img_widget.set_from_pixbuf(self.scaledbuf_i)
 
         canvas_widget = hippo.CanvasWidget()
         canvas_widget.props.widget = self.img_widget
