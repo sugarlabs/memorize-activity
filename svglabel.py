@@ -1,8 +1,6 @@
 #! /usr/bin/env python
 #
-#    Copyright (C) 2007, One Laptop Per Child
-#
-#    Muriel de Souza Godoi - muriel@laptop.org
+#    Copyright (C) 2006, 2007, One Laptop Per Child
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
