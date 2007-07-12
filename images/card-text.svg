@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+    <!ENTITY ns_svg "http://www.w3.org/2000/svg">
+    <!ENTITY ns_xlink "http://www.w3.org/1999/xlink">
+    <!ENTITY stroke_color "#ffffff">
+    <!ENTITY text_color "#888888">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="260"
+   height="260"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45"
+   version="1.0"
+   sodipodi:docname="card-text.svg"
+   sodipodi:docbase="/home/msgodoi/olpc/sugar-jhbuild/build/share/activities/Memonew.activity/images"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="true">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.4769231"
+     inkscape:cx="130"
+     inkscape:cy="130"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     width="260px"
+     height="260px"
+     inkscape:window-width="1434"
+     inkscape:window-height="848"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     borderlayer="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(126.73047,-9.5643997e-3)">
+    <text
+       xml:space="preserve"
+       style="font-size:55px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:center;line-height:80.00000119%;writing-mode:lr-tb;text-anchor:middle;fill:&text_color;;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       x="4.2810593"
+       y="45.200275"
+       id="text2212"
+       sodipodi:linespacing="80.000001%"
+       transform="scale(0.8898189,1.1238241)"><tspan
+         sodipodi:role="line"
+         id="tspan2214"
+         x="4.2810593"
+         y="45.200275">card_line1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:55px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:center;line-height:80.00000119%;writing-mode:lr-tb;text-anchor:middle;fill:&text_color;;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       x="4.5251999"
+       y="158.3905"
+       id="text7222"
+       sodipodi:linespacing="80.000001%"
+       transform="scale(0.8898189,1.1238241)"><tspan
+         sodipodi:role="line"
+         id="tspan7224"
+         x="4.5251999"
+         y="158.3905">card_line3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:55px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:center;line-height:80.00000119%;writing-mode:lr-tb;text-anchor:middle;fill:&text_color;;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       x="4.6960983"
+       y="101.79538"
+       id="text7226"
+       sodipodi:linespacing="80.000001%"
+       transform="scale(0.8898189,1.1238241)"><tspan
+         sodipodi:role="line"
+         id="tspan7228"
+         x="4.6960983"
+         y="101.79538">card_line2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:55px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:center;line-height:80.00000119%;writing-mode:lr-tb;text-anchor:middle;fill:&text_color;;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       x="3.7683642"
+       y="214.98558"
+       id="text7230"
+       sodipodi:linespacing="80.000001%"
+       transform="scale(0.8898189,1.1238241)"><tspan
+         sodipodi:role="line"
+         id="tspan7232"
+         x="3.7683642"
+         y="214.98558">card_line4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:240px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:&text_color;;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:DejaVu Sans"
+       x="-80.34375"
+       y="217.49004"
+       id="text2210"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2212"
+         x="-80.34375"
+         y="217.49004">card_text</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT memorize (#PCDATA|pair)*>
+<!ATTLIST memorize
+  name	  CDATA   #REQUIRED
+  scoresnd    CDATA   #IMPLIED
+  winsnd    CDATA   #IMPLIED
+  divided    CDATA   #IMPLIED
+  face    CDATA   #IMPLIED
+>
+
+<!ELEMENT pair (#PCDATA)* >
+<!ATTLIST pair
+  aimg    CDATA  #IMPLIED
+  asnd	  CDATA  #IMPLIED
+  achar	  CDATA  #IMPLIED
+  bimg	  CDATA  #IMPLIED
+  bsnd    CDATA  #IMPLIED
+  bchar   CDATA  #IMPLIED
+  color	  CDATA  #IMPLIED
+>

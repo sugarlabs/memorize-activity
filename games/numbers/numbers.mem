@@ -1,0 +1,22 @@
+game_name=numbers
+score_sound=score.wav
+win_sound=score.wav
+divided=True
+face1=1
+face2=2
+# Cards
+1,,01.wav,1,,,,,2,01x.jpg,01.wav,,,,,
+1,,02.wav,2,,,,,2,02x.jpg,02.wav,,,,,
+1,,03.wav,3,,,,,2,03x.jpg,03.wav,,,,,
+1,,04.wav,4,,,,,2,04x.jpg,04.wav,,,,,
+1,,05.wav,5,,,,,2,05x.jpg,05.wav,,,,,
+1,,06.wav,6,,,,,2,06x.jpg,06.wav,,,,,
+1,,07.wav,7,,,,,2,07x.jpg,07.wav,,,,,
+1,,08.wav,8,,,,,2,08x.jpg,08.wav,,,,,
+1,,09.wav,9,,,,,2,09x.jpg,09.wav,,,,,
+1,,10.wav,10,,,,,2,10x.jpg,10.wav,,,,,
+1,,11.wav,11,,,,,2,11x.jpg,11.wav,,,,,
+1,,12.wav,12,,,,,2,12x.jpg,12.wav,,,,,
+1,,13.wav,13,,,,,2,13x.jpg,13.wav,,,,,
+1,,14.wav,14,,,,,2,14x.jpg,14.wav,,,,,
+1,,15.wav,15,,,,,2,15x.jpg,15.wav,,,,,

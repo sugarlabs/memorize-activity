@@ -1,6 +1,7 @@
 [Activity]
-name = Memosono
-service_name = org.laptop.Memosono
-class = memosonoactivity.MemosonoActivity
-icon = activity-memosono
+name = Memorize
+service_name = org.laptop.Memorize
+class = activity.MemorizeActivity
+icon = activity-memorize
 activity_version = 11
+show_launcher = yes

@@ -1,0 +1,22 @@
+game_name=phonemes
+score_sound=score.wav
+win_sound=score.wav
+divided=True
+face1=1
+face2=2
+# Cards
+1,agua1.jpg,agua1.wav,,,,,Á_ _ _,2,agua2.jpg,agua2.wav,,,,,_GUA
+1,bola1.jpg,bola1.wav,,,,,BO_ _,2,bola2.jpg,bola2.wav,,,,,_ _LA
+1,casa1.jpg,casa1.wav,,,,,CA_ _,2,casa2.jpg,casa2.wav,,,,,_ _SA
+1,ema1.jpg,ema1.wav,,,,,E_ _,2,ema2.jpg,ema2.wav,,,,,_MA
+1,frutas1.jpg,frutas1.wav,,,,,FRU_ _ _,2,frutas2.jpg,frutas2.wav,,,,,_ _ _TAS
+1,homem1.jpg,homem1.wav,,,,,HO_ _ _,2,homem2.jpg,homem2.wav,,,,,_ _MEM
+1,ioio1.jpg,ioio1.wav,,,,,IO_ _,2,ioio2.jpg,ioio2.wav,,,,,_ _IO
+1,kiwi1.jpg,kiwi1.wav,,,,,KI_ _,2,kiwi2.jpg,kiwi2.wav,,,,,_ _WI
+1,ovo1.jpg,ovo1.wav,,,,,O_ _,2,ovo2.jpg,ovo2.wav,,,,,_VO
+1,peixe1.jpg,peixe1.wav,,,,,PEI_ _,2,peixe2.jpg,peixe2.wav,,,,,_ _ _XE
+1,queijo1.jpg,queijo1.wav,,,,,QUEI_ _,2,queijo2.jpg,queijo2.wav,,,,,_ _ _ _JO
+1,roda1.jpg,roda1.wav,,,,,RO_ _,2,roda2.jpg,roda2.wav,,,,,_ _DA
+1,sapo1.jpg,sapo1.wav,,,,,SA_ _,2,sapo2.jpg,sapo2.wav,,,,,_ _PO
+1,uva1.jpg,uva1.wav,,,,,U_ _,2,uva2.jpg,uva2.wav,,,,,_VA
+1,zebra1.jpg,zebra1.wav,,,,,ZE_ _ _,2,zebra2.jpg,zebra2.wav,,,,,_ _BRA
