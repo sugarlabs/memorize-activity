@@ -45,6 +45,7 @@ class Scoreboard(gtk.EventBox):
         self.show()
         
     def add_buddy(self, widget, buddy, score):
+        ### FIXME: this breaks when the body is empty
         nick = buddy.props.nick
         stroke_color, fill_color = buddy.props.color.split(',')
         player = PlayerScoreboard(nick, fill_color, stroke_color, score)
@@ -59,7 +60,7 @@ class Scoreboard(gtk.EventBox):
         
     def rem_buddy(self, widget, buddy):
         self.vbox.remove(self.players[buddy])        
-        del self.players[id]
+        del self.players[buddy] ### fix for self.players[id]
     
     def set_selected(self, widget, buddy):
         if self.current_buddy <> None:

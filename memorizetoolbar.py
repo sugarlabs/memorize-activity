@@ -87,7 +87,7 @@ class MemorizeToolbar(gtk.Toolbar):
             self.activity.change_game(game_name, game_size)
         
     def update_toolbar(self, widget, data, grid):
-        game = data.get('game_name')
+        game = data.get('name')
         size = data.get('size')
         self._lock = True
         game_index = self.games.index(game)

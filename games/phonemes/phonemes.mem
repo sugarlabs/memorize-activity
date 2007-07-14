@@ -1,10 +1,25 @@
-game_name=phonemes
-score_sound=score.wav
-win_sound=score.wav
-divided=True
-face1=1
-face2=2
-# Cards
+<?xml version="1.0"?>
+<memorize name="phonemes" scoresnd="score.wav" winsnd="win.wav" divided="1" face1="1" face2="2" >
+
+ <pair aimg="agua1.jpg" asnd="agua1.wav" bimg="agua2.jpg" bsnd="agua2.wav" />
+ <pair aimg="bola1.jpg" asnd="bola1.wav" bimg="bola2.jpg" bsnd="bola2.wav" />
+ <pair aimg="casa1.jpg" asnd="casa1.wav" bimg="casa2.jpg" bsnd="casa2.wav" />
+ <pair aimg="ema1.jpg" asnd="ema1..wav" bimg="ema2.jpg" bsnd="ema2.wav" />
+ <pair aimg="frutas1.jpg" asnd="frutas1.wav" bimg="frutas2.jpg" bsnd="frutas2.wav" />
+ <pair aimg="homem1.jpg" asnd="homem1.wav" bimg="homem2.jpg" bsnd="homem2.wav" />
+ <pair aimg="ioio1.jpg" asnd="ioio1.wav" bimg="ioio2.jpg" bsnd="ioio2.wav" />
+ <pair aimg="kiwi1.jpg" asnd="kiwi1.wav" bimg="kiwi2.jpg" bsnd="kiwi2.wav" />
+ <pair aimg="ovo1.jpg" asnd="ovo1.wav" bimg="ovo2.jpg" bsnd="ovo2.wav" />
+ <pair aimg="peixe1.jpg" asnd="peixe1.wav" bimg="peixe2.jpg" bsnd="peixe2.wav" />
+ <pair aimg="queijo1.jpg" asnd="queijo1.wav" bimg="queijo2.jpg" bsnd="queijo2.wav" />
+ <pair aimg="roda1.jpg" asnd="roda1.wav" bimg="roda2.jpg" bsnd="roda2.wav" />
+ <pair aimg="sapo1.jpg" asnd="sapo1.wav" bimg="sapo2.jpg" bsnd="sapo2.wav" />
+ <pair aimg="uva1.jpg" asnd="uva1.wav" bimg="uva2.jpg" bsnd="uva2.wav" />
+ <pair aimg="zebra1.jpg" asnd="zebra1.wav" bimg="zebra2.jpg" bsnd="zebra2.wav" />
+
+</memorize>
+
+<!--
 1,agua1.jpg,agua1.wav,,,,,Á_ _ _,2,agua2.jpg,agua2.wav,,,,,_GUA
 1,bola1.jpg,bola1.wav,,,,,BO_ _,2,bola2.jpg,bola2.wav,,,,,_ _LA
 1,casa1.jpg,casa1.wav,,,,,CA_ _,2,casa2.jpg,casa2.wav,,,,,_ _SA
@@ -20,3 +35,4 @@ face2=2
 1,sapo1.jpg,sapo1.wav,,,,,SA_ _,2,sapo2.jpg,sapo2.wav,,,,,_ _PO
 1,uva1.jpg,uva1.wav,,,,,U_ _,2,uva2.jpg,uva2.wav,,,,,_VA
 1,zebra1.jpg,zebra1.wav,,,,,ZE_ _ _,2,zebra2.jpg,zebra2.wav,,,,,_ _BRA
+-->

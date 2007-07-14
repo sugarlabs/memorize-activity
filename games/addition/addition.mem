@@ -1,24 +1,23 @@
-game_name=addition
-score_sound=score.wav
-win_sound=score.wav
-divided=false
-face= 
-# Cards
-,,,,,,1+1,,,,,2,,,,
-,,,,,,1+2,,,,,3,,,,
-,,,,,,2+2,,,,,4,,,,
-,,,,,,2+3,,,,,5,,,,
-,,,,,,3+3,,,,,6,,,,
-,,,,,,3+4,,,,,7,,,,
-,,,,,,4+4,,,,,8,,,,
-,,,,,,4+5,,,,,9,,,,
-,,,,,,5+5,,,,,10,,,,
-,,,,,,5+6,,,,,11,,,,
-,,,,,,6+6,,,,,12,,,,
-,,,,,,6+7,,,,,13,,,,
-,,,,,,7+7,,,,,14,,,,
-,,,,,,7+8,,,,,15,,,,
-,,,,,,8+8,,,,,16,,,,
-,,,,,,8+9,,,,,17,,,,
-,,,,,,9+9,,,,,18,,,,
-,,,,,,10+9,,,,,19,,,,
+<?xml version="1.0"?>
+<memorize name="addition" scoresnd="score.wav" winsnd="win.wav" divided="0" >
+
+ <pair achar="1+1" bchar="2" bcharalign="2" />
+ <pair achar="1+2" bchar="3" />
+ <pair achar="2+2" bchar="4" />
+ <pair achar="2+3" bchar="5" />
+ <pair achar="3+3" bchar="6" />
+ <pair achar="3+4" bchar="7" />
+ <pair achar="4+4" acharalign="4" bchar="8" />
+ <pair achar="4+5" bchar="9" />
+ <pair achar="5+5" bchar="10" />
+ <pair achar="5+6" bchar="11" />
+ <pair achar="6+6" bchar="12" bcharalign="3"/>
+ <pair achar="6+7" bchar="13" />
+ <pair achar="7+7" bchar="14" />
+ <pair achar="7+8" bchar="15" />
+ <pair achar="8+8" bchar="16" />
+ <pair achar="8+9" bchar="17" />
+ <pair achar="9+9" bchar="18" />
+ <pair achar="10+9" bchar="19" />
+
+</memorize>

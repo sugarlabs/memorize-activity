@@ -63,7 +63,7 @@ class CardTable(gtk.EventBox):
         self.table_positions = {}
         
         # Build the table
-        if data['divided']=='True':
+        if data['divided']=='1':
             text1 = str(self.data['face1'])
             text2 = str(self.data['face2'])
         else:
@@ -71,24 +71,24 @@ class CardTable(gtk.EventBox):
             text2 = str(self.data['face'])
         buffer_card_1 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text1}}, {}, None, self.card_size)
         buffer_card_2 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text2}}, {}, None, self.card_size)
-
-        self.game_dir = os.path.join(os.path.dirname(__file__), 'games')
+        
         x = 0
         y = 0
         id = 0
-        for card in self.cards_data:
-            if card[1] <> '':     
-                jpg = os.path.join(self.game_dir, self.data['game_name']+'/images/'+str(card[1]))
+        
+        for card in self.cards_data:        
+            if card.get('img', None):
+                jpg = card['img']
             else:
                 jpg = None
             props = {}
             props['front_border'] = {'opacity':'1'}
             props['front_h_border'] ={'opacity':'1'}
-            props['front_text']= {'card_text':card[3], 'card_line1':card[4], 'card_line2':card[5], 'card_line3':card[6], 'card_line4':card[7]}
+            props['front_text']= {'card_text':card.get('char', ''), 'card_line1':'', 'card_line2':'', 'card_line3':'', 'card_line4':''}
             
-            if card[0]== '1':
+            if card['ab']== 'a':
                 buffer_card = buffer_card_1
-            else:
+            elif card['ab']== 'b':
                 buffer_card = buffer_card_2
             
             card = svgcard.SvgCard(id, props, buffer_card.get_cache(), jpg, self.card_size)

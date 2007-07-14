@@ -1,25 +1,23 @@
-game_name=letters1
-score_sound=score.wav
-win_sound=score.wav
-divided=True
-face1=1
-face2=2
-# Cards
-1,,,A,,,,,2,,,a,,,,
-1,,,E,,,,,2,,,e,,,,
-1,,,I,,,,,2,,,i,,,,
-1,,,O,,,,,2,,,o,,,,
-1,,,U,,,,,2,,,u,,,,
-1,,,B,,,,,2,,,b,,,,
-1,,,C,,,,,2,,,c,,,,
-1,,,D,,,,,2,,,d,,,,
-1,,,F,,,,,2,,,f,,,,
-1,,,G,,,,,2,,,g,,,,
-1,,,H,,,,,2,,,h,,,,
-1,,,J,,,,,2,,,j,,,,
-1,,,K,,,,,2,,,k,,,,
-1,,,L,,,,,2,,,l,,,,
-1,,,M,,,,,2,,,m,,,,
-1,,,N,,,,,2,,,n,,,,
-1,,,P,,,,,2,,,p,,,,
-1,,,Q,,,,,2,,,q,,,,
+<?xml version="1.0"?>
+<memorize name="letters1" scoresnd="score.wav" winsnd="win.wav" divided="1" face1="1" face2="2" >
+
+ <pair achar="A" bchar="a" />
+ <pair achar="E" bchar="e" />
+ <pair achar="I" bchar="i" />
+ <pair achar="O" bchar="o" />
+ <pair achar="U" bchar="u" />
+ <pair achar="B" bchar="b" />
+ <pair achar="C" bchar="c" />
+ <pair achar="D" bchar="d" />
+ <pair achar="F" bchar="f" />
+ <pair achar="G" bchar="g" />
+ <pair achar="H" bchar="h" />
+ <pair achar="J" bchar="j" />
+ <pair achar="K" bchar="k" />
+ <pair achar="L" bchar="l" />
+ <pair achar="M" bchar="m" />
+ <pair achar="N" bchar="n" />
+ <pair achar="P" bchar="p" />
+ <pair achar="Q" bchar="q" />
+
+</memorize>

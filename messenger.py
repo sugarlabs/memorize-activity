@@ -40,6 +40,8 @@ class Messenger(ExportedGObject):
         self._tube.watch_participants(self.participant_change_cb)
 
     def participant_change_cb(self, added, removed):
+        _logger.debug('Participants change add=%s    rem=%s' %(added, removed))
+        
         if not self.entered:
             self._tube.add_signal_receiver(self._flip_receiver, '_flip_signal', IFACE, path=PATH, sender_keyword='sender')
             self._tube.add_signal_receiver(self._change_game_receiver, '_change_game_signal', IFACE, path=PATH, sender_keyword='sender')
@@ -61,13 +63,18 @@ class Messenger(ExportedGObject):
         ''' Someone joined the game, so sync the new player '''
         _logger.debug('The new player %s has joined', sender)
         self.ordered_bus_names.append(sender)
+        _logger.debug('The grid to send: %s', self.game.get_grid())
+        _logger.debug('The data to send: %s', self.game.get_data())
         self._tube.get_object(sender, PATH).load_game(self.ordered_bus_names, self.game.get_grid(), self.game.get_data(), self.game.waiting_players, dbus_interface=IFACE)
+        _logger.debug('Sent the game state')
     
     #@dbus.service.method(dbus_interface=IFACE, in_signature='asss', out_signature='')
-    @dbus.service.method(dbus_interface=IFACE, in_signature='asa(ssssssssiii)a{ss}av', out_signature='')
+    #@dbus.service.method(dbus_interface=IFACE, in_signature='asa(ssssssssiii)a{ss}av', out_signature='')
+    @dbus.service.method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}av', out_signature='')
     def load_game(self, bus_names, grid, data,list):
         ''' Sync the game with with players '''
         _logger.debug('Data received to sync game data')
+        _logger.debug('grid %s '%grid)
         self.ordered_bus_names = bus_names
         self.player_id = bus_names.index(self._tube.get_unique_name())
         self._change_game_receiver(grid,data,self.ordered_bus_names[0])
@@ -96,7 +103,8 @@ class Messenger(ExportedGObject):
         _logger.debug('Sending changed game message')
         self._change_game_signal(grid, data)
     
-    @dbus.service.signal(IFACE, signature='a(ssssssssiii)a{ss}')
+    #@dbus.service.signal(IFACE, signature='a(ssssssssiii)a{ss}')
+    @dbus.service.signal(IFACE, signature='aa{ss}a{ss}')
     def _change_game_signal(self, grid, data):
         _logger.debug('Notifing other players that you changed the game')
         ''' Notify current players that you changed the game '''
@@ -107,8 +115,8 @@ class Messenger(ExportedGObject):
         
         if self._tube.self_handle <> handle:
             _logger.debug('Game changed by other player')
-            new_grid = []
-            for card in grid:
-                new_grid.append(map(lambda x: str(x), card[:8])+[int(card[8]), int(card[9]), int(card[10])])
-            self.game.load_remote(new_grid, data, True)
+            #new_grid = []
+            #for card in grid:
+            #    new_grid.append(map(lambda x: str(x), card[:8])+[int(card[8]), int(card[9]), int(card[10])])
+            self.game.load_remote(grid, data, True)
             

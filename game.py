@@ -29,6 +29,8 @@ from dbus.gobject_service import ExportedGObject
 
 import gobject
 
+from model import Model
+
 _logger = logging.getLogger('memorize-activity')
 
 SERVICE = "org.laptop.Memorize"
@@ -68,13 +70,16 @@ class MemorizeGame(gobject.GObject):
         self.game_dir = os.path.join(os.path.dirname(__file__), 'games')
         self.messenger = None
         self.sentitive = True
-        
-    def load_game(self, game_name, size):
-        tuple = self.read_config(game_name, size)
-        self.data = tuple[0]
-        self.grid = tuple[1]
-        self.data['running'] = 'False'
-        self.emit('load_game', self.data, self.grid)
+        self.model = Model(os.path.dirname(__file__))
+            
+    def load_game(self, game_name, size):        
+        if self.model.read(game_name) == 0:
+            self.model.def_grid(size)
+            self.model.data['running'] = 'False'
+            logging.debug(' Read setup file %s:   %s   '%(game_name, self.model.grid))
+            self.emit('load_game', self.model.data, self.model.grid)
+        else:
+            logging.error(' Reading setup file %s'%game_name)
         
     def add_buddy(self, buddy, score = 0):
         _logger.debug('Buddy %r was added to game', buddy.props.nick)
@@ -87,11 +92,11 @@ class MemorizeGame(gobject.GObject):
             self.change_turn()
     
     def rem_buddy(self, buddy):
-        _logger.debug('Buddy %r was removed to game', buddy.props.nick)
+        _logger.debug('Buddy %r was removed from game', buddy.props.nick)
         index = self.players.index(buddy)
         del self.players[index]
         del (self.players_score[buddy])
-        if self.current_player == buddy and len(self.players) <> 0:
+        if self.current_player == buddy and len(self.players) >= 2: ### fix from <> 0
             self.change_turn()
         self.emit('rem_buddy', buddy)
 
@@ -111,50 +116,50 @@ class MemorizeGame(gobject.GObject):
             return
         
         # Handle groups if needed
-        if self.data['divided'] == 'True':
-            if self.last_flipped == -1 and id >= (len(self.grid)/2):
+        if self.model.data['divided'] == '1':
+            if self.last_flipped == -1 and id >= (len(self.model.grid)/2):
                 return
-            if self.last_flipped <> -1 and id < (len(self.grid)/2):
+            if self.last_flipped <> -1 and id < (len(self.model.grid)/2):
                 return
-        self.data['running'] = 'True'
+        self.model.data['running'] = 'True'
             
         # First card case
         if self.last_flipped == -1:
             self.last_flipped = id
-            self.grid[id][8] = 1
+            self.model.grid[id]['state'] = '1'
             self.emit('flip-card', id)
             if not signal:
                 self.emit('flip-card-signal', id)    
-                if self.data['divided'] == 'True':
+                if self.model.data['divided'] == '1':
                     self.card_highlighted(widget, -1, False)
 
-        # Pair matched
-        elif self.grid[self.last_flipped][-1] == self.grid[id][-1]:
+        # Pair matched        
+        elif self.model.grid[self.last_flipped]['pairkey'] == self.model.grid[id]['pairkey']:
             stroke_color, fill_color = self.current_player.props.color.split(',')
             self.emit('set-border', id, stroke_color, fill_color)
             self.emit('set-border', self.last_flipped, stroke_color, fill_color)
             self.increase_point(self.current_player)
-            self.grid[id][8] = 1
+            self.model.grid[id]['state'] = '1'
             self.emit('flip-card', id)
-            if self.data['divided'] == 'True':
+            if self.model.data['divided'] == '1':
                 self.card_highlighted(widget, -1, False)
             if not signal:
                 self.emit('flip-card-signal', id)
             self.last_flipped = -1
         # Pair don't match
-        elif self.grid[self.last_flipped][-1] <> self.grid[id][-1]:
+        elif self.model.grid[self.last_flipped]['pairkey'] != self.model.grid[id]['pairkey']:
             self.emit('flip-card', id)
             if not signal:
                 self.emit('flip-card-signal', id)
-            self.grid[id][8] = 1
-            time.sleep(2)
+            self.model.grid[id]['state'] = '1'
+            time.sleep(2) ### gobject.timeout() here?
             self.emit('flop-card', id)
-            self.grid[id][8] = 0
+            self.model.grid[id]['state'] = '0'
             self.emit('flop-card', self.last_flipped)
-            if self.data['divided'] == 'True':
+            if self.model.data['divided'] == '1':
                 self.card_highlighted(widget, -1, False)
             # self.emit('highlight-card', id, True)
-            self.grid[self.last_flipped][8] = 0
+            self.model.grid[self.last_flipped]['state'] = '0'
             self.last_flipped = -1
             self.change_turn()
             
@@ -166,13 +171,13 @@ class MemorizeGame(gobject.GObject):
         
         if not self.sentitive:
             return
-        if self.data['divided'] == 'True':
-            if self.last_flipped == -1 and id >= (len(self.grid)/2):
+        if self.model.data['divided'] == '1':
+            if self.last_flipped == -1 and id >= (len(self.model.grid)/2):
                 return
-            if self.last_flipped <> -1 and id < (len(self.grid)/2):
+            if self.last_flipped <> -1 and id < (len(self.model.grid)/2):
                 return
         self.emit('highlight-card', self.last_highlight, False)
-        if mouse and self.grid[id][8]==0:            
+        if mouse and self.model.grid[id]['state']=='0':            
             self.emit('highlight-card', id, True)
         if not mouse:
             self.emit('highlight-card', id, True)
@@ -182,8 +187,8 @@ class MemorizeGame(gobject.GObject):
     def increase_point(self, buddy):
         self.players_score[buddy] += 1
         self.emit('increase-score', buddy)
-                
-    def read_config(self, game_name, size = 100):
+        
+    def read_config2(self, game_name, size = 100):
         filename = os.path.join(self.game_dir, game_name +'/'+game_name+'.mem')
         # seed = random.randint(0, 14567)
         temp1 = []
@@ -227,7 +232,7 @@ class MemorizeGame(gobject.GObject):
                 fd.close()
                 
                 # Shuffle cards order
-                if data['divided']=='True':                
+                if data['divided']==1:                
                     random.shuffle(temp1)
                     random.shuffle(temp2)
                     temp1.extend(temp2)
@@ -238,21 +243,21 @@ class MemorizeGame(gobject.GObject):
             return data, temp1
         
     def get_grid(self):
-        return self.grid
+        return self.model.grid
 
     def get_data(self):
-        return self.data
+        return self.model.data
     
     def change_game(self, game_name, size):
-        tuple = self.read_config(game_name, size)
-        data = tuple[0]
-        grid = tuple[1]
-        self.load_remote(grid, data, False)
-        
+        if self.model.read(game_name) == 0:
+            self.model.def_grid(size)
+            self.load_remote(self.model.grid, self.model.data, False)                    
+        else:
+            logging.error(' Reading setup file %s'%game_name)        
         
     def load_remote(self, grid, data, signal = False):
-        self.grid = grid
-        self.data = data
+        self.model.grid = grid
+        self.model.data = data
         self.emit('reset_scoreboard')
         self.emit('change_game', self.get_data(), self.get_grid())
         if not signal:
@@ -263,7 +268,7 @@ class MemorizeGame(gobject.GObject):
         self.last_flipped = -1
         self.last_highlight = 1
         self.change_turn()
-        self.data['running'] = 'False'
+        self.model.data['running'] = 'False'
         
     def set_messenger(self, messenger):
         self.messenger = messenger
