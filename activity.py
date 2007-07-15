@@ -112,6 +112,8 @@ class MemorizeActivity(Activity):
         # Owner.props.key
         if self._shared_activity:
             # We are joining the activity
+            # _logger.debug("Joined activity, add myself to buddy list nick=%s" %self.owner.props.nick)          
+            # self.game.add_buddy(self.owner)
             self.connect('joined', self._joined_cb)
             if self.get_shared():
                 # We've already joined
@@ -198,12 +200,20 @@ class MemorizeActivity(Activity):
     def _joined_cb(self, activity):
         if not self._shared_activity:
             return
-        
-        for buddy in self._shared_activity.get_joined_buddies():
-            _logger.debug("buddy joined - _joined_cb: %s", buddy.props.nick)
-            self.game.add_buddy(buddy)
 
         _logger.debug('Joined an existing shared activity')
+
+        self.found = 0
+        for buddy in self._shared_activity.get_joined_buddies():
+            _logger.debug("buddy joined - _joined_cb: %s  (get buddies of activity and add them to my list)", buddy.props.nick)
+            self.game.add_buddy(buddy)
+            if buddy == self.owner:
+                self.found = 1
+
+        if self.found == 0:
+            _logger.debug("buddy joined - _joined_cb: Not foud myself in buddy list - will add myself at end of the list.")
+            self.game.add_buddy(self.owner)
+
         self.initiating = False
         self._setup()
         
@@ -248,9 +258,15 @@ class MemorizeActivity(Activity):
              
     def _buddy_joined_cb (self, activity, buddy):
         if buddy <> self.owner:
-            _logger.debug("buddy joined - _buddy_joined_cb: %s", buddy.props.nick)
-            self.game.add_buddy(buddy)
+            if buddy.props.nick == '':
+                _logger.debug("buddy joined - _buddy_joined_cb: buddy name empty nick=%s. Will not add." %(buddy.props.nick))
+            else:
+                _logger.debug("buddy joined - _buddy_joined_cb: %s", buddy.props.nick)
+                self.game.add_buddy(buddy)
 
     def _buddy_left_cb (self, activity, buddy):
-        _logger.debug("buddy left - _buddy_left_cb: %s", buddy.props.nick)
-        self.game.rem_buddy(buddy)
+        if buddy.props.nick == '':
+            _logger.debug("buddy joined - _buddy_left_cb: buddy name empty nick=%s. Will not remove" %(buddy.props.nick))
+        else:
+            _logger.debug("buddy left - _buddy_left_cb: %s", buddy.props.nick)
+            self.game.rem_buddy(buddy)

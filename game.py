@@ -188,60 +188,6 @@ class MemorizeGame(gobject.GObject):
         self.players_score[buddy] += 1
         self.emit('increase-score', buddy)
         
-    def read_config2(self, game_name, size = 100):
-        filename = os.path.join(self.game_dir, game_name +'/'+game_name+'.mem')
-        # seed = random.randint(0, 14567)
-        temp1 = []
-        temp2 = []
-        grid = []
-        data = {}
-        # set random seed
-        random.seed()
-        filecheck = filename.split('.')
-        if filecheck[2] != 'mem':
-            logging.error('File format of %s'%filename)
-        else:    
-            fd = open(filename, 'r')
-            if fd == None:
-                logging.error(' Reading setup file %s'%filename)
-            else:# set random seed
-                logging.info(' Read setup for memosono from file %s'%filename)        
-                lines = fd.readlines()
-                index = 0
-                
-                # Load variables
-                while lines[index][0] != '#':
-                    zw = lines[index].split('=')
-                    zw[1] = zw[1][:-1]
-                    if len(zw) is not 0:
-                        data[zw[0]]=zw[1]
-                        index += 1
-                index += 1
-                data['size'] = str(size)
-                
-                # Load cards data
-                tile_number = 0
-                card_num = len(lines)-index
-                while tile_number < card_num  and tile_number <= int((size*size)/2)-1:
-                    zw = lines[index].split(',')
-                    if len(zw) is not 0:
-                        temp1.append(zw[:8]+[ 0, 0, tile_number])
-                        temp2.append(zw[8:]+[ 0, 0, tile_number])
-                        tile_number += 1
-                    index += 1
-                fd.close()
-                
-                # Shuffle cards order
-                if data['divided']==1:                
-                    random.shuffle(temp1)
-                    random.shuffle(temp2)
-                    temp1.extend(temp2)
-                else:
-                    temp1.extend(temp2)
-                    random.shuffle(temp1)
-
-            return data, temp1
-        
     def get_grid(self):
         return self.model.grid
 

@@ -65,13 +65,13 @@ class Messenger(ExportedGObject):
         self.ordered_bus_names.append(sender)
         _logger.debug('The grid to send: %s', self.game.get_grid())
         _logger.debug('The data to send: %s', self.game.get_data())
-        self._tube.get_object(sender, PATH).load_game(self.ordered_bus_names, self.game.get_grid(), self.game.get_data(), self.game.waiting_players, dbus_interface=IFACE)
+        self._tube.get_object(sender, PATH).load_game(self.ordered_bus_names, self.game.get_grid(), self.game.get_data(), self.game.players.index(self.game.current_player), self.game.waiting_players, dbus_interface=IFACE)
         _logger.debug('Sent the game state')
     
     #@dbus.service.method(dbus_interface=IFACE, in_signature='asss', out_signature='')
     #@dbus.service.method(dbus_interface=IFACE, in_signature='asa(ssssssssiii)a{ss}av', out_signature='')
-    @dbus.service.method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}av', out_signature='')
-    def load_game(self, bus_names, grid, data,list):
+    @dbus.service.method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}nav', out_signature='')
+    def load_game(self, bus_names, grid, data, current_player, list):
         ''' Sync the game with with players '''
         _logger.debug('Data received to sync game data')
         _logger.debug('grid %s '%grid)
@@ -79,6 +79,8 @@ class Messenger(ExportedGObject):
         self.player_id = bus_names.index(self._tube.get_unique_name())
         self._change_game_receiver(grid,data,self.ordered_bus_names[0])
         self.game.load_waiting_list(list)
+        _logger.debug('Current plater id=%d' %current_player)
+        self.game.current_player = self.game.players[current_player]
         
     def flip(self, widget, id):
         ''' Notify other players that you flipped a card '''
