@@ -217,6 +217,7 @@ class Model(object):
                 elem['pairkey'] = key
                 elem['state'] = '0'
                 elem['ab'] = 'a'
+                elem['charalign'] = '0'
                 if self.pairs[key].props.aimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.aimg)
                 if self.pairs[key].props.asnd != None:
@@ -230,6 +231,7 @@ class Model(object):
                 elem['pairkey'] = key
                 elem['state'] = '0'
                 elem['ab'] = 'b'
+                elem['charalign'] = '0'
                 if self.pairs[key].props.bimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.bimg)
                 if self.pairs[key].props.bsnd != None:
