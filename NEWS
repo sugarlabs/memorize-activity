@@ -1,3 +1,9 @@
-Starting to merge the memosono game and the memorize game into one activity. (erikos)
+* Fixes for leaving and joining of buddies (erikos)
+* Added new model which handles config files for games in xml
+* Adopted the ui to use the model
+* Adopted the dbus methods to send the new grid when a game changes
 
-First version of the collaborated memosono. (erikos)
+* Starting to merge the memosono game and the memorize game into one activity. (erikos)
+  Activity is known now as 'memorize'
+
+* First version of the collaborated memosono. (erikos)
