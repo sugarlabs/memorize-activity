@@ -221,7 +221,8 @@ class Model(object):
                 if self.pairs[key].props.aimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.aimg)
                 if self.pairs[key].props.asnd != None:
-                    elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)
+                    if os.path.isfile(os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)):
+                        elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)
                 if self.pairs[key].props.achar != None:
                     elem['char'] = self.pairs[key].props.achar
                     elem['charalign'] = self.pairs[key].props.acharalign                    
@@ -235,7 +236,8 @@ class Model(object):
                 if self.pairs[key].props.bimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.bimg)
                 if self.pairs[key].props.bsnd != None:
-                    elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)
+                    if os.path.isfile(os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)):
+                        elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)
                 if self.pairs[key].props.bchar != None:
                     elem['char'] = self.pairs[key].props.bchar
                     elem['charalign'] = self.pairs[key].props.bcharalign

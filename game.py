@@ -22,6 +22,7 @@ import random
 import logging
 import gobject
 import time
+import gtk
 
 from sugar import profile
 from dbus.service import method, signal
@@ -71,6 +72,24 @@ class MemorizeGame(gobject.GObject):
         self.messenger = None
         self.sentitive = True
         self.model = Model(os.path.dirname(__file__))
+
+        # create csound instance to play sound files
+        self.sound = 0
+        try:
+            import csnd
+            self.sound = 1
+            _logger.error(' [Check for module csnd] found.')
+        except:
+            _logger.error(' [Check for module csnd] not found. There will be no sound.')
+
+        if self.sound == 1:
+            from csound.csoundserver import CsoundServer            
+            self.cs = CsoundServer()
+            gtk.gdk.threads_init()
+            if self.cs.start() != 0:
+                _logger.error(' Error starting csound performance.')
+                self.sound = 0
+            
             
     def load_game(self, game_name, size):        
         if self.model.read(game_name) == 0:
@@ -122,7 +141,16 @@ class MemorizeGame(gobject.GObject):
             if self.last_flipped <> -1 and id < (len(self.model.grid)/2):
                 return
         self.model.data['running'] = 'True'
-            
+
+        # play sound in any case if available
+        if self.sound == 1:
+            snd = self.model.grid[id].get('snd', None)
+            if snd == None:
+                _logger.debug('Audio: no sound in this game.')
+            else:
+                self.cs.perform('i 108 0.0 3.0 "%s" 1 0.9 0.5 0'%(snd))                
+                _logger.debug('Audio: play sound=%s'%snd)
+                
         # First card case
         if self.last_flipped == -1:
             self.last_flipped = id
@@ -140,7 +168,7 @@ class MemorizeGame(gobject.GObject):
             self.emit('set-border', self.last_flipped, stroke_color, fill_color)
             self.increase_point(self.current_player)
             self.model.grid[id]['state'] = '1'
-            self.emit('flip-card', id)
+            self.emit('flip-card', id)            
             if self.model.data['divided'] == '1':
                 self.card_highlighted(widget, -1, False)
             if not signal:

@@ -13,16 +13,18 @@ class CsoundServer(Thread):
         Thread.__init__(self)
         self.csound = csnd.Csound()
 
-    def start(self):            
+    def start(self):        
         self.perf = csnd.CsoundPerformanceThread(self.csound)
         uniorcpath = os.path.join( os.path.dirname(__file__), 'univorc.csd')
         if not os.path.exists(uniorcpath):
             _logger.error('univorc not found %s'%uniorcpath)
         else:
-            self.csound.Compile(uniorcpath)        
+            if self.csound.Compile(uniorcpath) == -1:
+                _logger.debug('error compiling csound orchestra %s'%uniorcpath)
+                return 1
             self.perf.Play()
-            _logger.debug('start csound performance %s'%uniorcpath)
-
+            return 0
+        
     def pause(self):            
         self.perf.Stop()
         self.perf.Join()                                    
