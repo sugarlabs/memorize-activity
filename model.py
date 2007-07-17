@@ -164,20 +164,38 @@ class Model(object):
                                 self.data['face2'] = attribute.content                        
                 xpa.xpathFreeContext()
             else:
-                _logger.error('Error in validation of the file')
+                _logger.error('Read: Error in validation of the file')
+                doc.freeDoc()
                 return 1
             doc.freeDoc()
             return 0
         except libxml2.parserError, e:
-            _logger.error('Error parsing file ' +str(e))
+            _logger.error('Read: Error parsing file ' +str(e))
             return 2
             
     def save(self, filename):
         ''' saves the configuration to an xml file '''
         doc = libxml2.newDoc("1.0")
         root = doc.newChild(None, "memorize", None)
-        root.setProp("name", self.data['name'])
-        ### Fixme: add other attributes here
+        
+        if(self.data.get('name', None) != None):                            
+            root.setProp("name", self.data['name'])
+        else:
+            _logger.error('Save: No name is specified. Can not save game.')
+            return 1
+        if(self.data.get('scoresnd', None) != None):                            
+            root.setProp("scoresnd", self.data['scoresnd'])
+        if(self.data.get('winsnd', None) != None):                            
+            root.setProp("winsnd", self.data['winsnd'])
+        if(self.data.get('divided', None) != None):                            
+            root.setProp("divided", self.data['divided'])
+        if(self.data.get('face', None) != None):                            
+            root.setProp("face", self.data['face'])
+        if(self.data.get('face1', None) != None):                            
+            root.setProp("face1", self.data['face1'])
+        if(self.data.get('face2', None) != None):                            
+            root.setProp("face2", self.data['face2'])
+                                
         for key in self.pairs:
             
             elem = root.newChild(None, "pair", None)
@@ -193,11 +211,16 @@ class Model(object):
                 elem.setProp("bsnd", self.pairs[key].props.bsnd)
             if self.pairs[key].props.bchar != None:
                 elem.setProp("bchar", self.pairs[key].props.bchar)
-            elem.setProp("color", str(self.pairs[key].props.color))
+            # elem.setProp("color", str(self.pairs[key].props.color))
         
         if doc.validateDtd(self.ctxt, self.dtd):
             doc.saveFormatFile(filename, 1)
-        doc.freeDoc()    
+        else:
+            _logger.error('Save: Error in validation of the file')
+            doc.freeDoc()
+            return 2
+        doc.freeDoc()
+        return 0
 
 
     def def_grid(self, size):
@@ -211,7 +234,13 @@ class Model(object):
         temp1 = []
         temp2 = []
         i=0
-        for key in self.pairs.iterkeys():
+
+        # shuffle the pairs first to avoid only taking the first ones when there are more
+        # pairs in the config file then the grid is using
+        keys = model.pairs.keys()
+        random.shuffle(keys)
+
+        for key in keys:
             if i < psize:
                 elem = {}
                 elem['pairkey'] = key
@@ -248,7 +277,7 @@ class Model(object):
         
         numpairs = len(self.pairs)      
         if numpairs < psize:
-            _logger.debug('We did not have enough pairs. requested=%s had=%s' %(psize, numpairs))
+            _logger.debug('Defgrid: We did not have enough pairs. requested=%s had=%s' %(psize, numpairs))
         self.data['size'] = str(size)
 
         if self.data['divided'] == '1':
@@ -259,14 +288,20 @@ class Model(object):
             temp1.extend(temp2)
             random.shuffle(temp1)
         self.grid = temp1
-        _logger.debug(' grid( size=%s ): %s' %(self.data['size'], self.grid))
+        _logger.debug('Defgrid: grid( size=%s ): %s' %(self.data['size'], self.grid))
 
     
 
 if __name__ == '__main__':
     model = Model(os.path.dirname(__file__))
-    model.read('drumgit')
+    model.read('numbers')
+
+    model.def_grid(8)
+    print 'grid %s'%model.grid 
+
+    model.save('/tmp/save.mem')
     
+    '''
     print 'name=%s scoresnd=%s winsnd=%s div=%s' %(model.data['name'], model.data['scoresnd'],
                                                    model.data['winsnd'], model.data['divided'])
 
@@ -301,8 +336,7 @@ if __name__ == '__main__':
             print 'we got no pic so prepare for sound game'
             
     print '\n_______________________________\n'
-
-    '''
+    
     if model.read('addition') == 0:
         print '%s' %model.pairs[0]._properties
         print 'name=%s' %model.data['name']
