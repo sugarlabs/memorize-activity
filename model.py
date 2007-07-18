@@ -87,21 +87,27 @@ class Pair(gobject.GObject):
 
 
 class Model(object):
-    ''' The model of the activity. Contains methods to read and save
+    ''' The model of the activity. Contains methods to read and write
     the configuration for a game from xml. Stores the pairs and grid
     information.    
     '''
-    _GAMES_PATH = os.path.join(os.path.dirname(__file__), 'games')
     
-    def __init__(self, dtdpath):
+    def __init__(self, dtdpath, gamespath=None):
         self.data = {}
         self.dtdpath = dtdpath
+        if gamespath == None:
+            self._GAMES_PATH = os.path.join(os.path.dirname(__file__), 'games')
+        else:
+            if os.path.isdir(gamespath) is False:
+                os.makedirs(gamespath)
+            self._GAMES_PATH = gamespath
+            
         self.data['face'] = ''
         
         try:
             self.dtd = libxml2.parseDTD(None, os.path.join(self.dtdpath, 'memorize.dtd'))
         except libxml2.parserError, e:
-            _logger.error('No memorize.dtd found ' +str(e))
+            _logger.error('Init: no memorize.dtd found ' +str(e))
             self.dtd = None
         self.ctxt = libxml2.newValidCtxt()               
 
@@ -117,7 +123,7 @@ class Model(object):
         self.count = 0
 
     def read(self, gamename):
-        ''' reades the configuration from an xml file '''
+        ''' reads the configuration from an xml file '''
         self.data['path'] = os.path.join( self._GAMES_PATH, gamename)
         self.data['pathimg'] = os.path.join(self.data['path'], 'images')
         self.data['pathsnd'] = os.path.join(self.data['path'], 'sounds')
@@ -173,16 +179,17 @@ class Model(object):
             _logger.error('Read: Error parsing file ' +str(e))
             return 2
             
-    def save(self, filename):
-        ''' saves the configuration to an xml file '''
+    def write(self):
+        ''' writes the configuration to an xml file '''
         doc = libxml2.newDoc("1.0")
         root = doc.newChild(None, "memorize", None)
         
         if(self.data.get('name', None) != None):                            
             root.setProp("name", self.data['name'])
         else:
-            _logger.error('Save: No name is specified. Can not save game.')
+            _logger.error('Write: No name is specified. Can not write game.')
             return 1
+        
         if(self.data.get('scoresnd', None) != None):                            
             root.setProp("scoresnd", self.data['scoresnd'])
         if(self.data.get('winsnd', None) != None):                            
@@ -195,9 +202,8 @@ class Model(object):
             root.setProp("face1", self.data['face1'])
         if(self.data.get('face2', None) != None):                            
             root.setProp("face2", self.data['face2'])
-                                
-        for key in self.pairs:
-            
+
+        for key in self.pairs:            
             elem = root.newChild(None, "pair", None)
             if self.pairs[key].props.aimg != None:
                 elem.setProp("aimg", self.pairs[key].props.aimg)
@@ -214,14 +220,17 @@ class Model(object):
             # elem.setProp("color", str(self.pairs[key].props.color))
         
         if doc.validateDtd(self.ctxt, self.dtd):
-            doc.saveFormatFile(filename, 1)
+            path = os.path.join(self._GAMES_PATH, self.data['name'])
+            if os.path.isdir(path) is False:
+                os.makedirs(path)
+            doc.saveFormatFile(os.path.join(path, self.data['name']+'.mem'), 1)
         else:
-            _logger.error('Save: Error in validation of the file')
+            _logger.error('Write: Error in validation of the file')
             doc.freeDoc()
             return 2
         doc.freeDoc()
         return 0
-
+        
 
     def def_grid(self, size):
         ''' create the grid for the play from the pairs information
@@ -237,7 +246,7 @@ class Model(object):
 
         # shuffle the pairs first to avoid only taking the first ones when there are more
         # pairs in the config file then the grid is using
-        keys = model.pairs.keys()
+        keys = self.pairs.keys()
         random.shuffle(keys)
 
         for key in keys:
@@ -294,13 +303,17 @@ class Model(object):
 
 if __name__ == '__main__':
     model = Model(os.path.dirname(__file__))
-    model.read('numbers')
+    model.data['name'] = 'hilde'
+    pair = Pair()
+    id = '0'
+    model.pairs[id] = pair
+        
+    model.pairs[id].set_property('aimg', 'eva.png')
 
-    model.def_grid(8)
-    print 'grid %s'%model.grid 
-
-    model.save('/tmp/save.mem')
-    
+    print [model.pairs[key].props.aimg for key in model.pairs]
+    if model.write('/tmp/save.mem') != 0:
+        print 'error'
+                   
     '''
     print 'name=%s scoresnd=%s winsnd=%s div=%s' %(model.data['name'], model.data['scoresnd'],
                                                    model.data['winsnd'], model.data['divided'])
