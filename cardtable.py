@@ -84,10 +84,15 @@ class CardTable(gtk.EventBox):
             props = {}
             props['front_border'] = {'opacity':'1'}
             props['front_h_border'] ={'opacity':'1'}
-            if card['charalign'] == '3': 
-                props['front_text']= {'card_text':'', 'card_line1':'', 'card_line2':'', 'card_line3':card.get('char', ''), 'card_line4':''}
-            else:
-                props['front_text']= {'card_text':card.get('char', ''), 'card_line1':'', 'card_line2':'', 'card_line3':'', 'card_line4':''}
+            if self.data['align'] == '1': 
+                props['front_text']= {'card_text':card.get('char', ''), 'card_line1':'', 'card_line2':'',
+                                      'card_line3':'', 'card_line4':''}
+            elif self.data['align'] == '2': 
+                props['front_text']= {'card_text':'', 'card_line1':card.get('char', ''), 'card_line2':'',
+                                      'card_line3':'', 'card_line4':''}
+            elif self.data['align'] == '3': 
+                props['front_text']= {'card_text':'', 'card_line1':'',
+                                      'card_line2':card.get('char', ''), 'card_line3':'', 'card_line4':''}
                     
             if card['ab']== 'a':
                 buffer_card = buffer_card_1

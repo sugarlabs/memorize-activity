@@ -30,18 +30,16 @@ class Pair(gobject.GObject):
         'aimg'    : (str, None, None, None, gobject.PARAM_READWRITE),
         'asnd'    : (str, None, None, None, gobject.PARAM_READWRITE),
         'achar'    : (str, None, None, None, gobject.PARAM_READWRITE),
-        'acharalign' : (str, None, None, None, gobject.PARAM_READWRITE),
         'bimg'    : (str, None, None, None, gobject.PARAM_READWRITE),        
         'bsnd'    : (str, None, None, None, gobject.PARAM_READWRITE),
         'bchar'    : (str, None, None, None, gobject.PARAM_READWRITE),
-        'bcharalign': (str, None, None, None, gobject.PARAM_READWRITE),
         'color': (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, gobject.PARAM_READWRITE)
     }
         
     def __init__(self):
         gobject.GObject.__init__(self)        
-        self._properties = {'aimg':None, 'asnd':None, 'achar':None, 'acharalign':'1', 'bimg':None, 
-                            'bsnd':None, 'bchar':None, 'bcharalign':1, 'color':100}                
+        self._properties = {'aimg':None, 'asnd':None, 'achar':None, 'bimg':None, 
+                            'bsnd':None, 'bchar':None, 'color':100}                
         
     def do_get_property(self, pspec):
         """Retrieve a particular property from our property dictionary 
@@ -52,16 +50,12 @@ class Pair(gobject.GObject):
             return self._properties["asnd"]
         elif pspec.name == "achar":
             return self._properties["achar"]
-        elif pspec.name == "acharalign":
-            return self._properties["acharalign"]
         elif pspec.name == "bimg":
             return self._properties["bimg"]
         elif pspec.name == "bsnd":
             return self._properties["bsnd"]
         elif pspec.name == "bchar":
             return self._properties["bchar"]
-        elif pspec.name == "bcharalign":
-            return self._properties["bcharalign"]
         elif pspec.name == "color":
             return self._properties["color"]
 
@@ -72,16 +66,12 @@ class Pair(gobject.GObject):
             self._properties["asnd"] = value
         elif name == "achar":
             self._properties["achar"] = value
-        elif name == "acharalign":
-            self._properties["acharalign"] = int(value)
         elif name == "bimg":
             self._properties["bimg"] = value
         elif name == "bsnd":
             self._properties["bsnd"] = value
         elif name == "bchar":
             self._properties["bchar"] = value
-        elif name == "bcharalign":
-            self._properties["bcharalign"] = value
         elif name == "color":
             self._properties["color"] = value
 
@@ -103,6 +93,7 @@ class Model(object):
             self._GAMES_PATH = gamespath
             
         self.data['face'] = ''
+        self.data['align'] = '1'
         
         try:
             self.dtd = libxml2.parseDTD(None, os.path.join(self.dtdpath, 'memorize.dtd'))
@@ -167,7 +158,10 @@ class Model(object):
                             elif(attribute.name == 'face1'):                            
                                 self.data['face1'] = attribute.content
                             elif(attribute.name == 'face2'):                            
-                                self.data['face2'] = attribute.content                        
+                                self.data['face2'] = attribute.content
+                            elif(attribute.name == 'align'):                            
+                                self.data['align'] = attribute.content
+                                
                 xpa.xpathFreeContext()
             else:
                 _logger.error('Read: Error in validation of the file')
@@ -202,6 +196,8 @@ class Model(object):
             root.setProp("face1", self.data['face1'])
         if(self.data.get('face2', None) != None):                            
             root.setProp("face2", self.data['face2'])
+        if(self.data.get('align', None) != None):                            
+            root.setProp("align", self.data['align'])
 
         for key in self.pairs:            
             elem = root.newChild(None, "pair", None)
@@ -255,7 +251,6 @@ class Model(object):
                 elem['pairkey'] = key
                 elem['state'] = '0'
                 elem['ab'] = 'a'
-                elem['charalign'] = '0'
                 if self.pairs[key].props.aimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.aimg)
                 if self.pairs[key].props.asnd != None:
@@ -263,14 +258,12 @@ class Model(object):
                         elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)
                 if self.pairs[key].props.achar != None:
                     elem['char'] = self.pairs[key].props.achar
-                    elem['charalign'] = self.pairs[key].props.acharalign                    
                 temp1.append(elem)
                 
                 elem = {}
                 elem['pairkey'] = key
                 elem['state'] = '0'
                 elem['ab'] = 'b'
-                elem['charalign'] = '0'
                 if self.pairs[key].props.bimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.bimg)
                 if self.pairs[key].props.bsnd != None:
@@ -278,7 +271,6 @@ class Model(object):
                         elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)
                 if self.pairs[key].props.bchar != None:
                     elem['char'] = self.pairs[key].props.bchar
-                    elem['charalign'] = self.pairs[key].props.bcharalign
                 temp2.append(elem)    
                 i+=1
             else:

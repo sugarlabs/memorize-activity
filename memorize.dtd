@@ -9,6 +9,7 @@
   face     CDATA   #IMPLIED
   face1    CDATA   #IMPLIED
   face2    CDATA   #IMPLIED
+  align    CDATA   #IMPLIED
 >
 
 <!ELEMENT pair (#PCDATA)* >
@@ -20,6 +21,4 @@
   bsnd    CDATA  #IMPLIED
   bchar   CDATA  #IMPLIED
   color	  CDATA  #IMPLIED
-  acharalign CDATA  #IMPLIED
-  bcharalign CDATA  #IMPLIED
 >
