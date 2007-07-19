@@ -26,6 +26,7 @@ import re
 import svglabel
 import gtk
 import gobject
+import pango
 
 class SvgCard(gtk.DrawingArea):
         
@@ -79,15 +80,21 @@ class SvgCard(gtk.DrawingArea):
         if build_all or pprops.has_key('back_h_border'):
             self.cache['back_h_border']= self._read_icon_data(self.props['back_h_border'])
         if build_all or pprops.has_key('back_text'):
-            text = self._read_icon_data(self.props['back_text'])            
+            #text = CardText(self.props['back_text'].get('card_text', ''), self.props['back_text'].get('text_color'))
+            text = self._read_icon_data(self.props['back_text'])
             self.cache['back_text'] = text.scale_simple(self.size-14, self.size-14, gtk.gdk.INTERP_BILINEAR)
             del text
+        self.back_layout = self.get_text_layout(self.props['back_text'].get('card_text', ''), self.size-12)
+        self.back_layout_position = (self.size -(self.back_layout.get_size()[1]/1000))/2
+        self.current_layout_position = self.back_layout_position
+        self.current_text_color = self.props['back_text'].get('text_color','#c7c8cc')
         if build_all or self.pprops.has_key('back_border') or self.pprops.has_key('back_text'):
             self.cache['back'] = self.build_face('back')
         if build_all or self.pprops.has_key('back_h_border') or self.pprops.has_key('back_text'):
             self.cache['back_h'] = self.build_face('back_h')
         
         self.current_pixbuf = self.cache['back']
+        self.current_layout = self.back_layout
         # Set events and listeners
         self.set_events(gtk.gdk.ALL_EVENTS_MASK)
         gc.collect()
@@ -95,6 +102,8 @@ class SvgCard(gtk.DrawingArea):
 
     def _expose_cb(self, widget, event):
         self.window.draw_pixbuf(None, self.current_pixbuf, 0, 0, 0, 0)
+        gc = self.window.new_gc()
+        widget.window.draw_layout(gc, x=6, y=self.current_layout_position, layout=self.current_layout, foreground=gtk.gdk.color_parse(self.current_text_color))
         return False
 
     def _read_icon_data(self, dict):
@@ -140,7 +149,7 @@ class SvgCard(gtk.DrawingArea):
         if face.startswith('front') and self.jpeg <> None:
             self.cache['jpeg'].composite(pixbuf, 11, 11, self.size-22, self.size-22, 11, 11, 1, 1, gtk.gdk.INTERP_NEAREST, 255)
         #self.cache[face + '_border'].composite(pixbuf, 0, 0, self.size, self.size, 0, 0, 1, 1, gtk.gdk.INTERP_BILINEAR, 255)
-        self.cache[text + '_text'].composite(pixbuf, 11, 11, self.size-22, self.size-22, 11, 11, 1, 1, gtk.gdk.INTERP_NEAREST, 255)
+        #self.cache[text + '_text'].composite(pixbuf, 11, 11, self.size-22, self.size-22, 11, 11, 1, 1, gtk.gdk.INTERP_NEAREST, 255)
         return pixbuf
     
     def set_border(self, stroke_color, fill_color):
@@ -174,7 +183,11 @@ class SvgCard(gtk.DrawingArea):
             text = self._read_icon_data(self.props['front_text'])            
             self.cache['front_text'] = text.scale_simple(self.size-22, self.size-22, gtk.gdk.INTERP_BILINEAR)
             del text
-        
+        self.front_layout = self.get_text_layout(self.props['front_text'].get('card_text', ''), self.size-11)    
+        self.front_layout_position = (self.size -(self.front_layout.get_size()[1]/1000))/2
+        self.current_layout = self.front_layout
+        self.current_layout_position = self.front_layout_position
+        self.current_text_color = self.props['front_text'].get('text_color','#c7c8cc')
         if self.jpeg <> None:
             pixbuf_t = gtk.gdk.pixbuf_new_from_file(self.jpeg)
             # pixbuf_t = pixbuf_t.add_alpha(True,chr(255),chr(255),chr(255))
@@ -195,6 +208,9 @@ class SvgCard(gtk.DrawingArea):
     
     def flop(self):
         self.current_pixbuf = self.build_face('back')
+        self.current_layout = self.back_layout
+        self.current_layout_position = self.back_layout_position
+        self.current_text_color = self.props['back_text'].get('text_color','#c7c8cc')
         self.flipped = False
         self.queue_draw()
         
@@ -213,3 +229,26 @@ class SvgCard(gtk.DrawingArea):
             stroke_color = self.default_props.get('front_border').get('stroke_color')
             self.set_border(fill_color, stroke_color)
             self.flop()
+            
+    def get_text_layout(self, text, size):
+        if self.size == 184:
+            font_sizes = [50,40,26,20,17,13,11,8] 
+        elif self.size == 145: 
+            font_sizes = [45,28,20,16,13,11,9,8] 
+        elif self.size == 119:
+            font_sizes = [30,24,16,13,10,8,8,8] 
+
+        # Set font size considering string length
+        if len(text) <= 8:
+            font_size = font_sizes[len(text)-1]
+        else: 
+            font_size = 8
+
+        # Set Pango context and Pango layout
+        context = self.create_pango_context()
+        layout = self.create_pango_layout(text)
+        desc = pango.FontDescription(' bold '+str(font_size))
+        layout.set_font_description(desc)    
+        layout.set_alignment(pango.ALIGN_CENTER)
+        layout.set_width(size*1000)
+        return layout
