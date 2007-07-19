@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<memorize name="capitals" scoresnd="score.wav" winsnd="win.wav" divided="1" >
+
+ <pair achar="Brazil" acharalign="3" bchar="Brasilia"/>
+ <pair achar="Argentina" acharalign="3" bchar="Buenos Aires" />
+ <pair achar="Uruguay" acharalign="3" bchar="Montevideo" />
+ <pair achar="Libya" acharalign="3" bchar="Tripoli" />
+ <pair achar="Nigeria" acharalign="3" bchar="Abuja" />
+ <pair achar="Rwanda" acharalign="3" bchar="Kigali" />
+ <pair achar="United States" acharalign="3" bchar=" Washington"/>
+ <pair achar="India" acharalign="3" bchar="New Delhi" />
+ <pair achar="Australia" acharalign="3" bchar="Canberra" />
+ <pair achar="Paraguay" acharalign="3" bchar="Asunción" />
+ <pair achar="Chile" acharalign="3" bchar="Santiago" />
+ <pair achar="Bolivia" acharalign="3" bchar="La Paz" />
+ <pair achar="China" acharalign="3" bchar="Beijing" />
+ <pair achar="Canada" acharalign="3" bchar="Ottawa" />
+ <pair achar="Venezuela" acharalign="3" bchar="Caracas" />
+ <pair achar="Ecuador" acharalign="3" bchar="Quito" />
+ <pair achar="Peru" acharalign="3" bchar="Lima" />
+ <pair achar="Colombia" acharalign="3" bchar="Bogotá" />
+
+</memorize>
