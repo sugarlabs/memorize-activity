@@ -1,3 +1,10 @@
+* Added sound to the games: letters1, letters2, numbers and phonemes (Muriel)
+
+* New card text render and new game Capitals (Muriel)
+* Added global align parameter for text displayed on cards (Muriel)
+
+* Added support for sound to the memorize activity using csound (erikos)
+
 * Fixes for leaving and joining of buddies (erikos)
 * Added new model which handles config files for games in xml
 * Adopted the ui to use the model
