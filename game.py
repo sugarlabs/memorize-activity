@@ -74,9 +74,10 @@ class MemorizeGame(gobject.GObject):
         self.model = Model(os.path.dirname(__file__))
 
         # create csound instance to play sound files
-        self.sound = 0
+        self.sound = 0        
         try:
             import csnd
+            del csnd
             self.sound = 1
             _logger.error(' [Check for module csnd] found.')
         except:
@@ -84,12 +85,12 @@ class MemorizeGame(gobject.GObject):
 
         if self.sound == 1:
             from csound.csoundserver import CsoundServer            
-            self.cs = CsoundServer()
-            gtk.gdk.threads_init()
+            self.cs = CsoundServer()        
             if self.cs.start() != 0:
                 _logger.error(' Error starting csound performance.')
                 self.sound = 0
-            
+        #gtk.gdk.threads_init()
+
             
     def load_game(self, game_name, size):        
         if self.model.read(game_name) == 0:
@@ -145,16 +146,14 @@ class MemorizeGame(gobject.GObject):
         # play sound in any case if available
         if self.sound == 1:
             snd = self.model.grid[id].get('snd', None)
-            if snd == None:
-                _logger.debug('Audio: no sound in this game.')
-            else:
+            if snd != None:
                 self.cs.perform('i 108 0.0 3.0 "%s" 1 0.9 0.1'%(snd))                
                 _logger.debug('Audio: play sound=%s'%snd)
                 
         # First card case
         if self.last_flipped == -1:
             self.last_flipped = id
-            self.model.grid[id]['state'] = '1'
+            self.model.grid[id]['state'] = '1'         
             self.emit('flip-card', id)
             if not signal:
                 self.emit('flip-card-signal', id)    
