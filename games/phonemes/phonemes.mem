@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <memorize name="phonemes" scoresnd="score.wav" winsnd="win.wav" divided="1" face1="1" face2="2" >
 
- <pair aimg="agua1.jpg" asnd="agua1.wav" bimg="agua2.jpg" bsnd="agua2.wav" />
- <pair aimg="bola1.jpg" asnd="bola1.wav" bimg="bola2.jpg" bsnd="bola2.wav" />
- <pair aimg="casa1.jpg" asnd="casa1.wav" bimg="casa2.jpg" bsnd="casa2.wav" />
- <pair aimg="ema1.jpg" asnd="ema1..wav" bimg="ema2.jpg" bsnd="ema2.wav" />
- <pair aimg="frutas1.jpg" asnd="frutas1.wav" bimg="frutas2.jpg" bsnd="frutas2.wav" />
- <pair aimg="homem1.jpg" asnd="homem1.wav" bimg="homem2.jpg" bsnd="homem2.wav" />
- <pair aimg="ioio1.jpg" asnd="ioio1.wav" bimg="ioio2.jpg" bsnd="ioio2.wav" />
- <pair aimg="kiwi1.jpg" asnd="kiwi1.wav" bimg="kiwi2.jpg" bsnd="kiwi2.wav" />
- <pair aimg="ovo1.jpg" asnd="ovo1.wav" bimg="ovo2.jpg" bsnd="ovo2.wav" />
- <pair aimg="peixe1.jpg" asnd="peixe1.wav" bimg="peixe2.jpg" bsnd="peixe2.wav" />
- <pair aimg="queijo1.jpg" asnd="queijo1.wav" bimg="queijo2.jpg" bsnd="queijo2.wav" />
- <pair aimg="roda1.jpg" asnd="roda1.wav" bimg="roda2.jpg" bsnd="roda2.wav" />
- <pair aimg="sapo1.jpg" asnd="sapo1.wav" bimg="sapo2.jpg" bsnd="sapo2.wav" />
- <pair aimg="uva1.jpg" asnd="uva1.wav" bimg="uva2.jpg" bsnd="uva2.wav" />
- <pair aimg="zebra1.jpg" asnd="zebra1.wav" bimg="zebra2.jpg" bsnd="zebra2.wav" />
+ <pair aimg="agua1.jpg" asnd="agua1.aiff" bimg="agua2.jpg" bsnd="agua2.aiff" />
+ <pair aimg="bola1.jpg" asnd="bola1.aiff" bimg="bola2.jpg" bsnd="bola2.aiff" />
+ <pair aimg="casa1.jpg" asnd="casa1.aiff" bimg="casa2.jpg" bsnd="casa2.aiff" />
+ <pair aimg="ema1.jpg" asnd="ema1.aiff" bimg="ema2.jpg" bsnd="ema2.aiff" />
+ <pair aimg="frutas1.jpg" asnd="frutas1.aiff" bimg="frutas2.jpg" bsnd="frutas2.aiff" />
+ <pair aimg="homem1.jpg" asnd="homem1.aiff" bimg="homem2.jpg" bsnd="homem2.aiff" />
+ <pair aimg="ioio1.jpg" asnd="ioio1.aiff" bimg="ioio2.jpg" bsnd="ioio2.aiff" />
+ <pair aimg="kiwi1.jpg" asnd="kiwi1.aiff" bimg="kiwi2.jpg" bsnd="kiwi2.aiff" />
+ <pair aimg="ovo1.jpg" asnd="ovo1.aiff" bimg="ovo2.jpg" bsnd="ovo2.aiff" />
+ <pair aimg="peixe1.jpg" asnd="peixe1.aiff" bimg="peixe2.jpg" bsnd="peixe2.aiff" />
+ <pair aimg="queijo1.jpg" asnd="queijo1.aiff" bimg="queijo2.jpg" bsnd="queijo2.aiff" />
+ <pair aimg="roda1.jpg" asnd="roda1.aiff" bimg="roda2.jpg" bsnd="roda2.aiff" />
+ <pair aimg="sapo1.jpg" asnd="sapo1.aiff" bimg="sapo2.jpg" bsnd="sapo2.aiff" />
+ <pair aimg="uva1.jpg" asnd="uva1.aiff" bimg="uva2.jpg" bsnd="uva2.aiff" />
+ <pair aimg="zebra1.jpg" asnd="zebra1.aiff" bimg="zebra2.jpg" bsnd="zebra2.aiff" />
 
 </memorize>
 

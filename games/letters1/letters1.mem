@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <memorize name="letters1" scoresnd="score.wav" winsnd="win.wav" divided="1" face1="1" face2="2" >
 
- <pair achar="A" bchar="a" />
- <pair achar="E" bchar="e" />
- <pair achar="I" bchar="i" />
- <pair achar="O" bchar="o" />
- <pair achar="U" bchar="u" />
- <pair achar="B" bchar="b" />
- <pair achar="C" bchar="c" />
- <pair achar="D" bchar="d" />
- <pair achar="F" bchar="f" />
- <pair achar="G" bchar="g" />
- <pair achar="H" bchar="h" />
- <pair achar="J" bchar="j" />
- <pair achar="K" bchar="k" />
- <pair achar="L" bchar="l" />
- <pair achar="M" bchar="m" />
- <pair achar="N" bchar="n" />
- <pair achar="P" bchar="p" />
- <pair achar="Q" bchar="q" />
+ <pair achar="A" asnd="a.aiff" bchar="a" bsnd="a.aiff"/>
+ <pair achar="E" asnd="e.aiff" bchar="e" bsnd="e.aiff"/>
+ <pair achar="I" asnd="i.aiff" bchar="i" bsnd="i.aiff"/>
+ <pair achar="O" asnd="o.aiff" bchar="o" bsnd="o.aiff"/>
+ <pair achar="U" asnd="u.aiff" bchar="u" bsnd="u.aiff"/>
+ <pair achar="B" asnd="b.aiff" bchar="b" bsnd="b.aiff"/>
+ <pair achar="C" asnd="c.aiff" bchar="c" bsnd="c.aiff"/>
+ <pair achar="D" asnd="d.aiff" bchar="d" bsnd="d.aiff"/>
+ <pair achar="F" asnd="f.aiff" bchar="f" bsnd="f.aiff"/>
+ <pair achar="G" asnd="g.aiff" bchar="g" bsnd="g.aiff"/>
+ <pair achar="H" asnd="h.aiff" bchar="h" bsnd="h.aiff"/>
+ <pair achar="J" asnd="j.aiff" bchar="j" bsnd="j.aiff"/>
+ <pair achar="K" asnd="k.aiff" bchar="k" bsnd="k.aiff"/>
+ <pair achar="L" asnd="l.aiff" bchar="l" bsnd="l.aiff"/>
+ <pair achar="M" asnd="m.aiff" bchar="m" bsnd="m.aiff"/>
+ <pair achar="N" asnd="n.aiff" bchar="n" bsnd="n.aiff"/>
+ <pair achar="P" asnd="p.aiff" bchar="p" bsnd="p.aiff"/>
+ <pair achar="Q" asnd="q.aiff" bchar="q" bsnd="q.aiff"/>
 
 </memorize>
