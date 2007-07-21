@@ -64,13 +64,13 @@ class CardTable(gtk.EventBox):
         
         # Build the table
         if data['divided']=='1':
-            text1 = str(self.data['face1'])
-            text2 = str(self.data['face2'])
+            text1 = str(self.data.get('face1',''))
+            text2 = str(self.data.get('face2',''))
         else:
-            text1 = str(self.data['face'])
-            text2 = str(self.data['face'])
-        buffer_card_1 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text1}}, {}, None, self.card_size)
-        buffer_card_2 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text2}}, {}, None, self.card_size)
+            text1 = str(self.data.get('face',''))
+            text2 = str(self.data.get('face',''))
+        buffer_card_1 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text1}}, {}, None, self.card_size,1)
+        buffer_card_2 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text2}}, {}, None, self.card_size,1)
         
         x = 0
         y = 0
@@ -84,22 +84,16 @@ class CardTable(gtk.EventBox):
             props = {}
             props['front_border'] = {'opacity':'1'}
             props['front_h_border'] ={'opacity':'1'}
-            if self.data['align'] == '1': 
-                props['front_text']= {'card_text':card.get('char', ''), 'card_line1':'', 'card_line2':'',
-                                      'card_line3':'', 'card_line4':''}
-            elif self.data['align'] == '2': 
-                props['front_text']= {'card_text':'', 'card_line1':card.get('char', ''), 'card_line2':'',
-                                      'card_line3':'', 'card_line4':''}
-            elif self.data['align'] == '3': 
-                props['front_text']= {'card_text':'', 'card_line1':'',
-                                      'card_line2':card.get('char', ''), 'card_line3':'', 'card_line4':''}
+            props['front_text']= {'card_text':card.get('char', '')}
                     
             if card['ab']== 'a':
                 buffer_card = buffer_card_1
+                props['back_text']= {'card_text':text1}
             elif card['ab']== 'b':
                 buffer_card = buffer_card_2
+                props['back_text']= {'card_text':text2}
             
-            card = svgcard.SvgCard(id, props, buffer_card.get_cache(), jpg, self.card_size)
+            card = svgcard.SvgCard(id, props, buffer_card.get_cache(), jpg, self.card_size,self.data.get('align','1'))
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.connect("button-press-event", self.flip_card_mouse, id)
             self.table_positions[(x, y)]=1
@@ -108,9 +102,7 @@ class CardTable(gtk.EventBox):
             self.cards[(x, y)] = card
             self.dict[id] = (x, y)            
             self.table.attach(card, x, x+1, y, y+1, gtk.SHRINK, gtk.SHRINK)
-            #button = gtk.Button('button')
-            #button.show()
-            #self.table.attach(button, x, x+1, y, y+1, gtk.SHRINK, gtk.SHRINK)
+         
             x += 1
             if x == self.size:
                 x = 0
