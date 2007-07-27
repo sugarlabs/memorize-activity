@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <memorize name="letters1" scoresnd="score.wav" winsnd="win.wav" divided="1" face1="1" face2="2" >
 
- <pair achar="A" asnd="a.aiff" bchar="a" bsnd="a.aiff"/>
- <pair achar="E" asnd="e.aiff" bchar="e" bsnd="e.aiff"/>
- <pair achar="I" asnd="i.aiff" bchar="i" bsnd="i.aiff"/>
- <pair achar="O" asnd="o.aiff" bchar="o" bsnd="o.aiff"/>
- <pair achar="U" asnd="u.aiff" bchar="u" bsnd="u.aiff"/>
- <pair achar="B" asnd="b.aiff" bchar="b" bsnd="b.aiff"/>
- <pair achar="C" asnd="c.aiff" bchar="c" bsnd="c.aiff"/>
- <pair achar="D" asnd="d.aiff" bchar="d" bsnd="d.aiff"/>
- <pair achar="F" asnd="f.aiff" bchar="f" bsnd="f.aiff"/>
- <pair achar="G" asnd="g.aiff" bchar="g" bsnd="g.aiff"/>
- <pair achar="H" asnd="h.aiff" bchar="h" bsnd="h.aiff"/>
- <pair achar="J" asnd="j.aiff" bchar="j" bsnd="j.aiff"/>
- <pair achar="K" asnd="k.aiff" bchar="k" bsnd="k.aiff"/>
- <pair achar="L" asnd="l.aiff" bchar="l" bsnd="l.aiff"/>
- <pair achar="M" asnd="m.aiff" bchar="m" bsnd="m.aiff"/>
- <pair achar="N" asnd="n.aiff" bchar="n" bsnd="n.aiff"/>
- <pair achar="P" asnd="p.aiff" bchar="p" bsnd="p.aiff"/>
- <pair achar="Q" asnd="q.aiff" bchar="q" bsnd="q.aiff"/>
+ <pair achar="A" asnd="a.ogg" bchar="a" bsnd="a.ogg"/>
+ <pair achar="E" asnd="e.ogg" bchar="e" bsnd="e.ogg"/>
+ <pair achar="I" asnd="i.ogg" bchar="i" bsnd="i.ogg"/>
+ <pair achar="O" asnd="o.ogg" bchar="o" bsnd="o.ogg"/>
+ <pair achar="U" asnd="u.ogg" bchar="u" bsnd="u.ogg"/>
+ <pair achar="B" asnd="b.ogg" bchar="b" bsnd="b.ogg"/>
+ <pair achar="C" asnd="c.ogg" bchar="c" bsnd="c.ogg"/>
+ <pair achar="D" asnd="d.ogg" bchar="d" bsnd="d.ogg"/>
+ <pair achar="F" asnd="f.ogg" bchar="f" bsnd="f.ogg"/>
+ <pair achar="G" asnd="g.ogg" bchar="g" bsnd="g.ogg"/>
+ <pair achar="H" asnd="h.ogg" bchar="h" bsnd="h.ogg"/>
+ <pair achar="J" asnd="j.ogg" bchar="j" bsnd="j.ogg"/>
+ <pair achar="K" asnd="k.ogg" bchar="k" bsnd="k.ogg"/>
+ <pair achar="L" asnd="l.ogg" bchar="l" bsnd="l.ogg"/>
+ <pair achar="M" asnd="m.ogg" bchar="m" bsnd="m.ogg"/>
+ <pair achar="N" asnd="n.ogg" bchar="n" bsnd="n.ogg"/>
+ <pair achar="P" asnd="p.ogg" bchar="p" bsnd="p.ogg"/>
+ <pair achar="Q" asnd="q.ogg" bchar="q" bsnd="q.ogg"/>
 
 </memorize>

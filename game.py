@@ -147,7 +147,7 @@ class MemorizeGame(gobject.GObject):
         if self.sound == 1:
             snd = self.model.grid[id].get('snd', None)
             if snd != None:
-                self.cs.perform('i 108 0.0 3.0 "%s" 1 0.9 0.1'%(snd))                
+                self.cs.perform('i 108 0.0 3.0 "%s" 1 0.9 0'%(snd))                
                 _logger.debug('Audio: play sound=%s'%snd)
                 
         # First card case
