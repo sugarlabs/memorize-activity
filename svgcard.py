@@ -86,7 +86,7 @@ class SvgCard(gtk.DrawingArea):
             
         self.back_layout = self.get_text_layout(self.props['back_text'].get('card_text',''), self.size-12)
         self.back_layout_position = (self.size -(self.back_layout.get_size()[1]/1000))/2
-        print str(self.props['back_text'])
+        # print str(self.props['back_text'])
         
         if build_all or self.pprops.has_key('back_border') or self.pprops.has_key('back_text'):
             self.cache['back'] = self.build_face('back')
@@ -238,7 +238,7 @@ class SvgCard(gtk.DrawingArea):
             self.flop()
             
     def get_text_layout(self, text, size):
-        _logger.error('Text: '+text)
+        #_logger.error('Text: '+text)
         if self.size == 184:
             font_sizes = [50,40,26,20,17,13,11,8] 
         elif self.size == 145: 
