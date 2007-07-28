@@ -1,3 +1,7 @@
+* Removed absolute path for game icons and sounds
+which was cauing problems when a game is shared between
+an XO and a sugar-jhbuild emulator (erikos)
+
 * Free the audio device when not in focus (erikos)
 
 * Memorize now uses the ogg vorbis format to play sounds 

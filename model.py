@@ -86,7 +86,7 @@ class Model(object):
         self.data = {}
         self.dtdpath = dtdpath
         if gamespath == None:
-            self._GAMES_PATH = os.path.join(os.path.dirname(__file__), 'games')
+            self._GAMES_PATH = 'games' 
         else:
             if os.path.isdir(gamespath) is False:
                 os.makedirs(gamespath)
@@ -121,7 +121,7 @@ class Model(object):
         self.pairs = {}
 
         try:
-            doc = libxml2.parseFile(os.path.join(self.data['path'], gamename+'.mem'))            
+            doc = libxml2.parseFile(os.path.join(os.path.dirname(__file__), os.path.join(self.data['path'], gamename+'.mem')))
             if doc.validateDtd(self.ctxt, self.dtd):
         
                 # get the requested nodes
@@ -254,8 +254,8 @@ class Model(object):
                 if self.pairs[key].props.aimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.aimg)
                 if self.pairs[key].props.asnd != None:
-                    if os.path.isfile(os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)):
-                        elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)
+                    #if os.path.isfile(os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)):
+                    elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.asnd)
                 if self.pairs[key].props.achar != None:
                     elem['char'] = self.pairs[key].props.achar
                 temp1.append(elem)
@@ -267,8 +267,8 @@ class Model(object):
                 if self.pairs[key].props.bimg != None:
                     elem['img'] = os.path.join(self.data['pathimg'], self.pairs[key].props.bimg)
                 if self.pairs[key].props.bsnd != None:
-                    if os.path.isfile(os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)):
-                        elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)
+                    #if os.path.isfile(os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)):
+                    elem['snd'] = os.path.join(self.data['pathsnd'], self.pairs[key].props.bsnd)
                 if self.pairs[key].props.bchar != None:
                     elem['char'] = self.pairs[key].props.bchar
                 temp2.append(elem)    

@@ -78,7 +78,7 @@ class CardTable(gtk.EventBox):
         
         for card in self.cards_data:        
             if card.get('img', None):
-                jpg = card['img']
+                jpg = os.path.join(os.path.dirname(__file__), card['img'])
             else:
                 jpg = None
             props = {}
