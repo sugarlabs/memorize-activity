@@ -1,3 +1,14 @@
+* Free the audio device when not in focus (erikos)
+
+* Memorize now uses the ogg vorbis format to play sounds 
+and shrinkd it's size by the factor of six (erikos)
+
+* Fix bugs on display back card labels and add code to consider text alignment (Muriel)
+
+* Fixes in the model for writing the game config to xml (erikos)
+
+* Changed the sounds to use 22Khz and converted them to ogg vorbis (erikos) 
+
 * Added sound to the games: letters1, letters2, numbers and phonemes (Muriel)
 
 * New card text render and new game Capitals (Muriel)
