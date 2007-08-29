@@ -1,3 +1,11 @@
+14
+
+13
+
+* Use sugar's tubeconn.py. (erikos)
+
+12
+
 * Removed absolute path for game icons and sounds
 which was cauing problems when a game is shared between
 an XO and a sugar-jhbuild emulator (erikos)
