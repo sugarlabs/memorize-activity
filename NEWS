@@ -1,3 +1,6 @@
+* Only try to connect to presence service when offline.
+  Fix for #3099 (erikos)
+
 14
 
 13
