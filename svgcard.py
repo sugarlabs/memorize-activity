@@ -212,6 +212,7 @@ class SvgCard(gtk.DrawingArea):
             self.queue_draw()
             while gtk.events_pending():
                 gtk.main_iteration()    
+        gc.collect()        
     
     def flop(self):
         self.current_pixbuf = self.build_face('back')

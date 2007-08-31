@@ -1,3 +1,7 @@
+* Fix for high memory consumption #3106
+  After deleting a pixbuf you have to call the garbage collector 
+  manualy to free the memory.(erikos)
+
 * Only try to connect to presence service when offline.
   Fix for #3099 (erikos)
 
