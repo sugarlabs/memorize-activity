@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<memorize name="letters1" scoresnd="score.wav" winsnd="win.wav" divided="1" face1="1" face2="2" >
+<memorize name="letters" scoresnd="score.wav" winsnd="win.wav" divided="1" face1="1" face2="2" >
 
  <pair achar="A" asnd="a.ogg" bchar="a" bsnd="a.ogg"/>
  <pair achar="E" asnd="e.ogg" bchar="e" bsnd="e.ogg"/>
@@ -19,5 +19,13 @@
  <pair achar="N" asnd="n.ogg" bchar="n" bsnd="n.ogg"/>
  <pair achar="P" asnd="p.ogg" bchar="p" bsnd="p.ogg"/>
  <pair achar="Q" asnd="q.ogg" bchar="q" bsnd="q.ogg"/>
+ <pair achar="R" asnd="r.ogg" bchar="r" bsnd="r.ogg" />
+ <pair achar="S" asnd="s.ogg" bchar="s" bsnd="s.ogg" />
+ <pair achar="T" asnd="t.ogg" bchar="t" bsnd="t.ogg" />
+ <pair achar="V" asnd="v.ogg" bchar="v" bsnd="v.ogg" />
+ <pair achar="W" asnd="w.ogg" bchar="w" bsnd="w.ogg" />
+ <pair achar="X" asnd="x.ogg" bchar="x" bsnd="x.ogg" />
+ <pair achar="Y" asnd="y.ogg" bchar="y" bsnd="y.ogg" />
+ <pair achar="Z" asnd="z.ogg" bchar="z" bsnd="z.ogg" />
 
 </memorize>

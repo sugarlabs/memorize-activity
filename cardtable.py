@@ -117,6 +117,7 @@ class CardTable(gtk.EventBox):
                 self.table.remove(card)
                 del card
         self.load_game(None, data, grid)
+        gc.collect()
     
     def get_card_size(self, size_table):
         x = (780 - (11*size_table))/size_table

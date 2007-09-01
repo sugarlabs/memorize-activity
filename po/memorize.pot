@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date:2007-08-31 16:33-0300 \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:53
+msgid "Memorize Activity"
+msgstr ""
+
+#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:67
+msgid "Games"
+msgstr ""
+
+#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:33
+msgid "addition"
+msgstr ""
+
+#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:33
+msgid "capitals"
+msgstr ""
+
+#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:33
+msgid "drumgit"
+msgstr ""
+
+#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:33
+msgid "letters"
+msgstr ""
+
+#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:33
+msgid "numbers"
+msgstr ""
+
+#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:33
+msgid "phonemes"
+msgstr ""

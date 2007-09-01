@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<memorize name="addition" scoresnd="score.wav" winsnd="win.wav" divided="0" align="1">
+<memorize name="addition" scoresnd="score.wav" winsnd="win.wav" divided="1" align="1">
 
  <pair achar="1+1"  bchar="2"/>
  <pair achar="1+2"  bchar="3" />

@@ -19,6 +19,7 @@
 
 import logging
 from gettext import gettext as _
+import os
 
 import dbus
 import gtk
@@ -50,7 +51,7 @@ class MemorizeActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
         
-        self.set_title('Memorize Activity')
+        self.set_title(_('Memorize Activity'))
 
         self.table = cardtable.CardTable()
         self.scoreboard = scoreboard.Scoreboard()
@@ -64,7 +65,7 @@ class MemorizeActivity(Activity):
         activity_toolbar = toolbox.get_activity_toolbar()
         
         self._memorizeToolbar = memorizetoolbar.MemorizeToolbar(self)
-        toolbox.add_toolbar('Games', self._memorizeToolbar)
+        toolbox.add_toolbar(_('Games'), self._memorizeToolbar)
         self._memorizeToolbar.show()
         
         self.set_toolbox(toolbox)
@@ -81,6 +82,7 @@ class MemorizeActivity(Activity):
         self.game.connect('reset_table', self.table.reset)
         self.game.connect('load_game', self.table.load_game)
         self.game.connect('change_game', self.table.change_game)
+        self.game.connect('load_game', self._memorizeToolbar.update_toolbar)
         self.game.connect('change_game', self._memorizeToolbar.update_toolbar)
         self.game.connect('set-border', self.table.set_border)
         self.game.connect('flop-card', self.table.flop_card)
@@ -126,7 +128,7 @@ class MemorizeActivity(Activity):
                 self._joined_cb()
         else:
             _logger.debug("buddy joined - __init__: %s", self.owner.props.nick)
-            self.game.load_game('numbers', 4)
+            self.game.load_game('addition', 4)
             self.game.add_buddy(self.owner)
             
     def restart(self, widget):

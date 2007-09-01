@@ -1,3 +1,7 @@
+* Internacionalization for activity name, games tab, and standard game set names. Fix for #3068 (Muriel)
+* Card code cleaned and with some otmizations (Muriel)
+* Letters1 and Letters2 merged in Letters (Muriel)
+
 15
 
 * Fix for high memory consumption #3106

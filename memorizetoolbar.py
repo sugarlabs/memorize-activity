@@ -18,16 +18,20 @@
 #
 
 import logging
-from gettext import gettext as _
 
 import gtk
 import os
 
+from gettext import gettext as _
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.combobox import ComboBox
 
+
 class MemorizeToolbar(gtk.Toolbar):
     __gtype_name__ = 'MemoryToolbar'
+    
+    standard_game_names = ["addition", "capitals", "drumgit", "letters", "numbers", "phonemes"]
+    translated_game_names = [_("addition"), _("capitals"), _("drumgit"), _("letters"), _("numbers"), _("phonemes")]
 
     def __init__(self, activity):
         gtk.Toolbar.__init__(self)
@@ -51,9 +55,9 @@ class MemorizeToolbar(gtk.Toolbar):
         self.games.sort()
         self._game_combo = ComboBox()
         for i, f in enumerate(self.games):
+            if f in self.standard_game_names:
+                f = _(f)
             self._game_combo.append_item(i, f)
-            if f == 'numbers':
-                self._game_combo.set_active(i)
         self._game_combo.connect('changed', self._game_changed_cb)
         self._add_widget(self._game_combo)
         
@@ -67,8 +71,6 @@ class MemorizeToolbar(gtk.Toolbar):
         self._sizes = ['4 X 4', '5 X 5', '6 X 6']
         for i, f in enumerate(self._sizes):
             self._size_combo.append_item(i, f)
-            if f == '4 X 4':
-                self._size_combo.set_active(i)
         self._size_combo.connect('changed', self._game_changed_cb)
         self._add_widget(self._size_combo)
     
@@ -84,6 +86,9 @@ class MemorizeToolbar(gtk.Toolbar):
         if not self._lock:
             game_name = self.games[self._game_combo.get_active()]
             game_size = int(self._sizes[self._size_combo.get_active()][0])
+            if game_name in self.translated_game_names:
+                index = self.translated_game_names.index(game_name)
+                game_name = self.standard_game_names[index]
             self.activity.change_game(game_name, game_size)
         
     def update_toolbar(self, widget, data, grid):
