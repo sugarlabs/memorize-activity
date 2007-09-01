@@ -1,3 +1,5 @@
+15
+
 * Fix for high memory consumption #3106
   After deleting a pixbuf you have to call the garbage collector 
   manualy to free the memory.(erikos)
