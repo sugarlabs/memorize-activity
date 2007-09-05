@@ -247,7 +247,6 @@ class MemorizeActivity(Activity):
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], 
                 id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
             
-            print 'Tube created'
             self.messenger = messenger.Messenger(self.tube_conn, self.initiating, self._get_buddy, self.game)         
             self.game.connect('flip-card-signal', self.messenger.flip)
             self.game.connect('change_game_signal', self.messenger.change_game)
