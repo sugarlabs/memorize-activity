@@ -35,11 +35,11 @@ class SvgCard(gtk.DrawingArea):
 
 	# Default properties
 	default_props = {}
-	default_props['back_border'] = {'filename':border_svg, 'fill_color':'#b2b3b7', 'stroke_color':'#b2b3b7', 'opacity':'1'}
-	default_props['back_h_border'] = {'filename':border_svg, 'fill_color':'#b2b3b7', 'stroke_color':'#ffffff', 'opacity':'1'}
+	default_props['back_border'] = {'fill_color':'#b2b3b7', 'stroke_color':'#b2b3b7', 'opacity':'1'}
+	default_props['back_h_border'] = {'fill_color':'#b2b3b7', 'stroke_color':'#ffffff', 'opacity':'1'}
 	default_props['back_text'] = {'text_color':'#c7c8cc'}
-	default_props['front_border'] = {'filename':border_svg, 'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'0'}
-	default_props['front_h_border'] = {'filename':border_svg, 'fill_color':'#555555', 'stroke_color':'#888888', 'opacity':'0.5'}
+	default_props['front_border'] = {'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'0'}
+	default_props['front_h_border'] = {'fill_color':'#555555', 'stroke_color':'#888888', 'opacity':'0.5'}
 	default_props['front_text'] = {'text_color':'#ffffff'}
 	
 	def __init__(self, id, pprops, pcache, jpeg, size, align, bg_color='#000000'):
@@ -66,8 +66,8 @@ class SvgCard(gtk.DrawingArea):
 			self.props[view].update(pprops.get(view, {}))
 
 		# Cache
-		self.cache = {} 
-		self.cache.update(pcache)
+		self.cache = pcache 
+		#self.cache.update(pcache)
 
 		build_all = (len(self.cache) == 0)
 		
@@ -103,7 +103,7 @@ class SvgCard(gtk.DrawingArea):
 		return False
 
 	def _read_icon_data(self, dict):
-		icon_file = open(dict.get('filename', 'card.svg'), 'r')
+		icon_file = open(self.border_svg, 'r')
 		data = icon_file.read()
 		icon_file.close()
 
@@ -120,8 +120,6 @@ class SvgCard(gtk.DrawingArea):
 		data = re.sub('size_card1', str(self.size), data)
 		data = re.sub('size_card2', str(self.size-6), data)
 		data = re.sub('size_card3', str(self.size-17), data)
-
-		self.data_size = len(data)
 		return rsvg.Handle(data=data).get_pixbuf()
 	
 	def build_face(self, face):

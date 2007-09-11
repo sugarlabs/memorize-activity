@@ -69,8 +69,8 @@ class CardTable(gtk.EventBox):
         else:
             text1 = str(self.data.get('face',''))
             text2 = str(self.data.get('face',''))
-        buffer_card_1 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text1}}, {}, None, self.card_size,1)
-        buffer_card_2 = svgcard.SvgCard(-1, {'front_border':{'opacity':'0'}, 'front_h_border':{'opacity':'0.5'}, 'back_text':{'card_text':text2}}, {}, None, self.card_size,1)
+        buffer_card_1 = svgcard.SvgCard(-1, {'back_text':{'card_text':text1}}, {}, None, self.card_size,1)
+        buffer_card_2 = svgcard.SvgCard(-1, {'back_text':{'card_text':text2}}, {}, None, self.card_size,1)
         
         x = 0
         y = 0
@@ -116,8 +116,9 @@ class CardTable(gtk.EventBox):
             for card in self.cards.values():
                 self.table.remove(card)
                 del card
-        self.load_game(None, data, grid)
         gc.collect()
+        self.load_game(None, data, grid)
+
     
     def get_card_size(self, size_table):
         x = (780 - (11*size_table))/size_table
