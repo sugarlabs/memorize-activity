@@ -66,8 +66,8 @@ class SvgCard(gtk.DrawingArea):
 			self.props[view].update(pprops.get(view, {}))
 
 		# Cache
-		self.cache = pcache 
-		#self.cache.update(pcache)
+		self.cache = {} 
+		self.cache.update(pcache)
 
 		build_all = (len(self.cache) == 0)
 		
