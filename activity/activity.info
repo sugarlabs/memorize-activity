@@ -3,5 +3,5 @@ name = Memorize
 service_name = org.laptop.Memorize
 class = activity.MemorizeActivity
 icon = activity-memorize
-activity_version = 19
+activity_version = 18
 show_launcher = yes
