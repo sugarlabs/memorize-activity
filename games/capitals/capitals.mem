@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<memorize name="capitals" scoresnd="score.wav" winsnd="win.wav" divided="1" align="1" >
+<memorize name="capitals" scoresnd="score.wav" winsnd="win.wav" divided="1" align="1"  face1="1" face2="2" >
 
  <pair achar="Brazil"  bchar="Brasilia"/>
  <pair achar="Argentina"  bchar="Buenos Aires" />
