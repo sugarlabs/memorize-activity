@@ -21,6 +21,8 @@ import gtk
 import svgcard
 import gobject
 import logging
+import os
+import model
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -32,7 +34,7 @@ class CardList(gtk.EventBox):
 	
 	def __init__(self):
 		gtk.EventBox.__init__(self)
-
+		self.model = model.Model(os.path.dirname(__file__))
 		self.pairs = []
 		self.current_pair = None
 		
@@ -52,22 +54,45 @@ class CardList(gtk.EventBox):
 		#scroll.get_child().set_property('shadow-type', gtk.SHADOW_NONE)
 		scroll.get_child().modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
 		self.add(scroll)
-		self.add_pair(self, '')
+		self.add_pair(self, '', '')
 		self.pairs[0].set_selected(True)
 		self.current_pair = self.pairs[0]
 		self.show()
+		
+	def load_game(self, widget, game_name):
+		self.model.read(game_name)
+		game_pairs = self.model.pairs
+		self.clean_list()
+		map(lambda key: self.add_pair(None, game_pairs[key].props.achar, game_pairs[key].props.bchar, False) , game_pairs)
+		
+	def save_game(self, widget, game_name):
+	    game_model = model.Model(os.path.dirname(__file__))
+	    game_model.data['name'] = 'game_name'
+	    for pair in range(len(self.pairs)):
+	    	pair_card = model.Pair()
+	    	pair_card.set_property('achar', self.pairs[pair].get_text())
+	    	pair_card.set_property('bchar', self.pairs[pair].get_text())
+	    	game_model.pairs[pair] = pair_card
+	    game_model.write()
+		
+	def clean_list(self, button = None):
+		map(lambda x: self.vbox.remove(x), self.pairs)
+		del self.pairs
+		self.pairs = []
 	
-	def add_pair(self, widget, text):
-		pair = Pair(text, text)
+	def add_pair(self, widget, achar, bchar, show = True):
+		pair = Pair(achar, bchar)
 		self.vbox.pack_end(pair, False, True)
 		self.pairs.append(pair)
-		pair.connect('pair-selected',self.set_selected)
-		pair.connect('pair-closed',self.rem_pair)
-		self.show_all()
+		pair.connect('pair-selected', self.set_selected)
+		pair.connect('pair-closed', self.rem_pair)
+		if show:
+			self.show_all()
 			
 	def rem_pair(self, widget, event):
 		self.vbox.remove(widget)		
-		del self.pairs[widget]
+		self.pairs.remove(widget)
+		del widget
 	
 	def set_selected(self, widget, event):
 		if self.current_pair <> None:
@@ -75,10 +100,10 @@ class CardList(gtk.EventBox):
 			self.old.set_selected(False)
 		self.current_pair = widget 
 		widget.set_selected(True)
-		self.emit('pair-selected',self.current_pair.get_text() )
+		self.emit('pair-selected', self.current_pair.get_text())
 		
-	def update_selected(self, widget, newtext):
-		self.current_pair.change_text(newtext)
+	def update_selected(self, widget, newtext1, newtext2):
+		self.current_pair.change_text(newtext1)
 		
 class Pair(gtk.EventBox):
 	
@@ -99,11 +124,11 @@ class Pair(gtk.EventBox):
 		close_button = gtk.Button('X')
 		close_button.connect('button-press-event', self.emit_close)
 		table = gtk.Table()
-		table.connect('button-press-event',self.emit_selected)
+		table.connect('button-press-event', self.emit_selected)
 		table.set_col_spacings(5)
 		table.set_border_width(10)
-		self.bcard1 = svgcard.SvgCard(-1, {'front_text':{'card_text':text1, 'text_color':'#ffffff'}, 'front_border':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, {}, None, 184, 1, self.bg_color)
-		self.bcard2 = svgcard.SvgCard(-1, {'front_text':{'card_text':text2, 'text_color':'#ffffff'}, 'front_border':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, {}, None, 184, 1, self.bg_color)
+		self.bcard1 = svgcard.SvgCard(-1, {'front_text':{'card_text':text1, 'text_color':'#ffffff'}, 'front':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, None, 184, 1, self.bg_color)
+		self.bcard2 = svgcard.SvgCard(-1, {'front_text':{'card_text':text2, 'text_color':'#ffffff'}, 'front':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, None, 184, 1, self.bg_color)
 		self.bcard1.flip()
 		self.bcard2.flip()
 		
@@ -116,10 +141,10 @@ class Pair(gtk.EventBox):
 		self.show_all()
 
 	def emit_selected(self, widget, event):
-		self.emit('pair-selected',self)
+		self.emit('pair-selected', self)
 
 	def emit_close(self, widget, event):
-		self.emit('pair-closed',self)
+		self.emit('pair-closed', self)
 
 	def set_selected(self, status):
 		if not status:

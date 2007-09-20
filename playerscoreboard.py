@@ -54,12 +54,7 @@ class PlayerScoreboard(gtk.EventBox):
         self.icon = svglabel.SvgLabel(self.xo_buddy, fill_color, stroke_color, False, self.current_color, 45, 55)      
         
         # Set waiting buddy icon
-        self.waiting_icon = svglabel.SvgLabel(self.xo_buddy, self.default_color, '#ffffff', False, self.current_color, 45, 55)
-        
-        # Cache the score icon
-        score_label = Score(fill_color, stroke_color)
-        self.score_pixbuf_unsel = score_label.get_pixbuf()
-        self.score_pixbuf_sel = score_label.get_pixbuf_sel()
+        #self.waiting_icon = svglabel.SvgLabel(self.xo_buddy, self.default_color, '#ffffff', False, self.current_color, 45, 55)
         
         # Set nick label
         self.nick = gtk.Label(nick)
@@ -68,10 +63,10 @@ class PlayerScoreboard(gtk.EventBox):
         self.nick.set_alignment(0, 0.5)
         
         # Set message label
-        self.msg = gtk.Label('Waiting for next game...')
-        self.msg.modify_font(pango.FontDescription("12"))
-        self.msg.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#ffffff'))
-        self.msg.set_alignment(0, 0.5)
+        #self.msg = gtk.Label('Waiting for next game...')
+        #self.msg.modify_font(pango.FontDescription("12"))
+        #self.msg.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#ffffff'))
+        #self.msg.set_alignment(0, 0.5)
         
         self.add(self.table)
         self.table.attach(self.icon, 0, 1, 0, 1)
@@ -82,6 +77,12 @@ class PlayerScoreboard(gtk.EventBox):
                 self.increase_score()
                  
     def increase_score(self):
+        if len(self.scores) == 0:
+            # Cache the score icon
+            score_label = Score(self.fill_color, self.stroke_color)
+            self.score_pixbuf_unsel = score_label.get_pixbuf()
+            self.score_pixbuf_sel = score_label.get_pixbuf_sel()
+        
         new_score = Score(self.fill_color, self.stroke_color, self.score_pixbuf_sel, self.score_pixbuf_unsel,self.status)
         self.scores.append(new_score)
         new_score.show()

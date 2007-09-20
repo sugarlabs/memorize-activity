@@ -61,6 +61,7 @@ class MemorizeActivity(Activity):
         self.game = game.MemorizeGame()
         
         self.create_load = False
+        self.create_mode = False
         
         self.hbox = gtk.HBox(False)
         self.hbox.pack_start(self.scoreboard, False, False)
@@ -104,8 +105,6 @@ class MemorizeActivity(Activity):
         self.game.connect('wait_mode_buddy', self.scoreboard.set_wait_mode)
         self.game.connect('change-turn', self.scoreboard.set_selected)
         
-        self.show_all()
-        
         # connect to the in/out events of the memorize activity
         self.connect('focus_in_event', self._focus_in)
         self.connect('focus_out_event', self._focus_out)
@@ -140,6 +139,7 @@ class MemorizeActivity(Activity):
             _logger.debug("buddy joined - __init__: %s", self.owner.props.nick)
             self.game.load_game('addition', 4)
             self.game.add_buddy(self.owner)
+        self.show_all()
     
     def change_mode(self, notebook, index):
         if index == 2:
@@ -150,17 +150,22 @@ class MemorizeActivity(Activity):
                 self.createcardpanel.connect('add-pair', self.cardlist.add_pair)
                 self.createcardpanel.connect('update-pair', self.cardlist.update_selected)
                 self.cardlist.connect('pair-selected', self.createcardpanel.load_pair)
+                self._createToolbar.connect('create_new_game', self.cardlist.clean_list)
+                self._createToolbar.connect('create_load_game', self.cardlist.load_game)
+                self._createToolbar.connect('create_save_game', self.cardlist.save_game)
                 self.create_load = True
-            
             self.hbox.remove(self.scoreboard)
             self.hbox.remove(self.table)
             self.hbox.pack_start(self.createcardpanel)
             self.hbox.pack_start(self.cardlist, False, False)
+            self.create_mode = True
         else:
-            self.hbox.remove(self.cardlist)
-            self.hbox.remove(self.createcardpanel)
-            self.hbox.pack_start(self.scoreboard, False, False)
-            self.hbox.pack_start(self.table)
+            if self.create_mode:
+                self.hbox.remove(self.cardlist)
+                self.hbox.remove(self.createcardpanel)
+                self.hbox.pack_start(self.scoreboard, False, False)
+                self.hbox.pack_start(self.table)
+                self.create_mode = False
                 
     def restart(self, widget):
         self.game.reset()

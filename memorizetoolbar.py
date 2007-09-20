@@ -24,7 +24,7 @@ import os
 
 from gettext import gettext as _
 from sugar.graphics.toolbutton import ToolButton
-from sugar.graphics.combobox import ComboBox
+from sugar.graphics.toolcombobox import ToolComboBox
 
 
 class MemorizeToolbar(gtk.Toolbar):
@@ -42,6 +42,7 @@ class MemorizeToolbar(gtk.Toolbar):
         # Reset Button
         self._reset_button = ToolButton('insert-image')
         self._reset_button.connect('clicked', self._game_changed_cb)
+        self._reset_button.set_tooltip(_('Restart Game'))
         self.insert(self._reset_button, -1)
         self._reset_button.show()
         
@@ -53,12 +54,12 @@ class MemorizeToolbar(gtk.Toolbar):
         # Change game combobox        
         self.games = os.listdir(os.path.join(os.path.dirname(__file__), 'games'))
         self.games.sort()
-        self._game_combo = ComboBox()
+        self._game_combo = ToolComboBox()
         for i, f in enumerate(self.games):
             if f in self.standard_game_names:
                 f = _(f)
-            self._game_combo.append_item(i, f)
-        self._game_combo.connect('changed', self._game_changed_cb)
+            self._game_combo.combo.append_item(i, f)
+        self._game_combo.combo.connect('changed', self._game_changed_cb)
         self._add_widget(self._game_combo)
         
         separator = gtk.SeparatorToolItem()
@@ -67,11 +68,11 @@ class MemorizeToolbar(gtk.Toolbar):
         self._lock = False
         
         # Change size combobox
-        self._size_combo = ComboBox()
+        self._size_combo = ToolComboBox()
         self._sizes = ['4 X 4', '5 X 5', '6 X 6']
         for i, f in enumerate(self._sizes):
-            self._size_combo.append_item(i, f)
-        self._size_combo.connect('changed', self._game_changed_cb)
+            self._size_combo.combo.append_item(i, f)
+        self._size_combo.combo.connect('changed', self._game_changed_cb)
         self._add_widget(self._size_combo)
     
     def _add_widget(self, widget, expand=False):
@@ -84,8 +85,8 @@ class MemorizeToolbar(gtk.Toolbar):
         
     def _game_changed_cb(self, combobox):
         if not self._lock:
-            game_name = self.games[self._game_combo.get_active()]
-            game_size = int(self._sizes[self._size_combo.get_active()][0])
+            game_name = self.games[self._game_combo.combo.get_active()]
+            game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
             if game_name in self.translated_game_names:
                 index = self.translated_game_names.index(game_name)
                 game_name = self.standard_game_names[index]
@@ -96,7 +97,7 @@ class MemorizeToolbar(gtk.Toolbar):
         size = data.get('size')
         self._lock = True
         game_index = self.games.index(game)
-        self._game_combo.set_active(game_index)
+        self._game_combo.combo.set_active(game_index)
         size_index = self._sizes.index(size+' X '+size)
-        self._size_combo.set_active(int(size_index))
+        self._size_combo.combo.set_active(int(size_index))
         self._lock = False

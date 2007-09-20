@@ -27,8 +27,8 @@ _logger = logging.getLogger('memorize-activity')
 class CreateCardPanel(gtk.EventBox):
 	
 	__gsignals__ = {
-		'add-pair': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT]), 
-		'update-pair': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT]), 
+		'add-pair': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]), 
+		'update-pair': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT,gobject.TYPE_PYOBJECT]), 
 	}
 	
 	def __init__(self):
@@ -54,10 +54,10 @@ class CreateCardPanel(gtk.EventBox):
 		self.show_all()
 		
 	def emit_add_pair(self, widget, event):
-		self.emit('add-pair',self.cardeditor.get_text())
+		self.emit('add-pair',self.cardeditor.get_text(),self.cardeditor.get_text())
 
 	def emit_update_pair(self, widget, event):
-		self.emit('update-pair',self.cardeditor.get_text())
+		self.emit('update-pair',self.cardeditor.get_text(),self.cardeditor.get_text())
 		
 	def load_pair(self, widget, newtext):
 		self.cardeditor.set_text(newtext)
@@ -88,7 +88,7 @@ class CardEditor(gtk.EventBox):
 		table.set_col_spacings(10)
 		table.set_row_spacings(10)
 		table.set_border_width(20)
-		self.card = svgcard.SvgCard(-1, {'front_text':{'card_text':'', 'text_color':'#ffffff'}, 'front_border':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, {}, None, 184, 1, '#c0c0c0')
+		self.card = svgcard.SvgCard(-1, {'front_text':{'card_text':'', 'text_color':'#ffffff'}, 'front_border':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, None, 184, 1, '#c0c0c0')
 		self.card.flip()
 		
 		table.attach(self.previewlabel, 0, 1, 1, 2)

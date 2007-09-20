@@ -69,8 +69,6 @@ class CardTable(gtk.EventBox):
         else:
             text1 = str(self.data.get('face',''))
             text2 = str(self.data.get('face',''))
-        buffer_card_1 = svgcard.SvgCard(-1, {'back_text':{'card_text':text1}}, {}, None, self.card_size,1)
-        buffer_card_2 = svgcard.SvgCard(-1, {'back_text':{'card_text':text2}}, {}, None, self.card_size,1)
         
         x = 0
         y = 0
@@ -82,18 +80,14 @@ class CardTable(gtk.EventBox):
             else:
                 jpg = None
             props = {}
-            props['front_border'] = {'opacity':'1'}
-            props['front_h_border'] ={'opacity':'1'}
             props['front_text']= {'card_text':card.get('char', '')}
                     
             if card['ab']== 'a':
-                buffer_card = buffer_card_1
                 props['back_text']= {'card_text':text1}
             elif card['ab']== 'b':
-                buffer_card = buffer_card_2
                 props['back_text']= {'card_text':text2}
             
-            card = svgcard.SvgCard(id, props, buffer_card.get_cache(), jpg, self.card_size,self.data.get('align','1'))
+            card = svgcard.SvgCard(id, props, jpg, self.card_size,self.data.get('align','1'))
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.connect("button-press-event", self.flip_card_mouse, id)
             self.table_positions[(x, y)]=1
