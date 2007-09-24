@@ -72,6 +72,7 @@ class MemorizeGame(gobject.GObject):
         self.messenger = None
         self.sentitive = True
         self.model = Model(os.path.dirname(__file__))
+        self.flip_block = False
 
         # create csound instance to play sound files
         self.sound = 0        
@@ -89,7 +90,6 @@ class MemorizeGame(gobject.GObject):
             if self.cs.start() != 0:
                 _logger.error(' Error starting csound performance.')
                 self.sound = 0
-        #gtk.gdk.threads_init()
 
             
     def load_game(self, game_name, size):        
@@ -130,11 +130,15 @@ class MemorizeGame(gobject.GObject):
         self.set_sensitive(self.current_player == self.myself)
         self.emit('change-turn', self.current_player)   
                         
-    def card_flipped(self, widget, id, signal = False):
+    def card_flipped(self, widget, id, signal = False):        
         # Check if is my turn
         if not self.sentitive and not signal:
             return
-        
+
+        # do not process flips when flipping back
+        if self.flip_block is True:
+            return
+
         # Handle groups if needed
         if self.model.data['divided'] == '1':
             if self.last_flipped == -1 and id >= (len(self.model.grid)/2):
@@ -160,7 +164,7 @@ class MemorizeGame(gobject.GObject):
                 if self.model.data['divided'] == '1':
                     self.card_highlighted(widget, -1, False)
 
-        # Pair matched        
+        # Pair matched
         elif self.model.grid[self.last_flipped]['pairkey'] == self.model.grid[id]['pairkey']:
             stroke_color, fill_color = self.current_player.props.color.split(',')
             self.emit('set-border', id, stroke_color, fill_color)
@@ -175,21 +179,25 @@ class MemorizeGame(gobject.GObject):
             self.last_flipped = -1
         # Pair don't match
         elif self.model.grid[self.last_flipped]['pairkey'] != self.model.grid[id]['pairkey']:
+            self.flip_block = True
             self.emit('flip-card', id)
             if not signal:
                 self.emit('flip-card-signal', id)
             self.model.grid[id]['state'] = '1'
-            time.sleep(2) ### gobject.timeout() here?
-            self.emit('flop-card', id)
-            self.model.grid[id]['state'] = '0'
-            self.emit('flop-card', self.last_flipped)
-            if self.model.data['divided'] == '1':
-                self.card_highlighted(widget, -1, False)
-            # self.emit('highlight-card', id, True)
-            self.model.grid[self.last_flipped]['state'] = '0'
-            self.last_flipped = -1
-            self.change_turn()
-            
+            gobject.timeout_add(2000, self.flop_card, id, widget)
+
+    def flop_card(self, id, widget):
+        self.emit('flop-card', id)
+        self.model.grid[id]['state'] = '0'
+        self.emit('flop-card', self.last_flipped)
+        if self.model.data['divided'] == '1':
+            self.card_highlighted(widget, -1, False)
+        # self.emit('highlight-card', id, True)
+        self.model.grid[self.last_flipped]['state'] = '0'
+        self.last_flipped = -1
+        self.flip_block = False
+        self.change_turn()
+
     def card_highlighted(self, widget, id, mouse):
         if id == -1:
             self.last_highlight = 1
