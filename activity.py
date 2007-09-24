@@ -38,6 +38,9 @@ import scoreboard
 import game
 import messenger
 import memorizetoolbar
+import createtoolbar
+import cardlist
+import createcardpanel
 
 from sugar.presence.tubeconn import TubeConnection
 
@@ -57,20 +60,28 @@ class MemorizeActivity(Activity):
         self.scoreboard = scoreboard.Scoreboard()
         self.game = game.MemorizeGame()
         
-        hbox = gtk.HBox(False)
-        hbox.pack_start(self.scoreboard, False, False)
-        hbox.pack_start(self.table)
+        self.create_load = False
+        self.create_mode = False
+        
+        self.hbox = gtk.HBox(False)
+        self.hbox.pack_start(self.scoreboard, False, False)
+        self.hbox.pack_start(self.table)
 
         toolbox = ActivityToolbox(self)
+        toolbox.connect('current-toolbar-changed', self.change_mode)
         activity_toolbar = toolbox.get_activity_toolbar()
         
         self._memorizeToolbar = memorizetoolbar.MemorizeToolbar(self)
         toolbox.add_toolbar(_('Games'), self._memorizeToolbar)
         self._memorizeToolbar.show()
         
+        self._createToolbar = createtoolbar.CreateToolbar(self)
+        toolbox.add_toolbar('Create', self._createToolbar)
+        self._createToolbar.show()
+        
         self.set_toolbox(toolbox)
         toolbox.show()
-        self.set_canvas(hbox)
+        self.set_canvas(self.hbox)
         
         self.table.connect('key-press-event', self.table.key_press_event)        
         self.connect('shared', self._shared_cb)
@@ -93,8 +104,6 @@ class MemorizeActivity(Activity):
         self.game.connect('increase-score', self.scoreboard.increase_score)
         self.game.connect('wait_mode_buddy', self.scoreboard.set_wait_mode)
         self.game.connect('change-turn', self.scoreboard.set_selected)
-        
-        self.show_all()
         
         # connect to the in/out events of the memorize activity
         self.connect('focus_in_event', self._focus_in)
@@ -130,7 +139,34 @@ class MemorizeActivity(Activity):
             _logger.debug("buddy joined - __init__: %s", self.owner.props.nick)
             self.game.load_game('addition', 4)
             self.game.add_buddy(self.owner)
-            
+        self.show_all()
+    
+    def change_mode(self, notebook, index):
+        if index == 2:
+            if not self.create_load:
+                # Create mode components
+                self.cardlist = cardlist.CardList()
+                self.createcardpanel = createcardpanel.CreateCardPanel()
+                self.createcardpanel.connect('add-pair', self.cardlist.add_pair)
+                self.createcardpanel.connect('update-pair', self.cardlist.update_selected)
+                self.cardlist.connect('pair-selected', self.createcardpanel.load_pair)
+                self._createToolbar.connect('create_new_game', self.cardlist.clean_list)
+                self._createToolbar.connect('create_load_game', self.cardlist.load_game)
+                self._createToolbar.connect('create_save_game', self.cardlist.save_game)
+                self.create_load = True
+            self.hbox.remove(self.scoreboard)
+            self.hbox.remove(self.table)
+            self.hbox.pack_start(self.createcardpanel)
+            self.hbox.pack_start(self.cardlist, False, False)
+            self.create_mode = True
+        else:
+            if self.create_mode:
+                self.hbox.remove(self.cardlist)
+                self.hbox.remove(self.createcardpanel)
+                self.hbox.pack_start(self.scoreboard, False, False)
+                self.hbox.pack_start(self.table)
+                self.create_mode = False
+                
     def restart(self, widget):
         self.game.reset()
 
