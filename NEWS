@@ -1,3 +1,5 @@
+* Fix for memorize accepts clicks when it should not #3727 (erikos) 
+
 18
 
 * Fix for #3160: all games have a complete 6x6 grid (Muriel)
