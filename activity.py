@@ -54,8 +54,6 @@ class MemorizeActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
         
-        self.set_title(_('Memorize Activity'))
-
         self.table = cardtable.CardTable()
         self.scoreboard = scoreboard.Scoreboard()
         self.game = game.MemorizeGame()
