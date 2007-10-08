@@ -1,3 +1,6 @@
+* Adopt to actvivity launch changes (erikos)
+* Start on game toolbar (erikos)
+* Do not set title #3061 (erikos)
 * Fix for memorize accepts clicks when it should not #3727 (erikos) 
 
 18

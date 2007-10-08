@@ -48,6 +48,9 @@ SERVICE = "org.laptop.Memorize"
 IFACE = SERVICE
 PATH = "/org/laptop/Memorize"
 
+_TOOLBAR_GAME = 1
+_TOOLBAR_CREATE = 2
+
 _logger = logging.getLogger('memorize-activity')
 
 class MemorizeActivity(Activity):
@@ -108,6 +111,9 @@ class MemorizeActivity(Activity):
         self.connect('focus_out_event', self._focus_out)
         self.connect('destroy', self._cleanup_cb)
 
+        # start on the game toolbar, might change this to the create toolbar later
+        self.toolbox.set_current_toolbar(_TOOLBAR_GAME)
+        
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
         try:
