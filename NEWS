@@ -1,3 +1,13 @@
+
+* Set create tab as default (Muriel)
+* Games tab renamed to Play (Muriel)
+* New icon and tooltip for reset game button #3965 (Muriel)
+* Only enable add-pair/update-pair buttons when the card has content (Muriel)
+* Import pictures and audio from journal (Muriel)
+* Create mode read/write in datastore (Muriel)
+* New memorize game file format based on zip file (Muriel)
+* New icons to create mode (Muriel)
+* New system to svgcards using cache, decreasing memory usage #3106 (Muriel)
 * Adopt to actvivity launch changes (erikos)
 * Start on game toolbar (erikos)
 * Do not set title #3061 (erikos)

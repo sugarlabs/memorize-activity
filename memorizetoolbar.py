@@ -17,21 +17,22 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import logging
-
 import gtk
 import os
 
 from gettext import gettext as _
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.toolcombobox import ToolComboBox
+from sugar.graphics.objectchooser import ObjectChooser
+import logging
 
+_logger = logging.getLogger('memorize-activity')
 
 class MemorizeToolbar(gtk.Toolbar):
     __gtype_name__ = 'MemoryToolbar'
     
-    standard_game_names = ["addition", "capitals", "drumgit", "letters", "numbers", "phonemes"]
-    translated_game_names = [_("addition"), _("capitals"), _("drumgit"), _("letters"), _("numbers"), _("phonemes")]
+    standard_game_names = ['Load demo games', 'addition', 'capitals', 'drumgit', 'letters', 'numbers', 'phonemes']
+    translated_game_names = [_('Load demo games'), _('addition'), _('capitals'), _('drumgit'), _('letters'), _('numbers'), _('phonemes')]
 
     def __init__(self, activity):
         gtk.Toolbar.__init__(self)
@@ -40,40 +41,52 @@ class MemorizeToolbar(gtk.Toolbar):
         
         
         # Reset Button
-        self._reset_button = ToolButton('insert-image')
-        self._reset_button.connect('clicked', self._game_changed_cb)
-        self._reset_button.set_tooltip(_('Restart Game'))
-        self.insert(self._reset_button, -1)
-        self._reset_button.show()
+        restart_icon = os.path.join(os.path.dirname(__file__), "images/game-restart.svg")
+        restart_image = gtk.Image()
+        restart_image.set_from_file(restart_icon)
+        self._restart_button = ToolButton()
+        self._restart_button.set_icon_widget(restart_image)
+        self._restart_button.connect('clicked', self._game_reset_cb)
+        self._restart_button.set_tooltip(_('Restart Game'))
+        self.insert(self._restart_button, -1)
+        self._restart_button.show()
+        
+        # Load Button
+        load_icon = os.path.join(os.path.dirname(__file__), "images/game-load.svg")
+        load_image = gtk.Image()
+        load_image.set_from_file(load_icon)
+        self._load_button = ToolButton()
+        self._load_button.set_icon_widget(load_image)
+        self._load_button.set_tooltip(_('Load game'))
+        self._load_button.connect('clicked', self._load_game)
+        self._add_widget(self._load_button)
         
         # Separator
         separator = gtk.SeparatorToolItem()
         separator.set_draw(True)
         self.insert(separator, -1)
-
-        # Change game combobox        
-        self.games = os.listdir(os.path.join(os.path.dirname(__file__), 'games'))
-        self.games.sort()
-        self._game_combo = ToolComboBox()
-        for i, f in enumerate(self.games):
-            if f in self.standard_game_names:
-                f = _(f)
-            self._game_combo.combo.append_item(i, f)
-        self._game_combo.combo.connect('changed', self._game_changed_cb)
-        self._add_widget(self._game_combo)
-        
-        separator = gtk.SeparatorToolItem()
-        separator.set_draw(True)
-        self.insert(separator, -1)
-        self._lock = False
         
         # Change size combobox
         self._size_combo = ToolComboBox()
         self._sizes = ['4 X 4', '5 X 5', '6 X 6']
         for i, f in enumerate(self._sizes):
             self._size_combo.combo.append_item(i, f)
-        self._size_combo.combo.connect('changed', self._game_changed_cb)
+        self._size_combo.combo.connect('changed', self._game_size_cb)
         self._add_widget(self._size_combo)
+    
+        separator = gtk.SeparatorToolItem()
+        separator.set_draw(True)
+        self.insert(separator, -1)
+        self._lock = False
+    
+        # Change demo games combobox        
+        self._game_combo = ToolComboBox()
+        for i, f in enumerate(self.standard_game_names):
+            f = _(f)    
+            self._game_combo.combo.append_item(i, f)
+        self._game_combo.combo.set_active(0)
+        self._game_combo.combo.connect('changed', self._game_changed_cb)
+        self._add_widget(self._game_combo)
     
     def _add_widget(self, widget, expand=False):
         tool_item = gtk.ToolItem()
@@ -83,21 +96,45 @@ class MemorizeToolbar(gtk.Toolbar):
         self.insert(tool_item, -1)
         tool_item.show()
         
+    def _game_reset_cb(self, widget):
+        self.activity.game.reset_game()
+        
+    def _load_game(self, button):
+        chooser = ObjectChooser(_('Choose memorize game'), None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
+        jobject = ''
+        try:
+            result = chooser.run()
+            if result == gtk.RESPONSE_ACCEPT:
+                logging.debug('ObjectChooser: %r' % chooser.get_selected_object())
+                jobject = chooser.get_selected_object()
+                if not jobject or  not jobject.file_path:
+                    return
+        finally:
+            chooser.destroy()
+            del chooser
+            
+        if jobject and jobject.file_path:    
+             self.activity.change_game(jobject.file_path, 4)
+    
+    def _game_size_cb(self, widget):
+        game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
+        self.activity.game.reset_game(game_size)
+    
     def _game_changed_cb(self, combobox):
+        if combobox.get_active() == 0: return
         if not self._lock:
-            game_name = self.games[self._game_combo.combo.get_active()]
+            game_name = self.standard_game_names[self._game_combo.combo.get_active()]
+            game_file = os.path.join(os.path.dirname(__file__),'demos',game_name+'.zip')
             game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
             if game_name in self.translated_game_names:
                 index = self.translated_game_names.index(game_name)
                 game_name = self.standard_game_names[index]
-            self.activity.change_game(game_name, game_size)
+            self.activity.change_game(game_file, game_size)
+            self._game_combo.combo.set_active(0)
         
     def update_toolbar(self, widget, data, grid):
-        game = data.get('name')
         size = data.get('size')
         self._lock = True
-        game_index = self.games.index(game)
-        self._game_combo.combo.set_active(game_index)
         size_index = self._sizes.index(size+' X '+size)
         self._size_combo.combo.set_active(int(size_index))
         self._lock = False

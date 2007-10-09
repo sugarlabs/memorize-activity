@@ -2,14 +2,15 @@
 
 <!ELEMENT memorize (#PCDATA|pair)*>
 <!ATTLIST memorize
-  name	   CDATA   #REQUIRED
-  scoresnd CDATA   #IMPLIED
-  winsnd   CDATA   #IMPLIED
-  divided  CDATA   #IMPLIED
-  face     CDATA   #IMPLIED
-  face1    CDATA   #IMPLIED
-  face2    CDATA   #IMPLIED
-  align    CDATA   #IMPLIED
+  name	      CDATA   #REQUIRED
+  scoresnd    CDATA   #IMPLIED
+  winsnd      CDATA   #IMPLIED
+  divided     CDATA   #IMPLIED
+  face        CDATA   #IMPLIED
+  face1       CDATA   #IMPLIED
+  face2       CDATA   #IMPLIED
+  align       CDATA   #IMPLIED
+  equal_pairs CDATA   #IMPLIED    
 >
 
 <!ELEMENT pair (#PCDATA)* >

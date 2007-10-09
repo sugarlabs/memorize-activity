@@ -18,11 +18,8 @@
 #
 
 import os
-import random
 import logging
 import gobject
-import time
-import gtk
 
 from sugar import profile
 from dbus.service import method, signal
@@ -92,7 +89,8 @@ class MemorizeGame(gobject.GObject):
                 self.sound = 0
 
             
-    def load_game(self, game_name, size):        
+    def load_game(self, game_name, size):   
+             
         if self.model.read(game_name) == 0:
             self.model.def_grid(size)
             self.model.data['running'] = 'False'
@@ -106,6 +104,7 @@ class MemorizeGame(gobject.GObject):
         self.players.append(buddy)
         self.players_score[buddy] = score
         self.emit('add_buddy', buddy, score)
+        logging.debug(str(buddy))
             
         if self.current_player == None:
             self.current_player = buddy
@@ -121,6 +120,8 @@ class MemorizeGame(gobject.GObject):
         self.emit('rem_buddy', buddy)
 
     def change_turn(self):
+        if len(self.players) == 0:
+            return
         if self.current_player == None:
             self.current_player = self.players[0]
         elif self.current_player == self.players[-1]:
@@ -138,7 +139,7 @@ class MemorizeGame(gobject.GObject):
         # do not process flips when flipping back
         if self.flip_block is True:
             return
-
+        
         # Handle groups if needed
         if self.model.data['divided'] == '1':
             if self.last_flipped == -1 and id >= (len(self.model.grid)/2):
@@ -151,8 +152,12 @@ class MemorizeGame(gobject.GObject):
         if self.sound == 1:
             snd = self.model.grid[id].get('snd', None)
             if snd != None:
-                self.cs.perform('i 108 0.0 3.0 "%s" 1 0.9 0'%(os.path.join(os.path.dirname(__file__), snd)))                
-                _logger.debug('Audio: play sound=%s'%snd)
+                if snd.endswith('.wav'):
+                   pass
+                   # code to csound play wav
+                else:
+                    self.cs.perform('i 108 0.0 3.0 "%s" 1 0.9 0'%(os.path.join(os.path.dirname(__file__), snd)))                
+                    _logger.debug('Audio: play sound=%s'%snd)
                 
         # First card case
         if self.last_flipped == -1:
@@ -170,7 +175,8 @@ class MemorizeGame(gobject.GObject):
             self.emit('set-border', id, stroke_color, fill_color)
             self.emit('set-border', self.last_flipped, stroke_color, fill_color)
             self.increase_point(self.current_player)
-            self.model.grid[id]['state'] = '1'
+            self.model.grid[id]['state'] = self.current_player.props.color
+            self.model.grid[self.last_flipped]['state'] = self.current_player.props.color
             self.emit('flip-card', id)            
             if self.model.data['divided'] == '1':
                 self.card_highlighted(widget, -1, False)
@@ -234,7 +240,13 @@ class MemorizeGame(gobject.GObject):
             self.model.def_grid(size)
             self.load_remote(self.model.grid, self.model.data, False)                    
         else:
-            logging.error(' Reading setup file %s'%game_name)        
+            logging.error(' Reading setup file %s'%game_name)   
+            
+    def reset_game(self, size = None):
+        if size == None:
+            size = int(self.model.data['size'])
+        self.model.def_grid(size)    
+        self.load_remote(self.model.grid, self.model.data, False) 
         
     def load_remote(self, grid, data, signal = False):
         self.model.grid = grid
@@ -250,7 +262,15 @@ class MemorizeGame(gobject.GObject):
         self.last_highlight = 1
         self.change_turn()
         self.model.data['running'] = 'False'
-        
+        for card in self.model.grid:
+            if card['state'] == '1':           
+                self.emit('flip-card', self.model.grid.index(card))
+                self.last_flipped = self.model.grid.index(card)
+            elif card['state'] != '0':  
+                stroke_color, fill_color = card['state'].split(',')
+                self.emit('flip-card', self.model.grid.index(card))
+                self.emit('set-border',self.model.grid.index(card), stroke_color, fill_color)
+            
     def set_messenger(self, messenger):
         self.messenger = messenger
  
@@ -266,6 +286,21 @@ class MemorizeGame(gobject.GObject):
     def get_current_player(self):
         return self.current_player
     
+    def get_players_data(self):
+        data = []
+        for player,score  in self.players_score.items():
+            data.append([player.props.key,player.props.nick,player.props.color,score])
+        return data
+    
+    def set_wait_list(self, list):
+        self.waiting_players = list
+        for w in list:
+            for p in self.players:
+                if  w[0] == p.props.key:
+                    list.remove(w)
+                    for i in range(w[3]):
+                        self.increase_point(p)
+    
     def set_myself(self, buddy):
         self.myself = buddy
         
@@ -273,7 +308,7 @@ class MemorizeGame(gobject.GObject):
         self.players.remove(buddy)
         self.waiting_players.append(buddy)
         self.emit('wait_mode_buddy',buddy,True)
-    
+
     def rem_to_waiting_list(self,buddy):
         self.waiting_players.remove(buddy)
         self.players.append(buddy)

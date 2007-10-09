@@ -5,3 +5,4 @@ exec = sugar-activity activity.MemorizeActivity
 icon = activity-memorize
 activity_version = 18
 show_launcher = yes
+mime_types = application/memorizegame;

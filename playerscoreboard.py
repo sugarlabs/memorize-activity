@@ -21,8 +21,11 @@ import gtk, pygtk
 
 import pango
 import svglabel
+import logging
 import os
 from score import Score
+
+_logger = logging.getLogger('memorize-activity')
 
 class PlayerScoreboard(gtk.EventBox):    
     
@@ -77,6 +80,7 @@ class PlayerScoreboard(gtk.EventBox):
                 self.increase_score()
                  
     def increase_score(self):
+        _logger.debug('Increase to: '+self.nick.get_text())
         if len(self.scores) == 0:
             # Cache the score icon
             score_label = Score(self.fill_color, self.stroke_color)

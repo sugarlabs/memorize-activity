@@ -18,7 +18,10 @@
 #
 
 import gtk
+import logging
 from playerscoreboard import PlayerScoreboard
+
+_logger = logging.getLogger('memorize-activity')
 
 class Scoreboard(gtk.EventBox):
     def __init__(self):
@@ -42,7 +45,7 @@ class Scoreboard(gtk.EventBox):
         scroll.set_border_width(0)
         scroll.get_child().set_property('shadow-type', gtk.SHADOW_NONE)
         self.add(scroll)
-        self.show()
+        self.show_all()
         
     def add_buddy(self, widget, buddy, score):
         ### FIXME: this breaks when the body is empty
@@ -55,9 +58,7 @@ class Scoreboard(gtk.EventBox):
         if score == -1:
             player.set_wait_mode(True)
         self.show_all()
-        
             
-        
     def rem_buddy(self, widget, buddy):
         self.vbox.remove(self.players[buddy])        
         del self.players[buddy] ### fix for self.players[id]
@@ -71,6 +72,7 @@ class Scoreboard(gtk.EventBox):
         player.set_selected(True)
         
     def increase_score(self, widget, buddy):
+        _logger.debug('Increase to: '+buddy.props.nick)
         self.players[buddy].increase_score()
 
     def reset(self, widget):

@@ -67,7 +67,7 @@ class SvgCard(gtk.DrawingArea):
 			self.props[view].update(self.default_props[view])
 			self.props[view].update(pprops.get(view, {}))
 	
-		if len(self.props['back_text'].get('card_text','')) > 0:
+		if len(self.props['back_text'].get('card_text', '')) > 0:
 		   	self.back_layout = self.get_text_layout(self.props['back_text']['card_text'], self.size-12)
 		   	self.back_layout_position = (self.size -(self.back_layout.get_size()[1]/1000))/2
 			self.current_layout = self.back_layout
@@ -123,8 +123,27 @@ class SvgCard(gtk.DrawingArea):
 		self.props['front'].update({'fill_color':fill_color, 'stroke_color':stroke_color})
 		self.queue_draw()
 		while gtk.events_pending():
-			gtk.main_iteration()		  
-
+			gtk.main_iteration()		
+	
+	def set_pixbuf(self, pixbuf):
+		if pixbuf == None:
+			self.jpeg = None
+			self.show_jpeg = False
+		else:
+			if self.jpeg != None:
+				del self.jpeg
+				
+			self.jpeg = pixbuf
+			del pixbuf
+			self.show_jpeg = True
+		
+		self.queue_draw()
+		while gtk.events_pending():
+			gtk.main_iteration()
+	
+	def get_pixbuf(self):
+		return self.jpeg
+		
 	def set_highlight(self, status, mouse = False):
 		if self.flipped:
 			if mouse:
@@ -145,16 +164,21 @@ class SvgCard(gtk.DrawingArea):
 			if not self.flipped_once:
 				if self.jpeg <> None:
 					pixbuf_t = gtk.gdk.pixbuf_new_from_file(self.jpeg)
-					self.jpeg = pixbuf_t.scale_simple(self.size-22, self.size-22, gtk.gdk.INTERP_BILINEAR)
-					del pixbuf_t	
-				if len(self.props.get('front_text',[]).get('card_text','')) > 0:
+					if pixbuf_t.get_width() != self.size-22 or pixbuf_t.get_height() != self.size-22:
+						self.jpeg = pixbuf_t.scale_simple(self.size-22, self.size-22, gtk.gdk.INTERP_BILINEAR)
+						del pixbuf_t
+					else:
+						self.jpeg = pixbuf_t
+				text = self.props.get('front_text', {}).get('card_text', '')		
+				if text != None and len(text) > 0:
 					self.front_layout = self.get_text_layout(self.props['front_text']['card_text'], self.size-12)
 					self.front_layout_position = (self.size -(self.front_layout.get_size()[1]/1000))/2
 				self.flipped_once = True
 			
 			if self.jpeg <> None:
 				self.show_jpeg = True
-			if len(self.props['front_text'].get('card_text','')) > 0:
+			text = self.props.get('front_text', {}).get('card_text', '')		
+			if text != None and len(text) > 0:
 				self.current_layout = self.front_layout
 				self.current_layout_position = self.front_layout_position
 				self.current_text_color = self.props['front_text']['text_color']
@@ -173,7 +197,7 @@ class SvgCard(gtk.DrawingArea):
 	
 	def flop(self):
 		self.current_face = 'back'
-		if len(self.props['back_text'].get('card_text','')) > 0:
+		if len(self.props['back_text'].get('card_text', '')) > 0:
 			self.current_layout = self.back_layout
 			self.current_layout_position = self.back_layout_position
 			self.current_text_color = self.props['back_text']['text_color']
@@ -198,13 +222,12 @@ class SvgCard(gtk.DrawingArea):
 			self.flop()
 			
 	def get_text_layout(self, text, size):
-		if self.size == 184:
-			font_sizes = [50, 40, 26, 20, 17, 13, 11, 8] 
+		if self.size == 119:
+			font_sizes = [30, 24, 16, 13, 10, 8, 8, 8]
 		elif self.size == 145: 
 			font_sizes = [45, 28, 20, 16, 13, 11, 9, 8] 
-		elif self.size == 119:
-			font_sizes = [30, 24, 16, 13, 10, 8, 8, 8] 
-
+		else:
+			font_sizes = [50, 40, 26, 20, 17, 13, 11, 8] 
 		# Set font size considering string length
 		if len(text) <= 8:
 			font_size = font_sizes[len(text)-1]
@@ -241,4 +264,4 @@ class SvgCard(gtk.DrawingArea):
 			self.show_text = True
 		self.queue_draw()		
 	def get_text(self):
-		return self.props['front_text']['card_text']
+		return self.props['front_text'].get('card_text', '')

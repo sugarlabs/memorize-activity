@@ -47,11 +47,14 @@ class CardTable(gtk.EventBox):
         self.table.set_resize_mode(gtk.RESIZE_IMMEDIATE)
         self.set_property('child', self.table)
         self.fist_load = True
+        self.show_all()
         
     def load_game(self, widget, data, grid):
         self.data = data
         self.cards_data = grid
         self.size = int(math.ceil(math.sqrt(len(grid))))
+        if self.size < 4:
+            self.size = 4
         self.table.resize(self.size, self.size)
         self.card_size = self.get_card_size(self.size)
         self.cards = {}

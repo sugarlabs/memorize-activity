@@ -68,8 +68,6 @@ class Messenger(ExportedGObject):
         self._tube.get_object(sender, PATH).load_game(self.ordered_bus_names, self.game.get_grid(), self.game.get_data(), self.game.players.index(self.game.current_player), self.game.waiting_players, dbus_interface=IFACE)
         _logger.debug('Sent the game state')
     
-    #@dbus.service.method(dbus_interface=IFACE, in_signature='asss', out_signature='')
-    #@dbus.service.method(dbus_interface=IFACE, in_signature='asa(ssssssssiii)a{ss}av', out_signature='')
     @dbus.service.method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}nav', out_signature='')
     def load_game(self, bus_names, grid, data, current_player, list):
         ''' Sync the game with with players '''
@@ -77,9 +75,9 @@ class Messenger(ExportedGObject):
         _logger.debug('grid %s '%grid)
         self.ordered_bus_names = bus_names
         self.player_id = bus_names.index(self._tube.get_unique_name())
-        self._change_game_receiver(grid,data,self.ordered_bus_names[0])
+        self.game.load_remote(grid, data, True)
         self.game.load_waiting_list(list)
-        _logger.debug('Current plater id=%d' %current_player)
+        _logger.debug('Current player id=%d' %current_player)
         self.game.current_player = self.game.players[current_player]
         
     def flip(self, widget, id):
@@ -105,7 +103,6 @@ class Messenger(ExportedGObject):
         _logger.debug('Sending changed game message')
         self._change_game_signal(grid, data)
     
-    #@dbus.service.signal(IFACE, signature='a(ssssssssiii)a{ss}')
     @dbus.service.signal(IFACE, signature='aa{ss}a{ss}')
     def _change_game_signal(self, grid, data):
         _logger.debug('Notifing other players that you changed the game')
@@ -117,8 +114,5 @@ class Messenger(ExportedGObject):
         
         if self._tube.self_handle <> handle:
             _logger.debug('Game changed by other player')
-            #new_grid = []
-            #for card in grid:
-            #    new_grid.append(map(lambda x: str(x), card[:8])+[int(card[8]), int(card[9]), int(card[10])])
             self.game.load_remote(grid, data, True)
             
