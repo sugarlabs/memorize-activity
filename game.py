@@ -152,12 +152,12 @@ class MemorizeGame(gobject.GObject):
         if self.sound == 1:
             snd = self.model.grid[id].get('snd', None)
             if snd != None:
-                if snd.endswith('.wav'):
-                   pass
-                   # code to csound play wav
+                if len(snd.split('.')) > 1:
+                    if snd.split('.')[1] in ['wav', 'aif', 'aiff']:
+                        self.cs.perform('i 102 0.0 3.0 "%s" 1 0.9 0'%(os.path.join(os.path.dirname(__file__), snd)))                
                 else:
-                    self.cs.perform('i 108 0.0 3.0 "%s" 1 0.9 0'%(os.path.join(os.path.dirname(__file__), snd)))                
-                    _logger.debug('Audio: play sound=%s'%snd)
+                    self.cs.perform('i 100 0.0 3.0 "%s" 1 0.9 0'%(os.path.join(os.path.dirname(__file__), snd)))                
+                _logger.debug('Audio: play sound=%s'%snd)
                 
         # First card case
         if self.last_flipped == -1:

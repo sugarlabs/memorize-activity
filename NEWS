@@ -1,4 +1,4 @@
-
+* Added support to be able to play wav and aiff format (erikos)
 * Set create tab as default (Muriel)
 * Games tab renamed to Play (Muriel)
 * New icon and tooltip for reset game button #3965 (Muriel)
