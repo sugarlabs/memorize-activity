@@ -22,7 +22,7 @@ from gettext import gettext as _
 
 import gtk
 import os
-import gobject
+from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
   
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.toggletoolbutton import ToggleToolButton
@@ -33,10 +33,10 @@ class CreateToolbar(gtk.Toolbar):
     __gtype_name__ = 'CreateToolbar'
 
     __gsignals__ = {
-        'create_new_game': (gobject.SIGNAL_RUN_FIRST, None, []),
-        'create_load_game': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT]), 
-        'create_save_game': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]), 
-        'create_equal_pairs': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT]), 
+        'create_new_game': (SIGNAL_RUN_FIRST, None, []), 
+        'create_load_game': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'create_save_game': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]), 
+        'create_equal_pairs': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
     }
     
     def __init__(self, activity):
@@ -110,7 +110,7 @@ class CreateToolbar(gtk.Toolbar):
         
     def _game_changed_cb(self, combobox, game_name):
         self.game_name_entry.set_text(game_name)
-        self.emit('create_load_game',game_name)
+        self.emit('create_load_game', game_name)
   
     def _load_game(self, button):
         chooser = ObjectChooser(_('Choose memorize game'), None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
@@ -127,7 +127,7 @@ class CreateToolbar(gtk.Toolbar):
             del chooser
             
         if jobject and jobject.file_path:    
-            self.emit('create_load_game',jobject.file_path)
+            self.emit('create_load_game', jobject.file_path)
             self._save_button.set_sensitive(False)
         
     def _new_game_bt(self, button):
@@ -139,14 +139,14 @@ class CreateToolbar(gtk.Toolbar):
         self._save_button.set_sensitive(False)
 
     def _save_game_bt(self, button):
-        self.emit('create_save_game',self.game_name_entry.get_text(), self._equal_pairs.get_active(), self._grouped.get_active())
+        self.emit('create_save_game', self.game_name_entry.get_text(), self._equal_pairs.get_active(), self._grouped.get_active())
         self._save_button.set_sensitive(False)
         
-    def _emit_equal_pairs(self,checkbutton):
-        self.emit('create_equal_pairs',checkbutton.get_active())
+    def _emit_equal_pairs(self, checkbutton):
+        self.emit('create_equal_pairs', checkbutton.get_active())
         self._save_button.set_sensitive(True)
         
-    def _grouped_cb(self,widget):
+    def _grouped_cb(self, widget):
         self._save_button.set_sensitive(True)
         if self._grouped.get_active():
             self._grouped.set_icon_widget(self._grouped_image2)

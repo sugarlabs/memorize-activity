@@ -70,9 +70,11 @@ class Scoreboard(gtk.EventBox):
         self.current_buddy = buddy 
         player = self.players[buddy]
         player.set_selected(True)
+    
+    def set_buddy_message(self, widget, buddy, msg):
+        self.players[buddy].set_message(msg)
         
     def increase_score(self, widget, buddy):
-        _logger.debug('Increase to: '+buddy.props.nick)
         self.players[buddy].increase_score()
 
     def reset(self, widget):

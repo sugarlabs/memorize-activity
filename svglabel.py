@@ -37,7 +37,7 @@ class SvgLabel(gtk.DrawingArea):
         self.background_color = background_color
         self.fill_color = fill_color
         self.stroke_color = stroke_color
-        self.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse(background_color))
+        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(background_color))
         if pixbuf:
             self.pixbuf = pixbuf
         else:      
@@ -46,7 +46,7 @@ class SvgLabel(gtk.DrawingArea):
         self.connect('expose-event', self._expose_cb)
     
     def _expose_cb(self, widget, event):
-        widget.window.draw_pixbuf(None,self.pixbuf, 0, 0, 0, 0)
+        widget.window.draw_pixbuf(None, self.pixbuf, 0, 0, 0, 0)
         return False
         
     def _read_icon_data(self, filename, fill_color, stroke_color):
@@ -96,6 +96,6 @@ class SvgLabel(gtk.DrawingArea):
         
     def set_background(self, background_color):
         self.background_color = background_color
-        self.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse(self.background_color))
+        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.background_color))
         self.queue_draw() 
                

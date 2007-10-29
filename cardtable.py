@@ -17,19 +17,21 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk, pygtk
+import gtk
+import pygtk
+import pango
 import svgcard
 import os
 import time
-import gobject
 import math
 import gc
+from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 class CardTable(gtk.EventBox):
   
     __gsignals__ = {
-        'card-flipped': (gobject.SIGNAL_RUN_FIRST, None, [int, gobject.TYPE_PYOBJECT]), 
-        'card-highlighted': (gobject.SIGNAL_RUN_FIRST, None, [int, gobject.TYPE_PYOBJECT]), 
+        'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
+        'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
         }
 
     def __init__(self):
@@ -46,7 +48,13 @@ class CardTable(gtk.EventBox):
         self.table.set_border_width(11)
         self.table.set_resize_mode(gtk.RESIZE_IMMEDIATE)
         self.set_property('child', self.table)
-        self.fist_load = True
+        self.load_message = gtk.Label('Loading Game')
+        self.load_message.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#ffffff'))
+        self.load_message.modify_font(pango.FontDescription("10"))
+        self.load_message.show()
+        self.first_load = True
+        self.load_mode = False
+        self.dict = None
         self.show_all()
         
     def load_game(self, widget, data, grid):
@@ -67,11 +75,11 @@ class CardTable(gtk.EventBox):
         
         # Build the table
         if data['divided']=='1':
-            text1 = str(self.data.get('face1',''))
-            text2 = str(self.data.get('face2',''))
+            text1 = str(self.data.get('face1', ''))
+            text2 = str(self.data.get('face2', ''))
         else:
-            text1 = str(self.data.get('face',''))
-            text2 = str(self.data.get('face',''))
+            text1 = str(self.data.get('face', ''))
+            text2 = str(self.data.get('face', ''))
         
         x = 0
         y = 0
@@ -79,7 +87,7 @@ class CardTable(gtk.EventBox):
         
         for card in self.cards_data:        
             if card.get('img', None):
-                jpg = os.path.join(os.path.dirname(__file__), card['img'])
+                jpg = os.path.join(self.data['pathimg'], card['img'])
             else:
                 jpg = None
             props = {}
@@ -90,7 +98,8 @@ class CardTable(gtk.EventBox):
             elif card['ab']== 'b':
                 props['back_text']= {'card_text':text2}
             
-            card = svgcard.SvgCard(id, props, jpg, self.card_size,self.data.get('align','1'))
+            align = self.data.get('align', '1')
+            card = svgcard.SvgCard(id, props, jpg, self.card_size, align)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.connect("button-press-event", self.flip_card_mouse, id)
             self.table_positions[(x, y)]=1
@@ -105,17 +114,19 @@ class CardTable(gtk.EventBox):
                 x = 0
                 y +=1
             id += 1
-        self.fist_load = False
+        self.first_load = False
+        if self.load_mode:
+            self._set_load_mode(False)
+        self.show_all()
         gc.collect()
             
     def change_game(self, widget, data, grid):
-        if not self.fist_load:
+        if not self.first_load:
             for card in self.cards.values():
                 self.table.remove(card)
                 del card
         gc.collect()
         self.load_game(None, data, grid)
-
     
     def get_card_size(self, size_table):
         x = (780 - (11*size_table))/size_table
@@ -133,31 +144,31 @@ class CardTable(gtk.EventBox):
         x= self.selected_card[0]
         y= self.selected_card[1]
         
-        if event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left,gtk.keysyms.a):
+        if event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left):
             if self.table_positions.has_key((x-1, y)):
                 card = self.cards[x-1, y]
                 id = self.cd2id.get(card)
                 self.emit('card-highlighted', id, False)
         
-        elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right,gtk.keysyms.d):
+        elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right):
             if self.table_positions.has_key((x+1, y)):
                 card = self.cards[x+1, y]
                 id = self.cd2id.get(card)
                 self.emit('card-highlighted', id, False)
         
-        elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up,gtk.keysyms.w):
+        elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up):
             if self.table_positions.has_key((x, y-1)):
                 card = self.cards[x, y-1]
                 id = self.cd2id.get(card)
                 self.emit('card-highlighted', id, False)
         
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.KP_Down,gtk.keysyms.s):
+        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.KP_Down):
             if self.table_positions.has_key((x, y+1)):
                 card = self.cards[x, y+1]
                 id = self.cd2id.get(card)
                 self.emit('card-highlighted', id, False)
         
-        elif event.keyval in (gtk.keysyms.space,gtk.keysyms.KP_Page_Down):
+        elif event.keyval in (gtk.keysyms.space, gtk.keysyms.KP_Page_Down):
             card = self.cards[x, y]
             self.card_flipped(card)
     
@@ -181,9 +192,28 @@ class CardTable(gtk.EventBox):
         self.id2cd.get(id).flip()
         
     def highlight_card(self, widget, id, status):
-        self.selected_card = self.dict.get(id)
-        self.id2cd.get(id).set_highlight(status)
+        if self.dict != None:
+            self.selected_card = self.dict.get(id)
+            self.id2cd.get(id).set_highlight(status)
         
     def reset(self, widget):        
         for id in self.id2cd.keys():
            self.id2cd[id].reset()
+           
+    def _set_load_mode(self,mode):
+        if mode:
+            self.remove(self.table)
+            self.set_property('child', self.load_message)
+        else:
+            self.remove(self.load_message)
+            self.set_property('child', self.table)
+        self.load_mode = mode
+        self.queue_draw()
+        while gtk.events_pending():
+            gtk.main_iteration() 
+        
+    def load_msg(self, widget, msg):
+        if not self.load_mode:
+            self._set_load_mode(True)
+        self.load_message.set_text(msg)
+        self.queue_draw() 

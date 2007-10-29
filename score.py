@@ -30,7 +30,7 @@ class Score(svglabel.SvgLabel):
     default_color = "#4c4d4f"
     status = False
     
-    def __init__(self, fill_color, stroke_color, pixbuf= None, pixbuf_sel = None,status= False):
+    def __init__(self, fill_color, stroke_color, pixbuf= None, pixbuf_sel = None, status= False):
         filename = os.path.join(os.path.dirname(__file__), "images/score.svg")
         self.pixbuf_un = pixbuf
         self.pixbuf_sel = pixbuf_sel
@@ -51,10 +51,10 @@ class Score(svglabel.SvgLabel):
         self.status = status
         if status:
             self.pixbuf = self.pixbuf_sel
-            self.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse(self.selected_color))
+            self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.selected_color))
         else:
             self.pixbuf = self.pixbuf_un
-            self.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse(self.default_color))
+            self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.default_color))
         self.queue_draw()     
         
     def get_pixbuf_un(self):

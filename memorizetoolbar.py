@@ -18,13 +18,14 @@
 #
 
 import gtk
-import os
+from os.path import join, dirname
 
 from gettext import gettext as _
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.toolcombobox import ToolComboBox
 from sugar.graphics.objectchooser import ObjectChooser
 import logging
+from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -34,14 +35,18 @@ class MemorizeToolbar(gtk.Toolbar):
     standard_game_names = ['Load demo games', 'addition', 'capitals', 'drumgit', 'letters', 'numbers', 'phonemes']
     translated_game_names = [_('Load demo games'), _('addition'), _('capitals'), _('drumgit'), _('letters'), _('numbers'), _('phonemes')]
 
+    __gsignals__ = {
+    'game_changed': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT])
+    }
+    
     def __init__(self, activity):
         gtk.Toolbar.__init__(self)
         self.activity = activity
         self._lock = True
-        
+        self.jobject = None
         
         # Reset Button
-        restart_icon = os.path.join(os.path.dirname(__file__), "images/game-restart.svg")
+        restart_icon = join(dirname(__file__), 'images', 'game-restart.svg')
         restart_image = gtk.Image()
         restart_image.set_from_file(restart_icon)
         self._restart_button = ToolButton()
@@ -52,7 +57,7 @@ class MemorizeToolbar(gtk.Toolbar):
         self._restart_button.show()
         
         # Load Button
-        load_icon = os.path.join(os.path.dirname(__file__), "images/game-load.svg")
+        load_icon = join(dirname(__file__), 'images', 'game-load.svg')
         load_image = gtk.Image()
         load_image.set_from_file(load_icon)
         self._load_button = ToolButton()
@@ -97,7 +102,7 @@ class MemorizeToolbar(gtk.Toolbar):
         tool_item.show()
         
     def _game_reset_cb(self, widget):
-        self.activity.game.reset_game()
+        self.emit('game_changed', None, None, 'reset', None, None)
         
     def _load_game(self, button):
         chooser = ObjectChooser(_('Choose memorize game'), None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
@@ -113,23 +118,30 @@ class MemorizeToolbar(gtk.Toolbar):
             chooser.destroy()
             del chooser
             
-        if jobject and jobject.file_path:    
-             self.activity.change_game(jobject.file_path, 4)
+        if jobject and jobject.file_path:   
+            title = jobject.metadata['title']
+            color = jobject.metadata['icon-color']
+            self.emit('game_changed', jobject.file_path, 4, 'file', title, color)
+             
+            if self.jobject != None:
+                self.jobject.destroy()
+            self.jobject = jobject
     
     def _game_size_cb(self, widget):
         game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
-        self.activity.game.reset_game(game_size)
+        self.emit('game_changed', None, game_size, 'size', None, None)
     
     def _game_changed_cb(self, combobox):
         if combobox.get_active() == 0: return
         if not self._lock:
             game_name = self.standard_game_names[self._game_combo.combo.get_active()]
-            game_file = os.path.join(os.path.dirname(__file__),'demos',game_name+'.zip')
+            game_file = join(dirname(__file__), 'demos', game_name+'.zip')
             game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
             if game_name in self.translated_game_names:
                 index = self.translated_game_names.index(game_name)
                 game_name = self.standard_game_names[index]
-            self.activity.change_game(game_file, game_size)
+                self.emit('game_changed', game_file, game_size, 'demo', None, None)
+            #self.activity.change_game(game_file, game_size)
             self._game_combo.combo.set_active(0)
         
     def update_toolbar(self, widget, data, grid):

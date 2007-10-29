@@ -17,43 +17,44 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import os
 import logging
 import gobject
+from os.path import join, dirname
 
 from sugar import profile
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
-
-import gobject
+from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT, GObject, timeout_add
 
 from model import Model
 
 _logger = logging.getLogger('memorize-activity')
 
-SERVICE = "org.laptop.Memorize"
+SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
-PATH = "/org/laptop/Memorize"
+PATH = '/org/laptop/Memorize'
 
 
-class MemorizeGame(gobject.GObject):
+class MemorizeGame(GObject):
     
     __gsignals__ = {
-        'reset_scoreboard': (gobject.SIGNAL_RUN_FIRST, None, []), 
-        'reset_table': (gobject.SIGNAL_RUN_FIRST, None, []), 
-        'load_game': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]), 
-        'change_game': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]), 
-        'change_game_signal': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]), 
-        'set-border': (gobject.SIGNAL_RUN_FIRST, None, [int, gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]), 
-        'flip-card': (gobject.SIGNAL_RUN_FIRST, None, [int]), 
-        'flip-card-signal': (gobject.SIGNAL_RUN_FIRST, None, [int]), 
-        'flop-card': (gobject.SIGNAL_RUN_FIRST, None, [int]), 
-        'highlight-card': (gobject.SIGNAL_RUN_FIRST, None, [int, gobject.TYPE_PYOBJECT]), 
-        'add_buddy': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT, int]), 
-        'rem_buddy': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT]), 
-        'increase-score': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT]), 
-        'wait_mode_buddy': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT, gobject.TYPE_PYOBJECT]),
-        'change-turn': (gobject.SIGNAL_RUN_FIRST, None, [gobject.TYPE_PYOBJECT]), 
+        'reset_scoreboard': (SIGNAL_RUN_FIRST, None, []), 
+        'reset_table': (SIGNAL_RUN_FIRST, None, []), 
+        'load_mode': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'load_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
+        'change_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
+        'change_game_signal': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT]), 
+        'set-border': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]), 
+        'flip-card': (SIGNAL_RUN_FIRST, None, [int]), 
+        'flip-card-signal': (SIGNAL_RUN_FIRST, None, [int]), 
+        'flop-card': (SIGNAL_RUN_FIRST, None, [int]), 
+        'highlight-card': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
+        'add_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
+        'rem_buddy': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'increase-score': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'wait_mode_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
+        'msg_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),         
+        'change-turn': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
         }
     
     def __init__(self):
@@ -65,10 +66,10 @@ class MemorizeGame(gobject.GObject):
         self.current_player = None
         self.last_flipped = -1
         self.last_highlight = 1
-        self.game_dir = os.path.join(os.path.dirname(__file__), 'games')
+        self.game_dir = join(dirname(__file__), 'games')
         self.messenger = None
         self.sentitive = True
-        self.model = Model(os.path.dirname(__file__))
+        self.model = Model(dirname(__file__))
         self.flip_block = False
 
         # create csound instance to play sound files
@@ -87,17 +88,40 @@ class MemorizeGame(gobject.GObject):
             if self.cs.start() != 0:
                 _logger.error(' Error starting csound performance.')
                 self.sound = 0
-
             
-    def load_game(self, game_name, size):   
-             
+    def load_game(self, game_name, size):
+        self.set_load_mode('Loading game')   
         if self.model.read(game_name) == 0:
             self.model.def_grid(size)
             self.model.data['running'] = 'False'
-            logging.debug(' Read setup file %s:   %s   '%(game_name, self.model.grid))
+            logging.debug(' Read setup file %s: %s '%(game_name, self.model.grid))
             self.emit('load_game', self.model.data, self.model.grid)
         else:
             logging.error(' Reading setup file %s'%game_name)
+    
+    def load_remote(self, grid, data, mode, signal = False):
+        self.set_load_mode('Loading game...')
+        self.model.grid = grid
+        self.model.data = data
+        self.emit('reset_scoreboard')
+        if not signal:
+            self.emit('change_game_signal', mode, self.get_grid(), self.get_data(), self.waiting_players, self.model.data['game_file'])
+        self.emit('change_game', self.get_data(), self.get_grid())
+        for buddy in self.players:
+            self.players_score[buddy] = 0
+        self.current_player = None
+        self.last_flipped = -1
+        self.last_highlight = 1
+        self.change_turn()
+        self.model.data['running'] = 'False'
+        for card in self.model.grid:
+            if card['state'] == '1':           
+                self.emit('flip-card', self.model.grid.index(card))
+                self.last_flipped = self.model.grid.index(card)
+            elif card['state'] != '0':  
+                stroke_color, fill_color = card['state'].split(',')
+                self.emit('flip-card', self.model.grid.index(card))
+                self.emit('set-border', self.model.grid.index(card), stroke_color, fill_color)
         
     def add_buddy(self, buddy, score = 0):
         _logger.debug('Buddy %r was added to game', buddy.props.nick)
@@ -112,16 +136,19 @@ class MemorizeGame(gobject.GObject):
     
     def rem_buddy(self, buddy):
         _logger.debug('Buddy %r was removed from game', buddy.props.nick)
-        index = self.players.index(buddy)
+        if self.current_player == buddy and len(self.players) >= 2:
+            self.change_turn()
+        index = self.players.index(buddy)    
         del self.players[index]
         del (self.players_score[buddy])
-        if self.current_player == buddy and len(self.players) >= 2: ### fix from <> 0
-            self.change_turn()
         self.emit('rem_buddy', buddy)
+    
+    def buddy_message(self, buddy, text):
+        self.emit('msg_buddy', buddy, text)
 
     def change_turn(self):
-        if len(self.players) == 0:
-            return
+        if len(self.players) <= 1:
+            self.current_player = self.players[0]
         if self.current_player == None:
             self.current_player = self.players[0]
         elif self.current_player == self.players[-1]:
@@ -152,12 +179,13 @@ class MemorizeGame(gobject.GObject):
         if self.sound == 1:
             snd = self.model.grid[id].get('snd', None)
             if snd != None:
+                sound_file = join(self.model.data.get('pathsnd'),snd)
                 if len(snd.split('.')) > 1:
                     if snd.split('.')[1] in ['wav', 'aif', 'aiff']:
-                        self.cs.perform('i 102 0.0 3.0 "%s" 1 0.9 0'%(os.path.join(os.path.dirname(__file__), snd)))                
-                else:
-                    self.cs.perform('i 100 0.0 3.0 "%s" 1 0.9 0'%(os.path.join(os.path.dirname(__file__), snd)))                
-                _logger.debug('Audio: play sound=%s'%snd)
+                        self.cs.perform('i 102 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
+                    else:
+                        self.cs.perform('i 100 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
+                _logger.debug('Audio: play sound=%s'%sound_file)
                 
         # First card case
         if self.last_flipped == -1:
@@ -190,7 +218,7 @@ class MemorizeGame(gobject.GObject):
             if not signal:
                 self.emit('flip-card-signal', id)
             self.model.grid[id]['state'] = '1'
-            gobject.timeout_add(2000, self.flop_card, id, widget)
+            timeout_add(2000, self.flop_card, id, widget)
 
     def flop_card(self, id, widget):
         self.emit('flop-card', id)
@@ -235,12 +263,21 @@ class MemorizeGame(gobject.GObject):
     def get_data(self):
         return self.model.data
     
-    def change_game(self, game_name, size):
-        if self.model.read(game_name) == 0:
-            self.model.def_grid(size)
-            self.load_remote(self.model.grid, self.model.data, False)                    
-        else:
-            logging.error(' Reading setup file %s'%game_name)   
+    def change_game(self, widget, game_name, size, mode,  title = None, color= None):
+        if mode in ['file','demo']:
+            if self.model.read(game_name) != 0:
+                logging.error(' Reading setup file %s'%game_name)
+                return
+        #elif mode in ['reset','size']:
+        if size == None:
+            size = int(self.model.data['size'])
+        self.model.def_grid(size)
+        
+        if title != None:
+            self.model.data['title'] = title
+        if color != None:
+            self.model.data['color'] = color
+        self.load_remote(self.model.grid, self.model.data, mode, False)                    
             
     def reset_game(self, size = None):
         if size == None:
@@ -248,29 +285,9 @@ class MemorizeGame(gobject.GObject):
         self.model.def_grid(size)    
         self.load_remote(self.model.grid, self.model.data, False) 
         
-    def load_remote(self, grid, data, signal = False):
-        self.model.grid = grid
-        self.model.data = data
-        self.emit('reset_scoreboard')
-        self.emit('change_game', self.get_data(), self.get_grid())
-        if not signal:
-            self.emit('change_game_signal', self.get_grid(), self.get_data(), self.waiting_players)
-        for buddy in self.players:
-            self.players_score[buddy] = 0
-        self.current_player = None
-        self.last_flipped = -1
-        self.last_highlight = 1
-        self.change_turn()
-        self.model.data['running'] = 'False'
-        for card in self.model.grid:
-            if card['state'] == '1':           
-                self.emit('flip-card', self.model.grid.index(card))
-                self.last_flipped = self.model.grid.index(card)
-            elif card['state'] != '0':  
-                stroke_color, fill_color = card['state'].split(',')
-                self.emit('flip-card', self.model.grid.index(card))
-                self.emit('set-border',self.model.grid.index(card), stroke_color, fill_color)
-            
+    def set_load_mode(self, msg):
+        self.emit('load_mode', msg)      
+    
     def set_messenger(self, messenger):
         self.messenger = messenger
  
@@ -288,8 +305,8 @@ class MemorizeGame(gobject.GObject):
     
     def get_players_data(self):
         data = []
-        for player,score  in self.players_score.items():
-            data.append([player.props.key,player.props.nick,player.props.color,score])
+        for player, score  in self.players_score.items():
+            data.append([player.props.key, player.props.nick, player.props.color, score])
         return data
     
     def set_wait_list(self, list):
@@ -304,17 +321,17 @@ class MemorizeGame(gobject.GObject):
     def set_myself(self, buddy):
         self.myself = buddy
         
-    def add_to_waiting_list(self,buddy):
+    def add_to_waiting_list(self, buddy):
         self.players.remove(buddy)
         self.waiting_players.append(buddy)
-        self.emit('wait_mode_buddy',buddy,True)
+        self.emit('wait_mode_buddy', buddy, True)
 
-    def rem_to_waiting_list(self,buddy):
+    def rem_to_waiting_list(self, buddy):
         self.waiting_players.remove(buddy)
         self.players.append(buddy)
-        self.emit('wait_mode_buddy',buddy,False)
+        self.emit('wait_mode_buddy', buddy, False)
         
-    def load_waiting_list(self,list):
+    def load_waiting_list(self, list):
         for buddy in list:
             self.add_to_waiting_list(buddy)
             

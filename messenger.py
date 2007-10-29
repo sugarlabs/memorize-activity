@@ -18,14 +18,17 @@
 #
 
 import logging
-import dbus
-from dbus.gobject_service import ExportedGObject
-
-SERVICE = "org.laptop.Memorize"
-IFACE = SERVICE
-PATH = "/org/laptop/Memorize"
-
 _logger = logging.getLogger('memorize-activity')
+
+import tempfile
+from os.path import join, getsize, isfile, dirname, basename
+from dbus.service import method, signal
+from dbus.gobject_service import ExportedGObject
+from sugar.datastore import datastore
+
+SERVICE = 'org.laptop.Memorize'
+IFACE = SERVICE
+PATH = '/org/laptop/Memorize'
 
 class Messenger(ExportedGObject):
     
@@ -38,81 +41,171 @@ class Messenger(ExportedGObject):
         self.ordered_bus_names = []
         self.entered = False        
         self._tube.watch_participants(self.participant_change_cb)
+        self.files = {}
 
     def participant_change_cb(self, added, removed):
-        _logger.debug('Participants change add=%s    rem=%s' %(added, removed))
-        
         if not self.entered:
-            self._tube.add_signal_receiver(self._flip_receiver, '_flip_signal', IFACE, path=PATH, sender_keyword='sender')
-            self._tube.add_signal_receiver(self._change_game_receiver, '_change_game_signal', IFACE, path=PATH, sender_keyword='sender')
+            self._flip_handler()
+            self._change_game_handler()
+            self._file_part_handler()
             if self.is_initiator:
-                _logger.debug('Initialising a new game, I am %s .', self._tube.get_unique_name())
                 self.player_id = self._tube.get_unique_name()
                 self.ordered_bus_names = [self.player_id]
-                self._tube.add_signal_receiver(self._hello_receiver, '_hello_signal', IFACE, path=PATH, sender_keyword='sender')
+                self._hello_handler()
             else:
                 self._hello_signal()
         self.entered = True
-        
-    @dbus.service.signal(IFACE, signature='')
+    
+    # hello methods    
+   
+    @signal(IFACE, signature='')
     def _hello_signal(self):
-        ''' Notify current players that you joined '''
-        _logger.debug('Sending hello to all')
+        pass
+    
+    def _hello_handler(self):
+        self._tube.add_signal_receiver(self._hello_receiver, 
+                                       '_hello_signal', 
+                                       IFACE, 
+                                       path=PATH, 
+                                       sender_keyword='sender')
     
     def _hello_receiver(self, sender=None):
-        ''' Someone joined the game, so sync the new player '''
-        _logger.debug('The new player %s has joined', sender)
         self.ordered_bus_names.append(sender)
-        _logger.debug('The grid to send: %s', self.game.get_grid())
-        _logger.debug('The data to send: %s', self.game.get_data())
-        self._tube.get_object(sender, PATH).load_game(self.ordered_bus_names, self.game.get_grid(), self.game.get_data(), self.game.players.index(self.game.current_player), self.game.waiting_players, dbus_interface=IFACE)
-        _logger.debug('Sent the game state')
+        data = self.game.model.data
+        path = data['game_file']
+        title = data.get('title', 'Received game')
+        color = data.get('color', '#ff00ff,#00ff00')
+        self.file_sender(path, title, color)
+        
+        remote_object = self._tube.get_object(sender, PATH)
+        remote_object.load_game(self.ordered_bus_names, 
+                                self.game.get_grid(), 
+                                self.game.get_data(), 
+                                self.game.players.index(self.game.current_player), 
+                                #self.game.waiting_players,
+                                path)
     
-    @dbus.service.method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}nav', out_signature='')
-    def load_game(self, bus_names, grid, data, current_player, list):
-        ''' Sync the game with with players '''
-        _logger.debug('Data received to sync game data')
-        _logger.debug('grid %s '%grid)
+    @method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}ns', out_signature='', byte_arrays=True)
+    def load_game(self, bus_names, grid, data, current_player, path):
         self.ordered_bus_names = bus_names
         self.player_id = bus_names.index(self._tube.get_unique_name())
-        self.game.load_remote(grid, data, True)
-        self.game.load_waiting_list(list)
-        _logger.debug('Current player id=%d' %current_player)
+        #self.game.load_waiting_list(list)
         self.game.current_player = self.game.players[current_player]
+        self._change_game_receiver('file', grid, data, path)
+    
+    # Change game method
+    
+    def change_game(self, sender, mode, grid, data, waiting_list, zip):
+        path = self.game.model.data['game_file']
+        title = data.get('title', 'Received game')
+        color = data.get('color', '')
+        if mode == 'file':
+            self.file_sender(path, title, color)
+        self._change_game_signal(mode, grid, data, path)
+    
+    def _change_game_handler(self):
+        self._tube.add_signal_receiver(self._change_game_receiver, 
+                                       '_change_game_signal', 
+                                        IFACE, path=PATH, 
+                                        sender_keyword='sender', 
+                                        byte_arrays=True)
+    
+    @signal(IFACE, signature='saa{ss}a{ss}s')
+    def _change_game_signal(self, mode, grid, data, path):
+        pass
+    
+    def _change_game_receiver(self, mode, grid, data, path, sender=None):
+        # ignore my own signal
+        if sender == self._tube.get_unique_name():
+            return
+        if mode == 'demo':
+            game_name = self.game.model.data['key']
+            game_file = join(dirname(__file__), 'demos', game_name+'.zip')
+            self.game.model.read(game_file)
+        if mode == 'file':
+            self.game.model.read(self.files[path])
+        data['path'] = self.game.model.data['path']
+        data['pathimg'] = self.game.model.data['pathimg']
+        data['pathsnd'] = self.game.model.data['pathsnd']
+        if mode == 'demo':
+            self.game.load_remote(grid, data, mode, True)
+        else:
+            self.game.load_remote(grid, data, mode, True)
+               
+    # File transfer methods
+    
+    def file_sender(self, filename, title, color):
+        size = getsize(filename)
+        f = open(filename, 'r+b')
+        part_size = 4096
+        num_parts = (size / part_size) +1
+        for part in range(num_parts):
+            bytes = f.read(part_size)
+            self._file_part_signal(filename, part+1, num_parts, bytes, title, color)
+        f.close()
+    
+    @signal(dbus_interface=IFACE, signature='suuayss')
+    def _file_part_signal(self, filename, part, numparts, bytes, title, color):
+        pass
         
-    def flip(self, widget, id):
-        ''' Notify other players that you flipped a card '''
-        _logger.debug('Sending flip message: '+str(id))
+    def _file_part_handler(self):
+        self._tube.add_signal_receiver(self._file_part_receiver, 
+                                        '_file_part_signal', 
+                                        IFACE, 
+                                        path=PATH, 
+                                        sender_keyword='sender', 
+                                        byte_arrays=True)
+        
+    def _file_part_receiver(self, filename, part, numparts, bytes, title=None, color=None, sender=None):
+        # ignore my own signal
+        if sender == self._tube.get_unique_name():
+            return
+        
+        # first chunk
+        if part == 1:
+            temp_dir = tempfile.mkdtemp()
+            self.temp_file = join(temp_dir, 'game.zip')
+            self.files[filename] = self.temp_file
+            self.f = open(self.temp_file, 'a+b')
+        
+        self.f.write(bytes)
+        
+        percentage = int(float(part) / float(numparts) * 100.0)
+        self.game.set_load_mode('Receiving game: '+str(percentage)+'% done.')
+            
+        # last chunk
+        if part == numparts:
+            self.f.close()   
+            #file = self.files[filename]
+            # Saves the zip in datastore
+            gameObject = datastore.create()
+            gameObject.metadata['title'] = title
+            gameObject.metadata['mime_type'] = 'application/memorizegame'
+            gameObject.metadata['icon-color'] = color
+            gameObject.file_path = self.temp_file
+            datastore.write(gameObject)
+            #gameObject.destroy()
+             
+
+    # flip card methods         
+
+    def flip_sender(self, widget, id):
         self._flip_signal(id)
     
-    @dbus.service.signal(IFACE, signature='n')
+    def _flip_handler(self):
+        self._tube.add_signal_receiver(self._flip_receiver, 
+                                       '_flip_signal', 
+                                       IFACE, 
+                                       path=PATH, 
+                                       sender_keyword='sender')
+    
+    @signal(IFACE, signature='n')
     def _flip_signal(self, card_number):
-        _logger.debug('Notifing other players that you flipped: %s', str(card_number))
-        ''' Notify current players that you flipped a card '''
+        pass
 
     def _flip_receiver(self, card_number, sender=None):
-        ''' Someone flipped a card '''
-        handle = self._tube.bus_name_to_handle[sender]
-        
-        if self._tube.self_handle <> handle:
-            _logger.debug('Other player flipped: %s ', str(card_number))
-            self.game.card_flipped(None, card_number, True)
-       
-    def change_game(self, sender, grid, data, waiting_list):
-        ''' Notify other players that you changed the game '''
-        _logger.debug('Sending changed game message')
-        self._change_game_signal(grid, data)
-    
-    @dbus.service.signal(IFACE, signature='aa{ss}a{ss}')
-    def _change_game_signal(self, grid, data):
-        _logger.debug('Notifing other players that you changed the game')
-        ''' Notify current players that you changed the game '''
-
-    def _change_game_receiver(self, grid, data, sender=None):
-        ''' Game changed by other player '''
-        handle = self._tube.bus_name_to_handle[sender]
-        
-        if self._tube.self_handle <> handle:
-            _logger.debug('Game changed by other player')
-            self.game.load_remote(grid, data, True)
+        # ignore my own signal
+        if sender == self._tube.get_unique_name():
+            return
+        self.game.card_flipped(None, card_number, True)
             
