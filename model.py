@@ -19,7 +19,7 @@
 
 import libxml2
 import os
-from os.path import join, basename
+from os.path import join, basename, dirname
 import logging
 import random
 import gobject
@@ -104,7 +104,7 @@ class Model(object):
         self.data['align'] = '1'
         
         try:
-            self.dtd = libxml2.parseDTD(None, os.path.join(self.dtd_path, 'memorize.dtd'))
+            self.dtd = libxml2.parseDTD(None, join(self.dtd_path, 'memorize.dtd'))
         except libxml2.parserError, e:
             _logger.error('Init: no memorize.dtd found ' +str(e))
             self.dtd = None
@@ -122,10 +122,6 @@ class Model(object):
         self.count = 0
 
     def read(self, game_file):
-        if game_file in ["addition", "capitals", "drumgit", "letters", "numbers", "phonemes"]:
-            game_file = os.path.join(os.path.dirname(__file__), 'games', game_file+'.zip')
-            game_name = os.path.basename(game_file)[:-4]
-        
         temp_folder = tempfile.mkdtemp()
         self.data['key'] = os.path.basename(game_file)
         self.data['game_file'] = game_file
@@ -148,7 +144,7 @@ class Model(object):
         
         ''' reads the configuration from an xml file '''
         try:
-            doc = libxml2.parseFile(os.path.join(os.path.dirname(__file__), os.path.join(self.data['path'], 'game.xml')))
+            doc = libxml2.parseFile(join(dirname(__file__), join(self.data['path'], 'game.xml')))
             if doc.validateDtd(self.ctxt, self.dtd):
         
                 # get the requested nodes
@@ -320,6 +316,7 @@ class Model(object):
             random.shuffle(temp1)
         self.grid = temp1
         _logger.debug('Defgrid: grid( size=%s ): %s' %(self.data['size'], self.grid))
+        _logger.debug('Defgrid: data: %s' %self.data)
 
     def set_data_grid(self, data, grid):
         self.data = data

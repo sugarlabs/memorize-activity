@@ -53,7 +53,7 @@ class MemorizeGame(GObject):
         'rem_buddy': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
         'increase-score': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
         'wait_mode_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
-        'msg_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),         
+        'msg_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
         'change-turn': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
         }
     
@@ -103,9 +103,15 @@ class MemorizeGame(GObject):
         self.set_load_mode('Loading game...')
         self.model.grid = grid
         self.model.data = data
+        self.model.data['mode'] = mode
         self.emit('reset_scoreboard')
         if not signal:
-            self.emit('change_game_signal', mode, self.get_grid(), self.get_data(), self.waiting_players, self.model.data['game_file'])
+            self.emit('change_game_signal', 
+                      mode, 
+                      self.get_grid(), 
+                      self.get_data(), 
+                      self.waiting_players, 
+                      self.model.data['game_file'])
         self.emit('change_game', self.get_data(), self.get_grid())
         for buddy in self.players:
             self.players_score[buddy] = 0
@@ -114,6 +120,7 @@ class MemorizeGame(GObject):
         self.last_highlight = 1
         self.change_turn()
         self.model.data['running'] = 'False'
+        
         for card in self.model.grid:
             if card['state'] == '1':           
                 self.emit('flip-card', self.model.grid.index(card))
@@ -137,6 +144,10 @@ class MemorizeGame(GObject):
     def rem_buddy(self, buddy):
         _logger.debug('Buddy %r was removed from game', buddy.props.nick)
         if self.current_player == buddy and len(self.players) >= 2:
+            if self.last_flipped != -1:
+               self.emit('flop-card', self.last_flipped)
+               self.model.grid[self.last_flipped]['state'] = '0'
+               self.last_flipped = -1
             self.change_turn()
         index = self.players.index(buddy)    
         del self.players[index]
@@ -154,104 +165,106 @@ class MemorizeGame(GObject):
         elif self.current_player == self.players[-1]:
             self.current_player = self.players[0]
         else:
-            self.current_player = self.players[self.players.index(self.current_player)+1]
+            next = self.players[self.players.index(self.current_player)+1]
+            self.current_player = next
         self.set_sensitive(self.current_player == self.myself)
         self.emit('change-turn', self.current_player)   
                         
+    def play_sound(self, snd, sound_file):
+        if len(snd.split('.')) > 1:
+            if snd.split('.')[1] in ['wav', 'aif', 'aiff']:
+                self.cs.perform('i 102 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
+            else:
+                self.cs.perform('i 100 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
+    
     def card_flipped(self, widget, id, signal = False):        
+                
         # Check if is my turn
-        if not self.sentitive and not signal:
-            return
-
-        # do not process flips when flipping back
-        if self.flip_block is True:
+        if (not self.sentitive and not signal) or self.last_flipped == id:
             return
         
         # Handle groups if needed
-        if self.model.data['divided'] == '1':
+        if self.model.data.get('divided') == '1':
             if self.last_flipped == -1 and id >= (len(self.model.grid)/2):
                 return
             if self.last_flipped <> -1 and id < (len(self.model.grid)/2):
                 return
+            
+        # do not process flips when flipping back
+        if self.flip_block:
+            return
+        else:
+            self.flip_block = True
+            
         self.model.data['running'] = 'True'
 
-        # play sound in any case if available
+        # play sound in case if available
         if self.sound == 1:
             snd = self.model.grid[id].get('snd', None)
             if snd != None:
-                sound_file = join(self.model.data.get('pathsnd'),snd)
-                if len(snd.split('.')) > 1:
-                    if snd.split('.')[1] in ['wav', 'aif', 'aiff']:
-                        self.cs.perform('i 102 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
-                    else:
-                        self.cs.perform('i 100 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
-                _logger.debug('Audio: play sound=%s'%sound_file)
+                sound_file = join(self.model.data.get('pathsnd'), snd)
+                self.play_sound(snd, sound_file)
                 
+        self.emit('flip-card', id)
+        if not signal:
+            self.emit('flip-card-signal', id)
+        
         # First card case
         if self.last_flipped == -1:
             self.last_flipped = id
             self.model.grid[id]['state'] = '1'         
-            self.emit('flip-card', id)
-            if not signal:
-                self.emit('flip-card-signal', id)    
-                if self.model.data['divided'] == '1':
-                    self.card_highlighted(widget, -1, False)
+            self.flip_block = False
 
-        # Pair matched
-        elif self.model.grid[self.last_flipped]['pairkey'] == self.model.grid[id]['pairkey']:
-            stroke_color, fill_color = self.current_player.props.color.split(',')
-            self.emit('set-border', id, stroke_color, fill_color)
-            self.emit('set-border', self.last_flipped, stroke_color, fill_color)
-            self.increase_point(self.current_player)
-            self.model.grid[id]['state'] = self.current_player.props.color
-            self.model.grid[self.last_flipped]['state'] = self.current_player.props.color
-            self.emit('flip-card', id)            
-            if self.model.data['divided'] == '1':
-                self.card_highlighted(widget, -1, False)
-            if not signal:
-                self.emit('flip-card-signal', id)
+        # Second card case
+        else:
+            # Pair matched
+            pair_key_1 = self.model.grid[self.last_flipped]['pairkey']
+            pair_key_2 = self.model.grid[id]['pairkey']
+            
+            if pair_key_1 == pair_key_2:
+                stroke_color, fill_color = self.current_player.props.color.split(',')
+                self.emit('set-border', id, stroke_color, fill_color)
+                self.emit('set-border', self.last_flipped, stroke_color, fill_color)
+                
+                self.increase_point(self.current_player)
+                self.model.grid[id]['state'] = self.current_player.props.color
+                self.model.grid[self.last_flipped]['state'] = self.current_player.props.color
+                self.flip_block = False        
+            # Pair didn't match
+            else:
+                self.model.grid[id]['state'] = '1'
+                self.set_sensitive(False)
+                timeout_add(2000, self.flop_card, id, self.last_flipped)
             self.last_flipped = -1
-        # Pair don't match
-        elif self.model.grid[self.last_flipped]['pairkey'] != self.model.grid[id]['pairkey']:
-            self.flip_block = True
-            self.emit('flip-card', id)
-            if not signal:
-                self.emit('flip-card-signal', id)
-            self.model.grid[id]['state'] = '1'
-            timeout_add(2000, self.flop_card, id, widget)
-
-    def flop_card(self, id, widget):
+                
+    def flop_card(self, id, id2):
         self.emit('flop-card', id)
         self.model.grid[id]['state'] = '0'
-        self.emit('flop-card', self.last_flipped)
-        if self.model.data['divided'] == '1':
-            self.card_highlighted(widget, -1, False)
-        # self.emit('highlight-card', id, True)
-        self.model.grid[self.last_flipped]['state'] = '0'
-        self.last_flipped = -1
+        self.emit('flop-card', id2)
+        self.model.grid[id2]['state'] = '0'
+        
+        #if self.model.data['divided'] == '1':
+        #    self.card_highlighted(widget, -1, False)
+        self.set_sensitive(True)
         self.flip_block = False
         self.change_turn()
 
     def card_highlighted(self, widget, id, mouse):
-        if id == -1:
-            self.last_highlight = 1
-            self.emit('highlight-card', self.last_highlight, False)
+        self.emit('highlight-card', self.last_highlight, False)
+        self.last_highlight = id
+       
+        if id == -1 or not self.sentitive:
             return
-        
-        if not self.sentitive:
-            return
+
         if self.model.data['divided'] == '1':
             if self.last_flipped == -1 and id >= (len(self.model.grid)/2):
                 return
             if self.last_flipped <> -1 and id < (len(self.model.grid)/2):
                 return
-        self.emit('highlight-card', self.last_highlight, False)
-        if mouse and self.model.grid[id]['state']=='0':            
+
+        if mouse and self.model.grid[id]['state']=='0' or not mouse:            
             self.emit('highlight-card', id, True)
-        if not mouse:
-            self.emit('highlight-card', id, True)
-        
-        self.last_highlight = id
+
     
     def increase_point(self, buddy):
         self.players_score[buddy] += 1
@@ -263,12 +276,11 @@ class MemorizeGame(GObject):
     def get_data(self):
         return self.model.data
     
-    def change_game(self, widget, game_name, size, mode,  title = None, color= None):
-        if mode in ['file','demo']:
+    def change_game(self, widget, game_name, size, mode, title = None, color= None):
+        if mode in ['file', 'demo']:
             if self.model.read(game_name) != 0:
                 logging.error(' Reading setup file %s'%game_name)
                 return
-        #elif mode in ['reset','size']:
         if size == None:
             size = int(self.model.data['size'])
         self.model.def_grid(size)
@@ -295,8 +307,7 @@ class MemorizeGame(GObject):
         self.sentitive = status
         if not status:
             self.emit('highlight-card', self.last_highlight, False)
-        else:
-            self.emit('highlight-card', self.last_highlight, True)
+
     def get_sensitive(self):
         return self.sentitive
     

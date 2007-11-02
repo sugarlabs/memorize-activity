@@ -32,8 +32,22 @@ _logger = logging.getLogger('memorize-activity')
 class MemorizeToolbar(gtk.Toolbar):
     __gtype_name__ = 'MemoryToolbar'
     
-    standard_game_names = ['Load demo games', 'addition', 'capitals', 'drumgit', 'letters', 'numbers', 'phonemes']
-    translated_game_names = [_('Load demo games'), _('addition'), _('capitals'), _('drumgit'), _('letters'), _('numbers'), _('phonemes')]
+    standard_game_names = ['Load demo games',
+                           'addition',
+                           'capitals',
+                           'drumgit',
+                           'letters',
+                           'numbers',
+                           'phonemes'
+                           ]
+    translated_game_names = [_('Load demo games'),
+                             _('addition'),
+                             _('capitals'),
+                             _('drumgit'),
+                             _('letters'),
+                             _('numbers'),
+                             _('phonemes')
+                            ]
 
     __gsignals__ = {
     'game_changed': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT])
@@ -76,9 +90,10 @@ class MemorizeToolbar(gtk.Toolbar):
         self._sizes = ['4 X 4', '5 X 5', '6 X 6']
         for i, f in enumerate(self._sizes):
             self._size_combo.combo.append_item(i, f)
-        self._size_combo.combo.connect('changed', self._game_size_cb)
+        self.size_handle_id = self._size_combo.combo.connect('changed', self._game_size_cb)
         self._add_widget(self._size_combo)
-    
+        self._size_combo.combo.set_active(0)
+        
         separator = gtk.SeparatorToolItem()
         separator.set_draw(True)
         self.insert(separator, -1)
@@ -105,7 +120,9 @@ class MemorizeToolbar(gtk.Toolbar):
         self.emit('game_changed', None, None, 'reset', None, None)
         
     def _load_game(self, button):
-        chooser = ObjectChooser(_('Choose memorize game'), None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
+        chooser = ObjectChooser(_('Choose memorize game'),
+                                 None, 
+                                 gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
         jobject = ''
         try:
             result = chooser.run()
@@ -133,20 +150,20 @@ class MemorizeToolbar(gtk.Toolbar):
     
     def _game_changed_cb(self, combobox):
         if combobox.get_active() == 0: return
-        if not self._lock:
-            game_name = self.standard_game_names[self._game_combo.combo.get_active()]
-            game_file = join(dirname(__file__), 'demos', game_name+'.zip')
-            game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
-            if game_name in self.translated_game_names:
-                index = self.translated_game_names.index(game_name)
-                game_name = self.standard_game_names[index]
-                self.emit('game_changed', game_file, game_size, 'demo', None, None)
-            #self.activity.change_game(game_file, game_size)
-            self._game_combo.combo.set_active(0)
+        title = game_name = self.standard_game_names[self._game_combo.combo.get_active()]
+        game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
+        
+        if game_name in self.translated_game_names:
+            index = self.translated_game_names.index(game_name)
+            game_name = self.standard_game_names[index]
+            
+        game_file = join(dirname(__file__), 'demos', game_name+'.zip')
+        self.emit('game_changed', game_file, game_size, 'demo', title, None)
+        self._game_combo.combo.set_active(0)
         
     def update_toolbar(self, widget, data, grid):
         size = data.get('size')
-        self._lock = True
+        self._size_combo.combo.handler_block(self.size_handle_id)
         size_index = self._sizes.index(size+' X '+size)
         self._size_combo.combo.set_active(int(size_index))
-        self._lock = False
+        self._size_combo.combo.handler_unblock(self.size_handle_id)

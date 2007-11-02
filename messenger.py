@@ -73,9 +73,10 @@ class Messenger(ExportedGObject):
         self.ordered_bus_names.append(sender)
         data = self.game.model.data
         path = data['game_file']
-        title = data.get('title', 'Received game')
-        color = data.get('color', '#ff00ff,#00ff00')
-        self.file_sender(path, title, color)
+        if self.game.model.data['mode'] == 'file':
+             title = data.get('title', 'Received game')
+             color = data.get('color', '#ff00ff,#00ff00')
+             self.file_sender(sender, path, title, color)
         
         remote_object = self._tube.get_object(sender, PATH)
         remote_object.load_game(self.ordered_bus_names, 
@@ -91,16 +92,18 @@ class Messenger(ExportedGObject):
         self.player_id = bus_names.index(self._tube.get_unique_name())
         #self.game.load_waiting_list(list)
         self.game.current_player = self.game.players[current_player]
-        self._change_game_receiver('file', grid, data, path)
+        self._change_game_receiver(data['mode'], grid, data, path)
     
     # Change game method
     
     def change_game(self, sender, mode, grid, data, waiting_list, zip):
         path = self.game.model.data['game_file']
-        title = data.get('title', 'Received game')
-        color = data.get('color', '')
+        
         if mode == 'file':
-            self.file_sender(path, title, color)
+            title = data.get('title', 'Received game')
+            color = data.get('color', '')    
+            self.file_sender('all', path, title, color)    
+
         self._change_game_signal(mode, grid, data, path)
     
     def _change_game_handler(self):
@@ -119,33 +122,31 @@ class Messenger(ExportedGObject):
         if sender == self._tube.get_unique_name():
             return
         if mode == 'demo':
-            game_name = self.game.model.data['key']
-            game_file = join(dirname(__file__), 'demos', game_name+'.zip')
+            game_name = basename(data.get('game_file', 'debug-demo'))
+            game_file = join(dirname(__file__), 'demos', game_name).encode('ascii')
             self.game.model.read(game_file)
         if mode == 'file':
             self.game.model.read(self.files[path])
+        
         data['path'] = self.game.model.data['path']
         data['pathimg'] = self.game.model.data['pathimg']
         data['pathsnd'] = self.game.model.data['pathsnd']
-        if mode == 'demo':
-            self.game.load_remote(grid, data, mode, True)
-        else:
-            self.game.load_remote(grid, data, mode, True)
+        self.game.load_remote(grid, data, mode, True)
                
     # File transfer methods
-    
-    def file_sender(self, filename, title, color):
+
+    def file_sender(self, target, filename, title, color):
         size = getsize(filename)
         f = open(filename, 'r+b')
         part_size = 4096
         num_parts = (size / part_size) +1
         for part in range(num_parts):
             bytes = f.read(part_size)
-            self._file_part_signal(filename, part+1, num_parts, bytes, title, color)
+            self._file_part_signal(target, filename, part+1, num_parts, bytes, title, color)
         f.close()
     
-    @signal(dbus_interface=IFACE, signature='suuayss')
-    def _file_part_signal(self, filename, part, numparts, bytes, title, color):
+    @signal(dbus_interface=IFACE, signature='ssuuayss')
+    def _file_part_signal(self, target, filename, part, numparts, bytes, title, color):
         pass
         
     def _file_part_handler(self):
@@ -156,10 +157,14 @@ class Messenger(ExportedGObject):
                                         sender_keyword='sender', 
                                         byte_arrays=True)
         
-    def _file_part_receiver(self, filename, part, numparts, bytes, title=None, color=None, sender=None):
+    def _file_part_receiver(self, target, filename, part, numparts, bytes, title=None, color=None, sender=None):
         # ignore my own signal
         if sender == self._tube.get_unique_name():
             return
+        
+        if not (target == 'all' or target == self._tube.get_unique_name()):
+            return
+            
         
         # first chunk
         if part == 1:
