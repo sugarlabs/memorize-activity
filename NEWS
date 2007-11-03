@@ -1,5 +1,7 @@
+* New pot files for create game mode
+* Allow kids create their own games using text, audio and images #3311
+* When a player join an already started game, it receives the game state #3471
 * Added support to be able to play wav and aiff format (erikos)
-* Set create tab as default (Muriel)
 * Games tab renamed to Play (Muriel)
 * New icon and tooltip for reset game button #3965 (Muriel)
 * Only enable add-pair/update-pair buttons when the card has content (Muriel)

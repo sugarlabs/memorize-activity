@@ -330,7 +330,7 @@ class Model(object):
         # Saves the zip in datastore
         gameObject = datastore.create()
         gameObject.metadata['title'] = title
-        gameObject.metadata['mime_type'] = 'application/memorizegame'
+        gameObject.metadata['mime_type'] = 'application/x-memorize-project'
         gameObject.metadata['icon-color'] = color
         gameObject.file_path = path
         datastore.write(gameObject)      

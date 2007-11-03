@@ -25,6 +25,7 @@ from os.path import join, getsize, isfile, dirname, basename
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 from sugar.datastore import datastore
+from gettext import gettext as _
 
 SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
@@ -176,7 +177,7 @@ class Messenger(ExportedGObject):
         self.f.write(bytes)
         
         percentage = int(float(part) / float(numparts) * 100.0)
-        self.game.set_load_mode('Receiving game: '+str(percentage)+'% done.')
+        self.game.set_load_mode(_('Receiving game') + ': ' + str(percentage) + '% ' + _('done') + '.')
             
         # last chunk
         if part == numparts:
@@ -185,7 +186,7 @@ class Messenger(ExportedGObject):
             # Saves the zip in datastore
             gameObject = datastore.create()
             gameObject.metadata['title'] = title
-            gameObject.metadata['mime_type'] = 'application/memorizegame'
+            gameObject.metadata['mime_type'] = 'application/x-memorize-project'
             gameObject.metadata['icon-color'] = color
             gameObject.file_path = self.temp_file
             datastore.write(gameObject)

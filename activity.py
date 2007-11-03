@@ -49,8 +49,9 @@ SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
 PATH = '/org/laptop/Memorize'
 
-_TOOLBAR_CREATE = 1
-_TOOLBAR_PLAY = 2
+_TOOLBAR_PLAY = 1
+_TOOLBAR_CREATE = 2
+
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -59,40 +60,64 @@ class MemorizeActivity(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
 
-        self.play_load = False
+        self.create_load = False
         self.play_mode = False
         
         toolbox = ActivityToolbox(self)
         toolbox.connect('current-toolbar-changed', self.change_mode)
         activity_toolbar = toolbox.get_activity_toolbar()
         
-        self._createToolbar = createtoolbar.CreateToolbar(self)
-        toolbox.add_toolbar('Create', self._createToolbar)
-        self._createToolbar.show()
-        
         self._memorizeToolbar = memorizetoolbar.MemorizeToolbar(self)
         toolbox.add_toolbar(_('Play'), self._memorizeToolbar)
-        self._memorizeToolbar.show()   
+        self._memorizeToolbar.show()  
 
+        self._createToolbar = createtoolbar.CreateToolbar(self)
+        toolbox.add_toolbar(_('Create'), self._createToolbar)
+        self._createToolbar.show()
+        
         self.set_toolbox(toolbox)
         toolbox.show()
         
-        self.cardlist = cardlist.CardList()
-        self.createcardpanel = createcardpanel.CreateCardPanel()
-        self.createcardpanel.connect('add-pair', self.cardlist.add_pair)
-        self.createcardpanel.connect('update-pair', self.cardlist.update_selected)
-        self.cardlist.connect('pair-selected', self.createcardpanel.load_pair)
-        self.cardlist.connect('update-create-toolbar', self._createToolbar.update_create_toolbar)
-        self.cardlist.connect('update-create-buttons', self._createToolbar.update_buttons_status)
-        self._createToolbar.connect('create_new_game', self.cardlist.clean_list)
-        self._createToolbar.connect('create_new_game', self.createcardpanel.clean)
-        self._createToolbar.connect('create_load_game', self.cardlist.load_game)
-        self._createToolbar.connect('create_save_game', self.cardlist.save_game)
-        self._createToolbar.connect('create_equal_pairs', self.createcardpanel.change_equal_pairs)       
+   
+        
+        
+        # Play game mode
+        self.table = cardtable.CardTable()
+        self.scoreboard = scoreboard.Scoreboard()
+        self.game = game.MemorizeGame()
+        
+        self.table.connect('key-press-event', self.table.key_press_event)        
+        self.table.connect('card-flipped', self.game.card_flipped)
+        self.table.connect('card-highlighted', self.game.card_highlighted)
+        
+        self.game.connect('set-border', self.table.set_border)
+        self.game.connect('flop-card', self.table.flop_card)
+        self.game.connect('flip-card', self.table.flip_card)
+        self.game.connect('highlight-card', self.table.highlight_card)
+        self.game.connect('load_mode', self.table.load_msg)
+        
+        self.game.connect('msg_buddy', self.scoreboard.set_buddy_message)
+        self.game.connect('add_buddy', self.scoreboard.add_buddy)
+        self.game.connect('rem_buddy', self.scoreboard.rem_buddy)
+        self.game.connect('increase-score', self.scoreboard.increase_score)
+        self.game.connect('wait_mode_buddy', self.scoreboard.set_wait_mode)
+        self.game.connect('change-turn', self.scoreboard.set_selected)
+        
+        self.game.connect('reset_scoreboard', self.scoreboard.reset)
+        self.game.connect('reset_table', self.table.reset)
+        
+        self.game.connect('load_game', self.table.load_game)
+        self.game.connect('change_game', self.table.change_game)
+        self.game.connect('load_game', self._memorizeToolbar.update_toolbar)
+        self.game.connect('change_game', self._memorizeToolbar.update_toolbar)
+        
+        self._memorizeToolbar.connect('game_changed', self.game.change_game)
+        self.connect('shared', self._shared_cb)
+        
         
         self.hbox = gtk.HBox(False)
-        self.hbox.pack_start(self.createcardpanel)
-        self.hbox.pack_start(self.cardlist, False, False)
+        self.hbox.pack_start(self.scoreboard, False, False)
+        self.hbox.pack_start(self.table)
         self.set_canvas(self.hbox)
         
        # create csound instance to play sound files
@@ -118,7 +143,7 @@ class MemorizeActivity(Activity):
         self.connect('destroy', self._cleanup_cb)
 
         # start on the game toolbar, might change this to the create toolbar later
-        self.toolbox.set_current_toolbar(_TOOLBAR_CREATE)
+        self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
         
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
@@ -135,115 +160,61 @@ class MemorizeActivity(Activity):
         owner = self.pservice.get_owner()
         self.owner = owner
         self.current = 0
+        
+        self.game.set_myself(self.owner)  
+        
         # Owner.props.key
         if self._shared_activity:
             # We are joining the activity
-            self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
             self.connect('joined', self._joined_cb)
             if self.get_shared():
                 # We've already joined
                 self._joined_cb()
         else:
             _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
-            #game_file = join(dirname(__file__),'demos','addition.zip')
-            #self.game.load_game(game_file, 4)
+            game_file = join(dirname(__file__),'demos','addition.zip')
+            self.game.load_game(game_file, 4)
             _logger.debug('loading conventional')       
-            #self.game.add_buddy(self.owner)
+            self.game.add_buddy(self.owner)
         self.show_all()
         
     def read_file(self, file_path):
-        '''
-        if self.metadata['mime_type'] == 'plain/text':
-            f = open(file_path, 'r')
-            try:
-                data = pickle.load(f)
-            finally:
-                f.close()
 
-            _logger.debug('reading from datastore')            
-            
-            self.game.load_remote(data[0], data[1])
-            self.game.set_wait_list(data[2])
-        '''
-        if self.metadata['mime_type'] == 'application/memorizegame':
+        if self.metadata['mime_type'] == 'application/x-memorize-project':
             self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
             self.game.change_game(None, file_path, 4, 'file', self.metadata['title'], self.metadata['icon-color'])
             
-    '''
-    def write_file(self, file_path):
-        if not self.metadata['mime_type']:
-            self.metadata['mime_type'] = 'plain/text'
-        
-        if self.metadata['mime_type'] == 'plain/text':
-       
-            
-            data=[self.game.get_grid(), self.game.get_data(), self.game.get_players_data()]
-            
-            _logger.debug('writing to datastore')
-            f = open(file_path, 'w')
-            try:
-                pickle.dump(data, f)
-            finally:
-                f.close()
-    '''
     def change_mode(self, notebook, index):
-        if index != _TOOLBAR_CREATE:
-            if not self.play_load:
-                # Create play components
-                self.table = cardtable.CardTable()
-                self.scoreboard = scoreboard.Scoreboard()
-                self.game = game.MemorizeGame()
-                self.game.set_myself(self.owner)  
-                self.hbox.remove(self.createcardpanel)
-                self.hbox.remove(self.cardlist)
-                self.hbox.pack_start(self.scoreboard, False, False)
-                self.hbox.pack_start(self.table)
-                
-                self.table.connect('key-press-event', self.table.key_press_event)        
-                self.table.connect('card-flipped', self.game.card_flipped)
-                self.table.connect('card-highlighted', self.game.card_highlighted)
-                
-                self.game.connect('set-border', self.table.set_border)
-                self.game.connect('flop-card', self.table.flop_card)
-                self.game.connect('flip-card', self.table.flip_card)
-                self.game.connect('highlight-card', self.table.highlight_card)
-                self.game.connect('load_mode', self.table.load_msg)
-                
-                self.game.connect('msg_buddy', self.scoreboard.set_buddy_message)
-                self.game.connect('add_buddy', self.scoreboard.add_buddy)
-                self.game.connect('rem_buddy', self.scoreboard.rem_buddy)
-                self.game.connect('increase-score', self.scoreboard.increase_score)
-                self.game.connect('wait_mode_buddy', self.scoreboard.set_wait_mode)
-                self.game.connect('change-turn', self.scoreboard.set_selected)
-                
-                self.game.connect('reset_scoreboard', self.scoreboard.reset)
-                self.game.connect('reset_table', self.table.reset)
-                
-                self.game.connect('load_game', self.table.load_game)
-                self.game.connect('change_game', self.table.change_game)
-                self.game.connect('load_game', self._memorizeToolbar.update_toolbar)
-                self.game.connect('change_game', self._memorizeToolbar.update_toolbar)
-                
-                self._memorizeToolbar.connect('game_changed', self.game.change_game)
-                self.connect('shared', self._shared_cb)
-                self.play_load = True
-                if not self._shared_activity:
-                    self.game.add_buddy(self.owner)
-                    #game_file = join(dirname(__file__), 'demos', 'addition.zip')
-                    #self.game.load_game(game_file, 4)
-            else:
-                self.hbox.remove(self.createcardpanel)
-                self.hbox.remove(self.cardlist)
-                self.hbox.pack_start(self.scoreboard, False, False)
-                self.hbox.pack_start(self.table)
+        if index == _TOOLBAR_CREATE:
+            if not self.create_load:
+                # Create game mode
+                self.cardlist = cardlist.CardList()
+                self.createcardpanel = createcardpanel.CreateCardPanel()
+                self.createcardpanel.connect('add-pair', self.cardlist.add_pair)
+                self.createcardpanel.connect('update-pair', self.cardlist.update_selected)
+                self.cardlist.connect('pair-selected', self.createcardpanel.load_pair)
+                self.cardlist.connect('update-create-toolbar', self._createToolbar.update_create_toolbar)
+                self.cardlist.connect('update-create-buttons', self._createToolbar.update_buttons_status)
+                self._createToolbar.connect('create_new_game', self.cardlist.clean_list)
+                self._createToolbar.connect('create_new_game', self.createcardpanel.clean)
+                self._createToolbar.connect('create_load_game', self.cardlist.load_game)
+                self._createToolbar.connect('create_save_game', self.cardlist.save_game)
+                self._createToolbar.connect('create_equal_pairs', self.createcardpanel.change_equal_pairs)   
+                self.create_load = True
+ 
+            self.hbox.remove(self.scoreboard)
+            self.hbox.remove(self.table)
+            self.hbox.pack_start(self.createcardpanel)
+            self.hbox.pack_start(self.cardlist, False, False)
+            self.play_mode = False
+
+        else:
+        
+            self.hbox.remove(self.createcardpanel)
+            self.hbox.remove(self.cardlist)
+            self.hbox.pack_start(self.scoreboard, False, False)
+            self.hbox.pack_start(self.table)
             self.play_mode = True
-        else:            
-            if self.play_mode:
-                self.hbox.remove(self.scoreboard)
-                self.hbox.remove(self.table)
-                self.hbox.pack_start(self.createcardpanel)
-                self.hbox.pack_start(self.cardlist, False, False)
-                self.play_mode = False
                 
     def restart(self, widget):
         self.game.reset()

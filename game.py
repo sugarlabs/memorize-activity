@@ -21,6 +21,7 @@ import logging
 import gobject
 from os.path import join, dirname
 
+from gettext import gettext as _
 from sugar import profile
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
@@ -100,7 +101,7 @@ class MemorizeGame(GObject):
             logging.error(' Reading setup file %s'%game_name)
     
     def load_remote(self, grid, data, mode, signal = False):
-        self.set_load_mode('Loading game...')
+        self.set_load_mode(_('Loading game...'))
         self.model.grid = grid
         self.model.data = data
         self.model.data['mode'] = mode

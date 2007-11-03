@@ -1,8 +1,8 @@
 [Activity]
 name = Memorize
 service_name = org.laptop.Memorize
-exec = sugar-activity activity.MemorizeActivity
+class = activity.MemorizeActivity
 icon = activity-memorize
 activity_version = 18
 show_launcher = yes
-mime_types = application/memorizegame;
+mime_types = application/x-memorize-project;

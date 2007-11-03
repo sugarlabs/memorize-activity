@@ -80,7 +80,7 @@ class CreateToolbar(gtk.Toolbar):
         separator2.set_draw(True)
         self.insert(separator2, -1)
         
-        self._add_widget(gtk.Label(_('Game name: ')))
+        self._add_widget(gtk.Label(_('Game name') + ': '))
         self.game_name_entry = gtk.Entry()
         self._add_widget(self.game_name_entry) 
         

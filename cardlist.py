@@ -171,7 +171,7 @@ class CardList(gtk.EventBox):
         # Saves the zip in datastore
         gameObject = datastore.create()
         gameObject.metadata['title'] = game_name
-        gameObject.metadata['mime_type'] = 'application/memorizegame'
+        gameObject.metadata['mime_type'] = 'application/x-memorize-project'
         gameObject.metadata['icon-color'] = profile.get_color().to_string()
         gameObject.file_path = join(temp_folder, 'game.zip')
         datastore.write(gameObject)        
