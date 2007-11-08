@@ -90,11 +90,12 @@ class MemorizeGame(GObject):
                 _logger.error(' Error starting csound performance.')
                 self.sound = 0
             
-    def load_game(self, game_name, size):
+    def load_game(self, game_name, size, mode):
         self.set_load_mode('Loading game')   
         if self.model.read(game_name) == 0:
             self.model.def_grid(size)
             self.model.data['running'] = 'False'
+            self.model.data['mode'] = mode
             logging.debug(' Read setup file %s: %s '%(game_name, self.model.grid))
             self.emit('load_game', self.model.data, self.model.grid)
         else:

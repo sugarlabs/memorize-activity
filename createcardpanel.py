@@ -18,7 +18,9 @@
 #
 
 import gtk
-import os
+from os import environ
+from os.path import join, dirname
+
 import shutil
 import tempfile
 from gettext import gettext as _
@@ -44,7 +46,7 @@ class CreateCardPanel(gtk.EventBox):
         self.equal_pairs = False
         
         # Set the add new pair buttom
-        add_icon = os.path.join(os.path.dirname(__file__), "images/pair-add.svg")
+        add_icon = join(dirname(__file__), 'images', 'pair-add.svg')
         add_image = gtk.Image()
         add_image.set_from_file(add_icon)
         self._addbutton = gtk.Button(' ' + _('Add as new pair'))
@@ -52,7 +54,7 @@ class CreateCardPanel(gtk.EventBox):
         self._addbutton.connect('button-press-event', self.emit_add_pair)
         
         # Set update selected pair buttom
-        update_icon = os.path.join(os.path.dirname(__file__), "images/pair-update.svg")
+        update_icon = join(dirname(__file__), 'images', 'pair-update.svg')
         update_image = gtk.Image()
         update_image.set_from_file(update_icon)
         self._updatebutton = gtk.Button(' ' + _('Update selected pair'))
@@ -169,7 +171,8 @@ class CardEditor(gtk.EventBox):
         gtk.EventBox.__init__(self)
         self.set_size_request(310, 320)
 
-        self.temp_folder = tempfile.mkdtemp()
+        tmp_root = join(dirname(__file__), 'instance')
+        self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
         
         table = gtk.Table()
         self.previewlabel = gtk.Label(_('Preview:'))
@@ -177,14 +180,14 @@ class CardEditor(gtk.EventBox):
         self.textlabel = gtk.Label(_('Text:'))
         self.textlabel.set_alignment(1, 0.5)
         
-        picture_icon = os.path.join(os.path.dirname(__file__), 'images/import_picture.svg')
+        picture_icon = join(dirname(__file__), 'images', 'import_picture.svg')
         picture_image = gtk.Image()
         picture_image.set_from_file(picture_icon)
         self.browsepicture = gtk.Button()
         self.browsepicture.set_image(picture_image)
         self.browsepicture.connect('button-press-event', self._import_image)
         
-        sound_icon = os.path.join(os.path.dirname(__file__), 'images/import_sound.svg')
+        sound_icon = join(dirname(__file__), 'images', 'import_sound.svg')
         sound_image = gtk.Image()
         sound_image.set_from_file(sound_icon)
         self.browsesound = gtk.Button()
@@ -272,7 +275,7 @@ class CardEditor(gtk.EventBox):
             self._load_audio(jobject.file_path)
             
     def _load_audio(self, index):
-        dst = os.path.join(self.temp_folder, os.path.basename(index))
+        dst = join(self.temp_folder, basename(index))
         shutil.copy(index, dst)
         self.set_snd(dst)
         _logger.error('Audio Loaded: '+dst)

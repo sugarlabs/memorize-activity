@@ -20,8 +20,11 @@
 import gtk
 import svgcard
 import logging
-from os.path import join
+
 import os
+from os import environ
+from os.path import join, dirname
+
 import model
 import zipfile
 import tempfile
@@ -43,7 +46,7 @@ class CardList(gtk.EventBox):
     
     def __init__(self):
         gtk.EventBox.__init__(self)
-        self.model = model.Model(os.path.dirname(__file__))
+        self.model = model.Model(environ['SUGAR_ACTIVITY_ROOT'])
         self.pairs = []
         self.current_pair = None
         
@@ -72,22 +75,22 @@ class CardList(gtk.EventBox):
         self.clean_list()
         for key in game_pairs:
             if game_pairs[key].props.aimg != None:
-                aimg = gtk.gdk.pixbuf_new_from_file(os.path.join(self.model.data['pathimg'], game_pairs[key].props.aimg))
+                aimg = gtk.gdk.pixbuf_new_from_file(join(self.model.data['pathimg'], game_pairs[key].props.aimg))
             else:
                 aimg = None
                 
             if game_pairs[key].props.bimg != None:
-                bimg = gtk.gdk.pixbuf_new_from_file(os.path.join(self.model.data['pathimg'], game_pairs[key].props.bimg))
+                bimg = gtk.gdk.pixbuf_new_from_file(join(self.model.data['pathimg'], game_pairs[key].props.bimg))
             else:
                 bimg = None
             
             if game_pairs[key].props.asnd != None:
-                asnd = os.path.join(self.model.data['pathsnd'], game_pairs[key].props.asnd)
+                asnd = join(self.model.data['pathsnd'], game_pairs[key].props.asnd)
             else:
                 asnd = None
             
             if game_pairs[key].props.bsnd != None:            
-                bsnd = os.path.join(self.model.data['pathsnd'], game_pairs[key].props.bsnd)
+                bsnd = join(self.model.data['pathsnd'], game_pairs[key].props.bsnd)
             else:
                 bsnd = None
                 
@@ -95,7 +98,8 @@ class CardList(gtk.EventBox):
         
     def save_game(self, widget, game_name, equal_pairs, grouped):
         
-        temp_folder = tempfile.mkdtemp()
+        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'tmp')
+        temp_folder = tempfile.mkdtemp(dir=tmp_root)
         temp_img_folder = join(temp_folder, 'images')
         temp_snd_folder = join(temp_folder, 'sounds')
 

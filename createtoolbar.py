@@ -21,7 +21,7 @@ import logging
 from gettext import gettext as _
 
 import gtk
-import os
+from os.path import join, dirname
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
   
 from sugar.graphics.toolbutton import ToolButton
@@ -45,7 +45,7 @@ class CreateToolbar(gtk.Toolbar):
         self._lock = True
         
         # New Button
-        new_icon = os.path.join(os.path.dirname(__file__), "images/game-new.svg")
+        new_icon = join(dirname(__file__), 'images', 'game-new.svg')
         new_image = gtk.Image()
         new_image.set_from_file(new_icon)
         self._new_button = ToolButton()
@@ -55,7 +55,7 @@ class CreateToolbar(gtk.Toolbar):
         self._add_widget(self._new_button)
         
         # Load Button
-        load_icon = os.path.join(os.path.dirname(__file__), "images/game-load.svg")
+        load_icon = join(dirname(__file__), 'images', 'game-load.svg')
         load_image = gtk.Image()
         load_image.set_from_file(load_icon)
         self._load_button = ToolButton()
@@ -65,7 +65,7 @@ class CreateToolbar(gtk.Toolbar):
         self._add_widget(self._load_button)
             
         # Save Button
-        save_icon = os.path.join(os.path.dirname(__file__), "images/game-save.svg")
+        save_icon = join(dirname(__file__), 'images', 'game-save.svg')
         save_image = gtk.Image()
         save_image.set_from_file(save_icon)
         self._save_button = ToolButton()
@@ -88,8 +88,8 @@ class CreateToolbar(gtk.Toolbar):
         self._add_widget(self._equal_pairs)
         self._equal_pairs.connect('toggled', self._emit_equal_pairs)
                 
-        self._grouped_icon1 = os.path.join(os.path.dirname(__file__), "images/equal_pairs1.svg")
-        self._grouped_icon2 = os.path.join(os.path.dirname(__file__), "images/equal_pairs2.svg")
+        self._grouped_icon1 = join(dirname(__file__), 'images', 'equal_pairs1.svg')
+        self._grouped_icon2 = join(dirname(__file__), 'images', 'equal_pairs2.svg')
         self._grouped_image1 = gtk.Image()
         self._grouped_image2 = gtk.Image()
         self._grouped_image1.set_from_file(self._grouped_icon1)

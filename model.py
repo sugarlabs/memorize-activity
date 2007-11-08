@@ -18,8 +18,8 @@
 #
 
 import libxml2
-import os
-from os.path import join, basename, dirname
+from os import environ, makedirs
+from os.path import join, basename, dirname, isdir, split, normpath
 import logging
 import random
 import gobject
@@ -90,11 +90,11 @@ class Model(object):
     def __init__(self, game_path, dtd_path = None):
         self.data = {}
         if dtd_path == None:
-            self.dtd_path = os.path.dirname(__file__)
+            self.dtd_path = dirname(__file__)
         else:
             self.dtd_path = dtd_path
             
-        if os.path.isdir(game_path):
+        if isdir(game_path):
             self.game_path = game_path
         else:
             _logger.error('Game_path not found ' +str(e))
@@ -122,29 +122,32 @@ class Model(object):
         self.count = 0
 
     def read(self, game_file):
-        temp_folder = tempfile.mkdtemp()
-        self.data['key'] = os.path.basename(game_file)
+        tmp_root = join(dirname(__file__), 'instance')
+        temp_folder = tempfile.mkdtemp(dir=tmp_root)
+        
+        self.data['key'] = basename(game_file)
         self.data['game_file'] = game_file
         self.data['path'] = temp_folder
-        self.data['pathimg'] = os.path.join(self.data['path'], 'images')
-        self.data['pathsnd'] = os.path.join(self.data['path'], 'sounds')
+        self.data['pathimg'] = join(self.data['path'], 'images')
+        self.data['pathsnd'] = join(self.data['path'], 'sounds')
         
         ''' extracts files in the zip file '''
-        game_name = os.path.basename(game_file)[:-4]
+        game_name = basename(game_file)[:-4]
         zipFile = zipfile.ZipFile(game_file, "r")
         for each in zipFile.namelist():
             if not each.endswith('/'):
-                root, name = os.path.split(each)
-                directory = os.path.normpath(os.path.join(self.data['path'], root))
-                if not os.path.isdir(directory):
-                    os.makedirs(directory)
-                file(os.path.join(directory, name), 'wb').write(zipFile.read(each))
+                root, name = split(each)
+                directory = normpath(join(self.data['path'], root))
+                if not isdir(directory):
+                    makedirs(directory)
+                file(join(directory, name), 'wb').write(zipFile.read(each))
 
         self.pairs = {}
         
         ''' reads the configuration from an xml file '''
         try:
-            doc = libxml2.parseFile(join(dirname(__file__), join(self.data['path'], 'game.xml')))
+            xml_file = join(environ['SUGAR_ACTIVITY_ROOT'], self.data['path'], 'game.xml')
+            doc = libxml2.parseFile(xml_file)
             if doc.validateDtd(self.ctxt, self.dtd):
         
                 # get the requested nodes
@@ -247,7 +250,7 @@ class Model(object):
             # elem.setProp("color", str(self.pairs[key].props.color))
         
         if doc.validateDtd(self.ctxt, self.dtd):
-            doc.saveFormatFile(os.path.join(self.game_path, 'game.xml'), 1)
+            doc.saveFormatFile(join(self.game_path, 'game.xml'), 1)
         else:
             _logger.error('Write: Error in validation of the file')
             doc.freeDoc()

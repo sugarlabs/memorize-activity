@@ -21,6 +21,7 @@ import logging
 _logger = logging.getLogger('memorize-activity')
 
 import tempfile
+from os import environ
 from os.path import join, getsize, isfile, dirname, basename
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
@@ -165,11 +166,11 @@ class Messenger(ExportedGObject):
         
         if not (target == 'all' or target == self._tube.get_unique_name()):
             return
-            
         
         # first chunk
         if part == 1:
-            temp_dir = tempfile.mkdtemp()
+            tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
+            temp_dir = tempfile.mkdtemp(dir=tmp_root)
             self.temp_file = join(temp_dir, 'game.zip')
             self.files[filename] = self.temp_file
             self.f = open(self.temp_file, 'a+b')

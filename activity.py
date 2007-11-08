@@ -18,8 +18,11 @@
 #
 
 import logging
+_logger = logging.getLogger('memorize-activity')
+
 from gettext import gettext as _
 from os.path import join, dirname
+from os import environ
 
 import dbus
 import gtk
@@ -30,7 +33,7 @@ import telepathy.client
 
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.presence import presenceservice
-import sugar.logger
+from sugar.presence.tubeconn import TubeConnection
 
 from sugar.graphics.xocolor import XoColor
 from sugar import profile
@@ -43,7 +46,7 @@ import createtoolbar
 import cardlist
 import createcardpanel
 
-from sugar.presence.tubeconn import TubeConnection
+
 
 SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
@@ -51,9 +54,6 @@ PATH = '/org/laptop/Memorize'
 
 _TOOLBAR_PLAY = 1
 _TOOLBAR_CREATE = 2
-
-
-_logger = logging.getLogger('memorize-activity')
 
 class MemorizeActivity(Activity):
     
@@ -112,8 +112,6 @@ class MemorizeActivity(Activity):
         self.game.connect('change_game', self._memorizeToolbar.update_toolbar)
         
         self._memorizeToolbar.connect('game_changed', self.game.change_game)
-        self.connect('shared', self._shared_cb)
-        
         
         self.hbox = gtk.HBox(False)
         self.hbox.pack_start(self.scoreboard, False, False)
@@ -147,13 +145,13 @@ class MemorizeActivity(Activity):
         
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
-        try:
-            name, path = self.pservice.get_preferred_connection()
-            self.tp_conn_name = name
-            self.tp_conn_path = path
-            self.conn = telepathy.client.Connection(name, path)            
-        except TypeError:
-            _logger.debug('Offline')
+        #try:
+        #    name, path = self.pservice.get_preferred_connection()
+        #    self.tp_conn_name = name
+        #    self.tp_conn_path = path
+        #    self.conn = telepathy.client.Connection(name, path)            
+        #except TypeError:
+        #    _logger.debug('Offline')
         self.initiating = None
             
         # Buddy object for you
@@ -162,6 +160,7 @@ class MemorizeActivity(Activity):
         self.current = 0
         
         self.game.set_myself(self.owner)  
+        self.connect('shared', self._shared_cb)
         
         # Owner.props.key
         if self._shared_activity:
@@ -173,7 +172,7 @@ class MemorizeActivity(Activity):
         else:
             _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
             game_file = join(dirname(__file__),'demos','addition.zip')
-            self.game.load_game(game_file, 4)
+            self.game.load_game(game_file, 4, 'demo')
             _logger.debug('loading conventional')       
             self.game.add_buddy(self.owner)
         self.show_all()
@@ -225,26 +224,26 @@ class MemorizeActivity(Activity):
     def _shared_cb(self, activity):
         _logger.debug('My activity was shared')
         self.initiating = True
-        self._setup()
-
-        for buddy in self._shared_activity.get_joined_buddies():
-            pass  # Can do stuff with newly acquired buddies here
-
-        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+        self._sharing_setup()
 
         _logger.debug('This is my activity: making a tube...')
         id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
             SERVICE, {})
 
-    def _setup(self):
+    def _sharing_setup(self):
         if self._shared_activity is None:
             _logger.error('Failed to share or join activity')
             return
+        self.conn = self._shared_activity.telepathy_conn
+        self.tubes_chan = self._shared_activity.telepathy_tubes_chan
+        self.text_chan = self._shared_activity.telepathy_text_chan
+        
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal('NewTube', self._new_tube_cb)
+        
+        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
-        bus_name, conn_path, channel_paths =\
-            self._shared_activity.get_channels()
-
+        '''
         # Work out what our room is called and whether we have Tubes already
         room = None
         tubes_chan = None
@@ -282,7 +281,7 @@ class MemorizeActivity(Activity):
 
         tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal('NewTube', 
             self._new_tube_cb)
-
+        '''
     def _list_tubes_reply_cb(self, tubes):
         for tube_info in tubes:
             self._new_tube_cb(*tube_info)
@@ -308,10 +307,10 @@ class MemorizeActivity(Activity):
             self.game.add_buddy(self.owner)
 
         self.initiating = False
-        self._setup()
+        self._sharing_setup()
         
-        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+        #self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        #self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
         _logger.debug('This is not my activity: waiting for a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
