@@ -64,7 +64,6 @@ class MemorizeActivity(Activity):
         self.play_mode = False
         
         toolbox = ActivityToolbox(self)
-        toolbox.connect('current-toolbar-changed', self.change_mode)
         activity_toolbar = toolbox.get_activity_toolbar()
         
         self._memorizeToolbar = memorizetoolbar.MemorizeToolbar(self)
@@ -117,23 +116,6 @@ class MemorizeActivity(Activity):
         self.hbox.pack_start(self.scoreboard, False, False)
         self.hbox.pack_start(self.table)
         self.set_canvas(self.hbox)
-        
-       # create csound instance to play sound files
-        self.sound = 0        
-        try:
-            import csnd
-            del csnd
-            self.sound = 1
-        except:
-            self.sound = 0
-
-        if self.sound == 1:
-            from csound.csoundserver import CsoundServer            
-            cs = CsoundServer()        
-            if cs.start() != 0:
-                self.sound = 0
-            else:
-                cs.quit()
 
         # connect to the in/out events of the memorize activity
         self.connect('focus_in_event', self._focus_in)
@@ -142,16 +124,10 @@ class MemorizeActivity(Activity):
 
         # start on the game toolbar, might change this to the create toolbar later
         self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
+        toolbox.connect('current-toolbar-changed', self.change_mode)
         
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
-        #try:
-        #    name, path = self.pservice.get_preferred_connection()
-        #    self.tp_conn_name = name
-        #    self.tp_conn_path = path
-        #    self.conn = telepathy.client.Connection(name, path)            
-        #except TypeError:
-        #    _logger.debug('Offline')
         self.initiating = None
             
         # Buddy object for you
@@ -243,45 +219,6 @@ class MemorizeActivity(Activity):
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
-        '''
-        # Work out what our room is called and whether we have Tubes already
-        room = None
-        tubes_chan = None
-        text_chan = None
-        for channel_path in channel_paths:
-            channel = telepathy.client.Channel(bus_name, channel_path)
-            htype, handle = channel.GetHandle()
-            if htype == telepathy.HANDLE_TYPE_ROOM:
-                _logger.debug('Found our room: it has handle#%d "%s"', 
-                    handle, self.conn.InspectHandles(htype, [handle])[0])
-                room = handle
-                ctype = channel.GetChannelType()
-                if ctype == telepathy.CHANNEL_TYPE_TUBES:
-                    _logger.debug('Found our Tubes channel at %s', channel_path)
-                    tubes_chan = channel
-                elif ctype == telepathy.CHANNEL_TYPE_TEXT:
-                    _logger.debug('Found our Text channel at %s', channel_path)
-                    text_chan = channel
-
-        if room is None:
-            _logger.error("Presence service didn't create a room")
-            return
-        if text_chan is None:
-            _logger.error("Presence service didn't create a text channel")
-            return
-
-        # Make sure we have a Tubes channel - PS doesn't yet provide one
-        if tubes_chan is None:
-            _logger.debug("Didn't find our Tubes channel, requesting one...")
-            tubes_chan = self.conn.request_channel(telepathy.CHANNEL_TYPE_TUBES, 
-                telepathy.HANDLE_TYPE_ROOM, room, True)
-
-        self.tubes_chan = tubes_chan
-        self.text_chan = text_chan
-
-        tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal('NewTube', 
-            self._new_tube_cb)
-        '''
     def _list_tubes_reply_cb(self, tubes):
         for tube_info in tubes:
             self._new_tube_cb(*tube_info)
@@ -363,19 +300,25 @@ class MemorizeActivity(Activity):
             self.game.rem_buddy(buddy)
 
     def _focus_in(self, event, data=None):
+        pass
+        '''
         if self.sound == 1:
-            pass
-            #self.game.cs.start()
-            #_logger.debug(" Memorize is visible: start csound server. ")
+            self.game.cs.start()
+            _logger.debug(" Memorize is visible: start csound server. ")
+        '''
         
     def _focus_out(self, event, data=None):
+        pass
+        '''
         if self.sound == 1:
-            pass
-            #self.game.cs.pause()
-            #_logger.debug(" Memorize is invisible: pause csound server. ")
+            self.game.cs.pause()
+            _logger.debug(" Memorize is invisible: pause csound server. ")
+        '''
         
     def _cleanup_cb(self, data=None):
+        pass
+        '''
         if self.sound == 1:
-            pass
-            #self.game.cs.quit()        
-            #_logger.debug(" Memorize closes: close csound server. ")
+            self.game.cs.quit()        
+            _logger.debug(" Memorize closes: close csound server. ")
+        '''

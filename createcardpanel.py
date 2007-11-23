@@ -51,7 +51,7 @@ class CreateCardPanel(gtk.EventBox):
         add_image.set_from_file(add_icon)
         self._addbutton = gtk.Button(' ' + _('Add as new pair'))
         self._addbutton.set_image(add_image)
-        self._addbutton.connect('button-press-event', self.emit_add_pair)
+        self._addbutton.connect('pressed', self.emit_add_pair)
         
         # Set update selected pair buttom
         update_icon = join(dirname(__file__), 'images', 'pair-update.svg')
@@ -59,7 +59,7 @@ class CreateCardPanel(gtk.EventBox):
         update_image.set_from_file(update_icon)
         self._updatebutton = gtk.Button(' ' + _('Update selected pair'))
         self._updatebutton.set_image(update_image)
-        self._updatebutton.connect('button-press-event', self.emit_update_pair)
+        self._updatebutton.connect('pressed', self.emit_update_pair)
         
         # Set card editors
         self.cardeditor1 = CardEditor()
@@ -83,7 +83,8 @@ class CreateCardPanel(gtk.EventBox):
         self.add(self.table)
         self.show_all()
         
-    def emit_add_pair(self, widget, event):
+    def emit_add_pair(self, widget):
+        self._addbutton.set_sensitive(False)
         if self.equal_pairs:
             self.emit('add-pair', self.cardeditor1.get_text(), self.cardeditor1.get_text(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
         else:
@@ -91,7 +92,8 @@ class CreateCardPanel(gtk.EventBox):
         self.clean(None)
         
 
-    def emit_update_pair(self, widget, event):
+    def emit_update_pair(self, widget):
+        self._addbutton.set_sensitive(False)
         if self.equal_pairs:
             self.emit('update-pair', self.cardeditor1.get_text(), self.cardeditor1.get_text(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
         else:
@@ -171,7 +173,7 @@ class CardEditor(gtk.EventBox):
         gtk.EventBox.__init__(self)
         self.set_size_request(310, 320)
 
-        tmp_root = join(dirname(__file__), 'instance')
+        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
         
         table = gtk.Table()

@@ -32,12 +32,12 @@ _logger = logging.getLogger('model')
 
 class Pair(gobject.GObject):    
     __gproperties__ = {
-        'aimg'    : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'asnd'    : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'achar'    : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'bimg'    : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'bsnd'    : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'bchar'    : (str, None, None, None, gobject.PARAM_READWRITE), 
+        'aimg' : (str, None, None, None, gobject.PARAM_READWRITE), 
+        'asnd' : (str, None, None, None, gobject.PARAM_READWRITE), 
+        'achar': (str, None, None, None, gobject.PARAM_READWRITE), 
+        'bimg' : (str, None, None, None, gobject.PARAM_READWRITE), 
+        'bsnd' : (str, None, None, None, gobject.PARAM_READWRITE), 
+        'bchar': (str, None, None, None, gobject.PARAM_READWRITE), 
         'color': (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, gobject.PARAM_READWRITE)
     }
         
@@ -122,7 +122,7 @@ class Model(object):
         self.count = 0
 
     def read(self, game_file):
-        tmp_root = join(dirname(__file__), 'instance')
+        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         temp_folder = tempfile.mkdtemp(dir=tmp_root)
         
         self.data['key'] = basename(game_file)
