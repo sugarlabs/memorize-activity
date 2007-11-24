@@ -35,10 +35,12 @@ class MemorizeToolbar(gtk.Toolbar):
     standard_game_names = ['Load demo games',
                            'addition',
                            'letters',
+                           'drumgit'
                            ]
     translated_game_names = [_('Load demo games'),
                              _('addition'),
                              _('letters'),
+                             _('drumgit')
                             ]
 
     __gsignals__ = {
