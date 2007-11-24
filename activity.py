@@ -299,26 +299,18 @@ class MemorizeActivity(Activity):
             _logger.debug("buddy left - _buddy_left_cb: %s", buddy.props.nick)
             self.game.rem_buddy(buddy)
 
-    def _focus_in(self, event, data=None):
-        pass
-        '''
-        if self.sound == 1:
+    def _focus_in(self, event, data=None):        
+        if self.game.sound == 1:
             self.game.cs.start()
-            _logger.debug(" Memorize is visible: start csound server. ")
-        '''
+            _logger.debug(" Memorize is visible: start csound server. ")        
         
-    def _focus_out(self, event, data=None):
-        pass
-        '''
-        if self.sound == 1:
+    def _focus_out(self, event, data=None):                
+        if self.game.sound == 1:
             self.game.cs.pause()
-            _logger.debug(" Memorize is invisible: pause csound server. ")
-        '''
+            _logger.debug(" Memorize is invisible: pause csound server. ")        
         
-    def _cleanup_cb(self, data=None):
-        pass
-        '''
-        if self.sound == 1:
+    def _cleanup_cb(self, data=None):        
+        if self.game.sound == 1:
             self.game.cs.quit()        
             _logger.debug(" Memorize closes: close csound server. ")
-        '''
+        
