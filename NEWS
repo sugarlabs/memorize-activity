@@ -1,3 +1,7 @@
+* Add support do ogg Record files
+* Changed drumgit sound to 16KHz as ogg Record files
+* Add application-x-memorize-project mime-type icon
+
 22
 
 * Brought the drumgit game back (erikos)
@@ -5,11 +9,11 @@
 
 21
 
-* ?
+* Temp folders changed for Rainbow compliance #4872, #5069
 
 20
 
-* ?
+* Changes to Memorize use environ['SUGAR_ACTIVITY_ROOT']
 
 19
 
