@@ -3,7 +3,7 @@
 -+rtaudio=alsa -odac -m0 -d -b2048 -B4096
 </CsOptions>
 <CsInstruments>
-sr=22050
+sr=16000
 ksmps=100
 nchnls=2
 

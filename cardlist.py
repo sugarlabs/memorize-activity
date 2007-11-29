@@ -149,9 +149,9 @@ class CardList(gtk.EventBox):
             asnd = self.pairs[pair].get_sound(1)
             if asnd != None:
                 if equal_pairs:
-                    asndfile = 'snd'+str(pair)+'.wav'
+                    asndfile = 'snd'+str(pair)+'.ogg'
                 else:
-                    asndfile = 'asnd'+str(pair)+'.wav'    
+                    asndfile = 'asnd'+str(pair)+'.ogg'    
                 _logger.error(asndfile+': '+ asnd)    
                 zip.write(asnd, join('sounds', asndfile))
                 pair_card.set_property('asnd', asndfile)
@@ -160,9 +160,9 @@ class CardList(gtk.EventBox):
             bsnd = self.pairs[pair].get_sound(2)
             if bsnd != None:
                 if equal_pairs:
-                    bsndfile = 'snd'+str(pair)+'.wav'
+                    bsndfile = 'snd'+str(pair)+'.ogg'
                 else:
-                    bsndfile = 'bsnd'+str(pair)+'.wav'    
+                    bsndfile = 'bsnd'+str(pair)+'.ogg'  
                     zip.write(bsnd, join('sounds', bsndfile))
                 _logger.error(bsndfile+': '+ bsnd)    
                 pair_card.set_property('bsnd', bsndfile)

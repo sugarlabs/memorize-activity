@@ -19,7 +19,7 @@
 
 import gtk
 from os import environ
-from os.path import join, dirname
+from os.path import join, dirname, basename
 
 import shutil
 import tempfile
@@ -280,7 +280,7 @@ class CardEditor(gtk.EventBox):
         dst = join(self.temp_folder, basename(index))
         shutil.copy(index, dst)
         self.set_snd(dst)
-        _logger.error('Audio Loaded: '+dst)
+        _logger.debug('Audio Loaded: '+dst)
     
     def set_snd(self, snd):
         self.snd = snd
@@ -291,6 +291,7 @@ class CardEditor(gtk.EventBox):
     def clean(self):
         self.textentry.set_text('')
         self.card.set_pixbuf(None)
+        self.snd = None
         self.emit('has-text', False)
         self.emit('has-picture', False)    
     

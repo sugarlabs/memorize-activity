@@ -329,7 +329,7 @@ class Model(object):
         if color == None:
             color = profile.get_color().to_string()
         _logger.debug('Save new game in datastore')
- 
+
         # Saves the zip in datastore
         gameObject = datastore.create()
         gameObject.metadata['title'] = title
