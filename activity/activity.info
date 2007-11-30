@@ -3,6 +3,6 @@ name = Memorize
 service_name = org.laptop.Memorize
 exec = sugar-activity activity.MemorizeActivity
 icon = activity-memorize
-activity_version = 23
+activity_version = 24
 show_launcher = yes
 mime_types = application/x-memorize-project;
