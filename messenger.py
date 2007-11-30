@@ -21,7 +21,7 @@ import logging
 _logger = logging.getLogger('memorize-activity')
 
 import tempfile
-from os import environ
+from os import environ, chmod
 from os.path import join, getsize, isfile, dirname, basename
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
@@ -130,17 +130,18 @@ class Messenger(ExportedGObject):
         if mode == 'file':
             self.game.model.read(self.files[path])
         
-        data['path'] = self.game.model.data['path']
-        data['pathimg'] = self.game.model.data['pathimg']
-        data['pathsnd'] = self.game.model.data['pathsnd']
+        if self.game.model.data.has_key('path'):    
+            data['path'] = self.game.model.data['path']
+            data['pathimg'] = self.game.model.data['pathimg']
+            data['pathsnd'] = self.game.model.data['pathsnd']
         self.game.load_remote(grid, data, mode, True)
                
     # File transfer methods
 
     def file_sender(self, target, filename, title, color):
         size = getsize(filename)
-        f = open(filename, 'r+b')
-        part_size = 4096
+        f = open(filename, 'rb')
+        part_size = 8192
         num_parts = (size / part_size) +1
         for part in range(num_parts):
             bytes = f.read(part_size)
@@ -171,6 +172,7 @@ class Messenger(ExportedGObject):
         if part == 1:
             tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
             temp_dir = tempfile.mkdtemp(dir=tmp_root)
+            chmod(temp_dir,0777)
             self.temp_file = join(temp_dir, 'game.zip')
             self.files[filename] = self.temp_file
             self.f = open(self.temp_file, 'a+b')

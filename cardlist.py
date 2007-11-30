@@ -98,8 +98,9 @@ class CardList(gtk.EventBox):
         
     def save_game(self, widget, game_name, equal_pairs, grouped):
         
-        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'tmp')
+        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         temp_folder = tempfile.mkdtemp(dir=tmp_root)
+        os.chmod(temp_folder,0777)
         temp_img_folder = join(temp_folder, 'images')
         temp_snd_folder = join(temp_folder, 'sounds')
 

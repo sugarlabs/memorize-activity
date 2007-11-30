@@ -18,7 +18,7 @@
 #
 
 import libxml2
-from os import environ, makedirs
+from os import environ, makedirs, chmod
 from os.path import join, basename, dirname, isdir, split, normpath
 import logging
 import random
@@ -124,7 +124,7 @@ class Model(object):
     def read(self, game_file):
         tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         temp_folder = tempfile.mkdtemp(dir=tmp_root)
-        
+        chmod(temp_folder,0777)
         self.data['key'] = basename(game_file)
         self.data['game_file'] = game_file
         self.data['path'] = temp_folder

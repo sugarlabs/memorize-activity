@@ -1,3 +1,6 @@
+* Change temp folder permisson to allow activity access
+* Fix the mime-type folder location
+
 23
 
 * Add support do ogg Record files
@@ -12,6 +15,7 @@
 21
 
 * Temp folders changed for Rainbow compliance #4872, #5069
+* Fix in mode flag which was broken sharing mode #4752
 
 20
 
