@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-01-09 18:22+0000\n"
+"PO-Revision-Date: 2008-01-28 03:02-0500\n"
 "Last-Translator: Gerhard Steiner <gerhard.steiner@duichwir.at>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,14 +13,13 @@ msgstr ""
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
 msgid "Loading game..."
-msgstr "Spiel laden ..."
+msgstr "Spiel laden..."
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
 msgid "Load demo games"
 msgstr "Demo Spiel laden"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-#, fuzzy
 msgid "addition"
 msgstr "Hinzufügen"
 
@@ -55,9 +54,8 @@ msgstr "Spiel laden"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-#, fuzzy
 msgid "Choose memorize game"
-msgstr "Merk-Spiel auswählen"
+msgstr "Spiel auswählen"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
 msgid "Receiving game"
