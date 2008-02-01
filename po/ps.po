@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-01-07 23:26+0000\n"
+"PO-Revision-Date: 2008-01-09 09:06+0000\n"
 "Last-Translator: usman mansoor ansari <jalalkut@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,8 +28,9 @@ msgid "capitals"
 msgstr "لوتوري"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
+#, fuzzy
 msgid "drumgit"
-msgstr ""
+msgstr "ډرم جېټ"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
 msgid "letters"
@@ -41,7 +42,7 @@ msgstr "شمېرې"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
 msgid "phonemes"
-msgstr ""
+msgstr "غږونه"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
 msgid "Restart Game"

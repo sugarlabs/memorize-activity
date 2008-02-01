@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-01-09 09:15+0000\n"
+"PO-Revision-Date: 2008-01-28 05:34-0500\n"
 "Last-Translator: Sohaib Obaidi <ebtihaj_obaidi@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,12 +13,11 @@ msgstr ""
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
 msgid "Loading game..."
-msgstr "بارگذاری بازی در حال جریان"
+msgstr "در حال اجرای بازی..."
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
-#, fuzzy
 msgid "Load demo games"
-msgstr "بارگذاری بازی های دمو"
+msgstr "اجرای بازی های نمونه نمايشی"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
 msgid "addition"
@@ -30,7 +29,7 @@ msgstr "حروف بزرگ"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
 msgid "drumgit"
-msgstr ""
+msgstr "درم گت"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
 msgid "letters"
@@ -117,7 +116,7 @@ msgstr "جوره های مساوی"
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr "برای بازی گروهی تیک کن "
+msgstr "برای بازی گروهی تیک کن"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
 msgid "Click for ungrouped game"

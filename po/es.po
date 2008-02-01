@@ -1,32 +1,32 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2008-01-25 20:51-0500\n"
+"Last-Translator: Dante Leon <dleon@rtc.ctc.edu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"X-Generator: Pootle 1.0.2\n"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
 msgid "Loading game..."
-msgstr ""
+msgstr "Cargando juego..."
 
+# How about "Cargar juegos de demostración".  Demo might not be readily understood in all locales.
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
 msgid "Load demo games"
-msgstr ""
+msgstr "Cargar juegos de demostración"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
 msgid "addition"
-msgstr ""
+msgstr "adición "
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
 msgid "capitals"
-msgstr ""
+msgstr "capitales"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
 msgid "drumgit"
@@ -34,91 +34,91 @@ msgstr ""
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
 msgid "letters"
-msgstr ""
+msgstr "letras"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
 msgid "numbers"
-msgstr ""
+msgstr "numeros"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
 msgid "phonemes"
-msgstr ""
+msgstr "fonemas"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
 msgid "Restart Game"
-msgstr ""
+msgstr "Reiniciar Juego"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
 msgid "Load game"
-msgstr ""
+msgstr "Cargar Juego"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
 msgid "Choose memorize game"
-msgstr ""
+msgstr "Escoger juego memorize"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
 msgid "Receiving game"
-msgstr ""
+msgstr "Recibiendo juego "
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
 msgid "done"
-msgstr ""
+msgstr "hecho"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
 msgid "Play"
-msgstr ""
+msgstr "Jugar"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
 msgid "Add as new pair"
-msgstr ""
+msgstr "Añadir un nuevo par"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
 msgid "Update selected pair"
-msgstr ""
+msgstr "Actualizar par seleccionado"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
 msgid "Preview:"
-msgstr ""
+msgstr "Vista previa:"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
 msgid "Text:"
-msgstr ""
+msgstr "Texto:"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
 msgid "Choose image"
-msgstr ""
+msgstr "Escoger imagen"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
 msgid "Choose audio"
-msgstr ""
+msgstr "Escoger audio"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
 msgid "New game"
-msgstr ""
+msgstr "Nuevo juego"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
 msgid "Save game"
-msgstr ""
+msgstr "Guardar juego"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
 msgid "Game name"
-msgstr ""
+msgstr "Nombre del juego"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
 msgid "Equal pairs"
-msgstr ""
+msgstr "Pares iguales"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "Click para juego en grupo"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "Click para juego sin grupo"

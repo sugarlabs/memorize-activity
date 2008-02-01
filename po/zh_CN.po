@@ -1,124 +1,123 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Memorize\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2008-01-11 08:18+0000\n"
+"Last-Translator: Yuan Chao <yuanchao@gmail.com>\n"
+"Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"X-Generator: Pootle 1.0.2\n"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
 msgid "Loading game..."
-msgstr ""
+msgstr "游戏加载中..."
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
 msgid "Load demo games"
-msgstr ""
+msgstr "示范游戏加载中..."
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
 msgid "addition"
-msgstr ""
+msgstr "加法"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
 msgid "capitals"
-msgstr ""
+msgstr "大写字母"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
 msgid "drumgit"
-msgstr ""
+msgstr "打击乐器"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
 msgid "letters"
-msgstr ""
+msgstr "字母"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
 msgid "numbers"
-msgstr ""
+msgstr "数字"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
 msgid "phonemes"
-msgstr ""
+msgstr "音符"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
 msgid "Restart Game"
-msgstr ""
+msgstr "重新开始"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
 msgid "Load game"
-msgstr ""
+msgstr "载入游戏"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
 msgid "Choose memorize game"
-msgstr ""
+msgstr "选择记忆游戏"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
 msgid "Receiving game"
-msgstr ""
+msgstr "游戏接收中"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
 msgid "done"
-msgstr ""
+msgstr "完成"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
 msgid "Create"
-msgstr ""
+msgstr "开始新游戏"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
 msgid "Play"
-msgstr ""
+msgstr "游玩"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
 msgid "Add as new pair"
-msgstr ""
+msgstr "增加新配对"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
 msgid "Update selected pair"
-msgstr ""
+msgstr "更新选定的配对"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
 msgid "Preview:"
-msgstr ""
+msgstr "预览:"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
 msgid "Text:"
-msgstr ""
+msgstr "文字:"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
 msgid "Choose image"
-msgstr ""
+msgstr "选择图片"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
 msgid "Choose audio"
-msgstr ""
+msgstr "选择音频"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
 msgid "New game"
-msgstr ""
+msgstr "新游戏"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
 msgid "Save game"
-msgstr ""
+msgstr "保存游戏"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
 msgid "Game name"
-msgstr ""
+msgstr "游戏名称"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
 msgid "Equal pairs"
-msgstr ""
+msgstr "等同配对"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "点选团体游戏"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "点菜单人游戏"
