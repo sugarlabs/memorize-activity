@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-01-11 14:03+0000\n"
+"PO-Revision-Date: 2008-02-07 08:12-0500\n"
 "Last-Translator: Alexander Todorov <atodorov@redhat.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,6 @@ msgid "Receiving game"
 msgstr "Получаване на игра"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-#, fuzzy
 msgid "done"
 msgstr "готово"
 
