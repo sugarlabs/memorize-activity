@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-02-03 15:23-0500\n"
+"PO-Revision-Date: 2008-02-06 05:37-0500\n"
 "Last-Translator: salman minhas <sulmanminhas@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr "گيم لوڈ ہو رہی ہے۔۔۔"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
 msgid "Load demo games"
-msgstr ""
+msgstr "نمونہ کھيل لوڈ کريں"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
 msgid "addition"
@@ -103,21 +103,21 @@ msgstr "نيا کھيل"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
 msgid "Save game"
-msgstr ""
+msgstr "کھيل محفوظ کريں"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
 msgid "Game name"
-msgstr ""
+msgstr "کھيل کا نام"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
 msgid "Equal pairs"
-msgstr ""
+msgstr "برابر جوڑے"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "اکھٹے کھيلنے کے ليے کلک کريں"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "گروپ ميں نہ کھيلنے کے ليۓ کلک کريں"
