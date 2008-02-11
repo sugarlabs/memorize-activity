@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-02-06 09:48+0100\n"
+"PO-Revision-Date: 2008-02-11 06:46+0100\n"
 "Last-Translator: Satyanarayana Murthy Saladi <saladism@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,11 +67,11 @@ msgstr "పూర్తయింది"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
 msgid "Create"
-msgstr "స్రుష్టించు"
+msgstr "సృష్టించు"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
 msgid "Play"
-msgstr "ఆట"
+msgstr "ఆడు"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
 msgid "Add as new pair"
@@ -79,15 +79,15 @@ msgstr "కొత్త జంట చేర్చు"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
 msgid "Update selected pair"
-msgstr "ఎంచుకొన్న జతను సంపూర్ణం చేయి "
+msgstr "ఎంచుకొన్న జతను తాజాపరచు"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
 msgid "Preview:"
-msgstr "ప్రివ్యూ"
+msgstr "రిహార్సు:"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
 msgid "Text:"
-msgstr "వచనం"
+msgstr "వచనం:"
 
 #: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
 msgid "Choose image"
