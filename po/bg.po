@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-21 21:48+0100\n"
-"PO-Revision-Date: 2008-02-07 08:12-0500\n"
+"PO-Revision-Date: 2008-03-01 13:05-0500\n"
 "Last-Translator: Alexander Todorov <atodorov@redhat.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -123,8 +123,8 @@ msgstr "Игра без подсказки"
 
 #: activity/activity.info:2
 msgid "Memorize"
-msgstr ""
+msgstr "Запаметяване"
 
 #: memorizetoolbar.py:43
 msgid "sounds"
-msgstr ""
+msgstr "Звуци"
