@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
+"POT-Creation-Date: 2008-02-21 21:48+0100\n"
 "PO-Revision-Date: 2008-02-07 08:12-0500\n"
 "Last-Translator: Alexander Todorov <atodorov@redhat.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,15 +11,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.0.2\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
+#: game.py:105
 msgid "Loading game..."
 msgstr "Зареждане на играта..."
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
+#: memorizetoolbar.py:40
 msgid "Load demo games"
 msgstr "Примерни игри"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
+#: memorizetoolbar.py:41
 msgid "addition"
 msgstr "събиране"
 
@@ -31,7 +31,7 @@ msgstr "главни букви"
 msgid "drumgit"
 msgstr "барабани и китари"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
+#: memorizetoolbar.py:42
 msgid "letters"
 msgstr "букви"
 
@@ -43,83 +43,88 @@ msgstr "числа"
 msgid "phonemes"
 msgstr "фонеми"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
+#: memorizetoolbar.py:63
 msgid "Restart Game"
 msgstr "Рестартиране на играта"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
+#: createtoolbar.py:63 memorizetoolbar.py:73
 msgid "Load game"
 msgstr "Зареждане на игра"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
+#: createtoolbar.py:116 memorizetoolbar.py:117
 msgid "Choose memorize game"
 msgstr "Избор на игра"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: messenger.py:183
 msgid "Receiving game"
 msgstr "Получаване на игра"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: messenger.py:183
 msgid "done"
 msgstr "готово"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
+#: activity.py:74
 msgid "Create"
 msgstr "Създаване"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
 msgstr "Игра"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
+#: createcardpanel.py:52
 msgid "Add as new pair"
 msgstr "Добавяне"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
+#: createcardpanel.py:60
 msgid "Update selected pair"
 msgstr "Обновяване"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
+#: createcardpanel.py:180
 msgid "Preview:"
 msgstr "Преглед:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
+#: createcardpanel.py:182
 msgid "Text:"
 msgstr "Текст:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
+#: createcardpanel.py:243
 msgid "Choose image"
 msgstr "Избор на изображение"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
+#: createcardpanel.py:263
 msgid "Choose audio"
 msgstr "Избор на звук"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
+#: createtoolbar.py:53
 msgid "New game"
 msgstr "Нова игра"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
+#: createtoolbar.py:73
 msgid "Save game"
 msgstr "Запазване"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
+#: createtoolbar.py:83
 msgid "Game name"
 msgstr "Име на играта"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
+#: createtoolbar.py:87
 msgid "Equal pairs"
 msgstr "Еднакви елементи"
 
 # показва числа 1 и 2 в квадратчетата, за да не отваряш грешни елементи
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
+#: createtoolbar.py:99 createtoolbar.py:158
 msgid "Click for grouped game"
 msgstr "Игра с подсказки"
 
 # Не показва подсказките 1 и 2
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: createtoolbar.py:154
 msgid "Click for ungrouped game"
 msgstr "Игра без подсказки"
+
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr ""
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr ""
