@@ -2,123 +2,123 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-01-25 14:39-0500\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-04-19 13:22-0400\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.0.2\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
-msgid "Loading game..."
-msgstr "Chargement d'une partie..."
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Mémoriser"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
-msgid "Load demo games"
-msgstr "Charge des parties de démonstrations"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr "addition"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr "capitales"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-#, fuzzy
-msgid "drumgit"
-msgstr "drumgit"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr "lettres"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr "nombres"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr "phonèmes"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
-msgid "Restart Game"
-msgstr "Redémarre la partie"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr "Charge la partie"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr "Choisis la partie mémorisée"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "Receiving game"
-msgstr "Réception d'une partie"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "done"
-msgstr "terminé"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr "Créer"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
 msgstr "Jouer"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
+#: activity.py:74
+msgid "Create"
+msgstr "Créer"
+
+#: createcardpanel.py:52
 msgid "Add as new pair"
 msgstr "Ajouter une nouvelle paire"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
+#: createcardpanel.py:60
 msgid "Update selected pair"
 msgstr "Mettre à jour la paire sélectionnée"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
+#: createcardpanel.py:180
 msgid "Preview:"
 msgstr "Aperçu :"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
+#: createcardpanel.py:182
 msgid "Text:"
 msgstr "Texte :"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
+#: createcardpanel.py:243
 msgid "Choose image"
 msgstr "Choisir une image"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
+#: createcardpanel.py:263
 msgid "Choose audio"
 msgstr "Choisir un son"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
+#: createtoolbar.py:53
 msgid "New game"
 msgstr "Nouvelle partie"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
+#: createtoolbar.py:63 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Charge la partie"
+
+#: createtoolbar.py:73
 msgid "Save game"
 msgstr "Sauvegarder la partie"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
+#: createtoolbar.py:83
 msgid "Game name"
 msgstr "Nom de la partie"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
+#: createtoolbar.py:87
 msgid "Equal pairs"
 msgstr "Paires égales"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
+#: createtoolbar.py:99 createtoolbar.py:158
 msgid "Click for grouped game"
 msgstr "Cliquer pour une partie en groupe"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: createtoolbar.py:116 memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "Choisis la partie mémorisée"
+
+#: createtoolbar.py:154
 msgid "Click for ungrouped game"
 msgstr "Cliquer pour une partie hors groupe"
+
+#: game.py:105
+msgid "Loading game..."
+msgstr "Chargement d'une partie..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Charge des parties de démonstrations"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "addition"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "lettres"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "sons"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Redémarre la partie"
+
+#: messenger.py:183
+msgid "Receiving game"
+msgstr "Réception d'une partie"
+
+#: messenger.py:183
+msgid "done"
+msgstr "terminé"
+
+#~ msgid "capitals"
+#~ msgstr "capitales"
+
+#~ msgid "drumgit"
+#~ msgstr "drumgit"
+
+#~ msgid "numbers"
+#~ msgstr "nombres"
+
+#~ msgid "phonemes"
+#~ msgstr "phonèmes"
