@@ -2,116 +2,115 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 21:48+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-03-17 18:01-0400\n"
+"Last-Translator: Rit Lim <rit.lim@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
-msgstr ""
+msgstr "ទន្ទេញ"
 
 #: activity.py:70
 msgid "Play"
-msgstr ""
+msgstr "លេញ"
 
 #: activity.py:74
 msgid "Create"
-msgstr ""
+msgstr "បង្កើត"
 
 #: createcardpanel.py:52
 msgid "Add as new pair"
-msgstr ""
+msgstr "ថែមទៅជាគូថ្មី"
 
 #: createcardpanel.py:60
 msgid "Update selected pair"
-msgstr ""
+msgstr "កែជំរើស​គូ"
 
 #: createcardpanel.py:180
 msgid "Preview:"
-msgstr ""
+msgstr "ព្រាង"
 
 #: createcardpanel.py:182
 msgid "Text:"
-msgstr ""
+msgstr "អត្ថបត"
 
 #: createcardpanel.py:243
 msgid "Choose image"
-msgstr ""
+msgstr "ជ្ររើស​រូបភាប"
 
 #: createcardpanel.py:263
 msgid "Choose audio"
-msgstr ""
+msgstr "ជ្ររើស​សំលេង"
 
 #: createtoolbar.py:53
 msgid "New game"
-msgstr ""
+msgstr "លេង​សាឡើងវិញ"
 
 #: createtoolbar.py:63 memorizetoolbar.py:73
 msgid "Load game"
-msgstr ""
+msgstr "រៀបចំ​ល្បែង"
 
 #: createtoolbar.py:73
 msgid "Save game"
-msgstr ""
+msgstr "ថត​ទុក"
 
 #: createtoolbar.py:83
 msgid "Game name"
-msgstr ""
+msgstr "ឈ្មោះ​ល្បែង"
 
 #: createtoolbar.py:87
 msgid "Equal pairs"
-msgstr ""
+msgstr "គូប៉ុន​គ្នា"
 
 #: createtoolbar.py:99 createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "ចុច​ដើម្បី​លេង​ល្បែង​ជា​ក្រុម"
 
 #: createtoolbar.py:116 memorizetoolbar.py:117
 msgid "Choose memorize game"
-msgstr ""
+msgstr "ច្រើសរើស​ចំណាំ​ល្បែង"
 
 #: createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "ចុច​ដើម្បី​លេង​ល្បែង​មិនជា​ក្រុម"
 
 #: game.py:105
 msgid "Loading game..."
-msgstr ""
+msgstr "រៀប​ចំ​ល្បែង"
 
 #: memorizetoolbar.py:40
 msgid "Load demo games"
-msgstr ""
+msgstr "រៀប​ចំ​​បង្ហាញ​ល្បែង"
 
 #: memorizetoolbar.py:41
 msgid "addition"
-msgstr ""
+msgstr "បូក​លេខ"
 
 #: memorizetoolbar.py:42
 msgid "letters"
-msgstr ""
+msgstr "អក្សរ"
 
 #: memorizetoolbar.py:43
 msgid "sounds"
-msgstr ""
+msgstr "សំលេញ"
 
 #: memorizetoolbar.py:63
 msgid "Restart Game"
-msgstr ""
+msgstr "ចាប់​ផ្ដើម​ឡើង​វិញ"
 
 #: messenger.py:183
 msgid "Receiving game"
-msgstr ""
+msgstr "កំពុង​ទទួល​ល្បែង"
 
 #: messenger.py:183
 msgid "done"
-msgstr ""
+msgstr "រួច​ហើយ"
