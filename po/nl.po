@@ -2,123 +2,117 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-01-13 16:45+0000\n"
-"Last-Translator: Bastiaan Bakker <bastiaan@olpc-nl.org>\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-06-26 15:33-0400\n"
+"Last-Translator: Myckel Habets <myckel@sdf.lonestar.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.0.2\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Onthouden"
+
+#: activity.py:70
+msgid "Play"
+msgstr "Speel"
+
+#: activity.py:74
+msgid "Create"
+msgstr "Maken"
+
+#: createcardpanel.py:52
+msgid "Add as new pair"
+msgstr "Toevoegen als nieuw paar"
+
+#: createcardpanel.py:60
+msgid "Update selected pair"
+msgstr "Geselecteerd paar vernieuwen"
+
+#: createcardpanel.py:180
+msgid "Preview:"
+msgstr "Bekijken:"
+
+#: createcardpanel.py:182
+msgid "Text:"
+msgstr "Tekst:"
+
+#: createcardpanel.py:243
+msgid "Choose image"
+msgstr "Kies afbeelding"
+
+#: createcardpanel.py:263
+msgid "Choose audio"
+msgstr "Kies geluid"
+
+#: createtoolbar.py:53
+msgid "New game"
+msgstr "Nieuw spel"
+
+#: createtoolbar.py:63 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Laad spel"
+
+#: createtoolbar.py:73
+msgid "Save game"
+msgstr "Spel opslaan"
+
+#: createtoolbar.py:83
+msgid "Game name"
+msgstr "Spelnaam"
+
+#: createtoolbar.py:87
+msgid "Equal pairs"
+msgstr "Gelijke paren"
+
+#: createtoolbar.py:99 createtoolbar.py:158
+msgid "Click for grouped game"
+msgstr "Kies groepsspel"
+
+#: createtoolbar.py:116 memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "Kies geheugenspel"
+
+#: createtoolbar.py:154
+msgid "Click for ungrouped game"
+msgstr "Kies niet-groepsspel"
+
+#: game.py:105
 msgid "Loading game..."
-msgstr ""
+msgstr "Laad spel..."
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
+#: memorizetoolbar.py:40
 msgid "Load demo games"
-msgstr ""
+msgstr "Laad demo spellen"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-#, fuzzy
+#: memorizetoolbar.py:41
 msgid "addition"
 msgstr "optellen"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
+#: memorizetoolbar.py:42
 msgid "letters"
 msgstr "letters"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr "nummers"
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "geluiden"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr "klanken"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
+#: memorizetoolbar.py:63
 msgid "Restart Game"
-msgstr ""
+msgstr "Herstart spel"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: messenger.py:183
 msgid "Receiving game"
-msgstr ""
+msgstr "Spel ontvangen"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: messenger.py:183
 msgid "done"
-msgstr ""
+msgstr "klaar"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr ""
+#~ msgid "numbers"
+#~ msgstr "nummers"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
-msgid "Play"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
-msgid "Add as new pair"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
-msgid "Update selected pair"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
-msgid "Preview:"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
-msgid "Text:"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
-msgid "Choose image"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
-msgid "Choose audio"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
-msgid "New game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
-msgid "Save game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
-msgid "Game name"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
-msgid "Equal pairs"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr ""
+#~ msgid "phonemes"
+#~ msgstr "klanken"
