@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-02-11 06:46+0100\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-07-02 23:48+0100\n"
 "Last-Translator: Satyanarayana Murthy Saladi <saladism@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -11,114 +11,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.0.1\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
-msgid "Loading game..."
-msgstr "ఆట అమరుస్తున్నా..."
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "గుర్తింపు ఆట"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
-msgid "Load demo games"
-msgstr "ఉదహరించే ఆటలు అమర్చనా"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr "కూడిక"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr "మొదటిబరి అక్షరములు"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr "డ్రంజిట్"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr "అక్షరములు"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr "అంకెలు"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr "సూక్ష్మద్వని "
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
-msgid "Restart Game"
-msgstr "ఆట తిరిగి ఆడు"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr "ఆట అమర్చు"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr "గుర్తింపు ఆట కోరుకో "
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "Receiving game"
-msgstr "ఆట అందుకోబడుతోంది"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "done"
-msgstr "పూర్తయింది"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr "సృష్టించు"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
 msgstr "ఆడు"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
+#: activity.py:74
+msgid "Create"
+msgstr "సృష్టించు"
+
+#: createcardpanel.py:52
 msgid "Add as new pair"
 msgstr "కొత్త జంట చేర్చు"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
+#: createcardpanel.py:60
 msgid "Update selected pair"
 msgstr "ఎంచుకొన్న జతను తాజాపరచు"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
+#: createcardpanel.py:180
 msgid "Preview:"
 msgstr "రిహార్సు:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
+#: createcardpanel.py:182
 msgid "Text:"
 msgstr "వచనం:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
+#: createcardpanel.py:243
 msgid "Choose image"
 msgstr "చిత్రం కోరుకో"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
+#: createcardpanel.py:263
 msgid "Choose audio"
 msgstr "ద్వని కోరుకో"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
+#: createtoolbar.py:53
 msgid "New game"
 msgstr "కొత్త ఆట"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
+#: createtoolbar.py:63 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "ఆట అమర్చు"
+
+#: createtoolbar.py:73
 msgid "Save game"
 msgstr "ఆట బద్రపరచు"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
+#: createtoolbar.py:83
 msgid "Game name"
 msgstr "ఆట పేరు"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
+#: createtoolbar.py:87
 msgid "Equal pairs"
 msgstr "సమాన జతలు"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
+#: createtoolbar.py:99 createtoolbar.py:158
 msgid "Click for grouped game"
 msgstr "గుంపు ఆటకు నొక్కు"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: createtoolbar.py:116 memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "గుర్తింపు ఆట కోరుకో "
+
+#: createtoolbar.py:154
 msgid "Click for ungrouped game"
 msgstr "గుంపుగా కాని ఆటకు నొక్కు"
 
+#: game.py:105
+msgid "Loading game..."
+msgstr "ఆట అమరుస్తున్నా..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "ఉదహరించే ఆటలు అమర్చనా"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "కూడిక"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "అక్షరములు"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "శబ్దము"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "ఆట తిరిగి ఆడు"
+
+#: messenger.py:183
+msgid "Receiving game"
+msgstr "ఆట అందుకోబడుతోంది"
+
+#: messenger.py:183
+msgid "done"
+msgstr "పూర్తయింది"
+
+#~ msgid "capitals"
+#~ msgstr "మొదటిబరి అక్షరములు"
+
+#~ msgid "drumgit"
+#~ msgstr "డ్రంజిట్"
+
+#~ msgid "numbers"
+#~ msgstr "అంకెలు"
+
+#~ msgid "phonemes"
+#~ msgstr "సూక్ష్మద్వని "
