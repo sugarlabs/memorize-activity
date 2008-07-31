@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 21:48+0100\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
 "PO-Revision-Date: 2008-03-11 12:04-0400\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,65 +11,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.1.0rc2\n"
 
-#: game.py:105
-msgid "Loading game..."
-msgstr "يجري تحميل اللعبة..."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "حمّل الألعاب التجريبية"
-
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "الجمع"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr "الحروف الكبيرة"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr "الأصوات"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "الحروف"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr "الأرقام"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr "المقاطع"
-
-#: memorizetoolbar.py:63
-msgid "Restart Game"
-msgstr "أعِد تشغيل اللعبة"
-
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "حمل اللعية"
-
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "اختر لعبة تذكّر"
-
-#: messenger.py:183
-msgid "Receiving game"
-msgstr "يستلم اللعبة"
-
-#: messenger.py:183
-msgid "done"
-msgstr "تمّ"
-
-#: activity.py:74
-msgid "Create"
-msgstr "أنشئ"
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "تذكّر"
 
 #: activity.py:70
 msgid "Play"
 msgstr "العب"
+
+#: activity.py:74
+msgid "Create"
+msgstr "أنشئ"
 
 #: createcardpanel.py:52
 msgid "Add as new pair"
@@ -99,6 +51,10 @@ msgstr "اختر صوتا"
 msgid "New game"
 msgstr "لعبة جديدة"
 
+#: createtoolbar.py:63 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "حمل اللعية"
+
 #: createtoolbar.py:73
 msgid "Save game"
 msgstr "احفظ اللعبة"
@@ -115,14 +71,54 @@ msgstr "أزواج متساوية"
 msgid "Click for grouped game"
 msgstr "انقر لتلعب لعبة جماعية"
 
+#: createtoolbar.py:116 memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "اختر لعبة تذكّر"
+
 #: createtoolbar.py:154
 msgid "Click for ungrouped game"
 msgstr "انقر لتلعب لعبة فردية"
 
-#: activity/activity.info:2
-msgid "Memorize"
-msgstr "تذكّر"
+#: game.py:105
+msgid "Loading game..."
+msgstr "يجري تحميل اللعبة..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "حمّل الألعاب التجريبية"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "الجمع"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "الحروف"
 
 #: memorizetoolbar.py:43
 msgid "sounds"
 msgstr "الأصوات"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "أعِد تشغيل اللعبة"
+
+#: messenger.py:183
+msgid "Receiving game"
+msgstr "يستلم اللعبة"
+
+#: messenger.py:183
+msgid "done"
+msgstr "تمّ"
+
+#~ msgid "capitals"
+#~ msgstr "الحروف الكبيرة"
+
+#~ msgid "drumgit"
+#~ msgstr "الأصوات"
+
+#~ msgid "numbers"
+#~ msgstr "الأرقام"
+
+#~ msgid "phonemes"
+#~ msgstr "المقاطع"
