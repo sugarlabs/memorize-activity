@@ -1,124 +1,124 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-03-23 13:40-0400\n"
+"Last-Translator: Γιάννης Κασκαμανίδης <ttnfy17@yahoo.gr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
-msgid "Loading game..."
-msgstr ""
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Απομνημόνευση"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
-msgid "Load demo games"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
-msgid "Restart Game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "Receiving game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "done"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
-msgstr ""
+msgstr "Πάιξε"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
+#: activity.py:74
+msgid "Create"
+msgstr "Δημιούργησε"
+
+#: createcardpanel.py:52
 msgid "Add as new pair"
-msgstr ""
+msgstr "Πρόσθεσε σαν νέο ζευγάρι"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
+#: createcardpanel.py:60
 msgid "Update selected pair"
-msgstr ""
+msgstr "Ενημέρωσε το επιλεγμένο ζευγάρι"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
+#: createcardpanel.py:180
 msgid "Preview:"
-msgstr ""
+msgstr "Προεπισκόπηση:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
+#: createcardpanel.py:182
 msgid "Text:"
-msgstr ""
+msgstr "Κείμενο:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
+#: createcardpanel.py:243
 msgid "Choose image"
-msgstr ""
+msgstr "Διάλλεξε φωτογραφία"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
+#: createcardpanel.py:263
 msgid "Choose audio"
-msgstr ""
+msgstr "Διάλλεξε ήχο"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
+#: createtoolbar.py:53
 msgid "New game"
-msgstr ""
+msgstr "Νέο παιχνίδι"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
+#: createtoolbar.py:63 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Φόρτωσε το παιχνίδι"
+
+#: createtoolbar.py:73
 msgid "Save game"
-msgstr ""
+msgstr "Αποθήκευσε το παιχνίδι"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
+#: createtoolbar.py:83
 msgid "Game name"
-msgstr ""
+msgstr "Όνομα παιχνιδιού"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
+#: createtoolbar.py:87
 msgid "Equal pairs"
-msgstr ""
+msgstr "Όμοια ζευγάρια"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
+#: createtoolbar.py:99 createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "Κλίκ για ομαδικό παιχνίδι"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: createtoolbar.py:116 memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "Διάλλεξε παιχνίδι μνήμης"
+
+#: createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "Κλίκ για μη ομαδικό παιχνίδι"
+
+#: game.py:105
+msgid "Loading game..."
+msgstr "Φόρτωση παιχνιδιού..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Φόρτωσε δοκιμαστικά παιχνίδια"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "προσθήκη"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "γράμματα"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "ήχοι"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Ξαναπαίξε"
+
+#: messenger.py:183
+msgid "Receiving game"
+msgstr "Λαμβάνω το παιχνίδι"
+
+#: messenger.py:183
+msgid "done"
+msgstr "έτοιμο"
+
+#~ msgid "capitals"
+#~ msgstr "κεφαλαία"
+
+#~ msgid "drumgit"
+#~ msgstr "ψηφία"
+
+#~ msgid "numbers"
+#~ msgstr "αριθμοί"
+
+#~ msgid "phonemes"
+#~ msgstr "φωνήεντα"
