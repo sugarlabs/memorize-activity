@@ -1,124 +1,116 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-07-31 12:21+0200\n"
+"Last-Translator: GASHAYIJA Guillaume <gashayija2002@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.0.1\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
-msgid "Loading game..."
-msgstr ""
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Fata mumutwe"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
-msgid "Load demo games"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
-msgid "Restart Game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "Receiving game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "done"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
-msgstr ""
+msgstr "Kina"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
+#: activity.py:74
+msgid "Create"
+msgstr "Rema"
+
+#: createcardpanel.py:52
 msgid "Add as new pair"
-msgstr ""
+msgstr "Ongeraho nk`umuguru mushya"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
+#: createcardpanel.py:60
 msgid "Update selected pair"
-msgstr ""
+msgstr "Ha  agaciro umugurui watoranyijwe"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
+#: createcardpanel.py:180
 msgid "Preview:"
-msgstr ""
+msgstr "Ibibanziriza"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
+#: createcardpanel.py:182
 msgid "Text:"
-msgstr ""
+msgstr "Umwandiko"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
+#: createcardpanel.py:243
 msgid "Choose image"
-msgstr ""
+msgstr "Toranya vishusho"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
+#: createcardpanel.py:263
 msgid "Choose audio"
-msgstr ""
+msgstr "Toranya  isohiora majwi"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
+#: createtoolbar.py:53
 msgid "New game"
-msgstr ""
+msgstr "Umukino mushya"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
+#: createtoolbar.py:63
+#: memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Load umukino"
+
+#: createtoolbar.py:73
 msgid "Save game"
-msgstr ""
+msgstr "Bika umukino"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
+#: createtoolbar.py:83
 msgid "Game name"
-msgstr ""
+msgstr "Izina ry`u mukino"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
+#: createtoolbar.py:87
 msgid "Equal pairs"
-msgstr ""
+msgstr "Iiminguru ingana"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
+#: createtoolbar.py:99
+#: createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "Kanda kw`itsinda ry`umukino"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: createtoolbar.py:116
+#: memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "Toranya gufata umukino mu mutwe"
+
+#: createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "Kanda umukino utari mw`itsinda"
+
+#: game.py:105
+msgid "Loading game..."
+msgstr "Loading umukino.."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Load demo imikino"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "Igiteranyo"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "Amabaruwa"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "Amajwi"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Kongera gutangira umukino"
+
+#: messenger.py:183
+msgid "Receiving game"
+msgstr "Umukino urimo kwakirwa"
+
+#: messenger.py:183
+msgid "done"
+msgstr "Icyakozwe"
+
