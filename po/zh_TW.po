@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Memorize\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-02-24 23:58-0500\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-03-07 22:22-0500\n"
 "Last-Translator: Yuan Chao <yuanchao@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -11,113 +11,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.0.2\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
-msgid "Loading game..."
-msgstr "遊戲載入中..."
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "記憶遊戲"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
-msgid "Load demo games"
-msgstr "載入範例遊戲"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr "加法"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr "大寫字母"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr "打擊樂器"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr "字母"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr "數字"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr "音符"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
-msgid "Restart Game"
-msgstr "重新開始"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr "載入遊戲"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr "選擇記憶遊戲"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "Receiving game"
-msgstr "遊戲接收中"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "done"
-msgstr "完成"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr "開始新遊戲"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
 msgstr "遊玩"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
+#: activity.py:74
+msgid "Create"
+msgstr "開始新遊戲"
+
+#: createcardpanel.py:52
 msgid "Add as new pair"
 msgstr "增加新配對"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
+#: createcardpanel.py:60
 msgid "Update selected pair"
 msgstr "更新選取的配對"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
+#: createcardpanel.py:180
 msgid "Preview:"
 msgstr "預覽:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
+#: createcardpanel.py:182
 msgid "Text:"
 msgstr "文字:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
+#: createcardpanel.py:243
 msgid "Choose image"
 msgstr "選擇圖片"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
+#: createcardpanel.py:263
 msgid "Choose audio"
 msgstr "選擇音效"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
+#: createtoolbar.py:53
 msgid "New game"
 msgstr "新遊戲"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
+#: createtoolbar.py:63 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "載入遊戲"
+
+#: createtoolbar.py:73
 msgid "Save game"
 msgstr "儲存遊戲"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
+#: createtoolbar.py:83
 msgid "Game name"
 msgstr "遊戲名稱"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
+#: createtoolbar.py:87
 msgid "Equal pairs"
 msgstr "等同配對"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
+#: createtoolbar.py:99 createtoolbar.py:158
 msgid "Click for grouped game"
 msgstr "點選團體遊戲"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: createtoolbar.py:116 memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "選擇記憶遊戲"
+
+#: createtoolbar.py:154
 msgid "Click for ungrouped game"
 msgstr "點選單人遊戲"
+
+#: game.py:105
+msgid "Loading game..."
+msgstr "遊戲載入中…"
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "載入範例遊戲"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "加法"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "字母"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "聲音"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "重新開始"
+
+#: messenger.py:183
+msgid "Receiving game"
+msgstr "遊戲接收中"
+
+#: messenger.py:183
+msgid "done"
+msgstr "完成"
+
+#~ msgid "capitals"
+#~ msgstr "大寫字母"
+
+#~ msgid "drumgit"
+#~ msgstr "打擊樂器"
+
+#~ msgid "numbers"
+#~ msgstr "數字"
+
+#~ msgid "phonemes"
+#~ msgstr "音符"
