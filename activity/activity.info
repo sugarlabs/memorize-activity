@@ -6,3 +6,4 @@ icon = activity-memorize
 activity_version = 27
 show_launcher = yes
 mime_types = application/x-memorize-project;
+license = GPLv2+
