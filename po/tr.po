@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-09-07 07:05-0400\n"
+"PO-Revision-Date: 2008-10-07 03:21-0400\n"
 "Last-Translator: abdullah kocabas <abdullah.kocabas@abcdizustu.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,83 +13,83 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Memorize"
-msgstr "bellekte tutunuz."
+msgstr "Eşleştirme"
 
 #: activity.py:70
 msgid "Play"
-msgstr "oynatınız."
+msgstr "Oynat"
 
 #: activity.py:74
 msgid "Create"
-msgstr "oluşturunuz."
+msgstr "Oluştur"
 
 #: createcardpanel.py:52
 msgid "Add as new pair"
-msgstr "yeni bir çift olarak ekleyiniz."
+msgstr "Yeni bir çift olarak ekle"
 
 #: createcardpanel.py:60
 msgid "Update selected pair"
-msgstr "seçilen çifti güncelleyiniz."
+msgstr "Seçilen çifti güncelle"
 
 #: createcardpanel.py:180
 msgid "Preview:"
-msgstr "önizleme"
+msgstr "Önizleme"
 
 #: createcardpanel.py:182
 msgid "Text:"
-msgstr "metin:"
+msgstr "Metin:"
 
 #: createcardpanel.py:243
 msgid "Choose image"
-msgstr "görüntü seçiniz."
+msgstr "Görüntü seç"
 
 #: createcardpanel.py:263
 msgid "Choose audio"
-msgstr "ses seçiniz."
+msgstr "Ses seç"
 
 #: createtoolbar.py:53
 msgid "New game"
-msgstr "yeni oyun"
+msgstr "Yeni oyun"
 
 #: createtoolbar.py:63 memorizetoolbar.py:73
 msgid "Load game"
-msgstr "oyun yükleyiniz."
+msgstr "Oyun yükle"
 
 #: createtoolbar.py:73
 msgid "Save game"
-msgstr "oyunu kaydediniz."
+msgstr "Oyunu kaydet"
 
 #: createtoolbar.py:83
 msgid "Game name"
-msgstr "oyun adı"
+msgstr "Oyun adı"
 
 #: createtoolbar.py:87
 msgid "Equal pairs"
-msgstr "eşit çiftler"
+msgstr "Eşit çiftler"
 
 #: createtoolbar.py:99 createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr "grup oyunu için tıklayınız."
+msgstr "Grup oyunu için tıkla"
 
 #: createtoolbar.py:116 memorizetoolbar.py:117
 msgid "Choose memorize game"
-msgstr "kaydedilen oyunu seçiniz."
+msgstr "Eşleştirme oyunu seç"
 
 #: createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr "tekli oyun için tıklayınız."
+msgstr "Tekli oyun için tıkla"
 
 #: game.py:105
 msgid "Loading game..."
-msgstr "oyun yükleniyor.."
+msgstr "Oyun yükleniyor.."
 
 #: memorizetoolbar.py:40
 msgid "Load demo games"
-msgstr "oyun demolarını yükleyiniz."
+msgstr "Oyun demolarını yükle"
 
 #: memorizetoolbar.py:41
 msgid "addition"
-msgstr "ekleyiniz."
+msgstr "ekleme"
 
 #: memorizetoolbar.py:42
 msgid "letters"
@@ -101,12 +101,12 @@ msgstr "sesler"
 
 #: memorizetoolbar.py:63
 msgid "Restart Game"
-msgstr "oyunu tekrar başlatınız."
+msgstr "Oyunu yeniden başlat"
 
 #: messenger.py:183
 msgid "Receiving game"
-msgstr "açılan oyun"
+msgstr "Açılan oyun"
 
 #: messenger.py:183
 msgid "done"
-msgstr "yapıldı."
+msgstr "tamam"
