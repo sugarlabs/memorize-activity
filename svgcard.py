@@ -1,6 +1,4 @@
-#! /usr/bin/env python
-#
-#    Copyright (C) 2007, One Laptop Per Child
+#    Copyright (C) 2007, 2008 One Laptop Per Child
 #
 #    Muriel de Souza Godoi - muriel@laptop.org
 #
