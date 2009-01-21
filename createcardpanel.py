@@ -115,11 +115,11 @@ class CreateCardPanel(gtk.EventBox):
         if self.equal_pairs:
             self.table.remove(self.cardeditor1)
             self.table.remove(self.cardeditor2)
-            self.table.attach(self.cardeditor1, 0, 4, 0, 1, gtk.SHRINK|gtk.FILL, gtk.SHRINK, 200, 30)
+            self.table.attach(self.cardeditor1, 0, 2, 0, 1, yoptions=gtk.SHRINK)
         else:
             self.table.remove(self.cardeditor1)
-            self.table.attach(self.cardeditor1, 0, 2, 0, 1, gtk.SHRINK|gtk.FILL, gtk.SHRINK, 10, 30)
-            self.table.attach(self.cardeditor2, 2, 4, 0, 1, gtk.SHRINK|gtk.FILL, gtk.SHRINK, 10, 30)
+            self.table.attach(self.cardeditor1, 0, 1, 0, 1, yoptions=gtk.SHRINK)
+            self.table.attach(self.cardeditor2, 1, 2, 0, 1, yoptions=gtk.SHRINK)
     
     def clean(self, widget):
         self.cardeditor1.clean()
