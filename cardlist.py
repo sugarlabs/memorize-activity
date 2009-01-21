@@ -32,6 +32,8 @@ from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 from sugar import profile
 from sugar.datastore import datastore
 
+import theme
+
 _logger = logging.getLogger('memorize-activity')
 
 class CardList(gtk.EventBox):
@@ -48,7 +50,6 @@ class CardList(gtk.EventBox):
         self.pairs = []
         self.current_pair = None
         
-        self.set_size_request(450, 150)        
         self.vbox = gtk.VBox(False)        
         
         fill_box = gtk.Label()
@@ -252,8 +253,20 @@ class Pair(gtk.EventBox):
         table.connect('button-press-event', self.emit_selected)
         table.set_col_spacings(0)
         table.set_border_width(10)
-        self.bcard1 = svgcard.SvgCard(-1, {'front_text':{'card_text':text1, 'text_color':'#ffffff'}, 'front':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, None, 184, 1, self.bg_color)
-        self.bcard2 = svgcard.SvgCard(-1, {'front_text':{'card_text':text2, 'text_color':'#ffffff'}, 'front':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, None, 184, 1, self.bg_color)
+        self.bcard1 = svgcard.SvgCard(-1,
+                { 'front_text'  : { 'card_text'     : text1,
+                                    'text_color'    : '#ffffff' },
+                  'front'       : { 'fill_color'    : '#4c4d4f',
+                                    'stroke_color'  : '#ffffff',
+                                    'opacity'       : '1' } },
+                  None, theme.CARD_SIZE, 1, self.bg_color)
+        self.bcard2 = svgcard.SvgCard(-1,
+                { 'front_text'  : { 'card_text'     : text2,
+                                    'text_color'    : '#ffffff' },
+                  'front'       : { 'fill_color'    : '#4c4d4f',
+                                    'stroke_color'  : '#ffffff',
+                                    'opacity'       : '1' } },
+                  None, theme.CARD_SIZE, 1, self.bg_color)
 
         self.bcard1.flip()
         self.bcard2.flip()

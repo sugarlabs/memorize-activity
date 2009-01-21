@@ -180,8 +180,8 @@ class MemorizeActivity(Activity):
  
             self.hbox.remove(self.scoreboard)
             self.hbox.remove(self.table)
-            self.hbox.pack_start(self.createcardpanel)
-            self.hbox.pack_start(self.cardlist, False, False)
+            self.hbox.pack_start(self.createcardpanel, False)
+            self.hbox.pack_start(self.cardlist)
             self.play_mode = False
 
         else:

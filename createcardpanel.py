@@ -28,6 +28,8 @@ from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 from xml.dom.minidom import parse
 from sugar.graphics.objectchooser import ObjectChooser
 
+import theme
+
 _logger = logging.getLogger('memorize-activity')
 
 class CreateCardPanel(gtk.EventBox):
@@ -39,7 +41,6 @@ class CreateCardPanel(gtk.EventBox):
     
     def __init__(self):
         gtk.EventBox.__init__(self)
-        self.set_size_request(650, 320)
         
         self.equal_pairs = False
         
@@ -74,10 +75,10 @@ class CreateCardPanel(gtk.EventBox):
         self.table.set_col_spacings(10)
         self.table.set_row_spacings(10)
         self.table.set_border_width(10)
-        self.table.attach(self.cardeditor1, 0, 2, 0, 1, gtk.SHRINK|gtk.FILL, gtk.SHRINK, 10, 30)
-        self.table.attach(self.cardeditor2, 2, 4, 0, 1, gtk.SHRINK|gtk.FILL, gtk.SHRINK, 10, 30)
-        self.table.attach(self._addbutton, 1, 2, 1, 2, gtk.SHRINK|gtk.FILL, gtk.SHRINK)
-        self.table.attach(self._updatebutton, 2, 3, 1, 2, gtk.SHRINK|gtk.FILL, gtk.SHRINK)
+        self.table.attach(self.cardeditor1, 0, 1, 0, 1, yoptions=gtk.SHRINK)
+        self.table.attach(self.cardeditor2, 1, 2, 0, 1, yoptions=gtk.SHRINK)
+        self.table.attach(self._addbutton, 0, 1, 1, 2, yoptions=gtk.SHRINK)
+        self.table.attach(self._updatebutton, 1, 2, 1, 2, yoptions=gtk.SHRINK)
         self.add(self.table)
         self.show_all()
         
@@ -169,16 +170,15 @@ class CardEditor(gtk.EventBox):
     
     def __init__(self):
         gtk.EventBox.__init__(self)
-        self.set_size_request(310, 320)
 
         tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
         
         table = gtk.Table()
         self.previewlabel = gtk.Label(_('Preview:'))
-        self.previewlabel.set_alignment(1, 0.5)
+        self.previewlabel.set_alignment(0, 1)
         self.textlabel = gtk.Label(_('Text:'))
-        self.textlabel.set_alignment(1, 0.5)
+        self.textlabel.set_alignment(0, 1)
         
         picture_icon = join(dirname(__file__), 'images', 'import_picture.svg')
         picture_image = gtk.Image()
@@ -201,18 +201,25 @@ class CardEditor(gtk.EventBox):
         table.set_col_spacings(10)
         table.set_row_spacings(10)
         table.set_border_width(10)
-        self.card = svgcard.SvgCard(-1, {'front_text':{'card_text':'', 'text_color':'#ffffff'}, 'front_border':{'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}}, None, 184, 1, '#c0c0c0')
+        self.card = svgcard.SvgCard(-1,
+                { 'front_text'  : { 'card_text'     : '',
+                                    'text_color'    : '#ffffff' },
+                  'front_border': { 'fill_color'    : '#4c4d4f',
+                                    'stroke_color'  : '#ffffff',
+                                    'opacity'       : '1' } },
+                None, theme.CARD_SIZE, 1, '#c0c0c0')
         self.card.flip()
         
-        table.attach(self.previewlabel, 0, 1, 1, 2, gtk.EXPAND, gtk.EXPAND)
-        table.attach(self.card, 1, 3, 1, 2, gtk.EXPAND, gtk.EXPAND, 10)
+        table.attach(self.previewlabel, 0, 2, 0, 1, yoptions=gtk.SHRINK)
+        table.attach(self.card, 0, 2, 1, 2, gtk.SHRINK, gtk.SHRINK, 10)
         #Text label and entry
-        table.attach(self.textlabel, 0, 1, 2, 3, gtk.EXPAND|gtk.FILL, gtk.EXPAND)
-        table.attach(self.textentry, 1, 3, 2, 3, gtk.EXPAND|gtk.FILL, gtk.EXPAND)
+        table.attach(self.textlabel, 0, 1, 2, 3, yoptions=gtk.SHRINK)
+        table.attach(self.textentry, 0, 2, 3, 4, yoptions=gtk.SHRINK)
+        self.textentry.set_size_request(0, -1)
         #Picture label and entry
-        table.attach(self.browsepicture, 1, 2, 3, 4, gtk.EXPAND|gtk.FILL, gtk.EXPAND)
+        table.attach(self.browsepicture, 0, 1, 4, 5, yoptions=gtk.SHRINK)
         #Sound label and entry
-        table.attach(self.browsesound, 2, 3, 3, 4, gtk.EXPAND|gtk.FILL, gtk.EXPAND)
+        table.attach(self.browsesound, 1, 2, 4, 5, yoptions=gtk.SHRINK)
         
         self.add(table)
         
@@ -251,8 +258,10 @@ class CardEditor(gtk.EventBox):
             del chooser
             
     def _load_image(self, index):
-        pixbuf_t = gtk.gdk.pixbuf_new_from_file(index)
-        self.card.set_pixbuf(self.to_card_pixbuf(pixbuf_t))    
+        pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(index,
+                theme.CARD_SIZE - theme.CARD_PAD*2,
+                theme.CARD_SIZE - theme.CARD_PAD*2)
+        self.card.set_pixbuf(pixbuf_t)    
         _logger.error('Picture Loaded: '+index)
         self.emit('has-picture', True)
         del pixbuf_t
@@ -292,22 +301,3 @@ class CardEditor(gtk.EventBox):
         self.snd = None
         self.emit('has-text', False)
         self.emit('has-picture', False)    
-    
-    def to_card_pixbuf(self, pixbuf):
-        if pixbuf.get_width() == pixbuf.get_height():
-            new = pixbuf_t.scale_simple(162, 162, gtk.gdk.INTERP_BILINEAR)
-        elif pixbuf.get_width() > pixbuf.get_height():
-            new = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 162, 162)
-            aspect = float(pixbuf.get_width()) / float(pixbuf.get_height())
-            pixbuf_t = pixbuf.scale_simple(int(float(162)*aspect) , 162, gtk.gdk.INTERP_BILINEAR)
-            diff = pixbuf_t.get_width() - pixbuf_t.get_height()
-            pixbuf_t.scale(new, 0, 0, 162, 162, -(diff/2), 0, 1, 1, gtk.gdk.INTERP_BILINEAR)
-            del pixbuf_t
-        elif pixbuf.get_width() < pixbuf.get_height():    
-            new = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 162, 162)
-            aspect = float(pixbuf.get_height()) / float(pixbuf.get_width())
-            pixbuf_t = pixbuf.scale_simple(162 , int(float(162)*aspect), gtk.gdk.INTERP_BILINEAR)
-            diff = pixbuf_t.get_height() - pixbuf_t.get_width()
-            pixbuf_t.scale(new, 0, 0, 162, 162, 0, -(diff/2), 1, 1, gtk.gdk.INTERP_BILINEAR)
-            del pixbuf_t
-        return new    
