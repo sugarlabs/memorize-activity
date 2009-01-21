@@ -51,6 +51,8 @@ class CreateCardPanel(gtk.EventBox):
         self._addbutton = gtk.Button(' ' + _('Add as new pair'))
         self._addbutton.set_image(add_image)
         self._addbutton.connect('pressed', self.emit_add_pair)
+        self._addbutton.set_size_request(
+                theme.CARD_SIZE + theme.CARD_PAD*4, -1)
         
         # Set update selected pair buttom
         update_icon = join(dirname(__file__), 'images', 'pair-update.svg')
@@ -59,6 +61,8 @@ class CreateCardPanel(gtk.EventBox):
         self._updatebutton = gtk.Button(' ' + _('Update selected pair'))
         self._updatebutton.set_image(update_image)
         self._updatebutton.connect('pressed', self.emit_update_pair)
+        self._updatebutton.set_size_request(
+                theme.CARD_SIZE + theme.CARD_PAD*4, -1)
         
         # Set card editors
         self.cardeditor1 = CardEditor()
@@ -72,9 +76,9 @@ class CreateCardPanel(gtk.EventBox):
         # Create table and add components to the table
         self.table = gtk.Table()
         self.table.set_homogeneous(False)
-        self.table.set_col_spacings(10)
-        self.table.set_row_spacings(10)
-        self.table.set_border_width(10)
+        self.table.set_col_spacings(theme.CARD_PAD)
+        self.table.set_row_spacings(theme.CARD_PAD)
+        self.table.set_border_width(theme.CARD_PAD)
         self.table.attach(self.cardeditor1, 0, 1, 0, 1, yoptions=gtk.SHRINK)
         self.table.attach(self.cardeditor2, 1, 2, 0, 1, yoptions=gtk.SHRINK)
         self.table.attach(self._addbutton, 0, 1, 1, 2, yoptions=gtk.SHRINK)
@@ -115,7 +119,8 @@ class CreateCardPanel(gtk.EventBox):
         if self.equal_pairs:
             self.table.remove(self.cardeditor1)
             self.table.remove(self.cardeditor2)
-            self.table.attach(self.cardeditor1, 0, 2, 0, 1, yoptions=gtk.SHRINK)
+            self.table.attach(self.cardeditor1, 0, 2, 0, 1,
+                    gtk.SHRINK, gtk.SHRINK)
         else:
             self.table.remove(self.cardeditor1)
             self.table.attach(self.cardeditor1, 0, 1, 0, 1, yoptions=gtk.SHRINK)
@@ -198,9 +203,9 @@ class CardEditor(gtk.EventBox):
         self.textentry.connect('changed', self.update_text)
                 
         table.set_homogeneous(False)
-        table.set_col_spacings(10)
-        table.set_row_spacings(10)
-        table.set_border_width(10)
+        table.set_col_spacings(theme.CARD_PAD)
+        table.set_row_spacings(theme.CARD_PAD)
+        table.set_border_width(theme.CARD_PAD)
         self.card = svgcard.SvgCard(-1,
                 { 'front_text'  : { 'card_text'     : '',
                                     'text_color'    : '#ffffff' },
@@ -211,7 +216,8 @@ class CardEditor(gtk.EventBox):
         self.card.flip()
         
         table.attach(self.previewlabel, 0, 2, 0, 1, yoptions=gtk.SHRINK)
-        table.attach(self.card, 0, 2, 1, 2, gtk.SHRINK, gtk.SHRINK, 10)
+        table.attach(self.card, 0, 2, 1, 2, gtk.SHRINK, gtk.SHRINK,
+                theme.CARD_PAD)
         #Text label and entry
         table.attach(self.textlabel, 0, 1, 2, 3, yoptions=gtk.SHRINK)
         table.attach(self.textentry, 0, 2, 3, 4, yoptions=gtk.SHRINK)

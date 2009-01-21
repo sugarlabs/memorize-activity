@@ -18,4 +18,4 @@
 import gtk
 
 CARD_SIZE = gtk.gdk.screen_width() / 5
-CARD_PAD = 11
+CARD_PAD = 10
