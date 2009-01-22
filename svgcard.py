@@ -88,7 +88,7 @@ class SvgCard(gtk.DrawingArea):
         self.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
         if self.show_jpeg:
             self.window.draw_pixbuf(None, self.jpeg, 0, 0,
-                    theme.CARD_PAD, theme.CARD_PAD)
+                    theme.SVG_PAD, theme.SVG_PAD)
         if self.show_text:
             widget.window.draw_layout(gc, x=6, y=self.current_layout_position, layout=self.current_layout, foreground=gtk.gdk.color_parse(self.current_text_color))
         return False

@@ -17,5 +17,7 @@
 
 import gtk
 
-CARD_SIZE = gtk.gdk.screen_width() / 5
-CARD_PAD = 10
+PAIR_SIZE = gtk.gdk.screen_width() / 5
+PAIR_PAD = 10
+SVG_PAD = 10
+CARD_PAD = 2

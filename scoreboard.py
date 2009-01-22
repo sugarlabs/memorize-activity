@@ -28,7 +28,6 @@ class Scoreboard(gtk.EventBox):
         self.players = {}
         self.current_buddy = None
 
-        self.set_size_request(400, 150)        
         self.vbox = gtk.VBox(False)        
         
         fill_box = gtk.EventBox()

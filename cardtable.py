@@ -25,6 +25,8 @@ import math
 import gc
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
+import theme
+
 class CardTable(gtk.EventBox):
   
     __gsignals__ = {
@@ -34,6 +36,13 @@ class CardTable(gtk.EventBox):
 
     def __init__(self):
         gtk.EventBox.__init__(self)
+        self.data = None
+        self.cards_data = None
+        self._workspace_size = 0
+
+        # set request size to 100x100 to skip first time sizing in _allocate_cb
+        self.set_size_request(100, 100)
+        self.connect('size-allocate', self._allocate_cb)
         
         # Set table settings
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
@@ -41,9 +50,9 @@ class CardTable(gtk.EventBox):
         self.table.grab_focus()
         self.table.set_flags(gtk.CAN_FOCUS)
         self.table.set_flags(gtk.CAN_DEFAULT)
-        self.table.set_row_spacings(11)
-        self.table.set_col_spacings(11)
-        self.table.set_border_width(11)
+        self.table.set_row_spacings(theme.CARD_PAD)
+        self.table.set_col_spacings(theme.CARD_PAD)
+        self.table.set_border_width(theme.CARD_PAD)
         self.table.set_resize_mode(gtk.RESIZE_IMMEDIATE)
         self.set_property('child', self.table)
         self.load_message = gtk.Label('Loading Game')
@@ -54,10 +63,26 @@ class CardTable(gtk.EventBox):
         self.load_mode = False
         self.dict = None
         self.show_all()
+
+    def _allocate_cb(self, widget, allocation):
+        size = allocation.height
+        if size == 100:
+            # skip first time sizing
+            return
+        if self._workspace_size == 0:
+            # do it once
+            self.set_size_request(size, size)
+            self._workspace_size = size
+            self.load_game(None, self.data, self.cards_data)
         
     def load_game(self, widget, data, grid):
         self.data = data
         self.cards_data = grid
+
+        if self._workspace_size == 0:
+            # widow is not allocated, thus postpone loading
+            return
+
         self.size = int(math.ceil(math.sqrt(len(grid))))
         if self.size < 4:
             self.size = 4
@@ -105,7 +130,7 @@ class CardTable(gtk.EventBox):
             self.id2cd[id] = card
             self.cards[(x, y)] = card
             self.dict[id] = (x, y)            
-            self.table.attach(card, x, x+1, y, y+1, gtk.SHRINK, gtk.SHRINK)
+            self.table.attach(card, x, x+1, y, y+1)
          
             x += 1
             if x == self.size:
@@ -127,7 +152,7 @@ class CardTable(gtk.EventBox):
         self.load_game(None, data, grid)
     
     def get_card_size(self, size_table):
-        x = (780 - (11*size_table))/size_table
+        x = self._workspace_size/size_table - theme.CARD_PAD*2
         return x
         
     def mouse_event(self, widget, event, coord):

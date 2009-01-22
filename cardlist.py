@@ -259,14 +259,14 @@ class Pair(gtk.EventBox):
                   'front'       : { 'fill_color'    : '#4c4d4f',
                                     'stroke_color'  : '#ffffff',
                                     'opacity'       : '1' } },
-                  None, theme.CARD_SIZE, 1, self.bg_color)
+                  None, theme.PAIR_SIZE, 1, self.bg_color)
         self.bcard2 = svgcard.SvgCard(-1,
                 { 'front_text'  : { 'card_text'     : text2,
                                     'text_color'    : '#ffffff' },
                   'front'       : { 'fill_color'    : '#4c4d4f',
                                     'stroke_color'  : '#ffffff',
                                     'opacity'       : '1' } },
-                  None, theme.CARD_SIZE, 1, self.bg_color)
+                  None, theme.PAIR_SIZE, 1, self.bg_color)
 
         self.bcard1.flip()
         self.bcard2.flip()

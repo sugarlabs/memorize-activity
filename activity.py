@@ -114,8 +114,8 @@ class MemorizeActivity(Activity):
         self._memorizeToolbar.connect('game_changed', self.game.change_game)
         
         self.hbox = gtk.HBox(False)
-        self.hbox.pack_start(self.scoreboard, False, False)
-        self.hbox.pack_start(self.table)
+        self.hbox.pack_start(self.scoreboard)
+        self.hbox.pack_start(self.table, False)
         self.set_canvas(self.hbox)
 
         # connect to the in/out events of the memorize activity
@@ -188,8 +188,8 @@ class MemorizeActivity(Activity):
         
             self.hbox.remove(self.createcardpanel)
             self.hbox.remove(self.cardlist)
-            self.hbox.pack_start(self.scoreboard, False, False)
-            self.hbox.pack_start(self.table)
+            self.hbox.pack_start(self.scoreboard)
+            self.hbox.pack_start(self.table, False)
             self.play_mode = True
                 
     def restart(self, widget):
