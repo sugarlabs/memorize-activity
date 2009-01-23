@@ -102,6 +102,7 @@ class MemorizeActivity(Activity):
         self.game.connect('increase-score', self.scoreboard.increase_score)
         self.game.connect('wait_mode_buddy', self.scoreboard.set_wait_mode)
         self.game.connect('change-turn', self.scoreboard.set_selected)
+        self.game.connect('change_game', self.scoreboard.change_game)
         
         self.game.connect('reset_scoreboard', self.scoreboard.reset)
         self.game.connect('reset_table', self.table.reset)

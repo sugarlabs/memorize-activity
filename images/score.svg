@@ -13,8 +13,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="42"
-   height="42"
+   width="30"
+   height="30"
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.45"
@@ -62,20 +62,20 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:&fill_color;;fill-opacity:1;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:&fill_color;;fill-opacity:1;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect7017"
-       width="30.046175"
-       height="30.046175"
-       x="1.9769126"
-       y="1.9769124"
-       ry="4.5299301" />
+       width="22.5"
+       height="22.5"
+       x="1.25"
+       y="1.25"
+       ry="2.5299301" />
     <rect
-       style="fill:&fill_color;;fill-opacity:1;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:&fill_color;;fill-opacity:1;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3133"
-       width="30.046175"
-       height="30.046175"
-       x="9.9769125"
-       y="9.9769125"
-       ry="4.5299301" />
+       width="22.5"
+       height="22.5"
+       x="6.0769125"
+       y="6.0769125"
+       ry="2.5299301" />
   </g>
 </svg>

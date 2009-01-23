@@ -35,14 +35,12 @@ class Scoreboard(gtk.EventBox):
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True)
                    
-        scroll = gtk.ScrolledWindow()
-        scroll.props.shadow_type = gtk.SHADOW_NONE           
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.add_with_viewport(self.vbox)
-        scroll.set_border_width(0)
-        scroll.get_child().set_property('shadow-type', gtk.SHADOW_NONE)
-        self.add(scroll)
+        self.add(self.vbox)
         self.show_all()
+
+    def change_game(self, widget, data, grid):
+        for buddy in self.players.keys():
+            self.players[buddy].change_game(len(grid))
         
     def add_buddy(self, widget, buddy, score):
         ### FIXME: this breaks when the body is empty
@@ -51,7 +49,7 @@ class Scoreboard(gtk.EventBox):
         player = PlayerScoreboard(nick, fill_color, stroke_color, score)
         player.show()
         self.players[buddy]=player        
-        self.vbox.pack_start(player, False, True)
+        self.vbox.pack_start(player, False, False)
         if score == -1:
             player.set_wait_mode(True)
         self.show_all()

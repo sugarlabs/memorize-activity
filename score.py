@@ -22,6 +22,8 @@ import gtk
 import gobject
 import os
 
+import theme
+
 class Score(svglabel.SvgLabel):
     
     selected_color = "#818286"
@@ -42,7 +44,9 @@ class Score(svglabel.SvgLabel):
         else:
             self.pixbuf = self.pixbuf_un
             
-        svglabel.SvgLabel.__init__(self, filename, fill_color, stroke_color, self.pixbuf, self.default_color, 35, 35)     
+        svglabel.SvgLabel.__init__(self, filename, fill_color, stroke_color,
+                self.pixbuf, self.default_color, theme.SCORE_SIZE,
+                theme.SCORE_SIZE)
         self.set_selected(status)
         
     def set_selected(self, status):
