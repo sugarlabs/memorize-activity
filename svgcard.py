@@ -223,17 +223,22 @@ class SvgCard(gtk.DrawingArea):
             self.flop()
             
     def get_text_layout(self, text, size):
-        if self.size == 119:
-            font_sizes = [30, 24, 16, 13, 10, 8, 8, 8]
-        elif self.size == 145: 
-            font_sizes = [45, 28, 20, 16, 13, 11, 9, 8] 
+        if self.size >= 170:
+            font_sizes = [80, 60, 46, 36, 28, 22, 18, 12] 
+        elif self.size >= 140:
+            font_sizes = [60, 45, 34, 28, 24, 20, 16, 10] 
+        elif self.size >= 85: 
+            font_sizes = [45, 32, 26, 22, 20, 18, 14, 10] 
+        elif self.size >= 50:
+            font_sizes = [30, 24, 18, 16, 14, 12, 12, 10]
         else:
-            font_sizes = [50, 40, 26, 20, 17, 13, 11, 8] 
+            font_sizes = [16, 12, 10, 8, 8, 8, 8, 8]
+
         # Set font size considering string length
         if len(text) <= 8:
             font_size = font_sizes[len(text)-1]
         else: 
-            font_size = 8
+            font_size = 10
 
         # Set Pango context and Pango layout
         context = self.create_pango_context()
