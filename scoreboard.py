@@ -35,7 +35,13 @@ class Scoreboard(gtk.EventBox):
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True)
                    
-        self.add(self.vbox)
+        scroll = gtk.ScrolledWindow()
+        scroll.props.shadow_type = gtk.SHADOW_NONE           
+        scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        scroll.add_with_viewport(self.vbox)
+        scroll.set_border_width(0)
+        scroll.get_child().set_property('shadow-type', gtk.SHADOW_NONE)
+        self.add(scroll)
         self.show_all()
 
     def change_game(self, widget, data, grid):
