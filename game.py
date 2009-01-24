@@ -24,8 +24,10 @@ from sugar import profile
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT, GObject, timeout_add
+from gobject import source_remove
 
 from model import Model
+import theme
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -70,6 +72,7 @@ class MemorizeGame(GObject):
         self.sentitive = True
         self.model = Model(dirname(__file__))
         self.flip_block = False
+        self._flop_cards = None
 
         # create csound instance to play sound files
         self.sound = 0        
@@ -177,8 +180,15 @@ class MemorizeGame(GObject):
             else:
                 self.cs.perform('i 100 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
     
+    def card_overflipped(self, widget, id):        
+        if self._flop_cards and id in self._flop_cards:
+            self.card_flipped(widget, id)
+
     def card_flipped(self, widget, id, signal = False):        
-                
+        if self._flop_cards:
+            source_remove(self._flop_card_timeout)
+            self.flop_card(self._flop_cards[0], self._flop_cards[1])
+
         # Check if is my turn
         if (not self.sentitive and not signal) or self.last_flipped == id:
             return
@@ -234,10 +244,15 @@ class MemorizeGame(GObject):
             else:
                 self.model.grid[id]['state'] = '1'
                 self.set_sensitive(False)
-                timeout_add(2000, self.flop_card, id, self.last_flipped)
+                self._flop_cards = (id, self.last_flipped)
+                self._flop_card_timeout = timeout_add(theme.FLOP_BACK_TIMEOUT,
+                        self.flop_card, id, self.last_flipped)
             self.last_flipped = -1
                 
     def flop_card(self, id, id2):
+        self._flop_card_timeout = -1
+        self._flop_cards = None
+
         self.emit('flop-card', id)
         self.model.grid[id]['state'] = '0'
         self.emit('flop-card', id2)

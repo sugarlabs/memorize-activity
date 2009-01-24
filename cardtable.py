@@ -31,6 +31,7 @@ class CardTable(gtk.EventBox):
   
     __gsignals__ = {
         'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
+        'card-overflipped': (SIGNAL_RUN_FIRST, None, [int]), 
         'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
         }
 
@@ -201,8 +202,10 @@ class CardTable(gtk.EventBox):
         self.card_flipped(card)
         
     def card_flipped(self, card):
-        if not card.is_flipped():
-            id  = self.cd2id[card]
+        id  = self.cd2id[card]
+        if card.is_flipped():
+            self.emit('card-overflipped', id)
+        else:
             self.emit('card-flipped', id, False)
             
     def set_border(self, widget, id, stroke_color, fill_color):
