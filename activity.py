@@ -62,7 +62,7 @@ class MemorizeActivity(Activity):
         Activity.__init__(self, handle)
 
         self.create_load = False
-        self.play_mode = False
+        self.play_mode = None
         
         toolbox = ActivityToolbox(self)
         activity_toolbar = toolbox.get_activity_toolbar()
@@ -116,8 +116,6 @@ class MemorizeActivity(Activity):
         self._memorizeToolbar.connect('game_changed', self.game.change_game)
         
         self.hbox = gtk.HBox(False)
-        self.hbox.pack_start(self.scoreboard)
-        self.hbox.pack_start(self.table, False)
         self.set_canvas(self.hbox)
 
         # connect to the in/out events of the memorize activity
@@ -126,8 +124,8 @@ class MemorizeActivity(Activity):
         self.connect('destroy', self._cleanup_cb)
 
         # start on the game toolbar, might change this to the create toolbar later
+        self.toolbox.connect('current-toolbar-changed', self.change_mode)
         self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
-        toolbox.connect('current-toolbar-changed', self.change_mode)
         
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
@@ -187,9 +185,10 @@ class MemorizeActivity(Activity):
             self.play_mode = False
 
         else:
-        
-            self.hbox.remove(self.createcardpanel)
-            self.hbox.remove(self.cardlist)
+            if self.play_mode == False:
+                self.hbox.remove(self.createcardpanel)
+                self.hbox.remove(self.cardlist)
+
             self.hbox.pack_start(self.scoreboard)
             self.hbox.pack_start(self.table, False)
             self.play_mode = True
