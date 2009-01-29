@@ -82,7 +82,7 @@ class Messenger(ExportedGObject):
         remote_object = self._tube.get_object(sender, PATH)
         remote_object.load_game(self.ordered_bus_names, 
                                 self.game.get_grid(), 
-                                self.game.get_data(), 
+                                self.game.collect_data(), 
                                 self.game.players.index(self.game.current_player), 
                                 #self.game.waiting_players,
                                 path)
@@ -93,6 +93,11 @@ class Messenger(ExportedGObject):
         self.player_id = bus_names.index(self._tube.get_unique_name())
         #self.game.load_waiting_list(list)
         self._change_game_receiver(data['mode'], grid, data, path)
+
+        for i in range(len(self.game.players)):
+            self.game.increase_point(self.game.players[i],
+                    int(data.get(str(i), '0')))
+
         self.game.current_player = self.game.players[current_player]
         self.game.update_turn()
 

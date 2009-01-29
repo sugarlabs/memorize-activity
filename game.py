@@ -112,10 +112,10 @@ class MemorizeGame(GObject):
             self.emit('change_game_signal', 
                       mode, 
                       self.get_grid(), 
-                      self.get_data(), 
+                      self.model.data, 
                       self.waiting_players, 
                       self.model.data['game_file'])
-        self.emit('change_game', self.get_data(), self.get_grid())
+        self.emit('change_game', self.model.data, self.get_grid())
         for buddy in self.players:
             self.players_score[buddy] = 0
         self.current_player = None
@@ -284,14 +284,19 @@ class MemorizeGame(GObject):
             self.emit('highlight-card', id, True)
 
     
-    def increase_point(self, buddy):
-        self.players_score[buddy] += 1
-        self.emit('increase-score', buddy)
+    def increase_point(self, buddy, inc=1):
+        self.players_score[buddy] += inc
+        for i in range(inc):
+            self.emit('increase-score', buddy)
         
     def get_grid(self):
         return self.model.grid
 
-    def get_data(self):
+    def collect_data(self):
+        for player, score  in self.players_score.items():
+            index = self.players.index(player)
+            score = self.players_score[player]
+            self.model.data[str(index)] = str(score)
         return self.model.data
     
     def change_game(self, widget, game_name, size, mode, title = None, color= None):
