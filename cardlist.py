@@ -39,7 +39,7 @@ _logger = logging.getLogger('memorize-activity')
 class CardList(gtk.EventBox):
         
     __gsignals__ = {
-        'pair-selected': (SIGNAL_RUN_FIRST, None, 6 * [TYPE_PYOBJECT]), 
+        'pair-selected': (SIGNAL_RUN_FIRST, None, 7 * [TYPE_PYOBJECT]), 
         'update-create-toolbar': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]), 
         'update-create-buttons': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
     }
@@ -210,6 +210,7 @@ class CardList(gtk.EventBox):
         self.pairs.remove(widget)
         del widget
         self.emit('update-create-buttons', True, True)
+        self.emit('pair-selected', False, None, None, None, None, None, None)
             
     def set_selected(self, widget, event):
         if self.current_pair <> None:
@@ -217,7 +218,10 @@ class CardList(gtk.EventBox):
             self.old.set_selected(False)
         self.current_pair = widget 
         widget.set_selected(True)
-        self.emit('pair-selected', self.current_pair.get_text(1), self.current_pair.get_text(2), self.current_pair.get_pixbuf(1), self.current_pair.get_pixbuf(2), self.current_pair.get_sound(1), self.current_pair.get_sound(2))
+        self.emit('pair-selected', True,
+               self.current_pair.get_text(1), self.current_pair.get_text(2),
+               self.current_pair.get_pixbuf(1), self.current_pair.get_pixbuf(2),
+               self.current_pair.get_sound(1), self.current_pair.get_sound(2))
         
     def update_selected(self, widget, newtext1, newtext2, aimg, bimg, asnd, bsnd):
         self.current_pair.change_text(newtext1, newtext2)

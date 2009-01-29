@@ -168,7 +168,7 @@ class MemorizeActivity(Activity):
                 self.createcardpanel = createcardpanel.CreateCardPanel()
                 self.createcardpanel.connect('add-pair', self.cardlist.add_pair)
                 self.createcardpanel.connect('update-pair', self.cardlist.update_selected)
-                self.cardlist.connect('pair-selected', self.createcardpanel.load_pair)
+                self.cardlist.connect('pair-selected', self.createcardpanel.pair_selected)
                 self.cardlist.connect('update-create-toolbar', self._createToolbar.update_create_toolbar)
                 self.cardlist.connect('update-create-buttons', self._createToolbar.update_buttons_status)
                 self._createToolbar.connect('create_new_game', self.cardlist.clean_list)

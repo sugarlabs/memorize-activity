@@ -43,6 +43,7 @@ class CreateCardPanel(gtk.EventBox):
         gtk.EventBox.__init__(self)
         
         self.equal_pairs = False
+        self._updatebutton_sensitive = False
         
         # Set the add new pair buttom
         add_icon = join(dirname(__file__), 'images', 'pair-add.svg')
@@ -103,15 +104,18 @@ class CreateCardPanel(gtk.EventBox):
             self.emit('update-pair', self.cardeditor1.get_text(), self.cardeditor2.get_text(), self.cardeditor1.get_pixbuf(), self.cardeditor2.get_pixbuf(), self.cardeditor1.get_snd(), self.cardeditor2.get_snd())
         self.clean(None)
                     
-    def load_pair(self, widget, newtext1, newtext2, aimg, bimg, asnd, bsnd):
-        self.cardeditor1.set_text(newtext1)
-        self.cardeditor2.set_text(newtext2)
-        self.cardeditor1.set_pixbuf(aimg)
-        self.cardeditor2.set_pixbuf(bimg)
-        self.cardeditor1.set_snd(asnd)
-        self.cardeditor2.set_snd(bsnd)
-        self._addbutton.set_sensitive(True)
-        self._updatebutton.set_sensitive(True)
+    def pair_selected(self, widget, selected, newtext1, newtext2, aimg, bimg,
+            asnd, bsnd):
+        if selected:
+            self.cardeditor1.set_text(newtext1)
+            self.cardeditor2.set_text(newtext2)
+            self.cardeditor1.set_pixbuf(aimg)
+            self.cardeditor2.set_pixbuf(bimg)
+            self.cardeditor1.set_snd(asnd)
+            self.cardeditor2.set_snd(bsnd)
+            self._addbutton.set_sensitive(True)
+        self._updatebutton.set_sensitive(selected)
+        self._updatebutton_sensitive = selected
 
     def change_equal_pairs(self, widget, state):
         self.equal_pairs = state
@@ -130,7 +134,6 @@ class CreateCardPanel(gtk.EventBox):
         self.cardeditor1.clean()
         self.cardeditor2.clean()
         self._addbutton.set_sensitive(False)
-        self._updatebutton.set_sensitive(False)
         self._card1_has_text = False
         self._card2_has_text = False
         self._card1_has_picture = False
@@ -154,14 +157,14 @@ class CreateCardPanel(gtk.EventBox):
         if not self.equal_pairs:
             if (self._card1_has_text or self._card1_has_picture) and (self._card2_has_text or self._card2_has_picture):
                 self._addbutton.set_sensitive(True)
-                self._updatebutton.set_sensitive(True)
+                self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:
                 self._addbutton.set_sensitive(False)
                 self._updatebutton.set_sensitive(False)
         else:
             if self._card1_has_text or self._card1_has_picture:
                 self._addbutton.set_sensitive(True)
-                self._updatebutton.set_sensitive(True)
+                self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:
                 self._addbutton.set_sensitive(False)
                 self._updatebutton.set_sensitive(False)
