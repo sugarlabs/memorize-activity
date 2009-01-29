@@ -234,17 +234,14 @@ class MemorizeActivity(Activity):
 
         _logger.debug('Joined an existing shared activity')
 
-        self.found = 0
         for buddy in self._shared_activity.get_joined_buddies():
-            _logger.debug("buddy joined - _joined_cb: %s  (get buddies of activity and add them to my list)", buddy.props.nick)
-            self.game.add_buddy(buddy)
-            if buddy == self.owner:
-                self.found = 1
+            if buddy != self.owner:
+                _logger.debug("buddy joined - _joined_cb: %s  "
+                              "(get buddies of activity and add them to my list)",
+                              buddy.props.nick)
+                self.game.add_buddy(buddy)
 
-        if self.found == 0:
-            _logger.debug("buddy joined - _joined_cb: Not foud myself in buddy list - will add myself at end of the list.")
-            self.game.add_buddy(self.owner)
-
+        self.game.add_buddy(self.owner)
         self.initiating = False
         self._sharing_setup()
         

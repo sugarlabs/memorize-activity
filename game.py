@@ -160,6 +160,10 @@ class MemorizeGame(GObject):
     def buddy_message(self, buddy, text):
         self.emit('msg_buddy', buddy, text)
 
+    def update_turn(self):
+        self.set_sensitive(self.current_player == self.myself)
+        self.emit('change-turn', self.current_player)   
+
     def change_turn(self):
         if len(self.players) <= 1:
             self.current_player = self.players[0]
@@ -170,8 +174,7 @@ class MemorizeGame(GObject):
         else:
             next = self.players[self.players.index(self.current_player)+1]
             self.current_player = next
-        self.set_sensitive(self.current_player == self.myself)
-        self.emit('change-turn', self.current_player)   
+        self.update_turn()
                         
     def play_sound(self, snd, sound_file):
         if len(snd.split('.')) > 1:

@@ -74,7 +74,8 @@ class CardTable(gtk.EventBox):
             # do it once
             self.set_size_request(size, size)
             self._workspace_size = size
-            self.load_game(None, self.data, self.cards_data)
+            if self.data:
+                self.load_game(None, self.data, self.cards_data)
         
     def load_game(self, widget, data, grid):
         self.data = data

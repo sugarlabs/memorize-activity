@@ -45,10 +45,11 @@ class Messenger(ExportedGObject):
 
     def participant_change_cb(self, added, removed):
         if not self.entered:
-            self._flip_handler()
-            self._change_game_handler()
-            self._file_part_handler()
             if self.is_initiator:
+                self._flip_handler()
+                self._change_game_handler()
+                self._file_part_handler()
+
                 self.player_id = self._tube.get_unique_name()
                 self.ordered_bus_names = [self.player_id]
                 self._hello_handler()
@@ -91,8 +92,13 @@ class Messenger(ExportedGObject):
         self.ordered_bus_names = bus_names
         self.player_id = bus_names.index(self._tube.get_unique_name())
         #self.game.load_waiting_list(list)
-        self.game.current_player = self.game.players[current_player]
         self._change_game_receiver(data['mode'], grid, data, path)
+        self.game.current_player = self.game.players[current_player]
+        self.game.update_turn()
+
+        self._flip_handler()
+        self._change_game_handler()
+        self._file_part_handler()
     
     # Change game method
     
