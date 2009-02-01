@@ -188,9 +188,9 @@ class MemorizeActivity(Activity):
             if self.play_mode == False:
                 self.hbox.remove(self.createcardpanel)
                 self.hbox.remove(self.cardlist)
-
-            self.hbox.pack_start(self.scoreboard)
-            self.hbox.pack_start(self.table, False)
+            if self.play_mode in (False, None):
+                self.hbox.pack_start(self.scoreboard)
+                self.hbox.pack_start(self.table, False)
             self.play_mode = True
                 
     def restart(self, widget):
