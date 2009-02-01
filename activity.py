@@ -300,16 +300,13 @@ class MemorizeActivity(Activity):
 
     def _focus_in(self, event, data=None):        
         if self.game.sound == 1:
-            self.game.cs.start()
-            _logger.debug(" Memorize is visible: start csound server. ")        
+            self.game.audio.play()
         
     def _focus_out(self, event, data=None):                
         if self.game.sound == 1:
-            self.game.cs.pause()
-            _logger.debug(" Memorize is invisible: pause csound server. ")        
+            self.game.audio.pause()
         
     def _cleanup_cb(self, data=None):        
         if self.game.sound == 1:
-            self.game.cs.quit()        
-            _logger.debug(" Memorize closes: close csound server. ")
+            self.game.audio.stop()        
         
