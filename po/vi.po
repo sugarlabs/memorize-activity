@@ -1,129 +1,112 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 21:48+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"PO-Revision-Date: 2008-05-29 05:20-0400\n"
+"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
-
-#: game.py:105
-msgid "Loading game..."
-msgstr ""
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr ""
-
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr ""
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr ""
-
-#: memorizetoolbar.py:63
-msgid "Restart Game"
-msgstr ""
-
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr ""
-
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr ""
-
-#: messenger.py:183
-msgid "Receiving game"
-msgstr ""
-
-#: messenger.py:183
-msgid "done"
-msgstr ""
-
-#: activity.py:74
-msgid "Create"
-msgstr ""
-
-#: activity.py:70
-msgid "Play"
-msgstr ""
-
-#: createcardpanel.py:52
-msgid "Add as new pair"
-msgstr ""
-
-#: createcardpanel.py:60
-msgid "Update selected pair"
-msgstr ""
-
-#: createcardpanel.py:180
-msgid "Preview:"
-msgstr ""
-
-#: createcardpanel.py:182
-msgid "Text:"
-msgstr ""
-
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr ""
-
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr ""
-
-#: createtoolbar.py:53
-msgid "New game"
-msgstr ""
-
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr ""
-
-#: createtoolbar.py:83
-msgid "Game name"
-msgstr ""
-
-#: createtoolbar.py:87
-msgid "Equal pairs"
-msgstr ""
-
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr ""
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr ""
+"X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
-msgstr ""
+msgstr "Ghi nhớ"
+
+#: activity.py:70
+msgid "Play"
+msgstr "Chơi"
+
+#: activity.py:74
+msgid "Create"
+msgstr "Tạo"
+
+#: createcardpanel.py:52
+msgid "Add as new pair"
+msgstr "Thêm dạng cặp mới"
+
+#: createcardpanel.py:60
+msgid "Update selected pair"
+msgstr "Cập nhật cặp đã chọn"
+
+#: createcardpanel.py:180
+msgid "Preview:"
+msgstr "Xem thử : "
+
+#: createcardpanel.py:182
+msgid "Text:"
+msgstr "Văn bản: "
+
+#: createcardpanel.py:243
+msgid "Choose image"
+msgstr "Chọn ảnh"
+
+#: createcardpanel.py:263
+msgid "Choose audio"
+msgstr "Chọn âm thanh"
+
+#: createtoolbar.py:53
+msgid "New game"
+msgstr "Lượt chơi mới"
+
+#: createtoolbar.py:63 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Nạp lượt chơi"
+
+#: createtoolbar.py:73
+msgid "Save game"
+msgstr "Lưu lượt chơi"
+
+#: createtoolbar.py:83
+msgid "Game name"
+msgstr "Tên lượt chơi"
+
+#: createtoolbar.py:87
+msgid "Equal pairs"
+msgstr "Cặp đều"
+
+#: createtoolbar.py:99 createtoolbar.py:158
+msgid "Click for grouped game"
+msgstr "Nhấn chuột để chơi trong nhóm"
+
+#: createtoolbar.py:116 memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "Chọn lượt chơi đã ghi nhớ"
+
+#: createtoolbar.py:154
+msgid "Click for ungrouped game"
+msgstr "Nhấn chuột để chơi một mình"
+
+#: game.py:105
+msgid "Loading game..."
+msgstr "Đang nạp lượt chơi..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Nạp các lượt chơi minh họa"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "phép cộng"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "chữ"
 
 #: memorizetoolbar.py:43
 msgid "sounds"
-msgstr ""
+msgstr "âm"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Chạy lại lượt chơi"
+
+#: messenger.py:183
+msgid "Receiving game"
+msgstr "Đang nhận lươt chơi"
+
+#: messenger.py:183
+msgid "done"
+msgstr "hoàn tất"
