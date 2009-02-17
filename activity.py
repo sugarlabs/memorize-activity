@@ -299,14 +299,11 @@ class MemorizeActivity(Activity):
             self.game.rem_buddy(buddy)
 
     def _focus_in(self, event, data=None):        
-        if self.game.sound == 1:
-            self.game.audio.play()
+        self.game.audio.play()
         
     def _focus_out(self, event, data=None):                
-        if self.game.sound == 1:
-            self.game.audio.pause()
+        self.game.audio.pause()
         
     def _cleanup_cb(self, data=None):        
-        if self.game.sound == 1:
-            self.game.audio.stop()        
+        self.game.audio.stop()        
         

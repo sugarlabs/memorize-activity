@@ -75,18 +75,7 @@ class MemorizeGame(GObject):
         self.flip_block = False
         self._flop_cards = None
 
-        # create csound instance to play sound files
-        self.sound = 0        
-        try:
-            import csnd
-            del csnd
-            self.sound = 1
-            _logger.error(' [Check for module csnd] found.')
-        except:
-            _logger.error(' [Check for module csnd] not found. There will be no sound.')
-
-        if self.sound == 1:
-            self.audio = Audio()        
+        self.audio = Audio()        
             
     def load_game(self, game_name, size, mode):
         self.set_load_mode('Loading game')   
@@ -201,12 +190,10 @@ class MemorizeGame(GObject):
             
         self.model.data['running'] = 'True'
 
-        # play sound in case if available
-        if self.sound == 1:
-            snd = self.model.grid[id].get('snd', None)
-            if snd != None:
-                sound_file = join(self.model.data.get('pathsnd'), snd)
-                self.audio.play(sound_file)
+        snd = self.model.grid[id].get('snd', None)
+        if snd != None:
+            sound_file = join(self.model.data.get('pathsnd'), snd)
+            self.audio.play(sound_file)
                 
         self.emit('flip-card', id)
         if not signal:
