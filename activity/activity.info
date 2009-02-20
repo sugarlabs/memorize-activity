@@ -1,6 +1,6 @@
 [Activity]
 name = Memorize
-service_name = org.laptop.Memorize
+bundle_id = org.laptop.Memorize
 exec = sugar-activity activity.MemorizeActivity
 icon = activity-memorize
 activity_version = 29
