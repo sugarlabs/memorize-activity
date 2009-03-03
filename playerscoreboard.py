@@ -83,9 +83,9 @@ class PlayerScoreboard(gtk.EventBox):
         self.msg.set_alignment(0, 0.5)
 
         self.add(self.table)
-        self.table.attach(self.icon, 0, 1, 0, 3)
-        self.table.attach(self.nick, 1, 2, 0, 1, yoptions=gtk.SHRINK)
-        self.table.attach(self.score_table, 1, 2, 1, 2, gtk.SHRINK, gtk.SHRINK)
+        self.table.attach(self.icon, 0, 1, 0, 3, gtk.SHRINK, gtk.SHRINK)
+        self.table.attach(self.nick, 1, 2, 0, 1)
+        self.table.attach(self.score_table, 1, 2, 1, 2)
 
         if score <> 0:
             for i in range(score):
@@ -102,7 +102,7 @@ class PlayerScoreboard(gtk.EventBox):
 
         rows = int(math.ceil(float(size/2) / self._score_cols))
         self.score_table.resize(rows, self._score_cols)
-        self.score_table.set_size_request(self._score_width,
+        self.score_table.set_size_request(-1
                 (theme.SCORE_SIZE+theme.PAD/2) * (rows) - theme.PAD/2)
 
     def increase_score(self):
