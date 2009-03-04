@@ -102,7 +102,7 @@ class PlayerScoreboard(gtk.EventBox):
 
         rows = int(math.ceil(float(size/2) / self._score_cols))
         self.score_table.resize(rows, self._score_cols)
-        self.score_table.set_size_request(-1
+        self.score_table.set_size_request(-1,
                 (theme.SCORE_SIZE+theme.PAD/2) * (rows) - theme.PAD/2)
 
     def increase_score(self):
