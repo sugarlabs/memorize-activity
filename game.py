@@ -27,6 +27,7 @@ from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT, GObject, timeout_add
 from gobject import source_remove
 
 from model import Model
+from audio import Audio            
 import theme
 
 _logger = logging.getLogger('memorize-activity')
@@ -74,22 +75,7 @@ class MemorizeGame(GObject):
         self.flip_block = False
         self._flop_cards = None
 
-        # create csound instance to play sound files
-        self.sound = 0        
-        try:
-            import csnd
-            del csnd
-            self.sound = 1
-            _logger.error(' [Check for module csnd] found.')
-        except:
-            _logger.error(' [Check for module csnd] not found. There will be no sound.')
-
-        if self.sound == 1:
-            from csound.csoundserver import CsoundServer            
-            self.cs = CsoundServer()        
-            if self.cs.start() != 0:
-                _logger.error(' Error starting csound performance.')
-                self.sound = 0
+        self.audio = Audio()        
             
     def load_game(self, game_name, size, mode):
         self.set_load_mode('Loading game')   
@@ -176,13 +162,6 @@ class MemorizeGame(GObject):
             self.current_player = next
         self.update_turn()
                         
-    def play_sound(self, snd, sound_file):
-        if len(snd.split('.')) > 1:
-            if snd.split('.')[1] in ['wav', 'aif', 'aiff']:
-                self.cs.perform('i 102 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
-            else:
-                self.cs.perform('i 100 0.0 3.0 "%s" 1 0.9 0'%(sound_file))                
-    
     def card_overflipped(self, widget, id):        
         if self._flop_cards and id in self._flop_cards:
             self.card_flipped(widget, id)
@@ -211,12 +190,10 @@ class MemorizeGame(GObject):
             
         self.model.data['running'] = 'True'
 
-        # play sound in case if available
-        if self.sound == 1:
-            snd = self.model.grid[id].get('snd', None)
-            if snd != None:
-                sound_file = join(self.model.data.get('pathsnd'), snd)
-                self.play_sound(snd, sound_file)
+        snd = self.model.grid[id].get('snd', None)
+        if snd != None:
+            sound_file = join(self.model.data.get('pathsnd'), snd)
+            self.audio.play(sound_file)
                 
         self.emit('flip-card', id)
         if not signal:
