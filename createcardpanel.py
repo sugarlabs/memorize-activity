@@ -27,6 +27,7 @@ import logging
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 from xml.dom.minidom import parse
 from sugar.graphics.objectchooser import ObjectChooser
+from sugar import mime
 
 import theme
 
@@ -254,7 +255,14 @@ class CardEditor(gtk.EventBox):
         self.card.set_pixbuf(pixbuf)
         
     def _import_image(self, widget, event):
-        chooser = ObjectChooser(_('Choose image'), None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
+        if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
+            filter = { 'what_filter': mime.GENERIC_TYPE_IMAGE }
+        else:
+            filter = { }
+
+        chooser = ObjectChooser(_('Choose image'), None,
+                gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                **filter)
         try:
             result = chooser.run()
             if result == gtk.RESPONSE_ACCEPT:
@@ -276,7 +284,14 @@ class CardEditor(gtk.EventBox):
         del pixbuf_t
         
     def _import_audio(self, widget, event):
-        chooser = ObjectChooser(_('Choose audio'), None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
+        if hasattr(mime, 'GENERIC_TYPE_AUDIO'):
+            filter = { 'what_filter': mime.GENERIC_TYPE_AUDIO }
+        else:
+            filter = { }
+
+        chooser = ObjectChooser(_('Choose audio'), None,
+                gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                **filter)
         jobject = ''
         try:
             result = chooser.run()
