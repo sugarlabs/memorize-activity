@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-memorize-project">
+         <comment xml:lang="en">Memorize Game</comment>
+         <comment xml:lang="de">Merken Spiel</comment>
+         <glob pattern="*.memorize"/>
+  </mime-type>
+</mime-info>
+
