@@ -1,4 +1,6 @@
+#
 #    Copyright (C) 2006, 2007, 2008 One Laptop Per Child
+#    Copyright (C) 2009 Simon Schampijer
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -28,6 +30,7 @@ from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 from xml.dom.minidom import parse
 from sugar.graphics.objectchooser import ObjectChooser
 from sugar import mime
+from sugar.graphics import style
 
 import theme
 
@@ -74,6 +77,8 @@ class CreateCardPanel(gtk.EventBox):
         self.cardeditor2.connect('has-text', self.receive_text_signals)
         self.cardeditor1.connect('has-picture', self.receive_picture_signals)
         self.cardeditor2.connect('has-picture', self.receive_picture_signals)
+        self.cardeditor1.connect('has-sound', self.receive_sound_signals)
+        self.cardeditor2.connect('has-sound', self.receive_sound_signals)
         
         # Create table and add components to the table
         self.table = gtk.Table()
@@ -91,18 +96,34 @@ class CreateCardPanel(gtk.EventBox):
     def emit_add_pair(self, widget):
         self._addbutton.set_sensitive(False)
         if self.equal_pairs:
-            self.emit('add-pair', self.cardeditor1.get_text(), self.cardeditor1.get_text(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
+            self.emit('add-pair', self.cardeditor1.get_text(), 
+                      self.cardeditor1.get_text(), 
+                      self.cardeditor1.get_pixbuf(), 
+                      self.cardeditor1.get_pixbuf(), 
+                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
         else:
-            self.emit('add-pair', self.cardeditor1.get_text(), self.cardeditor2.get_text(), self.cardeditor1.get_pixbuf(), self.cardeditor2.get_pixbuf(), self.cardeditor1.get_snd(), self.cardeditor2.get_snd())
+            self.emit('add-pair', self.cardeditor1.get_text(), 
+                      self.cardeditor2.get_text(), 
+                      self.cardeditor1.get_pixbuf(), 
+                      self.cardeditor2.get_pixbuf(), 
+                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd())
         self.clean(None)
         
 
     def emit_update_pair(self, widget):
         self._addbutton.set_sensitive(False)
         if self.equal_pairs:
-            self.emit('update-pair', self.cardeditor1.get_text(), self.cardeditor1.get_text(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_pixbuf(), self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
+            self.emit('update-pair', self.cardeditor1.get_text(), 
+                      self.cardeditor1.get_text(), 
+                      self.cardeditor1.get_pixbuf(), 
+                      self.cardeditor1.get_pixbuf(), 
+                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
         else:
-            self.emit('update-pair', self.cardeditor1.get_text(), self.cardeditor2.get_text(), self.cardeditor1.get_pixbuf(), self.cardeditor2.get_pixbuf(), self.cardeditor1.get_snd(), self.cardeditor2.get_snd())
+            self.emit('update-pair', self.cardeditor1.get_text(), 
+                      self.cardeditor2.get_text(), 
+                      self.cardeditor1.get_pixbuf(), 
+                      self.cardeditor2.get_pixbuf(), 
+                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd())
         self.clean(None)
                     
     def pair_selected(self, widget, selected, newtext1, newtext2, aimg, bimg,
@@ -154,16 +175,23 @@ class CreateCardPanel(gtk.EventBox):
             self._card2_has_picture = has_picture
         self._update_buttom_status()
         
+    def receive_sound_signals(self, widget, has_sound):
+        if widget == self.cardeditor1:
+            self._card1_has_sound = has_sound
+        if widget == self.cardeditor2:
+            self._card2_has_sound = has_sound
+        self._update_buttom_status()
+        
     def _update_buttom_status(self):
         if not self.equal_pairs:
-            if (self._card1_has_text or self._card1_has_picture) and (self._card2_has_text or self._card2_has_picture):
+            if (self._card1_has_text or self._card1_has_picture or self._card1_has_sound) and (self._card2_has_text or self._card2_has_picture or self._card2_has_sound):
                 self._addbutton.set_sensitive(True)
                 self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:
                 self._addbutton.set_sensitive(False)
                 self._updatebutton.set_sensitive(False)
         else:
-            if self._card1_has_text or self._card1_has_picture:
+            if self._card1_has_text or self._card1_has_picture or self._card1_has_sound:
                 self._addbutton.set_sensitive(True)
                 self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:
@@ -175,6 +203,7 @@ class CardEditor(gtk.EventBox):
     __gsignals__ = {
         'has-text': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
         'has-picture': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'has-sound': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
     }
     
     def __init__(self):
@@ -275,9 +304,8 @@ class CardEditor(gtk.EventBox):
             del chooser
             
     def _load_image(self, index):
-        pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(index,
-                theme.PAIR_SIZE - theme.PAD*2,
-                theme.PAIR_SIZE - theme.PAD*2)
+        pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
+            index, theme.PAIR_SIZE - theme.PAD*2, theme.PAIR_SIZE - theme.PAD*2)
         self.card.set_pixbuf(pixbuf_t)    
         _logger.error('Picture Loaded: '+index)
         self.emit('has-picture', True)
@@ -304,13 +332,19 @@ class CardEditor(gtk.EventBox):
             chooser.destroy()
             del chooser
             
-        if jobject and jobject.file_path:    
-            self._load_audio(jobject.file_path)
+        if jobject and jobject.file_path:            
+            self._load_audio(jobject.file_path, jobject.metadata['title'])
             
-    def _load_audio(self, index):
+    def _load_audio(self, index, title):
         dst = join(self.temp_folder, basename(index))
         shutil.copy(index, dst)
         self.set_snd(dst)
+        self.card.change_text(title)
+        icon_theme = gtk.icon_theme_get_default()
+        pixbuf_t = icon_theme.load_icon("audio-x-generic",
+                                        style.STANDARD_ICON_SIZE, 0)
+        self.card.set_pixbuf(pixbuf_t)    
+        self.emit('has-sound', True)
         _logger.debug('Audio Loaded: '+dst)
     
     def set_snd(self, snd):
@@ -324,4 +358,5 @@ class CardEditor(gtk.EventBox):
         self.card.set_pixbuf(None)
         self.snd = None
         self.emit('has-text', False)
-        self.emit('has-picture', False)    
+        self.emit('has-picture', False)
+        self.emit('has-sound', False)
