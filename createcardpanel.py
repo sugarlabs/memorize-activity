@@ -333,13 +333,12 @@ class CardEditor(gtk.EventBox):
             del chooser
             
         if jobject and jobject.file_path:            
-            self._load_audio(jobject.file_path, jobject.metadata['title'])
+            self._load_audio(jobject.file_path)
             
-    def _load_audio(self, index, title):
+    def _load_audio(self, index):
         dst = join(self.temp_folder, basename(index))
         shutil.copy(index, dst)
         self.set_snd(dst)
-        self.card.change_text(title)
         icon_theme = gtk.icon_theme_get_default()
         pixbuf_t = icon_theme.load_icon("audio-x-generic",
                                         style.STANDARD_ICON_SIZE, 0)
