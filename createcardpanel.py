@@ -306,10 +306,20 @@ class CardEditor(gtk.EventBox):
     def _load_image(self, index):
         pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
             index, theme.PAIR_SIZE - theme.PAD*2, theme.PAIR_SIZE - theme.PAD*2)
-        self.card.set_pixbuf(pixbuf_t)    
+        if pixbuf_t.get_width() > pixbuf_t.get_height():
+            size = pixbuf_t.get_width()
+        else:
+            size = pixbuf_t.get_height()
+        pixbuf_z = gtk.gdk.pixbuf_new_from_file_at_size(
+            'images/white.png', size, size)    
+        pixbuf_t.composite(pixbuf_z, 0, 0, pixbuf_t.get_width(), 
+                           pixbuf_t.get_height(), 0, 0, 1, 1, 
+                           gtk.gdk.INTERP_BILINEAR, 255)
+        self.card.set_pixbuf(pixbuf_z)
         _logger.error('Picture Loaded: '+index)
         self.emit('has-picture', True)
         del pixbuf_t
+        del pixbuf_z
         
     def _import_audio(self, widget, event):
         if hasattr(mime, 'GENERIC_TYPE_AUDIO'):
