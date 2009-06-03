@@ -351,7 +351,7 @@ class CardEditor(gtk.EventBox):
         self.set_snd(dst)
         icon_theme = gtk.icon_theme_get_default()
         pixbuf_t = icon_theme.load_icon("audio-x-generic",
-                                        style.STANDARD_ICON_SIZE, 0)
+                                        style.XLARGE_ICON_SIZE, 0)
         self.card.set_pixbuf(pixbuf_t)    
         self.emit('has-sound', True)
         _logger.debug('Audio Loaded: '+dst)
