@@ -334,5 +334,4 @@ class Model(object):
         gameObject.metadata['mime_type'] = 'application/x-memorize-project'
         gameObject.metadata['icon-color'] = color
         gameObject.file_path = path
-        datastore.write(gameObject)      
-                
+        datastore.write(gameObject)

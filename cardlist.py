@@ -30,7 +30,6 @@ import random
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 from sugar import profile
-from sugar.datastore import datastore
 
 import theme
 
@@ -170,15 +169,8 @@ class CardList(gtk.EventBox):
             game_model.pairs[pair] = pair_card
         game_model.write(equal_pairs, grouped)
         zip.write(join(temp_folder, 'game.xml'), 'game.xml')
-        zip.close()
-        
-        # Saves the zip in datastore
-        gameObject = datastore.create()
-        gameObject.metadata['title'] = game_name
-        gameObject.metadata['mime_type'] = 'application/x-memorize-project'
-        gameObject.metadata['icon-color'] = profile.get_color().to_string()
-        gameObject.file_path = join(temp_folder, 'game.zip')
-        datastore.write(gameObject)        
+        zip.close()        
+        game_model.save_byte_array(join(temp_folder, 'game.zip'), game_name)
         
     def clean_list(self, button = None):
         if button != None:
