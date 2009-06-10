@@ -158,7 +158,11 @@ class MemorizeActivity(Activity):
 
         if self.metadata['mime_type'] == 'application/x-memorize-project':
             self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
-            self.game.change_game(None, file_path, 4, 'file', self.metadata['title'], self.metadata['icon-color'])
+            if self.metadata.has_key('icon-color'):
+                color = self.metadata['icon-color']
+            else:
+                color = profile.get_color().to_string()
+            self.game.change_game(None, file_path, 4, 'file', self.metadata['title'], color)
             
     def change_mode(self, notebook, index):
         if index == _TOOLBAR_CREATE:

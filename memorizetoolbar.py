@@ -22,6 +22,8 @@ from gettext import gettext as _
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.toolcombobox import ToolComboBox
 from sugar.graphics.objectchooser import ObjectChooser
+from sugar import profile
+
 import logging
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
@@ -129,7 +131,10 @@ class MemorizeToolbar(gtk.Toolbar):
             
         if jobject and jobject.file_path:   
             title = jobject.metadata['title']
-            color = jobject.metadata['icon-color']
+            if jobject.metadata.has_key('icon-color'):
+                color = jobject.metadata['icon-color']
+            else:
+                color = profile.get_color().to_string()
             self.emit('game_changed', jobject.file_path, 4, 'file', title, color)
              
             if self.jobject != None:
