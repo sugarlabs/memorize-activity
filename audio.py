@@ -20,7 +20,7 @@ import logging
 
 _logger = logging.getLogger('memorize-activity')
 
-class Audio:
+class Audio(object):
     def __init__(self):
         self._player = gst.element_factory_make('playbin', 'player')
         fakesink = gst.element_factory_make('fakesink', 'my-fakesink')
