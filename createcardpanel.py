@@ -60,7 +60,8 @@ class CreateCardPanel(gtk.EventBox):
         self._addbutton.connect('pressed', self.emit_add_pair)
         self._addbutton.set_size_request(
                 theme.PAIR_SIZE + theme.PAD*4, -1)
-        
+        self._addbutton.set_sensitive(False)
+
         # Set update selected pair buttom
         update_icon = join(dirname(__file__), 'images', 'pair-update.svg')
         update_image = gtk.Image()
@@ -70,7 +71,8 @@ class CreateCardPanel(gtk.EventBox):
         self._updatebutton.connect('pressed', self.emit_update_pair)
         self._updatebutton.set_size_request(
                 theme.PAIR_SIZE + theme.PAD*4, -1)
-        
+        self._updatebutton.set_sensitive(False)
+
         # Set card editors
         self.cardeditor1 = CardEditor()
         self.cardeditor2 = CardEditor()
