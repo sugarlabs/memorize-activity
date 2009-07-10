@@ -48,6 +48,8 @@ class CreateCardPanel(gtk.EventBox):
         
         self.equal_pairs = False
         self._updatebutton_sensitive = False
+        self._card1_has_sound = False
+        self._card2_has_sound = False
         
         # Set the add new pair buttom
         add_icon = join(dirname(__file__), 'images', 'pair-add.svg')
