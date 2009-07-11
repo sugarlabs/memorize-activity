@@ -25,12 +25,14 @@ import gtk
 import pango
 import logging
 
+from sugar.util import LRU
+
 import theme
 
 _logger = logging.getLogger('memorize-activity')
 
 class SvgCard(gtk.DrawingArea):
-        
+
     border_svg = join(dirname(__file__), 'images', 'card.svg')
 
     # Default properties
@@ -41,23 +43,24 @@ class SvgCard(gtk.DrawingArea):
     default_props['front'] = {'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}
     default_props['front_h'] = {'fill_color':'#555555', 'stroke_color':'#888888', 'opacity':'1'}
     default_props['front_text'] = {'text_color':'#ffffff'}
-    
+
     cache = {}
-    
+
     def __init__(self, id, pprops, jpeg, size, align, bg_color='#000000'):
         gtk.DrawingArea.__init__(self)
         self.set_size_request(size, size)
         self.bg_color = bg_color
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))        
+        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
         self.flipped = False
         self.flipped_once = False
-        self.id = id      
+        self.id = id
         self.jpeg = jpeg
-        self.show_jpeg = False 
-        self.show_text = False 
+        self.show_jpeg = False
+        self.show_text = False
         self.size = size
         self.align = align
-                
+        self.text_layouts = [None, None]
+
         # Views properties
         views = ['back', 'back_h', 'back_text', 'front', 'front_h', 'front_text']
         self.pprops = pprops
@@ -66,16 +69,11 @@ class SvgCard(gtk.DrawingArea):
             self.props[view] = {}
             self.props[view].update(self.default_props[view])
             self.props[view].update(pprops.get(view, {}))
-    
+
         if len(self.props['back_text'].get('card_text', '')) > 0:
-            self.back_layout = self.get_text_layout(self.props['back_text']['card_text'], self.size-12)
-            self.back_layout_position = (self.size -(self.back_layout.get_size()[1]/1000))/2
-            self.current_layout = self.back_layout
-            self.current_layout_position = self.back_layout_position
-            self.current_text_color = self.props['back_text']['text_color']
             self.show_text = True
         self.current_face = 'back'
-        
+
         # Set events and listeners
         self.connect('expose-event', self._expose_cb)
         self.set_events(gtk.gdk.ALL_EVENTS_MASK)
@@ -86,11 +84,31 @@ class SvgCard(gtk.DrawingArea):
         gc = self.window.new_gc()
         pixbuf = self._read_icon_data(self.current_face)
         self.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
+
         if self.show_jpeg:
             self.window.draw_pixbuf(None, self.jpeg, 0, 0,
                     theme.SVG_PAD, theme.SVG_PAD)
+
         if self.show_text:
-            widget.window.draw_layout(gc, x=6, y=self.current_layout_position, layout=self.current_layout, foreground=gtk.gdk.color_parse(self.current_text_color))
+            props = self.props[self.flipped and 'front_text' or 'back_text']
+            layout = self.text_layouts[self.flipped]
+
+            if not layout:
+                layout = self.text_layouts[self.flipped] = \
+                        self.create_text_layout(props['card_text'])
+
+            width, height = layout.get_pixel_size()
+            y = (self.size - height)/2
+            if self.flipped:
+                if self.align == '2': # top
+                    y = 0
+                elif self.align == '3': # bottom
+                    y = self.size - height
+
+            widget.window.draw_layout(gc, layout=layout,
+                    x=(self.size - width)/2, y=y,
+                    foreground=gtk.gdk.color_parse(props['text_color']))
+
         return False
 
     def _read_icon_data(self, view):
@@ -98,7 +116,7 @@ class SvgCard(gtk.DrawingArea):
         set  = str(self.size)+dict.get('fill_color')+dict.get('stroke_color')
         if self.cache.has_key(set):
             return self.cache[set]
-            
+
         icon_file = open(self.border_svg, 'r')
         data = icon_file.read()
         icon_file.close()
@@ -137,14 +155,14 @@ class SvgCard(gtk.DrawingArea):
             self.jpeg = pixbuf
             del pixbuf
             self.show_jpeg = True
-        
+
         self.queue_draw()
         while gtk.events_pending():
             gtk.main_iteration()
-    
+
     def get_pixbuf(self):
         return self.jpeg
-        
+
     def set_highlight(self, status, mouse = False):
         if self.flipped:
             if mouse:
@@ -153,55 +171,47 @@ class SvgCard(gtk.DrawingArea):
                 self.current_face = 'front_h'
             else:
                 self.current_face = 'front'
-        else:  
+        else:
             if status:
                 self.current_face = 'back_h'
             else:
                 self.current_face = 'back'
-        self.queue_draw()                 
-            
+        self.queue_draw()
+
     def flip(self):
-        if not self.flipped:
-            if not self.flipped_once:
-                if self.jpeg <> None:
-                    pixbuf_t = gtk.gdk.pixbuf_new_from_file(self.jpeg)
-                    if pixbuf_t.get_width() != self.size-22 or pixbuf_t.get_height() != self.size-22:
-                        self.jpeg = pixbuf_t.scale_simple(self.size-22, self.size-22, gtk.gdk.INTERP_BILINEAR)
-                        del pixbuf_t
-                    else:
-                        self.jpeg = pixbuf_t
-                text = self.props.get('front_text', {}).get('card_text', '')        
-                if text != None and len(text) > 0:
-                    self.front_layout = self.get_text_layout(self.props['front_text']['card_text'], self.size-12)
-                    self.front_layout_position = (self.size -(self.front_layout.get_size()[1]/1000))/2
-                self.flipped_once = True
-            
+        if self.flipped:
+            return
+
+        if not self.flipped_once:
             if self.jpeg <> None:
-                self.show_jpeg = True
-            text = self.props.get('front_text', {}).get('card_text', '')        
-            if text != None and len(text) > 0:
-                self.current_layout = self.front_layout
-                self.current_layout_position = self.front_layout_position
-                self.current_text_color = self.props['front_text']['text_color']
-                self.show_text = True
-            else:
-                self.show_text = False
+                pixbuf_t = gtk.gdk.pixbuf_new_from_file(self.jpeg)
+                if pixbuf_t.get_width() != self.size-22 or pixbuf_t.get_height() != self.size-22:
+                    self.jpeg = pixbuf_t.scale_simple(self.size-22, self.size-22, gtk.gdk.INTERP_BILINEAR)
+                    del pixbuf_t
+                else:
+                    self.jpeg = pixbuf_t
+            self.flipped_once = True
 
-            self.current_face = 'front'
+        if self.jpeg <> None:
+            self.show_jpeg = True
+        text = self.props.get('front_text', {}).get('card_text', '')
+        if text != None and len(text) > 0:
+            self.show_text = True
+        else:
+            self.show_text = False
 
-            self.flipped  = True
-            self.queue_draw()
-            
-            while gtk.events_pending():
-                gtk.main_iteration()    
-            gc.collect()        
-    
+        self.current_face = 'front'
+
+        self.flipped  = True
+        self.queue_draw()
+
+        while gtk.events_pending():
+            gtk.main_iteration()
+        gc.collect()
+
     def flop(self):
         self.current_face = 'back'
         if len(self.props['back_text'].get('card_text', '')) > 0:
-            self.current_layout = self.back_layout
-            self.current_layout_position = self.back_layout_position
-            self.current_text_color = self.props['back_text']['text_color']
             self.show_text = True
         else:
             self.show_text = False
@@ -221,53 +231,49 @@ class SvgCard(gtk.DrawingArea):
             stroke_color = self.default_propsfront_text.get('front_border').get('stroke_color')
             self.set_border(fill_color, stroke_color)
             self.flop()
-            
-    def get_text_layout(self, text, size):
-        if self.size >= 170:
-            font_sizes = [80, 60, 46, 36, 28, 22, 18, 12] 
-        elif self.size >= 140:
-            font_sizes = [60, 45, 34, 28, 24, 20, 16, 10] 
-        elif self.size >= 85: 
-            font_sizes = [45, 32, 26, 22, 20, 18, 14, 10] 
-        elif self.size >= 50:
-            font_sizes = [30, 24, 18, 16, 14, 12, 12, 10]
-        else:
-            font_sizes = [16, 12, 10, 8, 8, 8, 8, 8]
 
-        # Set font size considering string length
-        if len(text) <= 8:
-            font_size = font_sizes[len(text)-1]
-        else: 
-            font_size = 10
+    def create_text_layout(self, text):
+        key = (self.size, text)
+        if key in _text_layout_cache:
+            return _text_layout_cache[key]
 
-        # Set Pango context and Pango layout
-        context = self.create_pango_context()
-        layout = self.create_pango_layout(text)
-        desc = pango.FontDescription('Deja Vu Sans bold '+str(font_size))
-        layout.set_font_description(desc)    
-        layout.set_alignment(pango.ALIGN_CENTER)
-        layout.set_width(size*1000)
+        max_lines_count = len([i for i in text.split(' ') if i])
+
+        for size in range(80, 66, -8) + range(66, 44, -6) + \
+                range(44, 24, -4) + range(24, 15, -2) + range(15, 7, -1):
+            layout = self.create_pango_layout(text)
+            layout.set_width(PIXELS_PANGO(self.size - theme.SVG_PAD))
+            layout.set_wrap(pango.WRAP_WORD_CHAR)
+            desc = pango.FontDescription('Deja Vu Sans bold ' + str(size))
+            layout.set_font_description(desc)
+
+            if layout.get_line_count() <= max_lines_count and \
+                    layout.get_pixel_size()[1] <= self.size:
+                break
+
+        if layout.get_line_count() > 1:
+            # XXX for single line ALIGN_CENTER wrongly affects on text position
+            # and also in some cases for multilined text
+            layout.set_alignment(pango.ALIGN_CENTER)
+
+        _text_layout_cache[key] = layout
+
         return layout
 
     def set_background(self, color):
         self.bg_color = color
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
-    
+
     def change_text(self, newtext):
+        self.text_layouts[self.flipped] = None
         self.props['front_text']['card_text'] = newtext
-        self.front_layout = self.get_text_layout(self.props['front_text'].get('card_text', ''), self.size-11)    
-        if self.align == '2': # top
-            self.front_layout_position = 6
-        elif self.align == '3': # bottom
-            self.front_layout_position = self.size -(self.front_layout.get_size()[1]/1000)
-        else: # center and none
-            self.front_layout_position = (self.size -(self.front_layout.get_size()[1]/1000))/2
-            
-        self.current_layout = self.front_layout
-        self.current_layout_position = self.front_layout_position
-        self.current_text_color = self.props['front_text']['text_color']
         if len(newtext) > 0:
             self.show_text = True
-        self.queue_draw()        
+        self.queue_draw()
     def get_text(self):
         return self.props['front_text'].get('card_text', '')
+
+def PIXELS_PANGO(x):
+    return x * 1000
+
+_text_layout_cache = LRU(50)
