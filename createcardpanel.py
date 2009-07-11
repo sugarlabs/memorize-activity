@@ -20,6 +20,7 @@
 import gtk
 from os import environ
 from os.path import join, dirname, basename
+import hippo
 
 import shutil
 import tempfile
@@ -31,8 +32,13 @@ from xml.dom.minidom import parse
 from sugar.graphics.objectchooser import ObjectChooser
 from sugar import mime
 from sugar.graphics import style
+from sugar.graphics.toolbutton import ToolButton
+from port.toolbar import Toolbar, ToolbarButton
+from port.widgets import CanvasRoundBox, ToolComboBox
+from port import chooser
 
 import theme
+from speak.widgets import Voices
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -45,7 +51,7 @@ class CreateCardPanel(gtk.EventBox):
     
     def __init__(self):
         gtk.EventBox.__init__(self)
-        
+
         self.equal_pairs = False
         self._updatebutton_sensitive = False
         self._card1_has_sound = False
@@ -83,20 +89,23 @@ class CreateCardPanel(gtk.EventBox):
         self.cardeditor2.connect('has-picture', self.receive_picture_signals)
         self.cardeditor1.connect('has-sound', self.receive_sound_signals)
         self.cardeditor2.connect('has-sound', self.receive_sound_signals)
-        
+
         # Create table and add components to the table
         self.table = gtk.Table()
         self.table.set_homogeneous(False)
         self.table.set_col_spacings(theme.PAD)
         self.table.set_row_spacings(theme.PAD)
         self.table.set_border_width(theme.PAD)
-        self.table.attach(self.cardeditor1, 0, 1, 0, 1, yoptions=gtk.SHRINK)
-        self.table.attach(self.cardeditor2, 1, 2, 0, 1, yoptions=gtk.SHRINK)
+        self.table.attach(self.cardeditor1, 0, 1, 0, 1)#, yoptions=gtk.SHRINK)
+        self.table.attach(self.cardeditor2, 1, 2, 0, 1)#, yoptions=gtk.SHRINK)
         self.table.attach(self._addbutton, 0, 1, 1, 2, yoptions=gtk.SHRINK)
         self.table.attach(self._updatebutton, 1, 2, 1, 2, yoptions=gtk.SHRINK)
-        self.add(self.table)
+
+        box = gtk.VBox()
+        box.pack_start(self.table, False)
+        self.add(box)
         self.show_all()
-        
+
     def emit_add_pair(self, widget):
         self._addbutton.set_sensitive(False)
         if self.equal_pairs:
@@ -201,44 +210,31 @@ class CreateCardPanel(gtk.EventBox):
             else:
                 self._addbutton.set_sensitive(False)
                 self._updatebutton.set_sensitive(False)
-                
+
 class CardEditor(gtk.EventBox):
-    
+
     __gsignals__ = {
-        'has-text': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
-        'has-picture': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
-        'has-sound': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'has-text': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'has-picture': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'has-sound': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
     }
-    
+
     def __init__(self):
         gtk.EventBox.__init__(self)
 
         tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
-        
+
         table = gtk.Table()
         self.previewlabel = gtk.Label(_('Preview:'))
         self.previewlabel.set_alignment(0, 1)
         self.textlabel = gtk.Label(_('Text:'))
         self.textlabel.set_alignment(0, 1)
-        
-        picture_icon = join(dirname(__file__), 'images', 'import_picture.svg')
-        picture_image = gtk.Image()
-        picture_image.set_from_file(picture_icon)
-        self.browsepicture = gtk.Button()
-        self.browsepicture.set_image(picture_image)
-        self.browsepicture.connect('button-press-event', self._import_image)
-        
-        sound_icon = join(dirname(__file__), 'images', 'import_sound.svg')
-        sound_image = gtk.Image()
-        sound_image.set_from_file(sound_icon)
-        self.browsesound = gtk.Button()
-        self.browsesound.set_image(sound_image)
-        self.browsesound.connect('button-press-event', self._import_audio)
+
         self.snd = None
         self.textentry = gtk.Entry()
         self.textentry.connect('changed', self.update_text)
-                
+
         table.set_homogeneous(False)
         table.set_col_spacings(theme.PAD)
         table.set_row_spacings(theme.PAD)
@@ -251,7 +247,7 @@ class CardEditor(gtk.EventBox):
                                     'opacity'       : '1' } },
                 None, theme.PAIR_SIZE, 1, '#c0c0c0')
         self.card.flip()
-        
+
         table.attach(self.previewlabel, 0, 2, 0, 1, yoptions=gtk.SHRINK)
         table.attach(self.card, 0, 2, 1, 2, gtk.SHRINK, gtk.SHRINK,
                 theme.PAD)
@@ -259,20 +255,58 @@ class CardEditor(gtk.EventBox):
         table.attach(self.textlabel, 0, 1, 2, 3, yoptions=gtk.SHRINK)
         table.attach(self.textentry, 0, 2, 3, 4, yoptions=gtk.SHRINK)
         self.textentry.set_size_request(0, -1)
-        #Picture label and entry
-        table.attach(self.browsepicture, 0, 1, 4, 5, yoptions=gtk.SHRINK)
-        #Sound label and entry
-        table.attach(self.browsesound, 1, 2, 4, 5, yoptions=gtk.SHRINK)
-        
+
+        toolbar = Toolbar(hpad=0)
+        toolbar.top.modify_bg(gtk.STATE_NORMAL,
+                style.COLOR_PANEL_GREY.get_gdk_color())
+
+        browsepicture = ToolButton(icon_name='import_picture',
+                tooltip=_('Insert picture'))
+        toolbar.top.insert(browsepicture, -1)
+
+        browsesound = ToolButton(icon_name='import_sound',
+                tooltip=_('Insert sound'))
+        toolbar.top.insert(browsesound, -1)
+
+        usespeak_bar = gtk.Toolbar()
+        usespeak_bar.insert(ToolComboBox(Voices()), -1)
+        usespeak_play = ToolButton(icon_name='media-playback-start',
+                tooltip=_('Pronounce entered text'))
+        usespeak_bar.insert(usespeak_play, -1)
+        usespeak_bar.show_all()
+
+        usespeak = ToolbarButton(toolbar, usespeak_bar,
+                icon_name='computer-xo',
+                tooltip=_('Pronounce text while fliping tile'),
+                expand_bg=style.COLOR_PANEL_GREY)
+        toolbar.top.insert(usespeak, -1)
+
+        browsepicture.connect('clicked', self._load_image, usespeak)
+        browsesound.connect('clicked', self._load_audio, usespeak)
+        usespeak.connect('clicked', self._usespeak)
+
+        toolbar_box = CanvasRoundBox(
+                radius=8,
+                border=2,
+                border_color=style.COLOR_BUTTON_GREY.get_int(),
+                background_color=style.COLOR_PANEL_GREY.get_int())
+        toolbar_box.append(hippo.CanvasWidget(widget=toolbar),
+                hippo.PACK_EXPAND)
+        toolbar_canvas = hippo.Canvas()
+        toolbar_canvas.set_root(toolbar_box)
+
+        #toolbar.show_all()
+        table.attach(toolbar_canvas, 0, 2, 4, 5, yoptions=gtk.SHRINK)
+
         self.add(table)
-        
+
     def update_text(self, entry):
         self.card.change_text(entry.get_text())
         if len(entry.get_text()) == 0:
             self.emit('has-text', False)
         else:
             self.emit('has-text', True)
-        
+
     def get_text(self):
         return self.textentry.get_text()
 
@@ -280,91 +314,65 @@ class CardEditor(gtk.EventBox):
         if newtext == None:
             newtext = ''
         self.textentry.set_text(newtext)
-        
+
     def get_pixbuf(self):
         return self.card.get_pixbuf()
-    
+
     def set_pixbuf(self, pixbuf):
         self.card.set_pixbuf(pixbuf)
-        
-    def _import_image(self, widget, event):
-        if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
-            filter = { 'what_filter': mime.GENERIC_TYPE_IMAGE }
-        else:
-            filter = { }
 
-        chooser = ObjectChooser(_('Choose image'), None,
-                gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-                **filter)
-        try:
-            result = chooser.run()
-            if result == gtk.RESPONSE_ACCEPT:
-                _logger.debug('ObjectChooser: %r' % chooser.get_selected_object())
-                jobject = chooser.get_selected_object()
-                if jobject and jobject.file_path:
-                    self._load_image(jobject.file_path)
-        finally:
-            chooser.destroy()
-            del chooser
-            
-    def _load_image(self, index):
-        pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
-            index, theme.PAIR_SIZE - theme.PAD*2, theme.PAIR_SIZE - theme.PAD*2)
-        if pixbuf_t.get_width() > pixbuf_t.get_height():
-            size = pixbuf_t.get_width()
-        else:
-            size = pixbuf_t.get_height()
-        pixbuf_z = gtk.gdk.pixbuf_new_from_file_at_size(
-            'images/white.png', size, size)    
-        pixbuf_t.composite(pixbuf_z, 0, 0, pixbuf_t.get_width(), 
-                           pixbuf_t.get_height(), 0, 0, 1, 1, 
-                           gtk.gdk.INTERP_BILINEAR, 255)
-        self.card.set_pixbuf(pixbuf_z)
-        _logger.error('Picture Loaded: '+index)
-        self.emit('has-picture', True)
-        del pixbuf_t
-        del pixbuf_z
-        
-    def _import_audio(self, widget, event):
-        if hasattr(mime, 'GENERIC_TYPE_AUDIO'):
-            filter = { 'what_filter': mime.GENERIC_TYPE_AUDIO }
-        else:
-            filter = { }
+    def _load_image(self, widget, usespeak):
+        def load(index):
+            usespeak.expanded = False
 
-        chooser = ObjectChooser(_('Choose audio'), None,
-                gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-                **filter)
-        jobject = ''
-        try:
-            result = chooser.run()
-            if result == gtk.RESPONSE_ACCEPT:
-                _logger.debug('ObjectChooser: %r' % chooser.get_selected_object())
-                jobject = chooser.get_selected_object()
-                if not jobject or  not jobject.file_path:
-                    return
-        finally:
-            chooser.destroy()
-            del chooser
-            
-        if jobject and jobject.file_path:            
-            self._load_audio(jobject.file_path)
-            
-    def _load_audio(self, index):
-        dst = join(self.temp_folder, basename(index))
-        shutil.copy(index, dst)
-        self.set_snd(dst)
-        icon_theme = gtk.icon_theme_get_default()
-        pixbuf_t = icon_theme.load_icon("audio-x-generic",
-                                        style.XLARGE_ICON_SIZE, 0)
-        self.card.set_pixbuf(pixbuf_t)    
-        self.emit('has-sound', True)
-        _logger.debug('Audio Loaded: '+dst)
-    
+            pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
+                    index, theme.PAIR_SIZE - theme.PAD*2,
+                    theme.PAIR_SIZE - theme.PAD*2)
+            size = max(pixbuf_t.get_width(), pixbuf_t.get_height())
+            pixbuf_z = gtk.gdk.pixbuf_new_from_file_at_size(
+                'images/white.png', size, size)
+            pixbuf_t.composite(pixbuf_z, 0, 0, pixbuf_t.get_width(),
+                               pixbuf_t.get_height(), 0, 0, 1, 1,
+                               gtk.gdk.INTERP_BILINEAR, 255)
+            self.card.set_pixbuf(pixbuf_z)
+            _logger.debug('Picture Loaded: '+index)
+            self.emit('has-picture', True)
+            del pixbuf_t
+            del pixbuf_z
+
+        chooser.pick(what=chooser.IMAGE,
+                cb=lambda jobject: load(jobject.file_path))
+
+    def _load_audio(self, widget, usespeak):
+        def load(index):
+            usespeak.expanded = False
+
+            dst = join(self.temp_folder, basename(index))
+            shutil.copy(index, dst)
+            self.set_snd(dst)
+            icon_theme = gtk.icon_theme_get_default()
+            pixbuf_t = icon_theme.load_icon("audio-x-generic",
+                                            style.XLARGE_ICON_SIZE, 0)
+            self.card.set_pixbuf(pixbuf_t)
+            self.emit('has-sound', True)
+            _logger.debug('Audio Loaded: '+dst)
+
+        chooser.pick(what=chooser.AUDIO,
+                cb=lambda jobject: load(jobject.file_path))
+
+    def _usespeak(self, widget):
+        if not widget.expanded:
+            return
+        self.snd = None
+        self.card.set_pixbuf(None)
+        self.emit('has-sound', False)
+        self.emit('has-picture', False)
+
     def set_snd(self, snd):
         self.snd = snd
-    
+
     def get_snd(self):
-        return self.snd    
+        return self.snd
 
     def clean(self):
         self.textentry.set_text('')
