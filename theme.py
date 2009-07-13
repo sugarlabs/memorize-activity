@@ -20,7 +20,7 @@ import gtk
 PAIR_SIZE = gtk.gdk.screen_width() / 5
 PAD = 10
 SVG_PAD = 10
-CARD_PAD = 2
+CARD_PAD = 4
 BODY_WIDTH = 45
 BODY_HEIGHT = 55
 STARS_COLS = 6
