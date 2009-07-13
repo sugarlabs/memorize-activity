@@ -46,8 +46,8 @@ _logger = logging.getLogger('memorize-activity')
 
 class CreateCardPanel(gtk.EventBox):
     __gsignals__ = {
-        'add-pair': (SIGNAL_RUN_FIRST, None, 6 * [TYPE_PYOBJECT]),
-        'update-pair': (SIGNAL_RUN_FIRST, None, 6 * [TYPE_PYOBJECT]),
+        'add-pair': (SIGNAL_RUN_FIRST, None, 8 * [TYPE_PYOBJECT]),
+        'update-pair': (SIGNAL_RUN_FIRST, None, 8 * [TYPE_PYOBJECT]),
     }
 
     def __init__(self):
@@ -124,13 +124,17 @@ class CreateCardPanel(gtk.EventBox):
                       self.cardeditor1.get_text(), 
                       self.cardeditor1.get_pixbuf(), 
                       self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
+                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd(),
+                      self.cardeditor1.get_speak(), self.cardeditor1.get_speak()
+                      )
         else:
             self.emit('add-pair', self.cardeditor1.get_text(), 
                       self.cardeditor2.get_text(), 
                       self.cardeditor1.get_pixbuf(), 
                       self.cardeditor2.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd())
+                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd(),
+                      self.cardeditor1.get_speak(), self.cardeditor2.get_speak()
+                      )
         self.clean(None)
         
 
@@ -141,17 +145,21 @@ class CreateCardPanel(gtk.EventBox):
                       self.cardeditor1.get_text(), 
                       self.cardeditor1.get_pixbuf(), 
                       self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd())
+                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd(),
+                      self.cardeditor1.get_speak(), self.cardeditor1.get_speak()
+                      )
         else:
             self.emit('update-pair', self.cardeditor1.get_text(), 
                       self.cardeditor2.get_text(), 
                       self.cardeditor1.get_pixbuf(), 
                       self.cardeditor2.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd())
+                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd(),
+                      self.cardeditor1.get_speak(), self.cardeditor2.get_speak()
+                      )
         self.clean(None)
                     
     def pair_selected(self, widget, selected, newtext1, newtext2, aimg, bimg,
-            asnd, bsnd):
+            asnd, bsnd, aspeak, bspeak):
         if selected:
             self.cardeditor1.set_text(newtext1)
             self.cardeditor2.set_text(newtext2)
@@ -159,6 +167,8 @@ class CreateCardPanel(gtk.EventBox):
             self.cardeditor2.set_pixbuf(bimg)
             self.cardeditor1.set_snd(asnd)
             self.cardeditor2.set_snd(bsnd)
+            self.cardeditor1.set_speak(aspeak)
+            self.cardeditor2.set_speak(bspeak)
             self._addbutton.set_sensitive(True)
         self._updatebutton.set_sensitive(selected)
         self._updatebutton_sensitive = selected
@@ -276,14 +286,14 @@ class CardEditor(gtk.EventBox):
                 tooltip=_('Insert sound'))
         toolbar.pack_start(browsesound, False)
 
-        usespeak = ToggleToolButton(
+        self.usespeak = ToggleToolButton(
                 named_icon='computer-xo',
                 palette=SpeakPalette())
-        toolbar.pack_start(usespeak, False)
+        toolbar.pack_start(self.usespeak, False)
 
-        browsepicture.connect('clicked', self._load_image, usespeak)
-        browsesound.connect('clicked', self._load_audio, usespeak)
-        usespeak.connect('toggled', self._usespeak_cb)
+        browsepicture.connect('clicked', self._load_image)
+        browsesound.connect('clicked', self._load_audio)
+        self.usespeak.connect('toggled', self._usespeak_cb)
 
         toolbar_box = CanvasRoundBox(
                 radius=8,
@@ -313,15 +323,21 @@ class CardEditor(gtk.EventBox):
             newtext = ''
         self.textentry.set_text(newtext)
 
+    def get_speak(self):
+        return self.usespeak.props.active
+
+    def set_speak(self, enabled):
+        self.usespeak.props.active = enabled
+
     def get_pixbuf(self):
         return self.card.get_pixbuf()
 
     def set_pixbuf(self, pixbuf):
         self.card.set_pixbuf(pixbuf)
 
-    def _load_image(self, widget, usespeak):
+    def _load_image(self, widget):
         def load(index):
-            usespeak.props.active = False
+            self.usespeak.props.active = False
 
             pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
                     index, theme.PAIR_SIZE - theme.PAD*2,
@@ -341,9 +357,9 @@ class CardEditor(gtk.EventBox):
         chooser.pick(what=chooser.IMAGE,
                 cb=lambda jobject: load(jobject.file_path))
 
-    def _load_audio(self, widget, usespeak):
+    def _load_audio(self, widget):
         def load(index):
-            usespeak.props.active = False
+            self.usespeak.props.active = False
 
             dst = join(self.temp_folder, basename(index))
             shutil.copy(index, dst)
@@ -359,8 +375,11 @@ class CardEditor(gtk.EventBox):
                 cb=lambda jobject: load(jobject.file_path))
 
     def _usespeak_cb(self, widget):
+        self.card.change_speak(widget.props.active)
+
         if not widget.props.active:
             return
+
         self.snd = None
         self.card.set_pixbuf(None)
         self.emit('has-sound', False)
@@ -379,6 +398,7 @@ class CardEditor(gtk.EventBox):
         self.emit('has-text', False)
         self.emit('has-picture', False)
         self.emit('has-sound', False)
+        self.usespeak.props.active = False
 
 class SpeakPalette(Palette):
     def __init__(self):

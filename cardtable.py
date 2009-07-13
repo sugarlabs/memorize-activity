@@ -116,13 +116,14 @@ class CardTable(gtk.EventBox):
             else:
                 jpg = None
             props = {}
-            props['front_text']= {'card_text':card.get('char', '')}
-                    
+            props['front_text']= {'card_text':card.get('char', ''),
+                                  'speak': card.get('speak', False)}
+
             if card['ab']== 'a':
                 props['back_text']= {'card_text':text1}
             elif card['ab']== 'b':
                 props['back_text']= {'card_text':text2}
-            
+
             align = self.data.get('align', '1')
             card = svgcard.SvgCard(id, props, jpg, self.card_size, align)
             card.connect('enter-notify-event', self.mouse_event, [x, y])

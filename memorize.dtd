@@ -22,4 +22,6 @@
   bsnd    CDATA  #IMPLIED
   bchar   CDATA  #IMPLIED
   color	  CDATA  #IMPLIED
+  aspeak  CDATA  #IMPLIED
+  bspeak  CDATA  #IMPLIED
 >

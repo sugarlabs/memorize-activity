@@ -36,13 +36,19 @@ class Pair(gobject.GObject):
         'bimg' : (str, None, None, None, gobject.PARAM_READWRITE), 
         'bsnd' : (str, None, None, None, gobject.PARAM_READWRITE), 
         'bchar': (str, None, None, None, gobject.PARAM_READWRITE), 
-        'color': (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, gobject.PARAM_READWRITE)
+        'aspeak': (int, 'Base', 'Base', 0, 1, 0, \
+                   gobject.PARAM_READWRITE),
+        'bspeak': (int, 'Base', 'Base', 0, 1, 0, \
+                   gobject.PARAM_READWRITE),
+        'color' : (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, \
+                   gobject.PARAM_READWRITE)
     }
         
     def __init__(self):
         gobject.GObject.__init__(self)        
-        self._properties = {'aimg':None, 'asnd':None, 'achar':None, 'bimg':None, 
-                            'bsnd':None, 'bchar':None, 'color':100}                
+        self._properties = {'aimg':None, 'asnd':None, 'achar':None, 'bimg':None,
+                            'bsnd':None, 'bchar':None, 'color':100,
+                            'aspeak':False, 'bspeak':False}
         
     def do_get_property(self, pspec):
         """Retrieve a particular property from our property dictionary 
@@ -61,6 +67,10 @@ class Pair(gobject.GObject):
             return self._properties["bchar"]
         elif pspec.name == "color":
             return self._properties["color"]
+        elif pspec.name == "aspeak":
+            return self._properties["aspeak"]
+        elif pspec.name == "bspeak":
+            return self._properties["bspeak"]
 
     def set_property(self, name, value):
         if name == 'aimg':
@@ -77,6 +87,10 @@ class Pair(gobject.GObject):
             self._properties["bchar"] = value
         elif name == "color":
             self._properties["color"] = value
+        elif name == "aspeak":
+            self._properties["aspeak"] = int(value)
+        elif name == "bspeak":
+            self._properties["bspeak"] = int(value)
 
 
 class Model(object):
@@ -245,6 +259,8 @@ class Model(object):
                 elem.setProp("bsnd", self.pairs[key].props.bsnd)
             if self.pairs[key].props.bchar != None:
                 elem.setProp("bchar", self.pairs[key].props.bchar)
+            elem.setProp("aspeak", str(self.pairs[key].props.aspeak))
+            elem.setProp("bspeak", str(self.pairs[key].props.bspeak))
             # elem.setProp("color", str(self.pairs[key].props.color))
         
         if doc.validateDtd(self.ctxt, self.dtd):
@@ -286,6 +302,9 @@ class Model(object):
                     elem['snd'] = self.pairs[key].props.asnd
                 if self.pairs[key].props.achar != None:
                     elem['char'] = self.pairs[key].props.achar
+
+                if self.pairs[key].props.aspeak != None:
+                    elem['speak'] = int(self.pairs[key].props.aspeak)
                 temp1.append(elem)
                 
                 elem = {}
@@ -298,6 +317,8 @@ class Model(object):
                     elem['snd'] = self.pairs[key].props.bsnd
                 if self.pairs[key].props.bchar != None:
                     elem['char'] = self.pairs[key].props.bchar
+                if self.pairs[key].props.bspeak != None:
+                    elem['speak'] = int(self.pairs[key].props.bspeak)
                 temp2.append(elem)    
                 i+=1
             else:

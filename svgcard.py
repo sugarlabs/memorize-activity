@@ -31,7 +31,7 @@ import theme
 
 _logger = logging.getLogger('memorize-activity')
 
-class SvgCard(gtk.DrawingArea):
+class SvgCard(gtk.EventBox):
 
     border_svg = join(dirname(__file__), 'images', 'card.svg')
 
@@ -39,18 +39,18 @@ class SvgCard(gtk.DrawingArea):
     default_props = {}
     default_props['back'] = {'fill_color':'#b2b3b7', 'stroke_color':'#b2b3b7', 'opacity':'1'}
     default_props['back_h'] = {'fill_color':'#b2b3b7', 'stroke_color':'#ffffff', 'opacity':'1'}
-    default_props['back_text'] = {'text_color':'#c7c8cc'}
+    default_props['back_text'] = {'text_color':'#c7c8cc', 'speak':False}
     default_props['front'] = {'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}
     default_props['front_h'] = {'fill_color':'#555555', 'stroke_color':'#888888', 'opacity':'1'}
-    default_props['front_text'] = {'text_color':'#ffffff'}
+    default_props['front_text'] = {'text_color':'#ffffff', 'speak':False}
 
     cache = {}
 
     def __init__(self, id, pprops, jpeg, size, align, bg_color='#000000'):
-        gtk.DrawingArea.__init__(self)
+        gtk.EventBox.__init__(self)
+
         self.set_size_request(size, size)
         self.bg_color = bg_color
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
         self.flipped = False
         self.flipped_once = False
         self.id = id
@@ -74,19 +74,24 @@ class SvgCard(gtk.DrawingArea):
             self.show_text = True
         self.current_face = 'back'
 
-        # Set events and listeners
-        self.connect('expose-event', self._expose_cb)
-        self.set_events(gtk.gdk.ALL_EVENTS_MASK)
+        self.draw = gtk.DrawingArea()
+        self.draw.show()
+        self.draw.modify_bg(gtk.STATE_NORMAL,
+                gtk.gdk.color_parse(self.bg_color))
+        self.draw.set_events(gtk.gdk.ALL_EVENTS_MASK)
+        self.draw.connect('expose-event', self._expose_cb)
+        self.add(self.draw)
+
         gc.collect()
         self.show()
 
     def _expose_cb(self, widget, event):
-        gc = self.window.new_gc()
+        gc = widget.window.new_gc()
         pixbuf = self._read_icon_data(self.current_face)
-        self.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
+        widget.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
 
         if self.show_jpeg:
-            self.window.draw_pixbuf(None, self.jpeg, 0, 0,
+            widget.window.draw_pixbuf(None, self.jpeg, 0, 0,
                     theme.SVG_PAD, theme.SVG_PAD)
 
         if self.show_text:
@@ -140,7 +145,7 @@ class SvgCard(gtk.DrawingArea):
     
     def set_border(self, stroke_color, fill_color):
         self.props['front'].update({'fill_color':fill_color, 'stroke_color':stroke_color})
-        self.queue_draw()
+        self.draw.queue_draw()
         while gtk.events_pending():
             gtk.main_iteration()        
     
@@ -156,7 +161,7 @@ class SvgCard(gtk.DrawingArea):
             del pixbuf
             self.show_jpeg = True
 
-        self.queue_draw()
+        self.draw.queue_draw()
         while gtk.events_pending():
             gtk.main_iteration()
 
@@ -176,7 +181,7 @@ class SvgCard(gtk.DrawingArea):
                 self.current_face = 'back_h'
             else:
                 self.current_face = 'back'
-        self.queue_draw()
+        self.draw.queue_draw()
 
     def flip(self):
         if self.flipped:
@@ -203,7 +208,7 @@ class SvgCard(gtk.DrawingArea):
         self.current_face = 'front'
 
         self.flipped  = True
-        self.queue_draw()
+        self.draw.queue_draw()
 
         while gtk.events_pending():
             gtk.main_iteration()
@@ -217,7 +222,7 @@ class SvgCard(gtk.DrawingArea):
             self.show_text = False
         self.flipped = False
         self.show_jpeg = False
-        self.queue_draw()
+        self.draw.queue_draw()
         
     def is_flipped(self):
         return self.flipped
@@ -262,16 +267,23 @@ class SvgCard(gtk.DrawingArea):
 
     def set_background(self, color):
         self.bg_color = color
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
+        self.draw.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
 
     def change_text(self, newtext):
         self.text_layouts[self.flipped] = None
         self.props['front_text']['card_text'] = newtext
         if len(newtext) > 0:
             self.show_text = True
-        self.queue_draw()
+        self.draw.queue_draw()
+
     def get_text(self):
         return self.props['front_text'].get('card_text', '')
+
+    def change_speak(self, enable):
+        self.props['front_text']['speak'] = enable
+
+    def get_speak(self):
+        return self.props['front_text']['speak']
 
 def PIXELS_PANGO(x):
     return x * 1000
