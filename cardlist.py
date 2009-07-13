@@ -57,7 +57,7 @@ class CardList(gtk.EventBox):
         self.vbox.pack_end(fill_box, True, True)
                    
         scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scroll.add_with_viewport(self.vbox)
         scroll.set_border_width(0)
         scroll.get_child().modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))

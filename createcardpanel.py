@@ -33,7 +33,9 @@ from sugar.graphics.objectchooser import ObjectChooser
 from sugar import mime
 from sugar.graphics import style
 from sugar.graphics.toolbutton import ToolButton
-from port.toolbar import Toolbar, ToolbarButton
+from sugar.graphics.icon import Icon
+from sugar.graphics.palette import Palette
+from port.widgets import ToggleToolButton
 from port.widgets import CanvasRoundBox, ToolComboBox
 from port import chooser
 
@@ -43,43 +45,58 @@ from speak.widgets import Voices
 _logger = logging.getLogger('memorize-activity')
 
 class CreateCardPanel(gtk.EventBox):
-    
     __gsignals__ = {
-        'add-pair': (SIGNAL_RUN_FIRST, None, 6 * [TYPE_PYOBJECT]), 
-        'update-pair': (SIGNAL_RUN_FIRST, None, 6 * [TYPE_PYOBJECT]), 
+        'add-pair': (SIGNAL_RUN_FIRST, None, 6 * [TYPE_PYOBJECT]),
+        'update-pair': (SIGNAL_RUN_FIRST, None, 6 * [TYPE_PYOBJECT]),
     }
-    
+
     def __init__(self):
+        def make_label(icon_name, label):
+            label_box = gtk.HBox()
+            icon = Icon(
+                    icon_name=icon_name,
+                    icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+            label_box.pack_start(icon, False)
+            label = gtk.Label(label)
+            label.modify_fg(gtk.STATE_NORMAL,
+                    style.COLOR_TOOLBAR_GREY.get_gdk_color())
+            label_box.pack_start(label)
+            label_box.show_all()
+            return label_box
+
         gtk.EventBox.__init__(self)
 
         self.equal_pairs = False
         self._updatebutton_sensitive = False
         self._card1_has_sound = False
         self._card2_has_sound = False
-        
-        # Set the add new pair buttom
-        add_icon = join(dirname(__file__), 'images', 'pair-add.svg')
-        add_image = gtk.Image()
-        add_image.set_from_file(add_icon)
-        self._addbutton = gtk.Button(' ' + _('Add as new pair'))
-        self._addbutton.set_image(add_image)
-        self._addbutton.connect('pressed', self.emit_add_pair)
-        self._addbutton.set_size_request(
-                theme.PAIR_SIZE + theme.PAD*4, -1)
-        self._addbutton.set_sensitive(False)
 
-        # Set update selected pair buttom
-        update_icon = join(dirname(__file__), 'images', 'pair-update.svg')
-        update_image = gtk.Image()
-        update_image.set_from_file(update_icon)
-        self._updatebutton = gtk.Button(' ' + _('Update selected pair'))
-        self._updatebutton.set_image(update_image)
-        self._updatebutton.connect('pressed', self.emit_update_pair)
-        self._updatebutton.set_size_request(
-                theme.PAIR_SIZE + theme.PAD*4, -1)
-        self._updatebutton.set_sensitive(False)
+        # save buttons
+
+        buttons_bar = gtk.Toolbar()
+        buttons_bar.set_size_request(300, -1)
+        buttons_bar.modify_bg(gtk.STATE_NORMAL,
+                style.COLOR_PANEL_GREY.get_gdk_color())
+        buttons_bar.props.border_width = 10
+
+        self._addbutton = ToolButton(
+                tooltip=_('Add as new pair'),
+                sensitive=False)
+        self._addbutton.set_icon_widget(
+                make_label('pair-add', ' ' + _('Add')))
+        self._addbutton.connect('clicked', self.emit_add_pair)
+        buttons_bar.insert(self._addbutton, -1)
+
+        self._updatebutton = ToolButton(
+                tooltip=_('Update selected pair'),
+                sensitive=False)
+        self._updatebutton.set_icon_widget(
+                make_label('pair-update', ' ' + _('Update')))
+        self._updatebutton.connect('clicked', self.emit_update_pair)
+        buttons_bar.insert(self._updatebutton, -1)
 
         # Set card editors
+
         self.cardeditor1 = CardEditor()
         self.cardeditor2 = CardEditor()
         self.clean(None)
@@ -90,20 +107,17 @@ class CreateCardPanel(gtk.EventBox):
         self.cardeditor1.connect('has-sound', self.receive_sound_signals)
         self.cardeditor2.connect('has-sound', self.receive_sound_signals)
 
-        # Create table and add components to the table
-        self.table = gtk.Table()
-        self.table.set_homogeneous(False)
-        self.table.set_col_spacings(theme.PAD)
-        self.table.set_row_spacings(theme.PAD)
-        self.table.set_border_width(theme.PAD)
-        self.table.attach(self.cardeditor1, 0, 1, 0, 1)#, yoptions=gtk.SHRINK)
-        self.table.attach(self.cardeditor2, 1, 2, 0, 1)#, yoptions=gtk.SHRINK)
-        self.table.attach(self._addbutton, 0, 1, 1, 2, yoptions=gtk.SHRINK)
-        self.table.attach(self._updatebutton, 1, 2, 1, 2, yoptions=gtk.SHRINK)
+        # edit panel
+
+        self.card_box = gtk.HBox()
+        self.card_box.pack_start(self.cardeditor1)
+        self.card_box.pack_start(self.cardeditor2)
 
         box = gtk.VBox()
-        box.pack_start(self.table, False)
+        box.pack_start(self.card_box, False)
+        box.pack_start(buttons_bar, False)
         self.add(box)
+
         self.show_all()
 
     def emit_add_pair(self, widget):
@@ -155,16 +169,14 @@ class CreateCardPanel(gtk.EventBox):
     def change_equal_pairs(self, widget, state):
         self.equal_pairs = state
         self.clean(None)
+
         if self.equal_pairs:
-            self.table.remove(self.cardeditor1)
-            self.table.remove(self.cardeditor2)
-            self.table.attach(self.cardeditor1, 0, 2, 0, 1,
-                    gtk.SHRINK, gtk.SHRINK)
+            if self.cardeditor2.parent:
+                self.card_box.remove(self.cardeditor2)
         else:
-            self.table.remove(self.cardeditor1)
-            self.table.attach(self.cardeditor1, 0, 1, 0, 1, yoptions=gtk.SHRINK)
-            self.table.attach(self.cardeditor2, 1, 2, 0, 1, yoptions=gtk.SHRINK)
-    
+            if not self.cardeditor2.parent:
+                self.card_box.pack_start(self.cardeditor2)
+
     def clean(self, widget):
         self.cardeditor1.clean()
         self.cardeditor2.clean()
@@ -180,14 +192,14 @@ class CreateCardPanel(gtk.EventBox):
         if widget == self.cardeditor2:
             self._card2_has_text = has_text
         self._update_buttom_status()
-        
+
     def receive_picture_signals(self, widget, has_picture):
         if widget == self.cardeditor1:
             self._card1_has_picture = has_picture
         if widget == self.cardeditor2:
             self._card2_has_picture = has_picture
         self._update_buttom_status()
-        
+
     def receive_sound_signals(self, widget, has_sound):
         if widget == self.cardeditor1:
             self._card1_has_sound = has_sound
@@ -222,23 +234,19 @@ class CardEditor(gtk.EventBox):
     def __init__(self):
         gtk.EventBox.__init__(self)
 
+        self.snd = None
+
         tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
 
-        table = gtk.Table()
+        box = gtk.VBox()
+        box.props.spacing = theme.PAD
+        box.props.border_width = theme.PAD
+
         self.previewlabel = gtk.Label(_('Preview:'))
         self.previewlabel.set_alignment(0, 1)
-        self.textlabel = gtk.Label(_('Text:'))
-        self.textlabel.set_alignment(0, 1)
+        box.pack_start(self.previewlabel, False)
 
-        self.snd = None
-        self.textentry = gtk.Entry()
-        self.textentry.connect('changed', self.update_text)
-
-        table.set_homogeneous(False)
-        table.set_col_spacings(theme.PAD)
-        table.set_row_spacings(theme.PAD)
-        table.set_border_width(theme.PAD)
         self.card = svgcard.SvgCard(-1,
                 { 'front_text'  : { 'card_text'     : '',
                                     'text_color'    : '#ffffff' },
@@ -247,43 +255,41 @@ class CardEditor(gtk.EventBox):
                                     'opacity'       : '1' } },
                 None, theme.PAIR_SIZE, 1, '#c0c0c0')
         self.card.flip()
+        card_align = gtk.Alignment(.5, .5, 0, 0)
+        card_align.add(self.card)
+        box.pack_start(card_align, False)
 
-        table.attach(self.previewlabel, 0, 2, 0, 1, yoptions=gtk.SHRINK)
-        table.attach(self.card, 0, 2, 1, 2, gtk.SHRINK, gtk.SHRINK,
-                theme.PAD)
-        #Text label and entry
-        table.attach(self.textlabel, 0, 1, 2, 3, yoptions=gtk.SHRINK)
-        table.attach(self.textentry, 0, 2, 3, 4, yoptions=gtk.SHRINK)
-        self.textentry.set_size_request(0, -1)
+        textlabel = gtk.Label(_('Text:'))
+        textlabel.set_alignment(0, 1)
+        box.pack_start(textlabel, False)
 
-        toolbar = Toolbar(hpad=0)
-        toolbar.top.modify_bg(gtk.STATE_NORMAL,
+        self.textentry = gtk.Entry()
+        self.textentry.connect('changed', self.update_text)
+        box.pack_start(self.textentry, False)
+
+        toolbar = gtk.Toolbar()
+        toolbar.set_size_request(165, -1)
+        toolbar.modify_bg(gtk.STATE_NORMAL,
                 style.COLOR_PANEL_GREY.get_gdk_color())
 
-        browsepicture = ToolButton(icon_name='import_picture',
+        browsepicture = ToolButton(
+                icon_name='import_picture',
                 tooltip=_('Insert picture'))
-        toolbar.top.insert(browsepicture, -1)
+        toolbar.insert(browsepicture, -1)
 
-        browsesound = ToolButton(icon_name='import_sound',
+        browsesound = ToolButton(
+                icon_name='import_sound',
                 tooltip=_('Insert sound'))
-        toolbar.top.insert(browsesound, -1)
+        toolbar.insert(browsesound, -1)
 
-        usespeak_bar = gtk.Toolbar()
-        usespeak_bar.insert(ToolComboBox(Voices()), -1)
-        usespeak_play = ToolButton(icon_name='media-playback-start',
-                tooltip=_('Pronounce entered text'))
-        usespeak_bar.insert(usespeak_play, -1)
-        usespeak_bar.show_all()
-
-        usespeak = ToolbarButton(toolbar, usespeak_bar,
-                icon_name='computer-xo',
-                tooltip=_('Pronounce text while fliping tile'),
-                expand_bg=style.COLOR_PANEL_GREY)
-        toolbar.top.insert(usespeak, -1)
+        usespeak = ToggleToolButton(
+                named_icon='computer-xo',
+                palette=SpeakPalette())
+        toolbar.insert(usespeak, -1)
 
         browsepicture.connect('clicked', self._load_image, usespeak)
         browsesound.connect('clicked', self._load_audio, usespeak)
-        usespeak.connect('clicked', self._usespeak)
+        usespeak.connect('toggled', self._usespeak_cb)
 
         toolbar_box = CanvasRoundBox(
                 radius=8,
@@ -294,11 +300,9 @@ class CardEditor(gtk.EventBox):
                 hippo.PACK_EXPAND)
         toolbar_canvas = hippo.Canvas()
         toolbar_canvas.set_root(toolbar_box)
+        box.pack_start(toolbar_canvas, False)
 
-        #toolbar.show_all()
-        table.attach(toolbar_canvas, 0, 2, 4, 5, yoptions=gtk.SHRINK)
-
-        self.add(table)
+        self.add(box)
 
     def update_text(self, entry):
         self.card.change_text(entry.get_text())
@@ -323,7 +327,7 @@ class CardEditor(gtk.EventBox):
 
     def _load_image(self, widget, usespeak):
         def load(index):
-            usespeak.expanded = False
+            usespeak.props.active = False
 
             pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
                     index, theme.PAIR_SIZE - theme.PAD*2,
@@ -345,7 +349,7 @@ class CardEditor(gtk.EventBox):
 
     def _load_audio(self, widget, usespeak):
         def load(index):
-            usespeak.expanded = False
+            usespeak.props.active = False
 
             dst = join(self.temp_folder, basename(index))
             shutil.copy(index, dst)
@@ -360,8 +364,8 @@ class CardEditor(gtk.EventBox):
         chooser.pick(what=chooser.AUDIO,
                 cb=lambda jobject: load(jobject.file_path))
 
-    def _usespeak(self, widget):
-        if not widget.expanded:
+    def _usespeak_cb(self, widget):
+        if not widget.props.active:
             return
         self.snd = None
         self.card.set_pixbuf(None)
@@ -381,3 +385,20 @@ class CardEditor(gtk.EventBox):
         self.emit('has-text', False)
         self.emit('has-picture', False)
         self.emit('has-sound', False)
+
+class SpeakPalette(Palette):
+    def __init__(self):
+        Palette.__init__(self, _('Pronounce text while fliping tile'))
+
+        toolbar = gtk.Toolbar()
+        toolbar.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
+        toolbar.set_size_request(350, -1)
+
+        usespeak_play = ToolButton(icon_name='media-playback-start',
+                tooltip=_('Pronounce entered text'))
+        toolbar.insert(usespeak_play, -1)
+
+        toolbar.insert(ToolComboBox(Voices()), -1)
+
+        toolbar.show_all()
+        self.set_content(toolbar)
