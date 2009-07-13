@@ -30,6 +30,8 @@ import random
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 from sugar import profile
+from sugar.graphics import style
+from sugar.graphics.icon import Icon
 
 import theme
 
@@ -223,32 +225,30 @@ class CardList(gtk.EventBox):
         self.emit('update-create-buttons', True, True)
         
 class Pair(gtk.EventBox):
-    
+
     __gsignals__ = {
-        'pair-selected': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
-        'pair-closed': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'pair-selected': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'pair-closed': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
     }
-    
+
     def __init__(self, text1, text2 = None, aimg = None, bimg = None, asnd = None, bsnd = None):
         gtk.EventBox.__init__(self)
         self.bg_color = '#000000'
         if text2 == None:
             self.text2 = text1
-        else: 
+        else:
             self.text2 = text2
         self.text1 = text1
-        
+
         self.asnd = asnd
         self.bsnd = bsnd
-        
+
         self.current_game_key = None
-        
-        close_button = gtk.Button('X')
-        close_button.connect('button-press-event', self.emit_close)
-        table = gtk.Table()
-        table.connect('button-press-event', self.emit_selected)
-        table.set_col_spacings(0)
-        table.set_border_width(10)
+
+        row = gtk.HBox()
+        row.props.border_width = 10
+        row.props.spacing = 10
+
         self.bcard1 = svgcard.SvgCard(-1,
                 { 'front_text'  : { 'card_text'     : text1,
                                     'text_color'    : '#ffffff' },
@@ -256,6 +256,12 @@ class Pair(gtk.EventBox):
                                     'stroke_color'  : '#ffffff',
                                     'opacity'       : '1' } },
                   None, theme.PAIR_SIZE, 1, self.bg_color)
+        self.bcard1.flip()
+        self.bcard1.set_pixbuf(aimg)
+        align = gtk.Alignment(.5, .5, 0, 0)
+        align.add(self.bcard1)
+        row.pack_start(align)
+
         self.bcard2 = svgcard.SvgCard(-1,
                 { 'front_text'  : { 'card_text'     : text2,
                                     'text_color'    : '#ffffff' },
@@ -263,24 +269,35 @@ class Pair(gtk.EventBox):
                                     'stroke_color'  : '#ffffff',
                                     'opacity'       : '1' } },
                   None, theme.PAIR_SIZE, 1, self.bg_color)
-
-        self.bcard1.flip()
         self.bcard2.flip()
-        self.bcard1.set_pixbuf(aimg)
         self.bcard2.set_pixbuf(bimg)
-        
-        table.attach(self.bcard1, 0, 1, 0, 8)
-        table.attach(self.bcard2, 1, 2, 0, 8)
-        table.attach(close_button, 2, 3, 0, 1, gtk.FILL, gtk.FILL)
-        
+        align = gtk.Alignment(.5, .5, 0, 0)
+        align.add(self.bcard2)
+        row.pack_start(align)
+
+        close_image = Icon(
+                icon_name='remove',
+                icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+        align = gtk.Alignment(.5, .5)
+        align.add(close_image)
+        close_button = gtk.ToolButton()
+        close_button.set_icon_widget(align)
+        close_button.connect('clicked', self.emit_close)
+        close_button.set_size_request(style.STANDARD_ICON_SIZE,
+                style.STANDARD_ICON_SIZE)
+        align = gtk.Alignment(.5, 0, 0, 0)
+        align.add(close_button)
+        row.pack_start(align, False)
+
+        self.connect('button-press-event', self.emit_selected)
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
-        self.add(table)
+        self.add(row)
         self.show_all()
 
     def emit_selected(self, widget, event):
         self.emit('pair-selected', self)
 
-    def emit_close(self, widget, event):
+    def emit_close(self, widget):
         self.emit('pair-closed', self)
 
     def set_selected(self, status):

@@ -73,10 +73,7 @@ class CreateCardPanel(gtk.EventBox):
 
         # save buttons
 
-        buttons_bar = gtk.Toolbar()
-        buttons_bar.set_size_request(300, -1)
-        buttons_bar.modify_bg(gtk.STATE_NORMAL,
-                style.COLOR_PANEL_GREY.get_gdk_color())
+        buttons_bar = gtk.HBox()
         buttons_bar.props.border_width = 10
 
         self._addbutton = ToolButton(
@@ -85,7 +82,7 @@ class CreateCardPanel(gtk.EventBox):
         self._addbutton.set_icon_widget(
                 make_label('pair-add', ' ' + _('Add')))
         self._addbutton.connect('clicked', self.emit_add_pair)
-        buttons_bar.insert(self._addbutton, -1)
+        buttons_bar.pack_start(self._addbutton, False)
 
         self._updatebutton = ToolButton(
                 tooltip=_('Update selected pair'),
@@ -93,7 +90,7 @@ class CreateCardPanel(gtk.EventBox):
         self._updatebutton.set_icon_widget(
                 make_label('pair-update', ' ' + _('Update')))
         self._updatebutton.connect('clicked', self.emit_update_pair)
-        buttons_bar.insert(self._updatebutton, -1)
+        buttons_bar.pack_start(self._updatebutton, False)
 
         # Set card editors
 
@@ -267,25 +264,22 @@ class CardEditor(gtk.EventBox):
         self.textentry.connect('changed', self.update_text)
         box.pack_start(self.textentry, False)
 
-        toolbar = gtk.Toolbar()
-        toolbar.set_size_request(165, -1)
-        toolbar.modify_bg(gtk.STATE_NORMAL,
-                style.COLOR_PANEL_GREY.get_gdk_color())
+        toolbar = gtk.HBox()
 
         browsepicture = ToolButton(
                 icon_name='import_picture',
                 tooltip=_('Insert picture'))
-        toolbar.insert(browsepicture, -1)
+        toolbar.pack_start(browsepicture, False)
 
         browsesound = ToolButton(
                 icon_name='import_sound',
                 tooltip=_('Insert sound'))
-        toolbar.insert(browsesound, -1)
+        toolbar.pack_start(browsesound, False)
 
         usespeak = ToggleToolButton(
                 named_icon='computer-xo',
                 palette=SpeakPalette())
-        toolbar.insert(usespeak, -1)
+        toolbar.pack_start(usespeak, False)
 
         browsepicture.connect('clicked', self._load_image, usespeak)
         browsesound.connect('clicked', self._load_audio, usespeak)
@@ -390,15 +384,14 @@ class SpeakPalette(Palette):
     def __init__(self):
         Palette.__init__(self, _('Pronounce text while fliping tile'))
 
-        toolbar = gtk.Toolbar()
+        toolbar = gtk.HBox()
         toolbar.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
-        toolbar.set_size_request(350, -1)
 
         usespeak_play = ToolButton(icon_name='media-playback-start',
                 tooltip=_('Pronounce entered text'))
-        toolbar.insert(usespeak_play, -1)
+        toolbar.pack_start(usespeak_play, False)
 
-        toolbar.insert(ToolComboBox(Voices()), -1)
+        toolbar.pack_start(ToolComboBox(Voices()))
 
         toolbar.show_all()
         self.set_content(toolbar)
