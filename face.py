@@ -36,6 +36,10 @@ class Face(gtk.EventBox):
 
         self.set_app_paintable(True)
         self.connect('expose-event', self._expose_cb)
+        self.connect('unrealize', self._unrealize_cb)
+
+    def _unrealize_cb(self, widget):
+        self.face.shut_up()
 
     def _expose_cb(self, widget, event):
         card = self.parent.parent
