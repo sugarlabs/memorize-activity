@@ -395,6 +395,7 @@ class CardEditor(gtk.EventBox):
         self.card.change_speak(button.props.active)
 
         if not button.props.active:
+            self.usespeak.palette.face.shut_up()
             return
 
         self.snd = None
@@ -419,6 +420,7 @@ class CardEditor(gtk.EventBox):
         self.emit('has-sound', False)
         if self.usespeak is not None:
             self.usespeak.props.active = False
+            self.usespeak.palette.face.shut_up()
 
 class SpeakPalette(Palette):
     def __init__(self, editor):
