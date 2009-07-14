@@ -28,6 +28,8 @@ import logging
 from sugar.util import LRU
 
 import theme
+import face
+import speak.voice
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -39,17 +41,16 @@ class SvgCard(gtk.EventBox):
     default_props = {}
     default_props['back'] = {'fill_color':'#b2b3b7', 'stroke_color':'#b2b3b7', 'opacity':'1'}
     default_props['back_h'] = {'fill_color':'#b2b3b7', 'stroke_color':'#ffffff', 'opacity':'1'}
-    default_props['back_text'] = {'text_color':'#c7c8cc', 'speak':False}
+    default_props['back_text'] = {'text_color':'#c7c8cc'}
     default_props['front'] = {'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}
     default_props['front_h'] = {'fill_color':'#555555', 'stroke_color':'#888888', 'opacity':'1'}
-    default_props['front_text'] = {'text_color':'#ffffff', 'speak':False}
+    default_props['front_text'] = {'text_color':'#ffffff'}
 
     cache = {}
 
     def __init__(self, id, pprops, jpeg, size, align, bg_color='#000000'):
         gtk.EventBox.__init__(self)
 
-        self.set_size_request(size, size)
         self.bg_color = bg_color
         self.flipped = False
         self.flipped_once = False
@@ -60,6 +61,9 @@ class SvgCard(gtk.EventBox):
         self.size = size
         self.align = align
         self.text_layouts = [None, None]
+
+        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
+        self.set_size_request(size, size)
 
         # Views properties
         views = ['back', 'back_h', 'back_text', 'front', 'front_h', 'front_text']
@@ -75,18 +79,23 @@ class SvgCard(gtk.EventBox):
         self.current_face = 'back'
 
         self.draw = gtk.DrawingArea()
-        self.draw.show()
-        self.draw.modify_bg(gtk.STATE_NORMAL,
-                gtk.gdk.color_parse(self.bg_color))
+        self.draw.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
         self.draw.set_events(gtk.gdk.ALL_EVENTS_MASK)
         self.draw.connect('expose-event', self._expose_cb)
-        self.add(self.draw)
+        self.draw.connect('realize', self._realize_cb)
+        self.draw.show_all()
 
-        gc.collect()
-        self.show()
+        self.workspace = gtk.VBox()
+        self.workspace.add(self.draw)
+        self.add(self.workspace)
+        self.show_all()
+
+        #gc.collect()
+
+    def _realize_cb(self, widget):
+        self.gc = widget.window.new_gc()
 
     def _expose_cb(self, widget, event):
-        gc = widget.window.new_gc()
         pixbuf = self._read_icon_data(self.current_face)
         widget.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
 
@@ -110,7 +119,7 @@ class SvgCard(gtk.EventBox):
                 elif self.align == '3': # bottom
                     y = self.size - height
 
-            widget.window.draw_layout(gc, layout=layout,
+            widget.window.draw_layout(self.gc, layout=layout,
                     x=(self.size - width)/2, y=y,
                     foreground=gtk.gdk.color_parse(props['text_color']))
 
@@ -132,23 +141,23 @@ class SvgCard(gtk.EventBox):
 
         entity = '<!ENTITY stroke_color "%s">' % dict.get('stroke_color', '')
         data = re.sub('<!ENTITY stroke_color .*>', entity, data)
-        
+
         entity = '<!ENTITY opacity "%s">' % dict.get('opacity', '')
         data = re.sub('<!ENTITY opacity .*>', entity, data)
-                
+
         data = re.sub('size_card1', str(self.size), data)
         data = re.sub('size_card2', str(self.size-6), data)
         data = re.sub('size_card3', str(self.size-17), data)
         pixbuf = rsvg.Handle(data=data).get_pixbuf()
         self.cache[set] = pixbuf
         return pixbuf
-    
+
     def set_border(self, stroke_color, fill_color):
         self.props['front'].update({'fill_color':fill_color, 'stroke_color':stroke_color})
-        self.draw.queue_draw()
+        self.queue_draw()
         while gtk.events_pending():
-            gtk.main_iteration()        
-    
+            gtk.main_iteration()
+
     def set_pixbuf(self, pixbuf):
         if pixbuf == None:
             self.jpeg = None
@@ -156,12 +165,12 @@ class SvgCard(gtk.EventBox):
         else:
             if self.jpeg != None:
                 del self.jpeg
-                
+
             self.jpeg = pixbuf
             del pixbuf
             self.show_jpeg = True
 
-        self.draw.queue_draw()
+        self.queue_draw()
         while gtk.events_pending():
             gtk.main_iteration()
 
@@ -181,7 +190,7 @@ class SvgCard(gtk.EventBox):
                 self.current_face = 'back_h'
             else:
                 self.current_face = 'back'
-        self.draw.queue_draw()
+        self.queue_draw()
 
     def flip(self):
         if self.flipped:
@@ -205,14 +214,27 @@ class SvgCard(gtk.EventBox):
         else:
             self.show_text = False
 
-        self.current_face = 'front'
+        if self.id != -1 and self.get_speak():
+            speaking_face = face.acquire()
+            if speaking_face:
+                self._switch_to_face(speaking_face)
+                speaking_face.face.status.voice = \
+                        speak.voice.by_name(self.get_speak())
+                speaking_face.face.say(self.get_text())
 
+        self.current_face = 'front'
         self.flipped  = True
-        self.draw.queue_draw()
+        self.queue_draw()
 
         while gtk.events_pending():
             gtk.main_iteration()
-        gc.collect()
+
+        #gc.collect()
+
+    def cement(self):
+        if not self.get_speak():
+            return
+        self._switch_to_face(self.draw)
 
     def flop(self):
         self.current_face = 'back'
@@ -222,14 +244,24 @@ class SvgCard(gtk.EventBox):
             self.show_text = False
         self.flipped = False
         self.show_jpeg = False
-        self.draw.queue_draw()
-        
+
+        if self.id != -1 and self.get_speak():
+            self._switch_to_face(self.draw)
+
+        self.queue_draw()
+
+    def _switch_to_face(self, widget):
+        for i in self.workspace.get_children():
+            self.workspace.remove(i)
+        self.workspace.add(widget)
+        widget.set_size_request(self.size, self.size)
+
     def is_flipped(self):
         return self.flipped
-        
+
     def get_id(self):
         return self.id
-    
+
     def reset(self):
         if self.flipped:
             fill_color = self.default_props.get('front_border').get('fill_color')
@@ -246,14 +278,17 @@ class SvgCard(gtk.EventBox):
 
         for size in range(80, 66, -8) + range(66, 44, -6) + \
                 range(44, 24, -4) + range(24, 15, -2) + range(15, 7, -1):
+
+            card_size = self.size - theme.SVG_PAD*2
             layout = self.create_pango_layout(text)
-            layout.set_width(PIXELS_PANGO(self.size - theme.SVG_PAD))
-            layout.set_wrap(pango.WRAP_WORD_CHAR)
+            layout.set_width(PIXELS_PANGO(card_size))
+            layout.set_wrap(pango.WRAP_WORD)
             desc = pango.FontDescription('Deja Vu Sans bold ' + str(size))
             layout.set_font_description(desc)
 
             if layout.get_line_count() <= max_lines_count and \
-                    layout.get_pixel_size()[1] <= self.size:
+                    layout.get_pixel_size()[0] <= card_size and \
+                    layout.get_pixel_size()[1] <= card_size:
                 break
 
         if layout.get_line_count() > 1:
@@ -274,16 +309,16 @@ class SvgCard(gtk.EventBox):
         self.props['front_text']['card_text'] = newtext
         if len(newtext) > 0:
             self.show_text = True
-        self.draw.queue_draw()
+        self.queue_draw()
 
     def get_text(self):
         return self.props['front_text'].get('card_text', '')
 
-    def change_speak(self, enable):
-        self.props['front_text']['speak'] = enable
+    def change_speak(self, value):
+        self.props['front_text']['speak'] = value
 
     def get_speak(self):
-        return self.props['front_text']['speak']
+        return self.props['front_text'].get('speak')
 
 def PIXELS_PANGO(x):
     return x * 1000

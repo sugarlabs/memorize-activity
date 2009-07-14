@@ -40,23 +40,24 @@ PATH = '/org/laptop/Memorize'
 class MemorizeGame(GObject):
     
     __gsignals__ = {
-        'reset_scoreboard': (SIGNAL_RUN_FIRST, None, []), 
-        'reset_table': (SIGNAL_RUN_FIRST, None, []), 
-        'load_mode': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
-        'load_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
-        'change_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
-        'change_game_signal': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT]), 
-        'set-border': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]), 
-        'flip-card': (SIGNAL_RUN_FIRST, None, [int]), 
-        'flip-card-signal': (SIGNAL_RUN_FIRST, None, [int]), 
-        'flop-card': (SIGNAL_RUN_FIRST, None, [int]), 
-        'highlight-card': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
-        'add_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
-        'rem_buddy': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
-        'increase-score': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
-        'wait_mode_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
-        'msg_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
-        'change-turn': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'reset_scoreboard': (SIGNAL_RUN_FIRST, None, []),
+        'reset_table': (SIGNAL_RUN_FIRST, None, []),
+        'load_mode': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'load_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
+        'change_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
+        'change_game_signal': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT]),
+        'set-border': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]),
+        'flip-card': (SIGNAL_RUN_FIRST, None, [int]),
+        'flip-card-signal': (SIGNAL_RUN_FIRST, None, [int]),
+        'cement-card': (SIGNAL_RUN_FIRST, None, [int]),
+        'flop-card': (SIGNAL_RUN_FIRST, None, [int]),
+        'highlight-card': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
+        'add_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
+        'rem_buddy': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'increase-score': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'wait_mode_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
+        'msg_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
+        'change-turn': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
         }
     
     def __init__(self):
@@ -68,15 +69,15 @@ class MemorizeGame(GObject):
         self.current_player = None
         self.last_flipped = -1
         self.last_highlight = 1
-        self.game_dir = join(dirname(__file__), 'games')
         self.messenger = None
         self.sentitive = True
-        self.model = Model(dirname(__file__))
+
+        self.model = Model()
         self.flip_block = False
         self._flop_cards = None
 
-        self.audio = Audio()        
-            
+        self.audio = Audio()
+
     def load_game(self, game_name, size, mode):
         self.set_load_mode('Loading game')   
         if self.model.read(game_name) == 0:
@@ -220,6 +221,10 @@ class MemorizeGame(GObject):
                 self.model.grid[id]['state'] = self.current_player.props.color
                 self.model.grid[self.last_flipped]['state'] = self.current_player.props.color
                 self.flip_block = False        
+
+                self.emit('cement-card', id)
+                self.emit('cement-card', self.last_flipped)
+
             # Pair didn't match
             else:
                 self.model.grid[id]['state'] = '1'

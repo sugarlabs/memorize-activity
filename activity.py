@@ -15,6 +15,11 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import gtk
+
+# activate threads for gst needs
+gtk.gdk.threads_init()
+
 import locale
 locale.setlocale(locale.LC_NUMERIC, 'C')
 
@@ -26,7 +31,6 @@ from os.path import join, dirname
 from os import environ
 
 import dbus
-import gtk
 import pygtk
 import pickle
 import telepathy
@@ -46,8 +50,7 @@ import memorizetoolbar
 import createtoolbar
 import cardlist
 import createcardpanel
-
-
+import face
 
 SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
@@ -90,13 +93,14 @@ class MemorizeActivity(Activity):
         self.table.connect('card-flipped', self.game.card_flipped)
         self.table.connect('card-overflipped', self.game.card_overflipped)
         self.table.connect('card-highlighted', self.game.card_highlighted)
-        
+
         self.game.connect('set-border', self.table.set_border)
         self.game.connect('flop-card', self.table.flop_card)
         self.game.connect('flip-card', self.table.flip_card)
+        self.game.connect('cement-card', self.table.cement_card)
         self.game.connect('highlight-card', self.table.highlight_card)
         self.game.connect('load_mode', self.table.load_msg)
-        
+
         self.game.connect('msg_buddy', self.scoreboard.set_buddy_message)
         self.game.connect('add_buddy', self.scoreboard.add_buddy)
         self.game.connect('rem_buddy', self.scoreboard.rem_buddy)
@@ -123,10 +127,14 @@ class MemorizeActivity(Activity):
         self.connect('focus_out_event', self._focus_out)
         self.connect('destroy', self._cleanup_cb)
 
+        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.connect('motion_notify_event',
+                lambda widget, event: face.look_at())
+
         # start on the game toolbar, might change this to the create toolbar later
         self.toolbox.connect('current-toolbar-changed', self.change_mode)
         self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
-        
+
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
         self.initiating = None

@@ -44,15 +44,15 @@ class CardList(gtk.EventBox):
         'update-create-toolbar': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]), 
         'update-create-buttons': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
     }
-    
+
     def __init__(self):
         gtk.EventBox.__init__(self)
-        self.model = model.Model(environ['SUGAR_ACTIVITY_ROOT'])
+        self.model = model.Model()
         self.pairs = []
         self.current_pair = None
-        
-        self.vbox = gtk.VBox(False)        
-        
+
+        self.vbox = gtk.VBox(False)
+
         fill_box = gtk.Label()
         fill_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
         fill_box.show()
@@ -248,7 +248,7 @@ class Pair(gtk.EventBox):
     }
 
     def __init__(self, text1, text2 = None, aimg = None, bimg = None,
-            asnd = None, bsnd = None, aspeak=False, bspeak=False):
+            asnd = None, bsnd = None, aspeak=None, bspeak=None):
         gtk.EventBox.__init__(self)
         self.bg_color = '#000000'
 

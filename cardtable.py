@@ -25,14 +25,17 @@ import math
 import gc
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
+import logging
+_logger = logging.getLogger('memorize-activity')
+
 import theme
 
 class CardTable(gtk.EventBox):
-  
+
     __gsignals__ = {
-        'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
-        'card-overflipped': (SIGNAL_RUN_FIRST, None, [int]), 
-        'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
+        'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
+        'card-overflipped': (SIGNAL_RUN_FIRST, None, [int]),
+        'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
         }
 
     def __init__(self):
@@ -40,6 +43,10 @@ class CardTable(gtk.EventBox):
         self.data = None
         self.cards_data = None
         self._workspace_size = 0
+
+        # set request size to 100x100 to skip first time sizing in _allocate_cb
+        self.set_size_request(100, 100)
+        self.connect('size-allocate', self._allocate_cb)
 
         # Set table settings
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
@@ -61,15 +68,21 @@ class CardTable(gtk.EventBox):
         self.dict = None
         self.show_all()
 
-    def do_expose_event(self, event):
-        if self._workspace_size:
-            # do it once
+    def _allocate_cb(self, widget, allocation):
+        size = allocation.height
+
+        if size == 100:
+            # skip first time sizing
             return
 
-        size = self.allocation.height
+        # do it once
+        if self._workspace_size:
+            return
+
+        _logger.debug('Use %s allocation' % str(self.allocation))
+
         self.set_size_request(size, size)
         self._workspace_size = size
-
         if self.data:
             self.load_game(None, self.data, self.cards_data)
 
@@ -113,7 +126,7 @@ class CardTable(gtk.EventBox):
                 jpg = None
             props = {}
             props['front_text']= {'card_text':card.get('char', ''),
-                                  'speak': card.get('speak', False)}
+                                  'speak': card.get('speak')}
 
             if card['ab']== 'a':
                 props['back_text']= {'card_text':text1}
@@ -140,14 +153,14 @@ class CardTable(gtk.EventBox):
         if self.load_mode:
             self._set_load_mode(False)
         self.show_all()
-        gc.collect()
+        #gc.collect()
 
     def change_game(self, widget, data, grid):
         if not self.first_load:
             for card in self.cards.values():
                 self.table.remove(card)
                 del card
-        gc.collect()
+        #gc.collect()
         self.load_game(None, data, grid)
 
     def get_card_size(self, size_table):

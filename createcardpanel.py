@@ -40,7 +40,9 @@ from port.widgets import CanvasRoundBox, ToolComboBox
 from port import chooser
 
 import theme
-from speak.widgets import Voices
+import speak.espeak
+import speak.widgets
+import speak.face
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -136,7 +138,6 @@ class CreateCardPanel(gtk.EventBox):
                       self.cardeditor1.get_speak(), self.cardeditor2.get_speak()
                       )
         self.clean(None)
-        
 
     def emit_update_pair(self, widget):
         self._addbutton.set_sensitive(False)
@@ -157,7 +158,7 @@ class CreateCardPanel(gtk.EventBox):
                       self.cardeditor1.get_speak(), self.cardeditor2.get_speak()
                       )
         self.clean(None)
-                    
+
     def pair_selected(self, widget, selected, newtext1, newtext2, aimg, bimg,
             asnd, bsnd, aspeak, bspeak):
         if selected:
@@ -192,7 +193,7 @@ class CreateCardPanel(gtk.EventBox):
         self._card2_has_text = False
         self._card1_has_picture = False
         self._card2_has_picture = False
-        
+
     def receive_text_signals(self, widget, has_text):
         if widget == self.cardeditor1:
             self._card1_has_text = has_text
@@ -213,7 +214,7 @@ class CreateCardPanel(gtk.EventBox):
         if widget == self.cardeditor2:
             self._card2_has_sound = has_sound
         self._update_buttom_status()
-        
+
     def _update_buttom_status(self):
         if not self.equal_pairs:
             if (self._card1_has_text or self._card1_has_picture or self._card1_has_sound) and (self._card2_has_text or self._card2_has_picture or self._card2_has_sound):
@@ -286,14 +287,17 @@ class CardEditor(gtk.EventBox):
                 tooltip=_('Insert sound'))
         toolbar.pack_start(browsesound, False)
 
-        self.usespeak = ToggleToolButton(
-                named_icon='computer-xo',
-                palette=SpeakPalette())
-        toolbar.pack_start(self.usespeak, False)
-
         browsepicture.connect('clicked', self._load_image)
         browsesound.connect('clicked', self._load_audio)
-        self.usespeak.connect('toggled', self._usespeak_cb)
+
+        if speak.espeak.supported:
+            self.usespeak = ToggleToolButton(
+                    named_icon='speak',
+                    palette=SpeakPalette(self))
+            toolbar.pack_start(self.usespeak, False)
+            self.usespeak.connect('toggled', self._usespeak_cb)
+        else:
+            self.usespeak = None
 
         toolbar_box = CanvasRoundBox(
                 radius=8,
@@ -324,10 +328,23 @@ class CardEditor(gtk.EventBox):
         self.textentry.set_text(newtext)
 
     def get_speak(self):
-        return self.usespeak.props.active
+        if self.usespeak is None:
+            return None
+        if self.usespeak.props.active:
+            return self.usespeak.palette.face.status.voice.friendlyname
 
-    def set_speak(self, enabled):
-        self.usespeak.props.active = enabled
+    def set_speak(self, value):
+        if self.usespeak is None:
+            return
+        if value is None:
+            self.usespeak.props.active = False
+        else:
+            try:
+                self.usespeak.handler_block_by_func(self._usespeak_cb)
+                self.usespeak.props.active = True
+            finally:
+                self.usespeak.handler_unblock_by_func(self._usespeak_cb)
+            self.usespeak.palette.voices.resume(value)
 
     def get_pixbuf(self):
         return self.card.get_pixbuf()
@@ -337,7 +354,7 @@ class CardEditor(gtk.EventBox):
 
     def _load_image(self, widget):
         def load(index):
-            self.usespeak.props.active = False
+            self.set_speak(None)
 
             pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
                     index, theme.PAIR_SIZE - theme.PAD*2,
@@ -359,7 +376,7 @@ class CardEditor(gtk.EventBox):
 
     def _load_audio(self, widget):
         def load(index):
-            self.usespeak.props.active = False
+            self.set_speak(None)
 
             dst = join(self.temp_folder, basename(index))
             shutil.copy(index, dst)
@@ -374,16 +391,18 @@ class CardEditor(gtk.EventBox):
         chooser.pick(what=chooser.AUDIO,
                 cb=lambda jobject: load(jobject.file_path))
 
-    def _usespeak_cb(self, widget):
-        self.card.change_speak(widget.props.active)
+    def _usespeak_cb(self, button):
+        self.card.change_speak(button.props.active)
 
-        if not widget.props.active:
+        if not button.props.active:
             return
 
         self.snd = None
         self.card.set_pixbuf(None)
         self.emit('has-sound', False)
         self.emit('has-picture', False)
+
+        button.palette.face.say(self.get_text())
 
     def set_snd(self, snd):
         self.snd = snd
@@ -398,20 +417,25 @@ class CardEditor(gtk.EventBox):
         self.emit('has-text', False)
         self.emit('has-picture', False)
         self.emit('has-sound', False)
-        self.usespeak.props.active = False
+        if self.usespeak is not None:
+            self.usespeak.props.active = False
 
 class SpeakPalette(Palette):
-    def __init__(self):
+    def __init__(self, editor):
         Palette.__init__(self, _('Pronounce text while fliping tile'))
+
+        self.face = speak.face.View()
 
         toolbar = gtk.HBox()
         toolbar.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
 
-        usespeak_play = ToolButton(icon_name='media-playback-start',
-                tooltip=_('Pronounce entered text'))
+        usespeak_play = ToolButton(icon_name='media-playback-start')
+        usespeak_play.connect('clicked', lambda button:
+                self.face.say(editor.get_text()))
         toolbar.pack_start(usespeak_play, False)
 
-        toolbar.pack_start(ToolComboBox(Voices()))
+        self.voices = speak.widgets.Voices(self.face)
+        toolbar.pack_start(ToolComboBox(self.voices))
 
         toolbar.show_all()
         self.set_content(toolbar)
