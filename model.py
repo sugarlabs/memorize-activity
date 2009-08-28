@@ -23,29 +23,35 @@ import random
 import gobject
 import zipfile
 import tempfile
+
 from sugar import profile
 from sugar.datastore import datastore
+from sugar.activity.activity import get_bundle_path, get_activity_root
 
 _logger = logging.getLogger('model')
 
-class Pair(gobject.GObject):    
+class Pair(gobject.GObject):
     __gproperties__ = {
-        'aimg' : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'asnd' : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'achar': (str, None, None, None, gobject.PARAM_READWRITE), 
-        'bimg' : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'bsnd' : (str, None, None, None, gobject.PARAM_READWRITE), 
-        'bchar': (str, None, None, None, gobject.PARAM_READWRITE), 
-        'color': (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, gobject.PARAM_READWRITE)
+        'aimg' : (str, None, None, None, gobject.PARAM_READWRITE),
+        'asnd' : (str, None, None, None, gobject.PARAM_READWRITE),
+        'achar': (str, None, None, None, gobject.PARAM_READWRITE),
+        'bimg' : (str, None, None, None, gobject.PARAM_READWRITE),
+        'bsnd' : (str, None, None, None, gobject.PARAM_READWRITE),
+        'bchar': (str, None, None, None, gobject.PARAM_READWRITE),
+        'aspeak': (str, None, None, None, gobject.PARAM_READWRITE),
+        'bspeak': (str, None, None, None, gobject.PARAM_READWRITE),
+        'color' : (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, \
+                   gobject.PARAM_READWRITE)
     }
-        
+
     def __init__(self):
-        gobject.GObject.__init__(self)        
-        self._properties = {'aimg':None, 'asnd':None, 'achar':None, 'bimg':None, 
-                            'bsnd':None, 'bchar':None, 'color':100}                
-        
+        gobject.GObject.__init__(self)
+        self._properties = {'aimg':None, 'asnd':None, 'achar':None, 'bimg':None,
+                            'bsnd':None, 'bchar':None, 'color':100,
+                            'aspeak':None, 'bspeak':None}
+
     def do_get_property(self, pspec):
-        """Retrieve a particular property from our property dictionary 
+        """Retrieve a particular property from our property dictionary
         """
         if pspec.name == "aimg":
             return self._properties["aimg"]
@@ -61,6 +67,10 @@ class Pair(gobject.GObject):
             return self._properties["bchar"]
         elif pspec.name == "color":
             return self._properties["color"]
+        elif pspec.name == "aspeak":
+            return self._properties["aspeak"]
+        elif pspec.name == "bspeak":
+            return self._properties["bspeak"]
 
     def set_property(self, name, value):
         if name == 'aimg':
@@ -77,36 +87,40 @@ class Pair(gobject.GObject):
             self._properties["bchar"] = value
         elif name == "color":
             self._properties["color"] = value
+        elif name == "aspeak":
+            self._properties["aspeak"] = value
+        elif name == "bspeak":
+            self._properties["bspeak"] = value
 
 
 class Model(object):
     ''' The model of the activity. Contains methods to read and write
     the configuration for a game from xml. Stores the pairs and grid
-    information.    
+    information.
     '''
-    
-    def __init__(self, game_path, dtd_path = None):
+
+    def __init__(self, game_path=None):
         self.data = {}
-        if dtd_path == None:
-            self.dtd_path = dirname(__file__)
-        else:
-            self.dtd_path = dtd_path
-            
+
+        if game_path is None:
+            game_path = get_activity_root()
+
         if isdir(game_path):
             self.game_path = game_path
         else:
-            _logger.error('Game_path not found ' +str(e))
+            _logger.error('Game_path not found in %s' % game_path)
             return
-            
+
         self.data['face'] = ''
         self.data['align'] = '1'
-        
+
         try:
-            self.dtd = libxml2.parseDTD(None, join(self.dtd_path, 'memorize.dtd'))
+            self.dtd = libxml2.parseDTD(None, join(get_bundle_path(),
+                    'memorize.dtd'))
         except libxml2.parserError, e:
             _logger.error('Init: no memorize.dtd found ' +str(e))
             self.dtd = None
-        self.ctxt = libxml2.newValidCtxt()               
+        self.ctxt = libxml2.newValidCtxt()
 
         self.pairs = {}
         self.grid = []
@@ -245,8 +259,12 @@ class Model(object):
                 elem.setProp("bsnd", self.pairs[key].props.bsnd)
             if self.pairs[key].props.bchar != None:
                 elem.setProp("bchar", self.pairs[key].props.bchar)
+            if self.pairs[key].props.aspeak != None:
+                elem.setProp("aspeak", self.pairs[key].props.aspeak)
+            if self.pairs[key].props.bspeak != None:
+                elem.setProp("bspeak", self.pairs[key].props.bspeak)
             # elem.setProp("color", str(self.pairs[key].props.color))
-        
+
         if doc.validateDtd(self.ctxt, self.dtd):
             doc.saveFormatFile(join(self.game_path, 'game.xml'), 1)
         else:
@@ -286,8 +304,10 @@ class Model(object):
                     elem['snd'] = self.pairs[key].props.asnd
                 if self.pairs[key].props.achar != None:
                     elem['char'] = self.pairs[key].props.achar
+                if self.pairs[key].props.aspeak != None:
+                    elem['speak'] = self.pairs[key].props.aspeak
                 temp1.append(elem)
-                
+
                 elem = {}
                 elem['pairkey'] = key
                 elem['state'] = '0'
@@ -298,7 +318,9 @@ class Model(object):
                     elem['snd'] = self.pairs[key].props.bsnd
                 if self.pairs[key].props.bchar != None:
                     elem['char'] = self.pairs[key].props.bchar
-                temp2.append(elem)    
+                if self.pairs[key].props.bspeak != None:
+                    elem['speak'] = self.pairs[key].props.bspeak
+                temp2.append(elem)
                 i+=1
             else:
                 break

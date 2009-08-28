@@ -25,14 +25,17 @@ import math
 import gc
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
+import logging
+_logger = logging.getLogger('memorize-activity')
+
 import theme
 
 class CardTable(gtk.EventBox):
-  
+
     __gsignals__ = {
-        'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
-        'card-overflipped': (SIGNAL_RUN_FIRST, None, [int]), 
-        'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]), 
+        'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
+        'card-overflipped': (SIGNAL_RUN_FIRST, None, [int]),
+        'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
         }
 
     def __init__(self):
@@ -44,7 +47,7 @@ class CardTable(gtk.EventBox):
         # set request size to 100x100 to skip first time sizing in _allocate_cb
         self.set_size_request(100, 100)
         self.connect('size-allocate', self._allocate_cb)
-        
+
         # Set table settings
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
         self.table = gtk.Table()
@@ -67,16 +70,22 @@ class CardTable(gtk.EventBox):
 
     def _allocate_cb(self, widget, allocation):
         size = allocation.height
+
         if size == 100:
             # skip first time sizing
             return
-        if self._workspace_size == 0:
-            # do it once
-            self.set_size_request(size, size)
-            self._workspace_size = size
-            if self.data:
-                self.load_game(None, self.data, self.cards_data)
-        
+
+        # do it once
+        if self._workspace_size:
+            return
+
+        _logger.debug('Use %s allocation' % str(self.allocation))
+
+        self.set_size_request(size, size)
+        self._workspace_size = size
+        if self.data:
+            self.load_game(None, self.data, self.cards_data)
+
     def load_game(self, widget, data, grid):
         self.data = data
         self.cards_data = grid
@@ -105,24 +114,25 @@ class CardTable(gtk.EventBox):
         else:
             text1 = str(self.data.get('face', ''))
             text2 = str(self.data.get('face', ''))
-        
+
         x = 0
         y = 0
         id = 0
-        
-        for card in self.cards_data:        
+
+        for card in self.cards_data:
             if card.get('img', None):
                 jpg = os.path.join(self.data['pathimg'], card['img'])
             else:
                 jpg = None
             props = {}
-            props['front_text']= {'card_text':card.get('char', '')}
-                    
+            props['front_text']= {'card_text':card.get('char', ''),
+                                  'speak': card.get('speak')}
+
             if card['ab']== 'a':
                 props['back_text']= {'card_text':text1}
             elif card['ab']== 'b':
                 props['back_text']= {'card_text':text2}
-            
+
             align = self.data.get('align', '1')
             card = svgcard.SvgCard(id, props, jpg, self.card_size, align)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
@@ -131,9 +141,9 @@ class CardTable(gtk.EventBox):
             self.cd2id[card] = id
             self.id2cd[id] = card
             self.cards[(x, y)] = card
-            self.dict[id] = (x, y)            
-            self.table.attach(card, x, x+1, y, y+1)
-         
+            self.dict[id] = (x, y)
+            self.table.attach(card, x, x+1, y, y+1, gtk.SHRINK, gtk.SHRINK)
+
             x += 1
             if x == self.size:
                 x = 0
@@ -143,44 +153,45 @@ class CardTable(gtk.EventBox):
         if self.load_mode:
             self._set_load_mode(False)
         self.show_all()
-        gc.collect()
-            
+        #gc.collect()
+
     def change_game(self, widget, data, grid):
         if not self.first_load:
             for card in self.cards.values():
                 self.table.remove(card)
                 del card
-        gc.collect()
+        #gc.collect()
         self.load_game(None, data, grid)
-    
+
     def get_card_size(self, size_table):
-        x = self._workspace_size/size_table - theme.CARD_PAD*2
+        x = (self._workspace_size+theme.CARD_PAD*(size_table-1)) / size_table \
+                - theme.CARD_PAD*2
         return x
-        
+
     def mouse_event(self, widget, event, coord):
         #self.table.grab_focus()
         card = self.cards[coord[0], coord[1]]
         id = self.cd2id.get(card)
         self.emit('card-highlighted', id, True)
         self.selected_card = (coord[0], coord[1])
-            
+
     def key_press_event(self, widget, event):
         #self.table.grab_focus()
         x= self.selected_card[0]
         y= self.selected_card[1]
-        
+
         if event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left):
             if self.table_positions.has_key((x-1, y)):
                 card = self.cards[x-1, y]
                 id = self.cd2id.get(card)
                 self.emit('card-highlighted', id, False)
-        
+
         elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right):
             if self.table_positions.has_key((x+1, y)):
                 card = self.cards[x+1, y]
                 id = self.cd2id.get(card)
                 self.emit('card-highlighted', id, False)
-        
+
         elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up):
             if self.table_positions.has_key((x, y-1)):
                 card = self.cards[x, y-1]
@@ -217,13 +228,16 @@ class CardTable(gtk.EventBox):
 
     def flip_card(self, widget, id):
         self.id2cd.get(id).flip()
-        
+
+    def cement_card(self, widget, id):
+        self.id2cd.get(id).cement()
+
     def highlight_card(self, widget, id, status):
         if self.dict != None:
             self.selected_card = self.dict.get(id)
             self.id2cd.get(id).set_highlight(status)
-        
-    def reset(self, widget):        
+
+    def reset(self, widget):
         for id in self.id2cd.keys():
            self.id2cd[id].reset()
            

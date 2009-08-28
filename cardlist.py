@@ -30,6 +30,8 @@ import random
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 from sugar import profile
+from sugar.graphics import style
+from sugar.graphics.icon import Icon
 
 import theme
 
@@ -38,26 +40,26 @@ _logger = logging.getLogger('memorize-activity')
 class CardList(gtk.EventBox):
         
     __gsignals__ = {
-        'pair-selected': (SIGNAL_RUN_FIRST, None, 7 * [TYPE_PYOBJECT]), 
+        'pair-selected': (SIGNAL_RUN_FIRST, None, 9 * [TYPE_PYOBJECT]), 
         'update-create-toolbar': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]), 
         'update-create-buttons': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
     }
-    
+
     def __init__(self):
         gtk.EventBox.__init__(self)
-        self.model = model.Model(environ['SUGAR_ACTIVITY_ROOT'])
+        self.model = model.Model()
         self.pairs = []
         self.current_pair = None
-        
-        self.vbox = gtk.VBox(False)        
-        
+
+        self.vbox = gtk.VBox(False)
+
         fill_box = gtk.Label()
         fill_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True)
                    
         scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scroll.add_with_viewport(self.vbox)
         scroll.set_border_width(0)
         scroll.get_child().modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
@@ -92,7 +94,10 @@ class CardList(gtk.EventBox):
             else:
                 bsnd = None
                 
-            self.add_pair(None, game_pairs[key].props.achar, game_pairs[key].props.bchar, aimg, bimg, asnd, bsnd, False)
+            self.add_pair(None, game_pairs[key].props.achar,
+                    game_pairs[key].props.bchar, aimg, bimg, asnd, bsnd,
+                    game_pairs[key].props.aspeak, game_pairs[key].props.bspeak,
+                    False)
         
     def save_game(self, widget, game_name, equal_pairs, grouped):
         
@@ -116,16 +121,24 @@ class CardList(gtk.EventBox):
             achar = self.pairs[pair].get_text(1)
             if achar != '':
                 pair_card.set_property('achar', achar)
-            
+
             # bchar
             bchar = self.pairs[pair].get_text(2)
             if bchar != '':
                 pair_card.set_property('bchar', bchar)
 
+            # aspeak
+            aspeak = self.pairs[pair].get_speak(1)
+            pair_card.set_property('aspeak', aspeak)
+
+            # bspeak
+            bspeak = self.pairs[pair].get_speak(2)
+            pair_card.set_property('bspeak', bspeak)
+
             # aimg
             aimg = self.pairs[pair].get_pixbuf(1)
             if aimg != None:
-                
+
                 if equal_pairs:
                     aimgfile = 'img'+str(pair)+'.jpg'
                 else:
@@ -187,8 +200,9 @@ class CardList(gtk.EventBox):
                 os.rmdir(join(root, name))
         os.rmdir(path)
     
-    def add_pair(self, widget, achar, bchar, aimg, bimg, asnd, bsnd, show = True):
-        pair = Pair(achar, bchar, aimg, bimg, asnd, bsnd)
+    def add_pair(self, widget, achar, bchar, aimg, bimg, asnd, bsnd,
+            aspeak, bspeak, show = True):
+        pair = Pair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak)
         self.vbox.pack_end(pair, False, True)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
@@ -202,7 +216,8 @@ class CardList(gtk.EventBox):
         self.pairs.remove(widget)
         del widget
         self.emit('update-create-buttons', True, True)
-        self.emit('pair-selected', False, None, None, None, None, None, None)
+        self.emit('pair-selected', False, None, None, None, None, None, None,
+                False, False)
             
     def set_selected(self, widget, event):
         if self.current_pair <> None:
@@ -213,74 +228,90 @@ class CardList(gtk.EventBox):
         self.emit('pair-selected', True,
                self.current_pair.get_text(1), self.current_pair.get_text(2),
                self.current_pair.get_pixbuf(1), self.current_pair.get_pixbuf(2),
-               self.current_pair.get_sound(1), self.current_pair.get_sound(2))
-        
-    def update_selected(self, widget, newtext1, newtext2, aimg, bimg, asnd, bsnd):
+               self.current_pair.get_sound(1), self.current_pair.get_sound(2),
+               self.current_pair.get_speak(1), self.current_pair.get_speak(2))
+
+    def update_selected(self, widget, newtext1, newtext2, aimg, bimg,
+            asnd, bsnd, aspeak, bspeak):
         self.current_pair.change_text(newtext1, newtext2)
         self.current_pair.change_pixbuf(aimg, bimg)
         self.current_pair.change_sound(asnd, bsnd)
+        self.current_pair.change_speak(aspeak, bspeak)
         
         self.emit('update-create-buttons', True, True)
         
 class Pair(gtk.EventBox):
-    
+
     __gsignals__ = {
-        'pair-selected': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
-        'pair-closed': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]), 
+        'pair-selected': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'pair-closed': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
     }
-    
-    def __init__(self, text1, text2 = None, aimg = None, bimg = None, asnd = None, bsnd = None):
+
+    def __init__(self, text1, text2 = None, aimg = None, bimg = None,
+            asnd = None, bsnd = None, aspeak=None, bspeak=None):
         gtk.EventBox.__init__(self)
         self.bg_color = '#000000'
-        if text2 == None:
-            self.text2 = text1
-        else: 
-            self.text2 = text2
-        self.text1 = text1
-        
+
         self.asnd = asnd
         self.bsnd = bsnd
-        
+
         self.current_game_key = None
-        
-        close_button = gtk.Button('X')
-        close_button.connect('button-press-event', self.emit_close)
-        table = gtk.Table()
-        table.connect('button-press-event', self.emit_selected)
-        table.set_col_spacings(0)
-        table.set_border_width(10)
+
+        row = gtk.HBox()
+        row.props.border_width = 10
+        row.props.spacing = 10
+
         self.bcard1 = svgcard.SvgCard(-1,
                 { 'front_text'  : { 'card_text'     : text1,
+                                    'speak'         : aspeak,
                                     'text_color'    : '#ffffff' },
                   'front'       : { 'fill_color'    : '#4c4d4f',
                                     'stroke_color'  : '#ffffff',
                                     'opacity'       : '1' } },
                   None, theme.PAIR_SIZE, 1, self.bg_color)
+        self.bcard1.flip()
+        self.bcard1.set_pixbuf(aimg)
+        align = gtk.Alignment(.5, .5, 0, 0)
+        align.add(self.bcard1)
+        row.pack_start(align)
+
         self.bcard2 = svgcard.SvgCard(-1,
                 { 'front_text'  : { 'card_text'     : text2,
+                                    'speak'         : bspeak,
                                     'text_color'    : '#ffffff' },
                   'front'       : { 'fill_color'    : '#4c4d4f',
                                     'stroke_color'  : '#ffffff',
                                     'opacity'       : '1' } },
                   None, theme.PAIR_SIZE, 1, self.bg_color)
-
-        self.bcard1.flip()
         self.bcard2.flip()
-        self.bcard1.set_pixbuf(aimg)
         self.bcard2.set_pixbuf(bimg)
-        
-        table.attach(self.bcard1, 0, 1, 0, 8)
-        table.attach(self.bcard2, 1, 2, 0, 8)
-        table.attach(close_button, 2, 3, 0, 1, gtk.FILL, gtk.FILL)
-        
+        align = gtk.Alignment(.5, .5, 0, 0)
+        align.add(self.bcard2)
+        row.pack_start(align)
+
+        close_image = Icon(
+                icon_name='remove',
+                icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+        align = gtk.Alignment(.5, .5)
+        align.add(close_image)
+        close_button = gtk.ToolButton()
+        close_button.set_icon_widget(align)
+        close_button.connect('clicked', self.emit_close)
+        close_button.set_size_request(style.STANDARD_ICON_SIZE,
+                style.STANDARD_ICON_SIZE)
+        align = gtk.Alignment(.5, 0, 0, 0)
+        align.add(close_button)
+        row.pack_start(align, False)
+
+        self.connect('button-press-event', self.emit_selected)
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
-        self.add(table)
+        self.add(row)
         self.show_all()
 
     def emit_selected(self, widget, event):
         self.emit('pair-selected', self)
 
-    def emit_close(self, widget, event):
+    def emit_close(self, widget):
         self.emit('pair-closed', self)
 
     def set_selected(self, status):
@@ -304,19 +335,29 @@ class Pair(gtk.EventBox):
     def change_sound(self, asnd, bsnd):
         self.asnd = asnd
         self.bsnd = bsnd
-    
+
     def get_text(self, card):
         if card == 1:
             return self.bcard1.get_text()
         else:
-            return self.bcard2.get_text()        
-        
+            return self.bcard2.get_text()
+
+    def change_speak(self, aspeak, bspeak):
+        self.bcard1.change_speak(aspeak)
+        self.bcard2.change_speak(bspeak)
+
+    def get_speak(self, card):
+        if card == 1:
+            return self.bcard1.get_speak()
+        else:
+            return self.bcard2.get_speak()
+
     def get_pixbuf(self, card):
         if card == 1:
             return self.bcard1.get_pixbuf()
         else:
             return self.bcard2.get_pixbuf()
-        
+
     def get_sound(self, card):
         if card == 1:
             return self.asnd
