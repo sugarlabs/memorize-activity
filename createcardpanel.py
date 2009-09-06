@@ -374,7 +374,7 @@ class CardEditor(gtk.EventBox):
             del pixbuf_t
             del pixbuf_z
 
-        chooser.pick(parent=activity.this,
+        chooser.pick(parent=self.get_toplevel(),
                      what=chooser.IMAGE,
                      cb=load)
 
@@ -394,7 +394,7 @@ class CardEditor(gtk.EventBox):
             self.emit('has-sound', True)
             _logger.debug('Audio Loaded: '+dst)
 
-        chooser.pick(parent=activity.this,
+        chooser.pick(parent=self.get_toplevel(),
                      what=chooser.AUDIO,
                      cb=load)
 

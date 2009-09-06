@@ -59,15 +59,10 @@ PATH = '/org/laptop/Memorize'
 _TOOLBAR_PLAY = 1
 _TOOLBAR_CREATE = 2
 
-this = None
-
 class MemorizeActivity(Activity):
     
     def __init__(self, handle):
         Activity.__init__(self, handle)
-
-        global this
-        this = self
 
         self.create_load = False
         self.play_mode = None
