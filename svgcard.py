@@ -39,22 +39,27 @@ class SvgCard(gtk.EventBox):
 
     # Default properties
     default_props = {}
-    default_props['back'] = {'fill_color':'#b2b3b7', 'stroke_color':'#b2b3b7', 'opacity':'1'}
-    default_props['back_h'] = {'fill_color':'#b2b3b7', 'stroke_color':'#ffffff', 'opacity':'1'}
+    default_props['back'] = {'fill_color':'#b2b3b7', 'stroke_color':'#b2b3b7',
+                             'opacity':'1'}
+    default_props['back_h'] = {'fill_color':'#b2b3b7',
+                               'stroke_color':'#ffffff', 'opacity':'1'}
     default_props['back_text'] = {'text_color':'#c7c8cc'}
-    default_props['front'] = {'fill_color':'#4c4d4f', 'stroke_color':'#ffffff', 'opacity':'1'}
-    default_props['front_h'] = {'fill_color':'#555555', 'stroke_color':'#888888', 'opacity':'1'}
+    default_props['front'] = {'fill_color':'#4c4d4f', 'stroke_color':'#ffffff',
+                              'opacity':'1'}
+    default_props['front_h'] = {'fill_color':'#555555',
+                                'stroke_color':'#888888', 'opacity':'1'}
     default_props['front_text'] = {'text_color':'#ffffff'}
 
     cache = {}
 
-    def __init__(self, id, pprops, jpeg, size, align, bg_color='#000000'):
+    def __init__(self, identifier, pprops, jpeg, size,
+                 align, bg_color='#000000'):
         gtk.EventBox.__init__(self)
 
         self.bg_color = bg_color
         self.flipped = False
         self.flipped_once = False
-        self.id = id
+        self.id = identifier
         self.jpeg = jpeg
         self.show_jpeg = False
         self.show_text = False
@@ -66,7 +71,8 @@ class SvgCard(gtk.EventBox):
         self.set_size_request(size, size)
 
         # Views properties
-        views = ['back', 'back_h', 'back_text', 'front', 'front_h', 'front_text']
+        views = ['back', 'back_h', 'back_text', 'front',
+                 'front_h', 'front_text']
         self.pprops = pprops
         self.props = {}
         for view in views:
@@ -126,34 +132,37 @@ class SvgCard(gtk.EventBox):
         return False
 
     def _read_icon_data(self, view):
-        dict = self.props[view]
-        set  = str(self.size)+dict.get('fill_color')+dict.get('stroke_color')
-        if self.cache.has_key(set):
-            return self.cache[set]
+        icon_data = self.props[view]
+        key = str(self.size) + icon_data.get('fill_color') + \
+                icon_data.get('stroke_color')
+        if self.cache.has_key(key):
+            return self.cache[key]
 
         icon_file = open(self.border_svg, 'r')
         data = icon_file.read()
         icon_file.close()
 
         # Replace borders parameters
-        entity = '<!ENTITY fill_color "%s">' % dict.get('fill_color', '')
+        entity = '<!ENTITY fill_color "%s">' % icon_data.get('fill_color', '')
         data = re.sub('<!ENTITY fill_color .*>', entity, data)
 
-        entity = '<!ENTITY stroke_color "%s">' % dict.get('stroke_color', '')
+        entity = '<!ENTITY stroke_color "%s">' % \
+                icon_data.get('stroke_color', '')
         data = re.sub('<!ENTITY stroke_color .*>', entity, data)
 
-        entity = '<!ENTITY opacity "%s">' % dict.get('opacity', '')
+        entity = '<!ENTITY opacity "%s">' % icon_data.get('opacity', '')
         data = re.sub('<!ENTITY opacity .*>', entity, data)
 
         data = re.sub('size_card1', str(self.size), data)
         data = re.sub('size_card2', str(self.size-6), data)
         data = re.sub('size_card3', str(self.size-17), data)
         pixbuf = rsvg.Handle(data=data).get_pixbuf()
-        self.cache[set] = pixbuf
+        self.cache[key] = pixbuf
         return pixbuf
 
     def set_border(self, stroke_color, fill_color):
-        self.props['front'].update({'fill_color':fill_color, 'stroke_color':stroke_color})
+        self.props['front'].update({'fill_color' : fill_color,
+                                    'stroke_color' : stroke_color})
         self.queue_draw()
         while gtk.events_pending():
             gtk.main_iteration()
@@ -197,16 +206,19 @@ class SvgCard(gtk.EventBox):
             return
 
         if not self.flipped_once:
-            if self.jpeg <> None:
+            if self.jpeg is not None:
                 pixbuf_t = gtk.gdk.pixbuf_new_from_file(self.jpeg)
-                if pixbuf_t.get_width() != self.size-22 or pixbuf_t.get_height() != self.size-22:
-                    self.jpeg = pixbuf_t.scale_simple(self.size-22, self.size-22, gtk.gdk.INTERP_BILINEAR)
+                if pixbuf_t.get_width() != self.size - 22 \
+                        or pixbuf_t.get_height() != self.size - 22:
+                    self.jpeg = pixbuf_t.scale_simple(self.size - 22,
+                                                      self.size - 22,
+                                                      gtk.gdk.INTERP_BILINEAR)
                     del pixbuf_t
                 else:
                     self.jpeg = pixbuf_t
             self.flipped_once = True
 
-        if self.jpeg <> None:
+        if self.jpeg is not None:
             self.show_jpeg = True
         text = self.props.get('front_text', {}).get('card_text', '')
         if text != None and len(text) > 0:
@@ -264,8 +276,10 @@ class SvgCard(gtk.EventBox):
 
     def reset(self):
         if self.flipped:
-            fill_color = self.default_props.get('front_border').get('fill_color')
-            stroke_color = self.default_propsfront_text.get('front_border').get('stroke_color')
+            front_border = self.default_props.get('front_border')
+            fill_color = front_border.get('fill_color')
+            front_text = self.default_propsfront_text
+            stroke_color = front_text.get('front_border').get('stroke_color')
             self.set_border(fill_color, stroke_color)
             self.flop()
 
@@ -279,7 +293,7 @@ class SvgCard(gtk.EventBox):
         for size in range(80, 66, -8) + range(66, 44, -6) + \
                 range(44, 24, -4) + range(24, 15, -2) + range(15, 7, -1):
 
-            card_size = self.size - theme.SVG_PAD*2
+            card_size = self.size - theme.SVG_PAD * 2
             layout = self.create_pango_layout(text)
             layout.set_width(PIXELS_PANGO(card_size))
             layout.set_wrap(pango.WRAP_WORD)
@@ -302,7 +316,8 @@ class SvgCard(gtk.EventBox):
 
     def set_background(self, color):
         self.bg_color = color
-        self.draw.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
+        self.draw.modify_bg(gtk.STATE_NORMAL,
+                            gtk.gdk.color_parse(self.bg_color))
 
     def change_text(self, newtext):
         self.text_layouts[self.flipped] = None

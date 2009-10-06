@@ -17,7 +17,7 @@
 
 import libxml2
 from os import environ, makedirs, chmod
-from os.path import join, basename, dirname, isdir, split, normpath
+from os.path import join, basename, isdir, split, normpath
 import logging
 import random
 import gobject
@@ -136,7 +136,7 @@ class Model(object):
     def read(self, game_file):
         tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         temp_folder = tempfile.mkdtemp(dir=tmp_root)
-        chmod(temp_folder,0777)
+        chmod(temp_folder, 0777)
         self.data['key'] = basename(game_file)
         self.data['game_file'] = game_file
         self.data['path'] = temp_folder
@@ -158,7 +158,8 @@ class Model(object):
         
         ''' reads the configuration from an xml file '''
         try:
-            xml_file = join(environ['SUGAR_ACTIVITY_ROOT'], self.data['path'], 'game.xml')
+            xml_file = join(environ['SUGAR_ACTIVITY_ROOT'],
+                            self.data['path'], 'game.xml')
             doc = libxml2.parseFile(xml_file)
             if doc.validateDtd(self.ctxt, self.dtd):
         
@@ -167,7 +168,7 @@ class Model(object):
                 res = xpa.xpathEval("//*")
 
                 # write their content to the data structure
-                self.idpair = 0
+                idpair = 0
                 for elem in res:
                     attributes = elem.get_properties()
                     pair = Pair()
@@ -176,31 +177,32 @@ class Model(object):
                             if(attribute.name == 'text'):
                                 pass
                             else:                            
-                                pair.set_property(attribute.name, attribute.content)
-                        self.pairs[str(self.idpair)] = pair
-                        self.idpair+=1                        
+                                pair.set_property(attribute.name,
+                                                  attribute.content)
+                        self.pairs[str(idpair)] = pair
+                        idpair += 1
                     elif(elem.name == 'memorize'):
                         for attribute in attributes:
                             if(attribute.name == 'text'):
                                 pass
-                            elif(attribute.name == 'name'):                            
+                            elif(attribute.name == 'name'):    
                                 self.data['name'] = attribute.content
-                            elif(attribute.name == 'scoresnd'):                            
-                                self.data['scoresnd'] = attribute.content            
-                            elif(attribute.name == 'winsnd'):                            
-                                self.data['winsnd'] = attribute.content            
-                            elif(attribute.name == 'divided'):                            
+                            elif(attribute.name == 'scoresnd'):
+                                self.data['scoresnd'] = attribute.content
+                            elif(attribute.name == 'winsnd'):      
+                                self.data['winsnd'] = attribute.content
+                            elif(attribute.name == 'divided'):         
                                 self.data['divided'] = attribute.content
-                            elif(attribute.name == 'face'):                            
+                            elif(attribute.name == 'face'):     
                                 self.data['face'] = attribute.content
-                            elif(attribute.name == 'face1'):                            
+                            elif(attribute.name == 'face1'):         
                                 self.data['face1'] = attribute.content
-                            elif(attribute.name == 'face2'):                            
+                            elif(attribute.name == 'face2'):        
                                 self.data['face2'] = attribute.content
-                            elif(attribute.name == 'align'):                            
+                            elif(attribute.name == 'align'):
                                 self.data['align'] = attribute.content
-                            elif(attribute.name == 'equal_pairs'):                            
-                                self.data['equal_pairs'] = attribute.content    
+                            elif(attribute.name == 'equal_pairs'):
+                                self.data['equal_pairs'] = attribute.content
                 xpa.xpathFreeContext()
             else:
                 _logger.error('Read: Error in validation of the file')
@@ -280,15 +282,15 @@ class Model(object):
         and shuffles the grid so they always appear in a different
         place        
         '''
-        psize=(size*size/2)
-        _logger.debug('Size requested: %d' %psize)
+        psize = (size * size / 2)
+        _logger.debug('Size requested: %d', psize)
         self.grid = []
         temp1 = []
         temp2 = []
-        i=0
+        i = 0
 
-        # shuffle the pairs first to avoid only taking the first ones when there are more
-        # pairs in the config file then the grid is using
+        # shuffle the pairs first to avoid only taking the first ones
+        # when there are more pairs in the config file then the grid is using
         keys = self.pairs.keys()
         random.shuffle(keys)
 
@@ -321,13 +323,14 @@ class Model(object):
                 if self.pairs[key].props.bspeak != None:
                     elem['speak'] = self.pairs[key].props.bspeak
                 temp2.append(elem)
-                i+=1
+                i += 1
             else:
                 break
         
         numpairs = len(self.pairs)      
         if numpairs < psize:
-            _logger.debug('Defgrid: We did not have enough pairs. requested=%s had=%s' %(psize, numpairs))
+            _logger.debug('Defgrid: Not enough pairs, requested=%s had=%s'
+                          % (psize, numpairs))
         self.data['size'] = str(size)
 
         if self.data['divided'] == '1':
@@ -338,8 +341,9 @@ class Model(object):
             temp1.extend(temp2)
             random.shuffle(temp1)
         self.grid = temp1
-        _logger.debug('Defgrid: grid( size=%s ): %s' %(self.data['size'], self.grid))
-        _logger.debug('Defgrid: data: %s' %self.data)
+        _logger.debug('Defgrid: grid( size=%s ): %s'
+                      % (self.data['size'], self.grid))
+        _logger.debug('Defgrid: data: %s', self.data)
 
     def set_data_grid(self, data, grid):
         self.data = data

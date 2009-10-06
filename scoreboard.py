@@ -54,7 +54,7 @@ class Scoreboard(gtk.EventBox):
         stroke_color, fill_color = buddy.props.color.split(',')
         player = PlayerScoreboard(nick, fill_color, stroke_color, score)
         player.show()
-        self.players[buddy]=player        
+        self.players[buddy] = player        
         self.vbox.pack_start(player, False, False)
         if score == -1:
             player.set_wait_mode(True)
@@ -65,7 +65,7 @@ class Scoreboard(gtk.EventBox):
         del self.players[buddy] ### fix for self.players[id]
     
     def set_selected(self, widget, buddy):
-        if self.current_buddy <> None:
+        if self.current_buddy is not None:
             old = self.players[self.current_buddy]
             old.set_selected(False)
         self.current_buddy = buddy 

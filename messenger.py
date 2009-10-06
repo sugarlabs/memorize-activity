@@ -20,7 +20,7 @@ _logger = logging.getLogger('memorize-activity')
 
 import tempfile
 from os import environ, chmod
-from os.path import join, getsize, isfile, dirname, basename
+from os.path import join, getsize, dirname, basename
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 from sugar.datastore import datastore
@@ -75,19 +75,20 @@ class Messenger(ExportedGObject):
         data = self.game.model.data
         path = data['game_file']
         if self.game.model.data['mode'] == 'file':
-             title = data.get('title', 'Received game')
-             color = data.get('color', '#ff00ff,#00ff00')
-             self.file_sender(sender, path, title, color)
-        
+            title = data.get('title', 'Received game')
+            color = data.get('color', '#ff00ff,#00ff00')
+            self.file_sender(sender, path, title, color)
+
         remote_object = self._tube.get_object(sender, PATH)
         remote_object.load_game(self.ordered_bus_names, 
                                 self.game.get_grid(), 
                                 self.game.collect_data(), 
-                                self.game.players.index(self.game.current_player), 
+                                self.game.players.index(self.game.current_player),
                                 #self.game.waiting_players,
                                 path)
     
-    @method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}ns', out_signature='', byte_arrays=True)
+    @method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}ns',
+            out_signature='', byte_arrays=True)
     def load_game(self, bus_names, grid, data, current_player, path):
         self.ordered_bus_names = bus_names
         self.player_id = bus_names.index(self._tube.get_unique_name())
@@ -104,8 +105,6 @@ class Messenger(ExportedGObject):
         self._flip_handler()
         self._change_game_handler()
         self._file_part_handler()
-    
-    # Change game method
     
     def change_game(self, sender, mode, grid, data, waiting_list, zip):
         path = self.game.model.data['game_file']
@@ -134,7 +133,8 @@ class Messenger(ExportedGObject):
             return
         if mode == 'demo':
             game_name = basename(data.get('game_file', 'debug-demo'))
-            game_file = join(dirname(__file__), 'demos', game_name).encode('ascii')
+            game_file = join(dirname(__file__), 'demos',
+                             game_name).encode('ascii')
             self.game.model.read(game_file)
         if mode == 'file':
             self.game.model.read(self.files[path])
@@ -151,14 +151,16 @@ class Messenger(ExportedGObject):
         size = getsize(filename)
         f = open(filename, 'rb')
         part_size = 8192
-        num_parts = (size / part_size) +1
+        num_parts = (size / part_size) + 1
         for part in range(num_parts):
             bytes = f.read(part_size)
-            self._file_part_signal(target, filename, part+1, num_parts, bytes, title, color)
+            self._file_part_signal(target, filename, part + 1,
+                                   num_parts, bytes, title, color)
         f.close()
     
     @signal(dbus_interface=IFACE, signature='ssuuayss')
-    def _file_part_signal(self, target, filename, part, numparts, bytes, title, color):
+    def _file_part_signal(self, target, filename, part, numparts,
+                          bytes, title, color):
         pass
         
     def _file_part_handler(self):
@@ -169,7 +171,8 @@ class Messenger(ExportedGObject):
                                         sender_keyword='sender', 
                                         byte_arrays=True)
         
-    def _file_part_receiver(self, target, filename, part, numparts, bytes, title=None, color=None, sender=None):
+    def _file_part_receiver(self, target, filename, part, numparts,
+                            bytes, title=None, color=None, sender=None):
         # ignore my own signal
         if sender == self._tube.get_unique_name():
             return
@@ -181,7 +184,7 @@ class Messenger(ExportedGObject):
         if part == 1:
             tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
             temp_dir = tempfile.mkdtemp(dir=tmp_root)
-            chmod(temp_dir,0777)
+            chmod(temp_dir, 0777)
             self.temp_file = join(temp_dir, 'game.zip')
             self.files[filename] = self.temp_file
             self.f = open(self.temp_file, 'a+b')
@@ -189,8 +192,9 @@ class Messenger(ExportedGObject):
         self.f.write(bytes)
         
         percentage = int(float(part) / float(numparts) * 100.0)
-        self.game.set_load_mode(_('Receiving game') + ': ' + str(percentage) + '% ' + _('done') + '.')
-            
+        self.game.set_load_mode(_('Receiving game') + ': '
+                                + str(percentage) + '% ' + _('done') + '.')
+
         # last chunk
         if part == numparts:
             self.f.close()   
@@ -203,7 +207,7 @@ class Messenger(ExportedGObject):
             gameObject.file_path = self.temp_file
             datastore.write(gameObject)
             #gameObject.destroy()
-             
+
 
     # flip card methods         
 
@@ -226,4 +230,3 @@ class Messenger(ExportedGObject):
         if sender == self._tube.get_unique_name():
             return
         self.game.card_flipped(None, card_number, True)
-            

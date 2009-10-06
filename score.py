@@ -15,11 +15,8 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import rsvg
-import re
 import svglabel
 import gtk
-import gobject
 import os
 
 import theme
@@ -30,15 +27,21 @@ class Score(svglabel.SvgLabel):
     default_color = "#4c4d4f"
     status = False
     
-    def __init__(self, fill_color, stroke_color, pixbuf= None, pixbuf_sel = None, status= False):
+    def __init__(self, fill_color, stroke_color, pixbuf=None,
+                 pixbuf_sel=None, status=False):
         filename = os.path.join(os.path.dirname(__file__), "images/score.svg")
         self.pixbuf_un = pixbuf
         self.pixbuf_sel = pixbuf_sel
         self.status = status
         if self.pixbuf_un == None:
-            self.pixbuf_un = svglabel.SvgLabel(filename, fill_color, stroke_color, False, self.default_color).get_pixbuf()
+            self.pixbuf_un = svglabel.SvgLabel(filename, fill_color,
+                                               stroke_color, False,
+                                               self.default_color).get_pixbuf()
         if self.pixbuf_sel == None:
-            self.pixbuf_sel = svglabel.SvgLabel(filename, fill_color, stroke_color, False, self.selected_color).get_pixbuf()
+            label = svglabel.SvgLabel(filename, fill_color, stroke_color,
+                                      False, self.selected_color)
+            self.pixbuf_sel = label.get_pixbuf()
+
         if status:
             self.pixbuf = self.pixbuf_sel
         else:
@@ -53,10 +56,12 @@ class Score(svglabel.SvgLabel):
         self.status = status
         if status:
             self.pixbuf = self.pixbuf_sel
-            self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.selected_color))
+            self.modify_bg(gtk.STATE_NORMAL,
+                           gtk.gdk.color_parse(self.selected_color))
         else:
             self.pixbuf = self.pixbuf_un
-            self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.default_color))
+            self.modify_bg(gtk.STATE_NORMAL,
+                           gtk.gdk.color_parse(self.default_color))
         self.queue_draw()     
         
     def get_pixbuf_un(self):
@@ -64,4 +69,3 @@ class Score(svglabel.SvgLabel):
     
     def get_pixbuf_sel(self):
         return self.pixbuf_sel
-        

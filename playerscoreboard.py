@@ -15,9 +15,8 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk, pygtk
+import gtk
 
-import pango
 import svglabel
 import logging
 from os.path import join, dirname
@@ -47,7 +46,8 @@ class PlayerScoreboard(gtk.EventBox):
         
         # Set table
         self.table = gtk.Table(2, 2, False)
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.current_color))
+        self.modify_bg(gtk.STATE_NORMAL,
+                       gtk.gdk.color_parse(self.current_color))
         self.table.set_row_spacings(theme.PAD/2)
         self.table.set_col_spacings(theme.PAD/2)
         self.table.set_border_width(theme.PAD)
@@ -60,16 +60,15 @@ class PlayerScoreboard(gtk.EventBox):
         self.scores = []
         self.current_x = 0
         self.current_y = 0
-        status = False       
         
         # Set buddy icon
         self.xo_buddy = join(dirname(__file__), 'images', 'stock-buddy.svg')
         self.icon = svglabel.SvgLabel(self.xo_buddy, fill_color, stroke_color,
                 False, self.current_color, theme.BODY_WIDTH, theme.BODY_HEIGHT)
-        
+
         # Set waiting buddy icon
-        self.waiting_icon = svglabel.SvgLabel(self.xo_buddy, self.default_color,
-                '#ffffff', False, self.current_color,
+        self.waiting_icon = svglabel.SvgLabel(self.xo_buddy, \
+                self.default_color, '#ffffff', False, self.current_color,
                 theme.BODY_WIDTH, theme.BODY_HEIGHT)
         
         # Set nick label
@@ -87,37 +86,40 @@ class PlayerScoreboard(gtk.EventBox):
         self.table.attach(self.nick, 1, 2, 0, 1)
         self.table.attach(self.score_table, 1, 2, 1, 2)
 
-        if score <> 0:
-            for i in range(score):
+        if score != 0:
+            for i_ in range(score):
                 self.increase_score()
 
     def _allocate_cb(self, widget, allocation):
-        self._score_width = allocation.width - theme.BODY_WIDTH - theme.PAD*2 - theme.PAD/2
-        self._score_cols = self._score_width / (theme.SCORE_SIZE+theme.PAD/2)
+        self._score_width = allocation.width - theme.BODY_WIDTH \
+                - theme.PAD * 2 - theme.PAD / 2
+        self._score_cols = self._score_width / \
+                (theme.SCORE_SIZE + theme.PAD / 2)
         self.change_game(self._game_size)
 
     def change_game(self, size):
         self._game_size = size
-        if self._score_cols == 0: return
+        if self._score_cols == 0:
+            return
 
         rows = int(math.ceil(float(size/2) / self._score_cols))
         self.score_table.resize(rows, self._score_cols)
         self.score_table.set_size_request(-1,
-                (theme.SCORE_SIZE+theme.PAD/2) * (rows) - theme.PAD/2)
+                (theme.SCORE_SIZE + theme.PAD / 2) * (rows) - theme.PAD / 2)
 
     def increase_score(self):
         if len(self.scores) == 0:
             # Cache the score icon
             score_label = Score(self.fill_color, self.stroke_color)
-            self.score_pixbuf_unsel = score_label.get_pixbuf()
-            self.score_pixbuf_sel = score_label.get_pixbuf_sel()
+            score_pixbuf_unsel = score_label.get_pixbuf()
+            score_pixbuf_sel = score_label.get_pixbuf_sel()
         
         new_score = Score(self.fill_color, self.stroke_color,
-                self.score_pixbuf_sel, self.score_pixbuf_unsel, self.status)
+                          score_pixbuf_sel, score_pixbuf_unsel, self.status)
         self.scores.append(new_score)
         new_score.show()
-        self.score_table.attach(new_score, self.current_x , self.current_x+1,
-                self.current_y, self.current_y+1, gtk.SHRINK, gtk.SHRINK)
+        self.score_table.attach(new_score, self.current_x , self.current_x + 1,
+                self.current_y, self.current_y + 1, gtk.SHRINK, gtk.SHRINK)
         self.current_x += 1
         if self.current_x == self._score_cols:
             self.current_x = 0
@@ -130,7 +132,8 @@ class PlayerScoreboard(gtk.EventBox):
             self.current_color = self.selected_color
         else:
             self.current_color = self.default_color
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.current_color))
+        self.modify_bg(gtk.STATE_NORMAL,
+                       gtk.gdk.color_parse(self.current_color))
         self.icon.set_background(self.current_color)
         for score in self.scores:
             score.set_selected(sel)
@@ -161,4 +164,3 @@ class PlayerScoreboard(gtk.EventBox):
         
     def set_message(self, msg):
         self.msg.set_text(msg)
-        

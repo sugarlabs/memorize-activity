@@ -84,7 +84,8 @@ class MemorizeToolbar(gtk.Toolbar):
         self._sizes = ['4 X 4', '5 X 5', '6 X 6']
         for i, f in enumerate(self._sizes):
             self._size_combo.combo.append_item(i, f)
-        self.size_handle_id = self._size_combo.combo.connect('changed', self._game_size_cb)
+        self.size_handle_id = self._size_combo.combo.connect( \
+                'changed', self._game_size_cb)
         self._add_widget(self._size_combo)
         self._size_combo.combo.set_active(0)
         
@@ -121,7 +122,8 @@ class MemorizeToolbar(gtk.Toolbar):
         try:
             result = chooser.run()
             if result == gtk.RESPONSE_ACCEPT:
-                logging.debug('ObjectChooser: %r' % chooser.get_selected_object())
+                logging.debug('ObjectChooser: %r', 
+                              chooser.get_selected_object())
                 jobject = chooser.get_selected_object()
                 if not jobject or  not jobject.file_path:
                     return
@@ -135,7 +137,8 @@ class MemorizeToolbar(gtk.Toolbar):
                 color = jobject.metadata['icon-color']
             else:
                 color = profile.get_color().to_string()
-            self.emit('game_changed', jobject.file_path, 4, 'file', title, color)
+            self.emit('game_changed', jobject.file_path, 4,
+                      'file', title, color)
              
             if self.jobject != None:
                 self.jobject.destroy()
@@ -146,8 +149,11 @@ class MemorizeToolbar(gtk.Toolbar):
         self.emit('game_changed', None, game_size, 'size', None, None)
     
     def _game_changed_cb(self, combobox):
-        if combobox.get_active() == 0: return
-        title = game_name = self.standard_game_names[self._game_combo.combo.get_active()]
+        if combobox.get_active() == 0:
+            return
+        current_game = self._game_combo.combo.get_active()
+        game_name = self.standard_game_names[current_game]
+        title = game_name
         game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
         
         if game_name in self.translated_game_names:
