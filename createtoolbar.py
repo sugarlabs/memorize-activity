@@ -111,7 +111,9 @@ class CreateToolbar(gtk.Toolbar):
         self.emit('create_load_game', game_name)
   
     def _load_game(self, button):
-        chooser = ObjectChooser(_('Choose memorize game'), None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
+        chooser = ObjectChooser(_('Choose memorize game'),
+                parent=self.activity,
+                flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
         jobject = ''
         try:
             result = chooser.run()

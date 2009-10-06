@@ -2,114 +2,270 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-06-26 12:27-0400\n"
+"POT-Creation-Date: 2009-07-14 10:26+0000\n"
+"PO-Revision-Date: 2009-08-31 15:39-0400\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.2.1\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Mémoriser"
 
-#: activity.py:70
-msgid "Play"
-msgstr "Jouer"
-
-#: activity.py:74
-msgid "Create"
-msgstr "Créer"
-
-#: createcardpanel.py:52
-msgid "Add as new pair"
-msgstr "Ajouter une nouvelle paire"
-
-#: createcardpanel.py:60
-msgid "Update selected pair"
-msgstr "Mettre à jour la paire sélectionnée"
-
-#: createcardpanel.py:180
-msgid "Preview:"
-msgstr "Aperçu :"
-
-#: createcardpanel.py:182
-msgid "Text:"
-msgstr "Texte :"
-
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "Choisir une image"
-
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "Choisir un son"
-
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "Nouvelle partie"
-
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Charge la partie"
-
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr "Sauvegarder la partie"
-
-#: createtoolbar.py:83
-msgid "Game name"
-msgstr "Nom de la partie"
-
-#: createtoolbar.py:87
-msgid "Equal pairs"
-msgstr "Paires égales"
-
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Cliquer pour une partie en groupe"
-
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "Choisis la partie mémorisée"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Cliquer pour une partie hors groupe"
-
-#: game.py:105
+#: /home/sugar/src/activities/memorize.activity/game.py:93
 msgid "Loading game..."
 msgstr "Chargement d'une partie..."
 
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Charge des parties de démonstrations"
-
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "addition"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "lettres"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "sons"
-
-#: memorizetoolbar.py:63
-msgid "Restart Game"
-msgstr "Redémarre la partie"
-
-#: messenger.py:183
+#: /home/sugar/src/activities/memorize.activity/messenger.py:192
 msgid "Receiving game"
 msgstr "Réception d'une partie"
 
-#: messenger.py:183
+#: /home/sugar/src/activities/memorize.activity/messenger.py:192
 msgid "done"
 msgstr "terminé"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:51
+msgid "New game"
+msgstr "Nouvelle partie"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:61
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Charge la partie"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:71
+msgid "Save game"
+msgstr "Sauvegarder la partie"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:81
+msgid "Game name"
+msgstr "Nom de la partie"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:85
+msgid "Equal pairs"
+msgstr "Paires égales"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:97
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:156
+msgid "Click for grouped game"
+msgstr "Cliquer pour une partie en groupe"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:114
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "Choisis la partie mémorisée"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:152
+msgid "Click for ungrouped game"
+msgstr "Cliquer pour une partie hors groupe"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Charge des parties de démonstrations"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:41
+msgid "addition"
+msgstr "addition"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:42
+msgid "letters"
+msgstr "lettres"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:43
+msgid "sounds"
+msgstr "sons"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Redémarre la partie"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:82
+msgid "Add as new pair"
+msgstr "Ajouter une nouvelle paire"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:85
+msgid "Add"
+msgstr "Ajouter"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:90
+msgid "Update selected pair"
+msgstr "Mettre à jour la paire sélectionnée"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:93
+msgid "Update"
+msgstr "Mise à jour"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:254
+msgid "Preview:"
+msgstr "Aperçu :"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:270
+msgid "Text:"
+msgstr "Texte :"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:282
+msgid "Insert picture"
+msgstr "Insérer une image"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:287
+msgid "Insert sound"
+msgstr "Insérer un son"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:427
+msgid "Pronounce text while fliping tile"
+msgstr "Prononce le texte en retournant la carte"
+
+#: /home/sugar/src/activities/memorize.activity/activity.py:74
+msgid "Play"
+msgstr "Jouer"
+
+#: /home/sugar/src/activities/memorize.activity/activity.py:78
+msgid "Create"
+msgstr "Créer"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:36
+msgid "Brazil"
+msgstr "Brésil"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:37
+msgid "Swedish"
+msgstr "Suédois"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:38
+msgid "Icelandic"
+msgstr "Icelandais"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:39
+msgid "Romanian"
+msgstr "Roumain"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahili"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:42
+msgid "Dutch"
+msgstr "Néerlandais"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:43
+msgid "Latin"
+msgstr "Latin"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:44
+msgid "Hungarian"
+msgstr "Hongrois"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macédonien"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:46
+msgid "Welsh"
+msgstr "Gallois"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:47
+msgid "French"
+msgstr "Français"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:48
+msgid "Norwegian"
+msgstr "Norvégien"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:49
+msgid "Russian"
+msgstr "Russe"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikaans"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:51
+msgid "Finnish"
+msgstr "Finnois"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:52
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:125
+msgid "Default"
+msgstr "Défaut"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:53
+msgid "Cantonese"
+msgstr "Cantonais"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:54
+msgid "Scottish"
+msgstr "Écossais"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:55
+msgid "Greek"
+msgstr "Grec"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnamien"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:57
+msgid "English"
+msgstr "Anglais"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:59
+msgid "Italian"
+msgstr "Italien"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugais"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:61
+msgid "German"
+msgstr "Allemand"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:62
+msgid "Whisper"
+msgstr "Chuchoté"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:63
+msgid "Croatian"
+msgstr "Croate"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:64
+msgid "Czech"
+msgstr "Tchèque"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:65
+msgid "Slovak"
+msgstr "Slovaque"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:66
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:67
+msgid "Polish"
+msgstr "Polonais"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#~ msgid "Choose image"
+#~ msgstr "Choisir une image"
+
+#~ msgid "Choose audio"
+#~ msgstr "Choisir un son"
 
 #~ msgid "capitals"
 #~ msgstr "capitales"

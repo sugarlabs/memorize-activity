@@ -2,114 +2,270 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-06-26 15:33-0400\n"
+"POT-Creation-Date: 2009-07-14 10:26+0000\n"
+"PO-Revision-Date: 2009-09-06 03:21-0400\n"
 "Last-Translator: Myckel Habets <myckel@sdf.lonestar.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.2.1\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Onthouden"
 
-#: activity.py:70
-msgid "Play"
-msgstr "Speel"
-
-#: activity.py:74
-msgid "Create"
-msgstr "Maken"
-
-#: createcardpanel.py:52
-msgid "Add as new pair"
-msgstr "Toevoegen als nieuw paar"
-
-#: createcardpanel.py:60
-msgid "Update selected pair"
-msgstr "Geselecteerd paar vernieuwen"
-
-#: createcardpanel.py:180
-msgid "Preview:"
-msgstr "Bekijken:"
-
-#: createcardpanel.py:182
-msgid "Text:"
-msgstr "Tekst:"
-
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "Kies afbeelding"
-
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "Kies geluid"
-
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "Nieuw spel"
-
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Laad spel"
-
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr "Spel opslaan"
-
-#: createtoolbar.py:83
-msgid "Game name"
-msgstr "Spelnaam"
-
-#: createtoolbar.py:87
-msgid "Equal pairs"
-msgstr "Gelijke paren"
-
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Kies groepsspel"
-
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "Kies geheugenspel"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Kies niet-groepsspel"
-
-#: game.py:105
+#: /home/sugar/src/activities/memorize.activity/game.py:93
 msgid "Loading game..."
 msgstr "Laad spel..."
 
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Laad demo spellen"
-
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "optellen"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "letters"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "geluiden"
-
-#: memorizetoolbar.py:63
-msgid "Restart Game"
-msgstr "Herstart spel"
-
-#: messenger.py:183
+#: /home/sugar/src/activities/memorize.activity/messenger.py:192
 msgid "Receiving game"
 msgstr "Spel ontvangen"
 
-#: messenger.py:183
+#: /home/sugar/src/activities/memorize.activity/messenger.py:192
 msgid "done"
 msgstr "klaar"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:51
+msgid "New game"
+msgstr "Nieuw spel"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:61
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Laad spel"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:71
+msgid "Save game"
+msgstr "Spel opslaan"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:81
+msgid "Game name"
+msgstr "Spelnaam"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:85
+msgid "Equal pairs"
+msgstr "Gelijke paren"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:97
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:156
+msgid "Click for grouped game"
+msgstr "Kies groepsspel"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:114
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:117
+msgid "Choose memorize game"
+msgstr "Kies geheugenspel"
+
+#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:152
+msgid "Click for ungrouped game"
+msgstr "Kies niet-groepsspel"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Laad demo spellen"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:41
+msgid "addition"
+msgstr "optellen"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:42
+msgid "letters"
+msgstr "letters"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:43
+msgid "sounds"
+msgstr "geluiden"
+
+#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Herstart spel"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:82
+msgid "Add as new pair"
+msgstr "Toevoegen als nieuw paar"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:85
+msgid "Add"
+msgstr "Toevoegen"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:90
+msgid "Update selected pair"
+msgstr "Geselecteerd paar vernieuwen"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:93
+msgid "Update"
+msgstr "Bijwerken"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:254
+msgid "Preview:"
+msgstr "Bekijken:"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:270
+msgid "Text:"
+msgstr "Tekst:"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:282
+msgid "Insert picture"
+msgstr "Afbeelding invoegen"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:287
+msgid "Insert sound"
+msgstr "Geluid invoegen"
+
+#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:427
+msgid "Pronounce text while fliping tile"
+msgstr "Tekst uitspreken bij omdraaien van tegel"
+
+#: /home/sugar/src/activities/memorize.activity/activity.py:74
+msgid "Play"
+msgstr "Speel"
+
+#: /home/sugar/src/activities/memorize.activity/activity.py:78
+msgid "Create"
+msgstr "Maken"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:36
+msgid "Brazil"
+msgstr "Braziliaans"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:37
+msgid "Swedish"
+msgstr "Zweeds"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:38
+msgid "Icelandic"
+msgstr "IJslands"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:39
+msgid "Romanian"
+msgstr "Roemeens"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahili"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:42
+msgid "Dutch"
+msgstr "Nederlands"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:43
+msgid "Latin"
+msgstr "Latijns"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:44
+msgid "Hungarian"
+msgstr "Hongaars"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macedonisch"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:46
+msgid "Welsh"
+msgstr "Welsh"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:47
+msgid "French"
+msgstr "Frans"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:48
+msgid "Norwegian"
+msgstr "Noors"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:49
+msgid "Russian"
+msgstr "Russisch"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikaans"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:51
+msgid "Finnish"
+msgstr "Fins"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:52
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:125
+msgid "Default"
+msgstr "Standaard"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:53
+msgid "Cantonese"
+msgstr "Kantonees"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:54
+msgid "Scottish"
+msgstr "Schots"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:55
+msgid "Greek"
+msgstr "Grieks"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnamees"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:57
+msgid "English"
+msgstr "Engels"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:59
+msgid "Italian"
+msgstr "Italiaans"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugees"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:61
+msgid "German"
+msgstr "Duits"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:62
+msgid "Whisper"
+msgstr "Fluister"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:63
+msgid "Croatian"
+msgstr "Kroatisch"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:64
+msgid "Czech"
+msgstr "Tsjechisch"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:65
+msgid "Slovak"
+msgstr "Slowaaks"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:66
+msgid "Spanish"
+msgstr "Spaans"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:67
+msgid "Polish"
+msgstr "Pools"
+
+#: /home/sugar/src/activities/memorize.activity/speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#~ msgid "Choose image"
+#~ msgstr "Kies afbeelding"
+
+#~ msgid "Choose audio"
+#~ msgstr "Kies geluid"
 
 #~ msgid "numbers"
 #~ msgstr "nummers"

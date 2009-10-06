@@ -43,6 +43,7 @@ import theme
 import speak.espeak
 import speak.widgets
 import speak.face
+import activity
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -353,7 +354,9 @@ class CardEditor(gtk.EventBox):
         self.card.set_pixbuf(pixbuf)
 
     def _load_image(self, widget):
-        def load(index):
+        def load(jobject):
+            index = jobject.file_path
+
             self.set_speak(None)
 
             pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
@@ -371,11 +374,14 @@ class CardEditor(gtk.EventBox):
             del pixbuf_t
             del pixbuf_z
 
-        chooser.pick(what=chooser.IMAGE,
-                cb=lambda jobject: load(jobject.file_path))
+        chooser.pick(parent=self.get_toplevel(),
+                     what=chooser.IMAGE,
+                     cb=load)
 
     def _load_audio(self, widget):
-        def load(index):
+        def load(jobject):
+            index = jobject.file_path
+
             self.set_speak(None)
 
             dst = join(self.temp_folder, basename(index))
@@ -388,8 +394,9 @@ class CardEditor(gtk.EventBox):
             self.emit('has-sound', True)
             _logger.debug('Audio Loaded: '+dst)
 
-        chooser.pick(what=chooser.AUDIO,
-                cb=lambda jobject: load(jobject.file_path))
+        chooser.pick(parent=self.get_toplevel(),
+                     what=chooser.AUDIO,
+                     cb=load)
 
     def _usespeak_cb(self, button):
         self.card.change_speak(button.props.active)
