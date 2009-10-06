@@ -1,4 +1,5 @@
 #    Copyright (C) 2006, 2007, 2008 One Laptop Per Child
+#    Copyright (C) 2009 Simon Schampijer, Aleksey Lim
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -28,11 +29,7 @@ _logger = logging.getLogger('memorize-activity')
 
 from gettext import gettext as _
 from os.path import join, dirname
-from os import environ
 
-import dbus
-import pygtk
-import pickle
 import telepathy
 import telepathy.client
 
@@ -40,7 +37,6 @@ from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.presence import presenceservice
 from sugar.presence.tubeconn import TubeConnection
 
-from sugar.graphics.xocolor import XoColor
 from sugar import profile
 import cardtable
 import scoreboard
@@ -81,15 +77,12 @@ class MemorizeActivity(Activity):
         self.set_toolbox(toolbox)
         toolbox.show()
         
-   
-        
-        
         # Play game mode
         self.table = cardtable.CardTable()
         self.scoreboard = scoreboard.Scoreboard()
         self.game = game.MemorizeGame()
-        
-        self.table.connect('key-press-event', self.table.key_press_event)        
+
+        self.table.connect('key-press-event', self.table.key_press_event)
         self.table.connect('card-flipped', self.game.card_flipped)
         self.table.connect('card-overflipped', self.game.card_overflipped)
         self.table.connect('card-highlighted', self.game.card_highlighted)
@@ -108,10 +101,10 @@ class MemorizeActivity(Activity):
         self.game.connect('wait_mode_buddy', self.scoreboard.set_wait_mode)
         self.game.connect('change-turn', self.scoreboard.set_selected)
         self.game.connect('change_game', self.scoreboard.change_game)
-        
+
         self.game.connect('reset_scoreboard', self.scoreboard.reset)
         self.game.connect('reset_table', self.table.reset)
-        
+
         self.game.connect('load_game', self.table.load_game)
         self.game.connect('change_game', self.table.change_game)
         self.game.connect('load_game', self._memorizeToolbar.update_toolbar)
@@ -131,7 +124,8 @@ class MemorizeActivity(Activity):
         self.connect('motion_notify_event',
                 lambda widget, event: face.look_at())
 
-        # start on the game toolbar, might change this to the create toolbar later
+        # start on the game toolbar, might change this
+        # to the create toolbar later
         self.toolbox.connect('current-toolbar-changed', self.change_mode)
         self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
 
@@ -156,22 +150,22 @@ class MemorizeActivity(Activity):
                 self._joined_cb()
         else:
             _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
-            game_file = join(dirname(__file__),'demos','addition.zip')
+            game_file = join(dirname(__file__), 'demos', 'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
             _logger.debug('loading conventional')       
             self.game.add_buddy(self.owner)
         self.show_all()
         
     def read_file(self, file_path):
-
         if self.metadata['mime_type'] == 'application/x-memorize-project':
             self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
             if self.metadata.has_key('icon-color'):
                 color = self.metadata['icon-color']
             else:
                 color = profile.get_color().to_string()
-            self.game.change_game(None, file_path, 4, 'file', self.metadata['title'], color)
-            
+            self.game.change_game(None, file_path, 4, 'file',
+                                  self.metadata['title'], color)
+
     def change_mode(self, notebook, index):
         if index == _TOOLBAR_CREATE:
             if not self.create_load:
@@ -179,15 +173,24 @@ class MemorizeActivity(Activity):
                 self.cardlist = cardlist.CardList()
                 self.createcardpanel = createcardpanel.CreateCardPanel()
                 self.createcardpanel.connect('add-pair', self.cardlist.add_pair)
-                self.createcardpanel.connect('update-pair', self.cardlist.update_selected)
-                self.cardlist.connect('pair-selected', self.createcardpanel.pair_selected)
-                self.cardlist.connect('update-create-toolbar', self._createToolbar.update_create_toolbar)
-                self.cardlist.connect('update-create-buttons', self._createToolbar.update_buttons_status)
-                self._createToolbar.connect('create_new_game', self.cardlist.clean_list)
-                self._createToolbar.connect('create_new_game', self.createcardpanel.clean)
-                self._createToolbar.connect('create_load_game', self.cardlist.load_game)
-                self._createToolbar.connect('create_save_game', self.cardlist.save_game)
-                self._createToolbar.connect('create_equal_pairs', self.createcardpanel.change_equal_pairs)   
+                self.createcardpanel.connect('update-pair',
+                                             self.cardlist.update_selected)
+                self.cardlist.connect('pair-selected',
+                                      self.createcardpanel.pair_selected)
+                self.cardlist.connect('update-create-toolbar',
+                                      self._createToolbar.update_create_toolbar)
+                self.cardlist.connect('update-create-buttons',
+                                      self._createToolbar.update_buttons_status)
+                self._createToolbar.connect('create_new_game',
+                                            self.cardlist.clean_list)
+                self._createToolbar.connect('create_new_game',
+                                            self.createcardpanel.clean)
+                self._createToolbar.connect('create_load_game',
+                                            self.cardlist.load_game)
+                self._createToolbar.connect('create_save_game',
+                                            self.cardlist.save_game)
+                self._createToolbar.connect('create_equal_pairs', \
+                        self.createcardpanel.change_equal_pairs)
                 self.create_load = True
  
             self.hbox.remove(self.scoreboard)
@@ -217,7 +220,7 @@ class MemorizeActivity(Activity):
         self._sharing_setup()
 
         _logger.debug('This is my activity: making a tube...')
-        id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
+        id_ = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
             SERVICE, {})
 
     def _sharing_setup(self):
@@ -228,7 +231,8 @@ class MemorizeActivity(Activity):
         self.tubes_chan = self._shared_activity.telepathy_tubes_chan
         self.text_chan = self._shared_activity.telepathy_text_chan
         
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal('NewTube', self._new_tube_cb)
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal( \
+                'NewTube', self._new_tube_cb)
         
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
@@ -249,65 +253,68 @@ class MemorizeActivity(Activity):
         for buddy in self._shared_activity.get_joined_buddies():
             if buddy != self.owner:
                 _logger.debug("buddy joined - _joined_cb: %s  "
-                              "(get buddies of activity and add them to my list)",
+                              "(get buddies and add them to my list)",
                               buddy.props.nick)
                 self.game.add_buddy(buddy)
 
         self.game.add_buddy(self.owner)
         self.initiating = False
         self._sharing_setup()
-        
-        #self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        #self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
         _logger.debug('This is not my activity: waiting for a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self._list_tubes_reply_cb, 
             error_handler=self._list_tubes_error_cb)
 
-    def _new_tube_cb(self, id, initiator, type, service, params, state):
+    def _new_tube_cb(self, identifier, initiator, tube_type, service,
+                     params, state):
         _logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
-                     'params=%r state=%d', id, initiator, type, service, 
-                     params, state)
+                     'params=%r state=%d', identifier, initiator, tube_type,
+                      service, params, state)
 
-        if (type == telepathy.TUBE_TYPE_DBUS and
+        if (tube_type == telepathy.TUBE_TYPE_DBUS and
             service == SERVICE):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
+                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube( \
+                        identifier)
 
             self.tube_conn = TubeConnection(self.conn, 
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], 
-                id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
-            
-            self.messenger = messenger.Messenger(self.tube_conn, self.initiating, self._get_buddy, self.game)         
+                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], identifier,
+                group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
+
+            self.messenger = messenger.Messenger(self.tube_conn,
+                                                 self.initiating,
+                                                 self._get_buddy, self.game)
             self.game.connect('flip-card-signal', self.messenger.flip_sender)
             self.game.connect('change_game_signal', self.messenger.change_game)
 
     def _get_buddy(self, cs_handle):
-         """Get a Buddy from a channel specific handle."""
-         group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
-         my_csh = group.GetSelfHandle()
-         if my_csh == cs_handle:
-             handle = self.conn.GetSelfHandle()
-         else:
-             handle = group.GetHandleOwners([cs_handle])[0]
-             assert handle != 0
-         return self.pservice.get_buddy_by_telepathy_handle(self.tp_conn_name, 
-                 self.tp_conn_path, handle)
+        """Get a Buddy from a channel specific handle."""
+        group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
+        my_csh = group.GetSelfHandle()
+        if my_csh == cs_handle:
+            handle = self.conn.GetSelfHandle()
+        else:
+            handle = group.GetHandleOwners([cs_handle])[0]
+            assert handle != 0
+        return self.pservice.get_buddy_by_telepathy_handle( \
+                self.tp_conn_name, self.tp_conn_path, handle)
              
     def _buddy_joined_cb (self, activity, buddy):
-        if buddy <> self.owner:
+        if buddy != self.owner:
             if buddy.props.nick == '':
-                _logger.debug("buddy joined - _buddy_joined_cb: buddy name empty nick=%s. Will not add." %(buddy.props.nick))
+                _logger.debug("buddy joined: empty nick=%s. Will not add.",
+                              buddy.props.nick)
             else:
-                _logger.debug("buddy joined - _buddy_joined_cb: %s", buddy.props.nick)
+                _logger.debug("buddy joined: %s", buddy.props.nick)
                 self.game.add_buddy(buddy)
 
     def _buddy_left_cb (self, activity, buddy):
         if buddy.props.nick == '':
-            _logger.debug("buddy joined - _buddy_left_cb: buddy name empty nick=%s. Will not remove" %(buddy.props.nick))
+            _logger.debug("buddy joined: empty nick=%s. Will not remove",
+                          buddy.props.nick)
         else:
-            _logger.debug("buddy left - _buddy_left_cb: %s", buddy.props.nick)
+            _logger.debug("buddy left: %s", buddy.props.nick)
             self.game.rem_buddy(buddy)
 
     def _focus_in(self, event, data=None):        
@@ -318,4 +325,3 @@ class MemorizeActivity(Activity):
         
     def _cleanup_cb(self, data=None):        
         self.game.audio.stop()        
-        
