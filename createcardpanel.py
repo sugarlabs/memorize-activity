@@ -19,7 +19,7 @@
 
 import gtk
 from os import environ
-from os.path import join, dirname, basename
+from os.path import join, basename
 import hippo
 
 import shutil
@@ -28,9 +28,6 @@ from gettext import gettext as _
 import svgcard
 import logging
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
-from xml.dom.minidom import parse
-from sugar.graphics.objectchooser import ObjectChooser
-from sugar import mime
 from sugar.graphics import style
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.icon import Icon
@@ -43,7 +40,6 @@ import theme
 import speak.espeak
 import speak.widgets
 import speak.face
-import activity
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -218,14 +214,18 @@ class CreateCardPanel(gtk.EventBox):
 
     def _update_buttom_status(self):
         if not self.equal_pairs:
-            if (self._card1_has_text or self._card1_has_picture or self._card1_has_sound) and (self._card2_has_text or self._card2_has_picture or self._card2_has_sound):
+            if (self._card1_has_text or self._card1_has_picture \
+                    or self._card1_has_sound) and (self._card2_has_text 
+                                                   or self._card2_has_picture 
+                                                   or self._card2_has_sound):
                 self._addbutton.set_sensitive(True)
                 self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:
                 self._addbutton.set_sensitive(False)
                 self._updatebutton.set_sensitive(False)
         else:
-            if self._card1_has_text or self._card1_has_picture or self._card1_has_sound:
+            if (self._card1_has_text or self._card1_has_picture \
+                    or self._card1_has_sound):
                 self._addbutton.set_sensitive(True)
                 self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:

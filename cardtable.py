@@ -16,11 +16,9 @@
 #
 
 import gtk
-import pygtk
 import pango
 import svgcard
 import os
-import time
 import math
 import gc
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
@@ -60,7 +58,8 @@ class CardTable(gtk.EventBox):
         self.table.set_resize_mode(gtk.RESIZE_IMMEDIATE)
         self.set_property('child', self.table)
         self.load_message = gtk.Label('Loading Game')
-        self.load_message.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#ffffff'))
+        self.load_message.modify_fg(gtk.STATE_NORMAL,
+                                    gtk.gdk.color_parse('#ffffff'))
         self.load_message.modify_font(pango.FontDescription("10"))
         self.load_message.show()
         self.first_load = True
@@ -108,7 +107,7 @@ class CardTable(gtk.EventBox):
         self.table_positions = {}
         
         # Build the table
-        if data['divided']=='1':
+        if data['divided'] == '1':
             text1 = str(self.data.get('face1', ''))
             text2 = str(self.data.get('face2', ''))
         else:
@@ -117,7 +116,7 @@ class CardTable(gtk.EventBox):
 
         x = 0
         y = 0
-        id = 0
+        identifier = 0
 
         for card in self.cards_data:
             if card.get('img', None):
@@ -125,30 +124,31 @@ class CardTable(gtk.EventBox):
             else:
                 jpg = None
             props = {}
-            props['front_text']= {'card_text':card.get('char', ''),
+            props['front_text'] = {'card_text':card.get('char', ''),
                                   'speak': card.get('speak')}
 
-            if card['ab']== 'a':
-                props['back_text']= {'card_text':text1}
-            elif card['ab']== 'b':
-                props['back_text']= {'card_text':text2}
+            if card['ab'] == 'a':
+                props['back_text'] = {'card_text':text1}
+            elif card['ab'] == 'b':
+                props['back_text'] = {'card_text':text2}
 
             align = self.data.get('align', '1')
-            card = svgcard.SvgCard(id, props, jpg, self.card_size, align)
+            card = svgcard.SvgCard(identifier, props, jpg,
+                                   self.card_size, align)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
-            card.connect("button-press-event", self.flip_card_mouse, id)
-            self.table_positions[(x, y)]=1
-            self.cd2id[card] = id
-            self.id2cd[id] = card
+            card.connect("button-press-event", self.flip_card_mouse, identifier)
+            self.table_positions[(x, y)] = 1
+            self.cd2id[card] = identifier
+            self.id2cd[identifier] = card
             self.cards[(x, y)] = card
-            self.dict[id] = (x, y)
+            self.dict[identifier] = (x, y)
             self.table.attach(card, x, x+1, y, y+1, gtk.SHRINK, gtk.SHRINK)
 
             x += 1
             if x == self.size:
                 x = 0
-                y +=1
-            id += 1
+                y += 1
+            identifier += 1
         self.first_load = False
         if self.load_mode:
             self._set_load_mode(False)
@@ -164,84 +164,84 @@ class CardTable(gtk.EventBox):
         self.load_game(None, data, grid)
 
     def get_card_size(self, size_table):
-        x = (self._workspace_size+theme.CARD_PAD*(size_table-1)) / size_table \
-                - theme.CARD_PAD*2
+        x = (self._workspace_size + theme.CARD_PAD * (size_table-1)) / \
+                size_table - theme.CARD_PAD * 2
         return x
 
     def mouse_event(self, widget, event, coord):
         #self.table.grab_focus()
         card = self.cards[coord[0], coord[1]]
-        id = self.cd2id.get(card)
-        self.emit('card-highlighted', id, True)
+        identifier = self.cd2id.get(card)
+        self.emit('card-highlighted', identifier, True)
         self.selected_card = (coord[0], coord[1])
 
     def key_press_event(self, widget, event):
         #self.table.grab_focus()
-        x= self.selected_card[0]
-        y= self.selected_card[1]
+        x = self.selected_card[0]
+        y = self.selected_card[1]
 
         if event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left):
             if self.table_positions.has_key((x-1, y)):
                 card = self.cards[x-1, y]
-                id = self.cd2id.get(card)
-                self.emit('card-highlighted', id, False)
+                identifier = self.cd2id.get(card)
+                self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right):
             if self.table_positions.has_key((x+1, y)):
                 card = self.cards[x+1, y]
-                id = self.cd2id.get(card)
-                self.emit('card-highlighted', id, False)
+                identifier = self.cd2id.get(card)
+                self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up):
             if self.table_positions.has_key((x, y-1)):
                 card = self.cards[x, y-1]
-                id = self.cd2id.get(card)
-                self.emit('card-highlighted', id, False)
+                identifier = self.cd2id.get(card)
+                self.emit('card-highlighted', identifier, False)
         
         elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.KP_Down):
             if self.table_positions.has_key((x, y+1)):
                 card = self.cards[x, y+1]
-                id = self.cd2id.get(card)
-                self.emit('card-highlighted', id, False)
-        
+                identifier = self.cd2id.get(card)
+                self.emit('card-highlighted', identifier, False)
+
         elif event.keyval in (gtk.keysyms.space, gtk.keysyms.KP_Page_Down):
             card = self.cards[x, y]
             self.card_flipped(card)
     
-    def flip_card_mouse(self, widget, event, id):
-        position = self.dict[id]
+    def flip_card_mouse(self, widget, event, identifier):
+        position = self.dict[identifier]
         card = self.cards[position]
         self.card_flipped(card)
-        
+
     def card_flipped(self, card):
-        id  = self.cd2id[card]
+        identifer  = self.cd2id[card]
         if card.is_flipped():
-            self.emit('card-overflipped', id)
+            self.emit('card-overflipped', identifer)
         else:
-            self.emit('card-flipped', id, False)
+            self.emit('card-flipped', identifer, False)
             
-    def set_border(self, widget, id, stroke_color, fill_color):
-        self.id2cd[id].set_border(stroke_color, fill_color)
+    def set_border(self, widget, identifer, stroke_color, fill_color):
+        self.id2cd[identifer].set_border(stroke_color, fill_color)
 
-    def flop_card(self, widget, id):
-        self.id2cd.get(id).flop()
+    def flop_card(self, widget, identifer):
+        self.id2cd.get(identifer).flop()
 
-    def flip_card(self, widget, id):
-        self.id2cd.get(id).flip()
+    def flip_card(self, widget, identifer):
+        self.id2cd.get(identifer).flip()
 
-    def cement_card(self, widget, id):
-        self.id2cd.get(id).cement()
+    def cement_card(self, widget, identifer):
+        self.id2cd.get(identifer).cement()
 
-    def highlight_card(self, widget, id, status):
+    def highlight_card(self, widget, identifer, status):
         if self.dict != None:
-            self.selected_card = self.dict.get(id)
-            self.id2cd.get(id).set_highlight(status)
+            self.selected_card = self.dict.get(identifer)
+            self.id2cd.get(identifer).set_highlight(status)
 
     def reset(self, widget):
-        for id in self.id2cd.keys():
-           self.id2cd[id].reset()
+        for identifer in self.id2cd.keys():
+            self.id2cd[identifer].reset()
            
-    def _set_load_mode(self,mode):
+    def _set_load_mode(self, mode):
         if mode:
             self.remove(self.table)
             self.set_property('child', self.load_message)

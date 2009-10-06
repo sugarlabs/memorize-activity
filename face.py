@@ -51,11 +51,11 @@ def look_at():
         return
 
     display = gtk.gdk.display_get_default()
-    screen, x, y, modifiers = display.get_pointer()
+    screen_, x, y, modifiers_ = display.get_pointer()
 
     for i in _cache:
         if i.parent:
-            i.face.look_at(x,y)
+            i.face.look_at(x, y)
 
 def acquire():
     if not speak.espeak.supported:
