@@ -54,9 +54,9 @@ class Audio(object):
         self._player.set_state(gst.STATE_NULL)
 
     def _gstmessage_cb(self, bus, message):
-        type = message.type
+        message_type = message.type
 
-        if type in (gst.MESSAGE_EOS, gst.MESSAGE_ERROR):
+        if message_type in (gst.MESSAGE_EOS, gst.MESSAGE_ERROR):
             self._player.set_state(gst.STATE_NULL)
             self._playing = None
-            _logger.debug('audio stoped with type %d' % type)
+            _logger.debug('audio stoped with type %d' % message_type)

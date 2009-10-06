@@ -21,15 +21,13 @@ import logging
 
 import os
 from os import environ
-from os.path import join, dirname
+from os.path import join
 
 import model
 import zipfile
 import tempfile
-import random
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
-from sugar import profile
 from sugar.graphics import style
 from sugar.graphics.icon import Icon
 
@@ -40,9 +38,9 @@ _logger = logging.getLogger('memorize-activity')
 class CardList(gtk.EventBox):
         
     __gsignals__ = {
-        'pair-selected': (SIGNAL_RUN_FIRST, None, 9 * [TYPE_PYOBJECT]), 
-        'update-create-toolbar': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]), 
-        'update-create-buttons': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]), 
+        'pair-selected': (SIGNAL_RUN_FIRST, None, 9 * [TYPE_PYOBJECT]),
+        'update-create-toolbar': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]),
+        'update-create-buttons': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
     }
 
     def __init__(self):
@@ -50,6 +48,7 @@ class CardList(gtk.EventBox):
         self.model = model.Model()
         self.pairs = []
         self.current_pair = None
+        self.current_game_key = None
 
         self.vbox = gtk.VBox(False)
 
@@ -62,35 +61,44 @@ class CardList(gtk.EventBox):
         scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scroll.add_with_viewport(self.vbox)
         scroll.set_border_width(0)
-        scroll.get_child().modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
+        scroll.get_child().modify_bg(gtk.STATE_NORMAL, 
+                                     gtk.gdk.color_parse('#000000'))
         self.add(scroll)
         self.show_all()
         
     def load_game(self, widget, game_name):
         self.model.read(game_name)
         self.current_game_key = self.model.data['game_file']
-        self.emit('update-create-toolbar', self.model.data['name'], self.model.data.get('equal_pairs', 'False'), self.model.data.get('divided', '0'))
+        self.emit('update-create-toolbar', self.model.data['name'],
+                  self.model.data.get('equal_pairs', 'False'),
+                  self.model.data.get('divided', '0'))
         game_pairs = self.model.pairs
         game_data = self.model.data
         self.clean_list()
         for key in game_pairs:
             if game_pairs[key].props.aimg != None:
-                aimg = gtk.gdk.pixbuf_new_from_file(join(self.model.data['pathimg'], game_pairs[key].props.aimg))
+                aimg = gtk.gdk.pixbuf_new_from_file( \
+                    join(self.model.data['pathimg'],
+                         game_pairs[key].props.aimg))
             else:
                 aimg = None
                 
             if game_pairs[key].props.bimg != None:
-                bimg = gtk.gdk.pixbuf_new_from_file(join(self.model.data['pathimg'], game_pairs[key].props.bimg))
+                bimg = gtk.gdk.pixbuf_new_from_file( \
+                    join(self.model.data['pathimg'],
+                         game_pairs[key].props.bimg))
             else:
                 bimg = None
             
             if game_pairs[key].props.asnd != None:
-                asnd = join(self.model.data['pathsnd'], game_pairs[key].props.asnd)
+                asnd = join(self.model.data['pathsnd'],
+                            game_pairs[key].props.asnd)
             else:
                 asnd = None
             
             if game_pairs[key].props.bsnd != None:            
-                bsnd = join(self.model.data['pathsnd'], game_pairs[key].props.bsnd)
+                bsnd = join(self.model.data['pathsnd'],
+                            game_pairs[key].props.bsnd)
             else:
                 bsnd = None
                 
@@ -103,14 +111,14 @@ class CardList(gtk.EventBox):
         
         tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         temp_folder = tempfile.mkdtemp(dir=tmp_root)
-        os.chmod(temp_folder,0777)
+        os.chmod(temp_folder, 0777)
         temp_img_folder = join(temp_folder, 'images')
         temp_snd_folder = join(temp_folder, 'sounds')
 
         os.makedirs(temp_img_folder)
         os.makedirs(temp_snd_folder)
                     
-        zip = zipfile.ZipFile(join(temp_folder, 'game.zip'), 'w')
+        game_zip = zipfile.ZipFile(join(temp_folder, 'game.zip'), 'w')
         
         game_model = model.Model(temp_folder)
         game_model.data['name'] = game_name
@@ -140,32 +148,36 @@ class CardList(gtk.EventBox):
             if aimg != None:
 
                 if equal_pairs:
-                    aimgfile = 'img'+str(pair)+'.jpg'
+                    aimgfile = 'img' + str(pair) + '.jpg'
                 else:
-                    aimgfile = 'aimg'+str(pair)+'.jpg'
-                aimg.save(join(temp_img_folder, aimgfile), 'jpeg', {'quality':'85'})
-                zip.write(join(temp_img_folder, aimgfile), join('images', aimgfile))
+                    aimgfile = 'aimg' + str(pair) + '.jpg'
+                aimg.save(join(temp_img_folder, aimgfile), 'jpeg',
+                          {'quality':'85'})
+                game_zip.write(join(temp_img_folder, aimgfile),
+                               join('images', aimgfile))
                 pair_card.set_property('aimg', aimgfile)
 
             # bimg
             bimg = self.pairs[pair].get_pixbuf(2)
             if bimg != None:
                 if equal_pairs:
-                    bimgfile = 'img'+str(pair)+'.jpg'
+                    bimgfile = 'img' + str(pair) + '.jpg'
                 else:
-                    bimgfile = 'bimg'+str(pair)+'.jpg'
-                    bimg.save(join(temp_img_folder, bimgfile), 'jpeg', {'quality':'85'})
-                    zip.write(join(temp_img_folder, bimgfile), join('images', bimgfile))
+                    bimgfile = 'bimg' + str(pair) + '.jpg'
+                    bimg.save(join(temp_img_folder, bimgfile), 'jpeg',
+                              {'quality':'85'})
+                    game_zip.write(join(temp_img_folder, bimgfile),
+                                   join('images', bimgfile))
                 pair_card.set_property('bimg', bimgfile)
             # asnd
             asnd = self.pairs[pair].get_sound(1)
             if asnd != None:
                 if equal_pairs:
-                    asndfile = 'snd'+str(pair)+'.ogg'
+                    asndfile = 'snd' + str(pair) + '.ogg'
                 else:
-                    asndfile = 'asnd'+str(pair)+'.ogg'    
-                _logger.error(asndfile+': '+ asnd)    
-                zip.write(asnd, join('sounds', asndfile))
+                    asndfile = 'asnd' + str(pair) + '.ogg'    
+                _logger.error(asndfile + ': ' + asnd)    
+                game_zip.write(asnd, join('sounds', asndfile))
                 pair_card.set_property('asnd', asndfile)
 
             # bsnd
@@ -174,17 +186,17 @@ class CardList(gtk.EventBox):
                 if equal_pairs:
                     bsndfile = 'snd'+str(pair)+'.ogg'
                 else:
-                    bsndfile = 'bsnd'+str(pair)+'.ogg'  
-                    zip.write(bsnd, join('sounds', bsndfile))
-                _logger.error(bsndfile+': '+ bsnd)    
+                    bsndfile = 'bsnd' + str(pair) + '.ogg'  
+                    game_zip.write(bsnd, join('sounds', bsndfile))
+                _logger.error(bsndfile + ': ' + bsnd)    
                 pair_card.set_property('bsnd', bsndfile)
                 
             game_model.pairs[pair] = pair_card
         game_model.write(equal_pairs, grouped)
-        zip.write(join(temp_folder, 'game.xml'), 'game.xml')
-        zip.close()        
+        game_zip.write(join(temp_folder, 'game.xml'), 'game.xml')
+        game_zip.close()        
         game_model.save_byte_array(join(temp_folder, 'game.zip'), game_name)
-        
+
     def clean_list(self, button = None):
         if button != None:
             self.current_game_key = None
@@ -218,11 +230,11 @@ class CardList(gtk.EventBox):
         self.emit('update-create-buttons', True, True)
         self.emit('pair-selected', False, None, None, None, None, None, None,
                 False, False)
-            
+
     def set_selected(self, widget, event):
-        if self.current_pair <> None:
-            self.old = self.current_pair
-            self.old.set_selected(False)
+        if self.current_pair is not None:
+            current_pair = self.current_pair
+            current_pair.set_selected(False)
         self.current_pair = widget 
         widget.set_selected(True)
         self.emit('pair-selected', True,
