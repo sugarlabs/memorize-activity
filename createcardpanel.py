@@ -431,7 +431,7 @@ class CardEditor(gtk.EventBox):
 
 class SpeakPalette(Palette):
     def __init__(self, editor):
-        Palette.__init__(self, _('Pronounce text while fliping tile'))
+        Palette.__init__(self, _('Pronounce text during tile flip'))
 
         self.face = speak.face.View()
 
