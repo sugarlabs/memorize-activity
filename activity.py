@@ -16,10 +16,9 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
-
 # activate threads for gst needs
-gtk.gdk.threads_init()
+import gobject
+gobject.threads_init()
 
 import locale
 locale.setlocale(locale.LC_NUMERIC, 'C')
@@ -30,6 +29,7 @@ _logger = logging.getLogger('memorize-activity')
 from gettext import gettext as _
 from os.path import join, dirname
 
+import gtk
 import telepathy
 import telepathy.client
 
