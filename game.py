@@ -82,8 +82,8 @@ class MemorizeGame(GObject):
             self.model.def_grid(size)
             self.model.data['running'] = 'False'
             self.model.data['mode'] = mode
-            logging.debug(' Read setup file %s: %s ',
-                          (game_name, self.model.grid))
+            logging.debug(' Read setup file %r: %r ',
+                          game_name, self.model.grid)
             self.emit('load_game', self.model.data, self.model.grid)
         else:
             logging.error(' Reading setup file %s', game_name)
