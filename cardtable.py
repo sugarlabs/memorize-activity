@@ -226,8 +226,8 @@ class CardTable(gtk.EventBox):
     def flop_card(self, widget, identifer):
         self.id2cd.get(identifer).flop()
 
-    def flip_card(self, widget, identifer):
-        self.id2cd.get(identifer).flip()
+    def flip_card(self, widget, identifer, full_animation):
+        self.id2cd.get(identifer).flip(full_animation)
 
     def cement_card(self, widget, identifer):
         self.id2cd.get(identifer).cement()

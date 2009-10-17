@@ -44,7 +44,7 @@ class MemorizeGame(GObject):
         'change_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
         'change_game_signal': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT]),
         'set-border': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]),
-        'flip-card': (SIGNAL_RUN_FIRST, None, [int]),
+        'flip-card': (SIGNAL_RUN_FIRST, None, [int, bool]),
         'flip-card-signal': (SIGNAL_RUN_FIRST, None, [int]),
         'cement-card': (SIGNAL_RUN_FIRST, None, [int]),
         'flop-card': (SIGNAL_RUN_FIRST, None, [int]),
@@ -112,11 +112,11 @@ class MemorizeGame(GObject):
         
         for card in self.model.grid:
             if card['state'] == '1':           
-                self.emit('flip-card', self.model.grid.index(card))
+                self.emit('flip-card', self.model.grid.index(card), False)
                 self.last_flipped = self.model.grid.index(card)
             elif card['state'] != '0':  
                 stroke_color, fill_color = card['state'].split(',')
-                self.emit('flip-card', self.model.grid.index(card))
+                self.emit('flip-card', self.model.grid.index(card), False)
                 self.emit('set-border', self.model.grid.index(card),
                           stroke_color, fill_color)
         
@@ -194,17 +194,20 @@ class MemorizeGame(GObject):
             
         self.model.data['running'] = 'True'
 
+        def flip_card(full_animation):
+            self.emit('flip-card', identifier, full_animation)
+            if not signal:
+                self.emit('flip-card-signal', identifier)
+
         snd = self.model.grid[identifier].get('snd', None)
         if snd != None:
             sound_file = join(self.model.data.get('pathsnd'), snd)
             self.audio.play(sound_file)
                 
-        self.emit('flip-card', identifier)
-        if not signal:
-            self.emit('flip-card-signal', identifier)
-        
         # First card case
         if self.last_flipped == -1:
+            flip_card(full_animation=True)
+
             self.last_flipped = identifier
             self.model.grid[identifier]['state'] = '1'         
             self.flip_block = False
@@ -216,6 +219,8 @@ class MemorizeGame(GObject):
             pair_key_2 = self.model.grid[identifier]['pairkey']
             
             if pair_key_1 == pair_key_2:
+                flip_card(full_animation=False)
+
                 stroke_color, fill_color = \
                         self.current_player.props.color.split(',')
                 self.emit('set-border', identifier, stroke_color, fill_color)
@@ -234,6 +239,8 @@ class MemorizeGame(GObject):
 
             # Pair didn't match
             else:
+                flip_card(full_animation=True)
+
                 self.model.grid[identifier]['state'] = '1'
                 self.set_sensitive(False)
                 self._flop_cards = (identifier, self.last_flipped)

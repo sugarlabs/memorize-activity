@@ -201,7 +201,7 @@ class SvgCard(gtk.EventBox):
                 self.current_face = 'back'
         self.queue_draw()
 
-    def flip(self):
+    def flip(self, full_animation=False):
         if self.flipped:
             return
 
@@ -226,13 +226,14 @@ class SvgCard(gtk.EventBox):
         else:
             self.show_text = False
 
-        if self.id != -1 and self.get_speak():
-            speaking_face = face.acquire()
-            if speaking_face:
-                self._switch_to_face(speaking_face)
-                speaking_face.face.status.voice = \
-                        speak.voice.by_name(self.get_speak())
-                speaking_face.face.say(self.get_text())
+        if full_animation:
+            if self.id != -1 and self.get_speak():
+                speaking_face = face.acquire()
+                if speaking_face:
+                    self._switch_to_face(speaking_face)
+                    speaking_face.face.status.voice = \
+                            speak.voice.by_name(self.get_speak())
+                    speaking_face.face.say(self.get_text())
 
         self.current_face = 'front'
         self.flipped  = True

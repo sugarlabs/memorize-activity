@@ -113,6 +113,9 @@ class PlayerScoreboard(gtk.EventBox):
             score_label = Score(self.fill_color, self.stroke_color)
             score_pixbuf_unsel = score_label.get_pixbuf()
             score_pixbuf_sel = score_label.get_pixbuf_sel()
+        else:
+            score_pixbuf_unsel = None
+            score_pixbuf_sel = None
         
         new_score = Score(self.fill_color, self.stroke_color,
                           score_pixbuf_sel, score_pixbuf_unsel, self.status)
