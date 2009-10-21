@@ -1,3 +1,10 @@
+34
+
+* Skip full flipping animation if second speaking card is correct
+* Typo in Memorize #1233
+* Can't play a shared memorize game #1503
+* Pass parent to ObjectChooser
+
 33
 
 * Add Speak feature, create speaking tiles
