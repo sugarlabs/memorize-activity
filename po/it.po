@@ -2,14 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-04-16 08:22-0400\n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2009-11-09 02:52-0400\n"
 "Last-Translator: Carlo Falciola <cfalciola@yahoo.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.2.1\n"
 
 # Il nome indentifica il gioco ... il termine memorizza non rende l'idea anche se letteralmente sarebbe corretto.
 # Preferisco lasciare Memorize
@@ -25,51 +27,63 @@ msgstr "Gioca"
 msgid "Create"
 msgstr "Crea"
 
-#: createcardpanel.py:52
+#: createcardpanel.py:79
 msgid "Add as new pair"
 msgstr "Aggiungi come nuova coppia"
 
-#: createcardpanel.py:60
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "Aggiungi"
+
+#: createcardpanel.py:87
 msgid "Update selected pair"
 msgstr "Aggiorna la coppia selezionata"
 
-#: createcardpanel.py:180
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "Aggiorna"
+
+#: createcardpanel.py:255
 msgid "Preview:"
 msgstr "Anteprima:"
 
-#: createcardpanel.py:182
+#: createcardpanel.py:271
 msgid "Text:"
 msgstr "Testo:"
 
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "Scegli immagine"
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "Inserisci immagine"
 
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "Scegli suono"
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "Inserisci suono"
 
-#: createtoolbar.py:53
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "Leggi il testo girando la carta"
+
+#: createtoolbar.py:51
 msgid "New game"
 msgstr "Nuova partita"
 
-#: createtoolbar.py:63 memorizetoolbar.py:73
+#: createtoolbar.py:61 memorizetoolbar.py:73
 msgid "Load game"
 msgstr "Carica partita"
 
-#: createtoolbar.py:73
+#: createtoolbar.py:71
 msgid "Save game"
 msgstr "Salva partita"
 
-#: createtoolbar.py:83
+#: createtoolbar.py:81
 msgid "Game name"
 msgstr "Nome partita"
 
-#: createtoolbar.py:87
+#: createtoolbar.py:85
 msgid "Equal pairs"
 msgstr "Coppie identiche"
 
-#: createtoolbar.py:99 createtoolbar.py:158
+#: createtoolbar.py:97 createtoolbar.py:158
 msgid "Click for grouped game"
 msgstr "Seleziona per partita di gruppo"
 
@@ -77,7 +91,7 @@ msgstr "Seleziona per partita di gruppo"
 # Memorizzato sarebbe stored o altro
 #
 # Io lascerei il nome Memorize ... in questo caso forse si può mettere anche "Scegli il gioco".
-#: createtoolbar.py:116 memorizetoolbar.py:117
+#: createtoolbar.py:114 memorizetoolbar.py:118
 msgid "Choose memorize game"
 msgstr "Scegli il gioco Memorize"
 
@@ -85,7 +99,7 @@ msgstr "Scegli il gioco Memorize"
 msgid "Click for ungrouped game"
 msgstr "Seleziona per partita da solo"
 
-#: game.py:105
+#: game.py:92
 msgid "Loading game..."
 msgstr "Caricamento partita..."
 
@@ -109,13 +123,154 @@ msgstr "suoni"
 msgid "Restart Game"
 msgstr "Ricomincia partita"
 
-#: messenger.py:183
+#: messenger.py:195
 msgid "Receiving game"
 msgstr "Ricezione partita"
 
-#: messenger.py:183
+#: messenger.py:196
 msgid "done"
 msgstr "fatto"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Brasile"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Svedese"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Islandese"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Rumeno"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahili"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Olandese"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Latino"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Ungherese"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macedone"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Gallese"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Francese"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Norvegese"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Russo"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikaans"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Finlandese"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Default"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Cantonese"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Scozzese"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Greco"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnamita"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Inglese"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Italiano"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portoghese"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Tedesco"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Whisper"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Croato"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Ceco"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Slovacco"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Spagnolo"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Polacco"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#~ msgid "Pronounce text while fliping tile"
+#~ msgstr "Pronuncia il testo mentre giri i tasselli"
+
+#~ msgid "Choose image"
+#~ msgstr "Scegli immagine"
+
+#~ msgid "Choose audio"
+#~ msgstr "Scegli suono"
 
 #~ msgid "capitals"
 #~ msgstr "maiuscole"
