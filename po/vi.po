@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-14 10:26+0000\n"
-"PO-Revision-Date: 2009-09-25 10:23-0400\n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2010-03-07 16:48+0200\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: vi\n"
@@ -11,255 +11,254 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 1.2.1\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Ghi nhớ"
 
-#: /home/sugar/src/activities/memorize.activity/game.py:93
-msgid "Loading game..."
-msgstr "Đang nạp lượt chơi..."
-
-#: /home/sugar/src/activities/memorize.activity/messenger.py:192
-msgid "Receiving game"
-msgstr "Đang nhận lươt chơi"
-
-#: /home/sugar/src/activities/memorize.activity/messenger.py:192
-msgid "done"
-msgstr "hoàn tất"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:51
-msgid "New game"
-msgstr "Lượt chơi mới"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:61
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Nạp lượt chơi"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:71
-msgid "Save game"
-msgstr "Lưu lượt chơi"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:81
-msgid "Game name"
-msgstr "Tên lượt chơi"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:85
-msgid "Equal pairs"
-msgstr "Cặp đều"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:97
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:156
-msgid "Click for grouped game"
-msgstr "Nhấn chuột để chơi trong nhóm"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:114
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "Chọn lượt chơi đã ghi nhớ"
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:152
-msgid "Click for ungrouped game"
-msgstr "Nhấn chuột để chơi một mình"
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Nạp các lượt chơi minh họa"
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:41
-msgid "addition"
-msgstr "phép cộng"
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:42
-msgid "letters"
-msgstr "chữ"
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:43
-msgid "sounds"
-msgstr "âm"
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:63
-msgid "Restart Game"
-msgstr "Chạy lại lượt chơi"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:82
-msgid "Add as new pair"
-msgstr "Thêm dạng cặp mới"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:85
-msgid "Add"
-msgstr "Thêm"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:90
-msgid "Update selected pair"
-msgstr "Cập nhật cặp đã chọn"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:93
-msgid "Update"
-msgstr "Cập nhật"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:254
-msgid "Preview:"
-msgstr "Xem thử : "
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:270
-msgid "Text:"
-msgstr "Văn bản: "
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:282
-msgid "Insert picture"
-msgstr "Chèn ảnh"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:287
-msgid "Insert sound"
-msgstr "Chèn âm thanh"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:427
-msgid "Pronounce text while fliping tile"
-msgstr "Phát âm văn bản trong khi lật gạch lát"
-
-#: /home/sugar/src/activities/memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
 msgstr "Chơi"
 
-#: /home/sugar/src/activities/memorize.activity/activity.py:78
+#: activity.py:74
 msgid "Create"
 msgstr "Tạo"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:36
+#: createcardpanel.py:79
+msgid "Add as new pair"
+msgstr "Thêm dạng cặp mới"
+
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "Thêm"
+
+#: createcardpanel.py:87
+msgid "Update selected pair"
+msgstr "Cập nhật cặp đã chọn"
+
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "Cập nhật"
+
+#: createcardpanel.py:255
+msgid "Preview:"
+msgstr "Xem thử : "
+
+#: createcardpanel.py:271
+msgid "Text:"
+msgstr "Văn bản: "
+
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "Chèn ảnh"
+
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "Chèn âm thanh"
+
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "Phát âm chuỗi trong khi lật ngói"
+
+#: createtoolbar.py:51
+msgid "New game"
+msgstr "Lượt chơi mới"
+
+#: createtoolbar.py:61 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Nạp lượt chơi"
+
+#: createtoolbar.py:71
+msgid "Save game"
+msgstr "Lưu lượt chơi"
+
+#: createtoolbar.py:81
+msgid "Game name"
+msgstr "Tên lượt chơi"
+
+#: createtoolbar.py:85
+msgid "Equal pairs"
+msgstr "Cặp đều"
+
+#: createtoolbar.py:97 createtoolbar.py:158
+msgid "Click for grouped game"
+msgstr "Nhấn chuột để chơi trong nhóm"
+
+#: createtoolbar.py:114 memorizetoolbar.py:118
+msgid "Choose memorize game"
+msgstr "Chọn lượt chơi đã ghi nhớ"
+
+#: createtoolbar.py:154
+msgid "Click for ungrouped game"
+msgstr "Nhấn chuột để chơi một mình"
+
+#: game.py:92
+msgid "Loading game..."
+msgstr "Đang nạp lượt chơi..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Nạp các lượt chơi minh họa"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "phép cộng"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "chữ"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "âm"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Chạy lại lượt chơi"
+
+#: messenger.py:195
+msgid "Receiving game"
+msgstr "Đang nhận lươt chơi"
+
+#: messenger.py:196
+msgid "done"
+msgstr "hoàn tất"
+
+#: speak/voice.py:36
 msgid "Brazil"
 msgstr "Bra-xin"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:37
+#: speak/voice.py:37
 msgid "Swedish"
 msgstr "Thuỵ Điển"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:38
+#: speak/voice.py:38
 msgid "Icelandic"
 msgstr "Băng Đảo"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:39
+#: speak/voice.py:39
 msgid "Romanian"
 msgstr "Rô-ma-ni"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:40
+#: speak/voice.py:40
 msgid "Swahili"
 msgstr "Xouă-hi-li"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:41
+#: speak/voice.py:41
 msgid "Hindi"
 msgstr "Hin-đi"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:42
+#: speak/voice.py:42
 msgid "Dutch"
 msgstr "Hoà Lan"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:43
+#: speak/voice.py:43
 msgid "Latin"
 msgstr "La-tinh"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:44
+#: speak/voice.py:44
 msgid "Hungarian"
 msgstr "Hun-ga-ri"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:45
+#: speak/voice.py:45
 msgid "Macedonian"
 msgstr "Ma-xê-đô-ni"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:46
+#: speak/voice.py:46
 msgid "Welsh"
 msgstr "Ouen-s"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:47
+#: speak/voice.py:47
 msgid "French"
 msgstr "Pháp"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:48
+#: speak/voice.py:48
 msgid "Norwegian"
 msgstr "Na Uy"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:49
+#: speak/voice.py:49
 msgid "Russian"
 msgstr "Nga"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:50
+#: speak/voice.py:50
 msgid "Afrikaans"
 msgstr "Hoà Phi"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:51
+#: speak/voice.py:51
 msgid "Finnish"
 msgstr "Phần Lan"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:52
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:125
+#: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
 msgstr "Mặc định"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:53
+#: speak/voice.py:53
 msgid "Cantonese"
 msgstr "Quảng Đông"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:54
+#: speak/voice.py:54
 msgid "Scottish"
 msgstr "E-cốt"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:55
+#: speak/voice.py:55
 msgid "Greek"
 msgstr "Hy Lạp"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:56
+#: speak/voice.py:56
 msgid "Vietnam"
 msgstr "Việt"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:57
+#: speak/voice.py:57
 msgid "English"
 msgstr "Anh"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:58
+#: speak/voice.py:58
 msgid "Lancashire"
 msgstr "Anh Lan-ca-xi"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:59
+#: speak/voice.py:59
 msgid "Italian"
 msgstr "Ý"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:60
+#: speak/voice.py:60
 msgid "Portugal"
 msgstr "Bồ Đào Nha"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:61
+#: speak/voice.py:61
 msgid "German"
 msgstr "Đức"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:62
+#: speak/voice.py:62
 msgid "Whisper"
 msgstr "Nói thầm"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:63
+#: speak/voice.py:63
 msgid "Croatian"
 msgstr "Cợ-rô-a-ti-a"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:64
+#: speak/voice.py:64
 msgid "Czech"
 msgstr "Séc"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:65
+#: speak/voice.py:65
 msgid "Slovak"
 msgstr "Xlô-vác"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:66
+#: speak/voice.py:66
 msgid "Spanish"
 msgstr "Tây Ban Nha"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:67
+#: speak/voice.py:67
 msgid "Polish"
 msgstr "Ba Lan"
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:68
+#: speak/voice.py:68
 msgid "Esperanto"
 msgstr "Ét-pe-ran-tô"
+
+#~ msgid "Pronounce text while fliping tile"
+#~ msgstr "Phát âm văn bản trong khi lật gạch lát"
 
 #~ msgid "Choose image"
 #~ msgstr "Chọn ảnh"
