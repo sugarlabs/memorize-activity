@@ -2,116 +2,290 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2010-08-03 23:26+0200\n"
+"Last-Translator: தங்கமணி <thangam.arunx@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.3\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
-msgstr ""
+msgstr "நினைவில் நிறுத்திக்கொள்"
 
 #: activity.py:70
 msgid "Play"
-msgstr ""
+msgstr "ஆடு"
 
 #: activity.py:74
 msgid "Create"
-msgstr ""
+msgstr "உருவாக்கு"
 
-#: createcardpanel.py:52
+#: createcardpanel.py:79
 msgid "Add as new pair"
-msgstr ""
+msgstr "புதிய இணையாகச் சேர்"
 
-#: createcardpanel.py:60
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "சேர்"
+
+#: createcardpanel.py:87
 msgid "Update selected pair"
-msgstr ""
+msgstr "தெரிவு செய்யப்பட்ட இணையை இற்றைப்படுத்தல்"
 
-#: createcardpanel.py:180
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "புதுப்பி"
+
+#: createcardpanel.py:255
 msgid "Preview:"
-msgstr ""
+msgstr "பார்வை மாதிரி"
 
-#: createcardpanel.py:182
+#: createcardpanel.py:271
 msgid "Text:"
-msgstr ""
+msgstr "உள்ளடக்கம்"
 
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr ""
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "படத்தைச் செருகு"
 
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr ""
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "ஒலியைச் செருகு"
 
-#: createtoolbar.py:53
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "தலை மாறும்போது உரையை உச்சரிக்கவும்"
+
+#: createtoolbar.py:51
 msgid "New game"
-msgstr ""
+msgstr "புதிய ஆட்டம்"
 
-#: createtoolbar.py:63 memorizetoolbar.py:73
+#: createtoolbar.py:61 memorizetoolbar.py:73
 msgid "Load game"
-msgstr ""
+msgstr "ஆட்டத்தை ஏற்றுதல்"
 
-#: createtoolbar.py:73
+#: createtoolbar.py:71
 msgid "Save game"
-msgstr ""
+msgstr "ஆட்டத்தை சேமி"
 
-#: createtoolbar.py:83
+#: createtoolbar.py:81
 msgid "Game name"
-msgstr ""
+msgstr "ஆட்டப் பெயர்"
 
-#: createtoolbar.py:87
+#: createtoolbar.py:85
 msgid "Equal pairs"
-msgstr ""
+msgstr "சமமான இணை"
 
-#: createtoolbar.py:99 createtoolbar.py:158
+#: createtoolbar.py:97 createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "குழு ஆட்டத்திற்கு இவ்விடத்தில் சொடுக்கக்வும் "
 
-#: createtoolbar.py:116 memorizetoolbar.py:117
+#: createtoolbar.py:114 memorizetoolbar.py:118
 msgid "Choose memorize game"
-msgstr ""
+msgstr "நினைவகத்திலுள்ள ஆட்டத்தை தெரிக்வு செய்"
 
 #: createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "தனியாட்டததை சொடுக்கு"
 
-#: game.py:105
+#: game.py:92
 msgid "Loading game..."
-msgstr ""
+msgstr "ஆட்டத்தை ஏற்று"
 
 #: memorizetoolbar.py:40
 msgid "Load demo games"
-msgstr ""
+msgstr "மாதிரி ஆட்டத்தை ஏற்றுக"
 
 #: memorizetoolbar.py:41
 msgid "addition"
-msgstr ""
+msgstr "கூட்டு"
 
 #: memorizetoolbar.py:42
 msgid "letters"
-msgstr ""
+msgstr "எழுத்துக்கள்"
 
 #: memorizetoolbar.py:43
 msgid "sounds"
-msgstr ""
+msgstr "ஒலிகள்"
 
 #: memorizetoolbar.py:63
 msgid "Restart Game"
-msgstr ""
+msgstr "மீண்டும் ஆட்டத்தைத் துவக்கு"
 
-#: messenger.py:183
+#: messenger.py:195
 msgid "Receiving game"
-msgstr ""
+msgstr "ஆட்டத்தை பெறு"
 
-#: messenger.py:183
+#: messenger.py:196
 msgid "done"
-msgstr ""
+msgstr "முடிவு"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "பிறேசில்"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "சுவிடிஸ்"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "அயர்லாந்திய"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "உரோமைய"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "சுவகிலி"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "கிந்தி"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "டச்"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "லத்தீன்"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "கங்கேரியன்"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "மக்டோனியன்"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "வேல்ஸ்"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "பிரான்சிய"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "நோர்வேயின்"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "ரசியன்"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "ஆவ்ப்ரிக்கன்"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "பின்லாந்திய"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "கொடாநிலை"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "சீன மொழி"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "ஸ்கொட்லாந்திய"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "கிரேக்க"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "வியட்னாம்"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "ஆங்கிலம்"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "லான்சஸ்றி"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "இத்தாலிய"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "போர்த்துக்கல்"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "யேர்மன்"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "விஸ்பர்"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "குறோறியன்"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "செச்"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "சலோவக்"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "ஸ்பானிஸ்"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "பொலிஸ்"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "எஸ்பிறன்ரோ"
+
+#~ msgid "Pronounce text while fliping tile"
+#~ msgstr "காட்சி வில்லையை ஏற்றும் போது உரையை உச்சரி"
+
+#~ msgid "Choose image"
+#~ msgstr "படத்தை  தெரிதல்"
+
+#~ msgid "Choose audio"
+#~ msgstr "ஒலியைத் தெரிதல் "
