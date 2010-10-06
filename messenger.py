@@ -45,10 +45,10 @@ class Messenger(ExportedGObject):
 
     def participant_change_cb(self, added, removed):
         if not self.entered:
+            self._file_part_handler()
             if self.is_initiator:
                 self._flip_handler()
                 self._change_game_handler()
-                self._file_part_handler()
 
                 self.player_id = self._tube.get_unique_name()
                 self.ordered_bus_names = [self.player_id]
@@ -104,7 +104,6 @@ class Messenger(ExportedGObject):
 
         self._flip_handler()
         self._change_game_handler()
-        self._file_part_handler()
     
     def change_game(self, sender, mode, grid, data, waiting_list, zip):
         path = self.game.model.data['game_file']
@@ -176,8 +175,8 @@ class Messenger(ExportedGObject):
         # ignore my own signal
         if sender == self._tube.get_unique_name():
             return
-        
-        if not (target == 'all' or target == self._tube.get_unique_name()):
+
+        if target != self._tube.get_unique_name() and target != 'all':
             return
         
         # first chunk
