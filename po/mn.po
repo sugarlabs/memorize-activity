@@ -31,7 +31,7 @@ msgstr "Шинэ хос болгон нэмэх"
 
 #: createcardpanel.py:82
 msgid "Add"
-msgstr ""
+msgstr "Нэмэх"
 
 #: createcardpanel.py:87
 msgid "Update selected pair"
@@ -39,7 +39,7 @@ msgstr "Сонгосон хосыг шинэчлэх"
 
 #: createcardpanel.py:90
 msgid "Update"
-msgstr ""
+msgstr "Шинэчлэх"
 
 #: createcardpanel.py:255
 msgid "Preview:"
@@ -51,11 +51,11 @@ msgstr "Бичвэр:"
 
 #: createcardpanel.py:283
 msgid "Insert picture"
-msgstr ""
+msgstr "Зураг оруулах"
 
 #: createcardpanel.py:288
 msgid "Insert sound"
-msgstr ""
+msgstr "Дуу чимээ оруулах"
 
 #: createcardpanel.py:434
 msgid "Pronounce text during tile flip"
