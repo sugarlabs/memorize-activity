@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2011-01-21 17:24+0200\n"
+"Last-Translator: rubina <rubina@aua.am>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.3\n"
+
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Հիշել"
+
+#: activity.py:70
+msgid "Play"
+msgstr "Խաղ"
+
+#: activity.py:74
+msgid "Create"
+msgstr "Ստեղծել"
+
+#: createcardpanel.py:79
+msgid "Add as new pair"
+msgstr "Ավելացնել որպես նոր զույգ"
+
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "Ավելացնել"
+
+#: createcardpanel.py:87
+msgid "Update selected pair"
+msgstr "Արդիականացնել ընտրած զույգը"
+
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "Արդիականացում"
+
+#: createcardpanel.py:255
+msgid "Preview:"
+msgstr "Նախատեսք"
+
+#: createcardpanel.py:271
+msgid "Text:"
+msgstr "Տեքստ"
+
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "Ներդնել Պատկերը"
+
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "Ներդնել ձայն"
+
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "Արտասանել տեքստը շրջելու ժամանակ"
+
+#: createtoolbar.py:51
+msgid "New game"
+msgstr "Նոր խաղ"
+
+#: createtoolbar.py:61 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Բեռնել խաղը"
+
+#: createtoolbar.py:71
+msgid "Save game"
+msgstr "Պահել խաղը"
+
+#: createtoolbar.py:81
+msgid "Game name"
+msgstr "Խաղի անունը"
+
+#: createtoolbar.py:85
+msgid "Equal pairs"
+msgstr "Հավասար զույգեր"
+
+#: createtoolbar.py:97 createtoolbar.py:158
+msgid "Click for grouped game"
+msgstr "Քլիք խմբային խաղի համար"
+
+#: createtoolbar.py:114 memorizetoolbar.py:118
+msgid "Choose memorize game"
+msgstr "Ընտրել հիշելու խաղը"
+
+#: createtoolbar.py:154
+msgid "Click for ungrouped game"
+msgstr "Քլիք անխումբ խաղի համար"
+
+#: game.py:92
+msgid "Loading game..."
+msgstr "Խաղի բեռնում..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Բեռնել ցուցախաղերը"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "ավելացում"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "տառեր"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "ձայներ"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Խաղի Կրկնամեկնարկ"
+
+#: messenger.py:195
+msgid "Receiving game"
+msgstr "Խաղի ընդունում"
+
+#: messenger.py:196
+msgid "done"
+msgstr "արված է"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Բրազիլական"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Շվեդերեն"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Իսլանդերեն"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Ռումինական"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Սուախիլի"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Հինդի"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Գերմաներեն"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Լատիներեն"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Հունգարերեն"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Մակեդոներեն"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Ուելս"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Ֆրանսերեն"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Նորվեգական"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ռուսերեն"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Աֆրիկաանս"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Ֆիններեն"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Ենթադրյալ"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Կանտոնական"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Շոտլանդերեն"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Հուներեն"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Վիետնամերեն"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Անգլերեն"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Լանկաշիր"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Իտալերեն"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Պորտուգալերեն"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Գերմաներեն"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Շշուկ"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Խորվաթերեն"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Չեխերեն"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Սլովակական"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Իսպաներեն"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Լեհերեն"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Էսպերանտո"
