@@ -1,0 +1,282 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2010-12-26 06:15+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.3\n"
+
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Memorize"
+
+#: activity.py:70
+msgid "Play"
+msgstr "Play"
+
+#: activity.py:74
+msgid "Create"
+msgstr "Create"
+
+#: createcardpanel.py:79
+msgid "Add as new pair"
+msgstr "Add as new pair"
+
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "Add"
+
+#: createcardpanel.py:87
+msgid "Update selected pair"
+msgstr "Update selected pair"
+
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "Update"
+
+#: createcardpanel.py:255
+msgid "Preview:"
+msgstr "Preview:"
+
+#: createcardpanel.py:271
+msgid "Text:"
+msgstr "Text:"
+
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "Insert picture"
+
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "Insert sound"
+
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "Pronounce text during tile flip"
+
+#: createtoolbar.py:51
+msgid "New game"
+msgstr "New game"
+
+#: createtoolbar.py:61 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Load game"
+
+#: createtoolbar.py:71
+msgid "Save game"
+msgstr "Save game"
+
+#: createtoolbar.py:81
+msgid "Game name"
+msgstr "Game name"
+
+#: createtoolbar.py:85
+msgid "Equal pairs"
+msgstr "Equal pairs"
+
+#: createtoolbar.py:97 createtoolbar.py:158
+msgid "Click for grouped game"
+msgstr "Click for grouped game"
+
+#: createtoolbar.py:114 memorizetoolbar.py:118
+msgid "Choose memorize game"
+msgstr "Choose memorize game"
+
+#: createtoolbar.py:154
+msgid "Click for ungrouped game"
+msgstr "Click for ungrouped game"
+
+#: game.py:92
+msgid "Loading game..."
+msgstr "Loading game..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Load demo games"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "addition"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "letters"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "sounds"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Restart Game"
+
+#: messenger.py:195
+msgid "Receiving game"
+msgstr "Receiving game"
+
+#: messenger.py:196
+msgid "done"
+msgstr "done"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Brazil"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Swedish"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Icelandic"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Romanian"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahili"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Dutch"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Latin"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Hungarian"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macedonian"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Welsh"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "French"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Norwegian"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Russian"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikaans"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Finnish"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Default"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Cantonese"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Scottish"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Greek"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnam"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "English"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Italian"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugal"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "German"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Whisper"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Croatian"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Czech"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Slovak"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Spanish"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Polish"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
