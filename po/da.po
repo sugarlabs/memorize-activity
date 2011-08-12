@@ -1,0 +1,262 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2011-04-09 16:32+0200\n"
+"Last-Translator: Aputsiaq <aj@isit.gl>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
+
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Memorér"
+
+#: activity.py:70
+msgid "Play"
+msgstr "Spil"
+
+#: activity.py:74
+msgid "Create"
+msgstr "Opret"
+
+#: createcardpanel.py:79
+msgid "Add as new pair"
+msgstr "Tilføj som nyt par"
+
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "Tilføj"
+
+#: createcardpanel.py:87
+msgid "Update selected pair"
+msgstr "Opdatér markerede par"
+
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "Opdatér"
+
+#: createcardpanel.py:255
+msgid "Preview:"
+msgstr "Forhåndsvis:"
+
+#: createcardpanel.py:271
+msgid "Text:"
+msgstr "Tekst:"
+
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "Indsæt billede"
+
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "Indsæt lyd"
+
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "Udtal tekst mens brik vendes"
+
+#: createtoolbar.py:51
+msgid "New game"
+msgstr "Nyt spil"
+
+#: createtoolbar.py:61 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Indlæs spil"
+
+#: createtoolbar.py:71
+msgid "Save game"
+msgstr "Gem spil"
+
+#: createtoolbar.py:81
+msgid "Game name"
+msgstr "Navn på spil"
+
+#: createtoolbar.py:85
+msgid "Equal pairs"
+msgstr "Ens par"
+
+#: createtoolbar.py:97 createtoolbar.py:158
+msgid "Click for grouped game"
+msgstr "Klik for grupperet spil"
+
+#: createtoolbar.py:114 memorizetoolbar.py:118
+msgid "Choose memorize game"
+msgstr "Vælg memorér-spil"
+
+#: createtoolbar.py:154
+msgid "Click for ungrouped game"
+msgstr "Klik for ikke-grupperet spil"
+
+#: game.py:92
+msgid "Loading game..."
+msgstr "Indlæser spil..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Indlæs demo-spil"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "addition"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "bogstaver"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "lyde"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Genstart spil"
+
+#: messenger.py:195
+msgid "Receiving game"
+msgstr "Modtagende spil"
+
+#: messenger.py:196
+msgid "done"
+msgstr "færdig"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Brasiliansk"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Svensk"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Islandsk"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Rumænsk"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahili"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Hollandsk"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Latinsk"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Ungarsk"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Makedonsk"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Walisisk"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Fransk"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Norsk"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Russisk"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikaans"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Finsk"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Standard"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Kantonesisk"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Skotsk"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Græsk"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnamesisk"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Engelsk"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Italiensk"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugisisk"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Tysk"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Hvisker"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Kroatisk"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Tjekkisk"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Slovakisk"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Spansk"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Polsk"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
