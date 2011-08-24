@@ -1,0 +1,262 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2011-08-19 07:58+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hus\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
+
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Dhaykol"
+
+#: activity.py:70
+msgid "Play"
+msgstr "Ubat'"
+
+#: activity.py:74
+msgid "Create"
+msgstr "ts'ejka'"
+
+#: createcardpanel.py:79
+msgid "Add as new pair"
+msgstr "Punchiy jun i it tsábchil"
+
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "Punchiy"
+
+#: createcardpanel.py:87
+msgid "Update selected pair"
+msgstr "Itmedha tsabchil xi takudh"
+
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "Ajumta'lits"
+
+#: createcardpanel.py:255
+msgid "Preview:"
+msgstr "K'aal tsu-uxlalab"
+
+#: createcardpanel.py:271
+msgid "Text:"
+msgstr "Dhuchláb"
+
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "Ofsba' an t'ipláb"
+
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "Otsba' in janídh"
+
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "Bijiy an dhuchlab ani' ka wenk'a an dhuchláb"
+
+#: createtoolbar.py:51
+msgid "New game"
+msgstr "It ubat'intaláb"
+
+#: createtoolbar.py:61 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "K'adhba' an ubat'intaláb"
+
+#: createtoolbar.py:71
+msgid "Save game"
+msgstr "Dhaya' an ubat'intaláb"
+
+#: createtoolbar.py:81
+msgid "Game name"
+msgstr "Bijil an ubat'intaláb"
+
+#: createtoolbar.py:85
+msgid "Equal pairs"
+msgstr "Tsabchik jununúl"
+
+#: createtoolbar.py:97 createtoolbar.py:158
+msgid "Click for grouped game"
+msgstr "Ni'ninchi' abal an ubat'intaláb ti yanel."
+
+#: createtoolbar.py:114 memorizetoolbar.py:118
+msgid "Choose memorize game"
+msgstr "Takuy i ubat'intalán ba' an dhaykol."
+
+#: createtoolbar.py:154
+msgid "Click for ungrouped game"
+msgstr "Ni'chi' abal an ubat'intalab kwetem"
+
+#: game.py:92
+msgid "Loading game..."
+msgstr "K'adhba' i ubat'intalán"
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "K'adhba' i ubat'intaláb abal ka t'ipoy"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "Punk'uy"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "Dhuche'"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "Kawintaláb"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Tsab tujchij an ubat'intaláb"
+
+#: messenger.py:195
+msgid "Receiving game"
+msgstr "Bats'ul ubat'intaláb"
+
+#: messenger.py:196
+msgid "done"
+msgstr "Ts'ejkadh"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Brasil"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Sueco"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Islandés"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Rumano"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahili"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Holandés"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Latín"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Húngaro"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macedonio"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Galés"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Francés"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Noruego"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ruso"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikáns"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Finés"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Ok'ox bijidh"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Cantonés"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Escocés"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Griego"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnamita"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Inglés"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Italiano"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugués"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Alemán"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Kwe'kaw"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Croata"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Checo"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Eslovaco"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Español"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Polaco"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Aychix"
