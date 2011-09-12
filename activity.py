@@ -33,6 +33,10 @@ import gtk
 import telepathy
 import telepathy.client
 
+from sugar.activity.widgets import ActivityToolbarButton
+from sugar.activity.widgets import StopButton
+from sugar.graphics.toolbarbox import ToolbarButton, ToolbarBox
+from sugar.graphics.radiotoolbutton import RadioToolButton
 from sugar.activity.activity import Activity, ActivityToolbox
 from sugar.presence import presenceservice
 from sugar.presence.tubeconn import TubeConnection
@@ -52,35 +56,80 @@ SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
 PATH = '/org/laptop/Memorize'
 
-_TOOLBAR_PLAY = 1
-_TOOLBAR_CREATE = 2
+_MODE_PLAY = 1
+_MODE_CREATE = 2
 
 class MemorizeActivity(Activity):
     
     def __init__(self, handle):
         Activity.__init__(self, handle)
 
-        self.create_load = False
         self.play_mode = None
         
-        toolbox = ActivityToolbox(self)
-        activity_toolbar = toolbox.get_activity_toolbar()
-        
-        self._memorizeToolbar = memorizetoolbar.MemorizeToolbar(self)
-        toolbox.add_toolbar(_('Play'), self._memorizeToolbar)
-        self._memorizeToolbar.show()  
+        toolbar_box = ToolbarBox()
+        self.set_toolbar_box(toolbar_box)
 
-        self._createToolbar = createtoolbar.CreateToolbar(self)
-        toolbox.add_toolbar(_('Create'), self._createToolbar)
-        self._createToolbar.show()
-        
-        self.set_toolbox(toolbox)
-        toolbox.show()
-        
+        self.activity_button = ActivityToolbarButton(self)
+        toolbar_box.toolbar.insert(self.activity_button, -1)
+
+        tool_group = None
+        self._play_button = RadioToolButton()
+        self._play_button.mode = _MODE_PLAY
+        self._play_button.props.icon_name = 'player_play'
+        self._play_button.set_tooltip(_('Play game'))
+        self._play_button.props.group = tool_group
+        toolbar_box.toolbar.insert(self._play_button, -1)
+        tool_group = self._play_button
+
+        self._edit_button = RadioToolButton()
+        self._edit_button.mode = _MODE_CREATE
+        self._edit_button.props.icon_name = 'view-source'
+        self._edit_button.set_tooltip(_('Edit game'))
+        self._edit_button.props.group = tool_group
+        toolbar_box.toolbar.insert(self._edit_button, -1)
+
+        toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
+
+        self._memorizeToolbarBuilder = \
+                memorizetoolbar.MemorizeToolbarBuilder(self)
+
+        toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
+
+        self._createToolbarBuilder = \
+            createtoolbar.CreateToolbarBuilder(self)
+
+        separator = gtk.SeparatorToolItem()
+        separator.set_expand(True)
+        separator.set_draw(False)
+        toolbar_box.toolbar.insert(separator, -1)
+
+        toolbar_box.toolbar.insert(StopButton(self), -1)
+
         # Play game mode
         self.table = cardtable.CardTable()
         self.scoreboard = scoreboard.Scoreboard()
+        self.cardlist = cardlist.CardList()
+        self.createcardpanel = createcardpanel.CreateCardPanel()
+        self.cardlist.connect('pair-selected',
+                self.createcardpanel.pair_selected)
+        self.cardlist.connect('update-create-toolbar',
+                self._createToolbarBuilder.update_create_toolbar)
+        self.createcardpanel.connect('add-pair',
+                self.cardlist.add_pair)
+        self.createcardpanel.connect('update-pair',
+                self.cardlist.update_selected)
+        self._createToolbarBuilder.connect('create_new_game',
+                self.cardlist.clean_list)
+        self._createToolbarBuilder.connect('create_new_game',
+                self.createcardpanel.clean)
+        self._createToolbarBuilder.connect('create_save_game',
+                self.cardlist.save_game)
+        self._createToolbarBuilder.connect('create_equal_pairs',
+                self.createcardpanel.change_equal_pairs)
         self.game = game.MemorizeGame()
+
+        self._play_button.connect('clicked', self._change_mode_bt)
+        self._edit_button.connect('clicked', self._change_mode_bt)
 
         self.table.connect('key-press-event', self.table.key_press_event)
         self.table.connect('card-flipped', self.game.card_flipped)
@@ -107,10 +156,13 @@ class MemorizeActivity(Activity):
 
         self.game.connect('load_game', self.table.load_game)
         self.game.connect('change_game', self.table.change_game)
-        self.game.connect('load_game', self._memorizeToolbar.update_toolbar)
-        self.game.connect('change_game', self._memorizeToolbar.update_toolbar)
-        
-        self._memorizeToolbar.connect('game_changed', self.game.change_game)
+        self.game.connect('load_game',
+                self._memorizeToolbarBuilder.update_toolbar)
+        self.game.connect('change_game',
+                self._memorizeToolbarBuilder.update_toolbar)
+
+        self._memorizeToolbarBuilder.connect('game_changed',
+                self.change_game)
         
         self.hbox = gtk.HBox(False)
         self.set_canvas(self.hbox)
@@ -126,8 +178,7 @@ class MemorizeActivity(Activity):
 
         # start on the game toolbar, might change this
         # to the create toolbar later
-        self.toolbox.connect('current-toolbar-changed', self.change_mode)
-        self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
+        self._change_mode(_MODE_PLAY)
 
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
@@ -152,53 +203,31 @@ class MemorizeActivity(Activity):
             _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
             game_file = join(dirname(__file__), 'demos', 'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
+            self.cardlist.load_game(game_file)
             _logger.debug('loading conventional')       
             self.game.add_buddy(self.owner)
         self.show_all()
+
+    def _change_mode_bt(self, button):
+        self._change_mode(button.mode)
         
     def read_file(self, file_path):
         if self.metadata['mime_type'] == 'application/x-memorize-project':
-            self.toolbox.set_current_toolbar(_TOOLBAR_PLAY)
             if self.metadata.has_key('icon-color'):
                 color = self.metadata['icon-color']
             else:
                 color = profile.get_color().to_string()
-            self.game.change_game(None, file_path, 4, 'file',
+            self.change_game(None, file_path, 4, 'file',
                                   self.metadata['title'], color)
 
-    def change_mode(self, notebook, index):
-        if index == _TOOLBAR_CREATE:
-            if not self.create_load:
-                # Create game mode
-                self.cardlist = cardlist.CardList()
-                self.createcardpanel = createcardpanel.CreateCardPanel()
-                self.createcardpanel.connect('add-pair', self.cardlist.add_pair)
-                self.createcardpanel.connect('update-pair',
-                                             self.cardlist.update_selected)
-                self.cardlist.connect('pair-selected',
-                                      self.createcardpanel.pair_selected)
-                self.cardlist.connect('update-create-toolbar',
-                                      self._createToolbar.update_create_toolbar)
-                self.cardlist.connect('update-create-buttons',
-                                      self._createToolbar.update_buttons_status)
-                self._createToolbar.connect('create_new_game',
-                                            self.cardlist.clean_list)
-                self._createToolbar.connect('create_new_game',
-                                            self.createcardpanel.clean)
-                self._createToolbar.connect('create_load_game',
-                                            self.cardlist.load_game)
-                self._createToolbar.connect('create_save_game',
-                                            self.cardlist.save_game)
-                self._createToolbar.connect('create_equal_pairs', \
-                        self.createcardpanel.change_equal_pairs)
-                self.create_load = True
- 
-            self.hbox.remove(self.scoreboard)
-            self.hbox.remove(self.table)
-            self.hbox.pack_start(self.createcardpanel, False)
-            self.hbox.pack_start(self.cardlist)
+    def _change_mode(self, mode):
+        if mode == _MODE_CREATE:
+            if self.play_mode == True:
+                self.hbox.remove(self.scoreboard)
+                self.hbox.remove(self.table)
+                self.hbox.pack_start(self.createcardpanel, False)
+                self.hbox.pack_start(self.cardlist)
             self.play_mode = False
-
         else:
             if self.play_mode == False:
                 self.hbox.remove(self.createcardpanel)
@@ -207,13 +236,19 @@ class MemorizeActivity(Activity):
                 self.hbox.pack_start(self.scoreboard)
                 self.hbox.pack_start(self.table, False)
             self.play_mode = True
+        self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
+        self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)
                 
     def restart(self, widget):
         self.game.reset()
 
-    def change_game(self, game_name, size, title=None, color=None):
-        self.game.change_game(game_name, size, title, color)
-        
+    def change_game(self, widget, game_name, size, mode,
+                    title=None, color=None):
+        _logger.debug('Change game %s', game_name)
+        self.game.change_game(widget, game_name, size, mode, title, color)
+        if game_name is not None:
+            self.cardlist.load_game(game_name)
+
     def _shared_cb(self, activity):
         _logger.debug('My activity was shared')
         self.initiating = True

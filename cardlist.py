@@ -40,7 +40,6 @@ class CardList(gtk.EventBox):
     __gsignals__ = {
         'pair-selected': (SIGNAL_RUN_FIRST, None, 9 * [TYPE_PYOBJECT]),
         'update-create-toolbar': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]),
-        'update-create-buttons': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
     }
 
     def __init__(self):
@@ -66,7 +65,7 @@ class CardList(gtk.EventBox):
         self.add(scroll)
         self.show_all()
         
-    def load_game(self, widget, game_name):
+    def load_game(self, game_name):
         self.model.read(game_name)
         self.current_game_key = self.model.data['game_file']
         self.emit('update-create-toolbar', self.model.data['name'],
@@ -219,7 +218,6 @@ class CardList(gtk.EventBox):
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
         pair.connect('pair-closed', self.rem_pair)
-        self.emit('update-create-buttons', True, True)
         if show:
             self.show_all()
             
@@ -227,7 +225,6 @@ class CardList(gtk.EventBox):
         self.vbox.remove(widget)        
         self.pairs.remove(widget)
         del widget
-        self.emit('update-create-buttons', True, True)
         self.emit('pair-selected', False, None, None, None, None, None, None,
                 False, False)
 
@@ -249,8 +246,7 @@ class CardList(gtk.EventBox):
         self.current_pair.change_pixbuf(aimg, bimg)
         self.current_pair.change_sound(asnd, bsnd)
         self.current_pair.change_speak(aspeak, bspeak)
-        
-        self.emit('update-create-buttons', True, True)
+
         
 class Pair(gtk.EventBox):
 

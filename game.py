@@ -281,7 +281,6 @@ class MemorizeGame(GObject):
         if mouse and self.model.grid[identifier]['state'] == '0' or not mouse:
             self.emit('highlight-card', identifier, True)
 
-    
     def increase_point(self, buddy, inc=1):
         self.players_score[buddy] += inc
         for i_ in range(inc):
