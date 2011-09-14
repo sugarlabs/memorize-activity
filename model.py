@@ -17,15 +17,13 @@
 
 import libxml2
 from os import environ, makedirs, chmod
-from os.path import join, basename, isdir, split, normpath
+from os.path import join, basename, isdir, split, normpath, exists
 import logging
 import random
 import gobject
 import zipfile
 import tempfile
 
-from sugar import profile
-from sugar.datastore import datastore
 from sugar.activity.activity import get_bundle_path, get_activity_root
 
 _logger = logging.getLogger('model')
@@ -100,6 +98,10 @@ class Model(object):
     '''
 
     def __init__(self, game_path=None):
+        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
+        self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
+        chmod(self.temp_folder, 0777)
+
         self.data = {}
 
         if game_path is None:
@@ -113,6 +115,8 @@ class Model(object):
 
         self.data['face'] = ''
         self.data['align'] = '1'
+        self.data['divided'] = '0'
+        self.data['equal_pairs'] = '1'
 
         try:
             self.dtd = libxml2.parseDTD(None, join(get_bundle_path(),
@@ -125,6 +129,11 @@ class Model(object):
         self.pairs = {}
         self.grid = []
 
+        # used to know if the game should be saved and reloaded
+        self.modified = False
+        logging.debug('Model init is_demo False')
+        self.is_demo = False
+
         # used by the leader of the game to keep track of the game state
         self.players = {}
         self.player_active = 0
@@ -133,13 +142,16 @@ class Model(object):
         self.started = 0
         self.count = 0
 
+    def mark_modified(self):
+        logging.debug('Model mark_modified is_demo False')
+        self.is_demo = False
+        self.modified = True
+
     def read(self, game_file):
-        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
-        temp_folder = tempfile.mkdtemp(dir=tmp_root)
-        chmod(temp_folder, 0777)
+        self.modified = False
         self.data['key'] = basename(game_file)
         self.data['game_file'] = game_file
-        self.data['path'] = temp_folder
+        self.data['path'] = self.temp_folder
         self.data['pathimg'] = join(self.data['path'], 'images')
         self.data['pathsnd'] = join(self.data['path'], 'sounds')
         
@@ -214,7 +226,7 @@ class Model(object):
             _logger.error('Read: Error parsing file ' +str(e))
             return 2
         
-    def write(self, equal_pairs, divided):
+    def write(self):
         ''' writes the configuration to an xml file '''
         doc = libxml2.newDoc("1.0")
         root = doc.newChild(None, "memorize", None)
@@ -222,15 +234,15 @@ class Model(object):
         if(self.data.get('name', None) != None):                            
             root.setProp("name", self.data['name'])
         
-        if divided:
+        if(self.data.get('divided', None) != None):
             root.setProp('divided', '1')
             root.setProp('face1', '1')
             root.setProp('face2', '2')
         else:
             root.setProp('divided', '0')
         
-        if equal_pairs:
-            root.setProp('equal_pairs', str(equal_pairs))
+        if(self.data.get('equal_pairs', None) != None):
+            root.setProp('equal_pairs', self.data['equal_pairs'])
         
         if(self.data.get('scoresnd', None) != None):                            
             root.setProp("scoresnd", self.data['scoresnd'])
@@ -348,16 +360,12 @@ class Model(object):
     def set_data_grid(self, data, grid):
         self.data = data
         self.grid = grid
-        
-    def save_byte_array(self, path, title= None, color= None):
-        if color == None:
-            color = profile.get_color().to_string()
-        _logger.debug('Save new game in datastore')
 
-        # Saves the zip in datastore
-        gameObject = datastore.create()
-        gameObject.metadata['title'] = title
-        gameObject.metadata['mime_type'] = 'application/x-memorize-project'
-        gameObject.metadata['icon-color'] = color
-        gameObject.file_path = path
-        datastore.write(gameObject)
+    def create_temp_directories(self):
+        temp_img_folder = join(self.temp_folder, 'images')
+        temp_snd_folder = join(self.temp_folder, 'sounds')
+
+        if not exists(temp_img_folder):
+            makedirs(temp_img_folder)
+        if not exists(temp_snd_folder):
+            makedirs(temp_snd_folder)

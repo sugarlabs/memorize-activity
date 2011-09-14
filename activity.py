@@ -27,7 +27,9 @@ import logging
 _logger = logging.getLogger('memorize-activity')
 
 from gettext import gettext as _
-from os.path import join, dirname
+import os
+
+import zipfile
 
 import gtk
 import telepathy
@@ -122,10 +124,8 @@ class MemorizeActivity(Activity):
                 self.cardlist.clean_list)
         self._createToolbarBuilder.connect('create_new_game',
                 self.createcardpanel.clean)
-        self._createToolbarBuilder.connect('create_save_game',
-                self.cardlist.save_game)
         self._createToolbarBuilder.connect('create_equal_pairs',
-                self.createcardpanel.change_equal_pairs)
+                self.change_equal_pairs)
         self.game = game.MemorizeGame()
 
         self._play_button.connect('clicked', self._change_mode_bt)
@@ -199,36 +199,121 @@ class MemorizeActivity(Activity):
             if self.get_shared():
                 # We've already joined
                 self._joined_cb()
-        else:
+        elif not self._jobject.file_path:
             _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
-            game_file = join(dirname(__file__), 'demos', 'addition.zip')
+            game_file = os.path.join(os.path.dirname(__file__), 'demos',
+                    'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
-            self.cardlist.load_game(game_file)
+            self.cardlist.load_game(self.game)
             _logger.debug('loading conventional')       
-            self.game.add_buddy(self.owner)
+        self.game.add_buddy(self.owner)
         self.show_all()
 
     def _change_mode_bt(self, button):
-        self._change_mode(button.mode)
+        if button.get_active():
+            self._change_mode(button.mode)
         
     def read_file(self, file_path):
-        if self.metadata['mime_type'] == 'application/x-memorize-project':
-            if self.metadata.has_key('icon-color'):
-                color = self.metadata['icon-color']
-            else:
-                color = profile.get_color().to_string()
-            self.change_game(None, file_path, 4, 'file',
-                                  self.metadata['title'], color)
+        if self.metadata.has_key('icon-color'):
+            color = self.metadata['icon-color']
+        else:
+            color = profile.get_color().to_string()
+        self.change_game(None, file_path, 4, 'file',
+                              self.metadata['title'], color)
+
+    def close(self, skip_save=False):
+        if self.game.model.is_demo:
+            Activity.close(self, skip_save=True)
+        else:
+            Activity.close(self)
+
+    def write_file(self, file_path):
+        temp_img_folder = os.path.join(self.game.model.temp_folder, 'images')
+        temp_snd_folder = os.path.join(self.game.model.temp_folder, 'sounds')
+        self.game.model.create_temp_directories()
+        game_zip = zipfile.ZipFile(file_path, 'w')
+        equal_pairs = self.game.model.data['equal_pairs'] == '1'
+        for pair in self.game.model.pairs:
+            # aimg
+            aimg = self.game.model.pairs[pair].get_property('aimg')
+            if aimg != None:
+                if equal_pairs:
+                    aimgfile = 'img' + str(pair) + '.jpg'
+                else:
+                    aimgfile = 'aimg' + str(pair) + '.jpg'
+                game_zip.write(os.path.join(temp_img_folder, aimgfile),
+                               os.path.join('images', aimgfile))
+
+            # bimg
+            bimg = self.game.model.pairs[pair].get_property('bimg')
+            if bimg != None:
+                if equal_pairs:
+                    bimgfile = 'img' + str(pair) + '.jpg'
+                else:
+                    bimgfile = 'bimg' + str(pair) + '.jpg'
+                game_zip.write(os.path.join(temp_img_folder, bimgfile),
+                               os.path.join('images', bimgfile))
+            # asnd
+            asnd = self.game.model.pairs[pair].get_property('asnd')
+            if asnd != None:
+                if equal_pairs:
+                    asndfile = 'snd' + str(pair) + '.ogg'
+                else:
+                    asndfile = 'asnd' + str(pair) + '.ogg'
+                _logger.error(asndfile + ': ' + asnd)
+                game_zip.write(os.path.join(temp_snd_folder, asnd),
+                                os.path.join('sounds', asndfile))
+
+            # bsnd
+            bsnd = self.game.model.pairs[pair].get_property('bsnd')
+            if bsnd != None:
+                if equal_pairs:
+                    bsndfile = 'snd'+str(pair)+'.ogg'
+                else:
+                    bsndfile = 'bsnd' + str(pair) + '.ogg'
+                game_zip.write(os.path.join(temp_snd_folder, bsnd),
+                                os.path.join('sounds', bsndfile))
+
+        self.game.model.game_path = self.game.model.temp_folder
+        self.game.model.write()
+        game_zip.write(os.path.join(self.game.model.temp_folder, 'game.xml'),
+                'game.xml')
+        game_zip.close()
+        self.metadata['mime_type'] = 'application/x-memorize-project'
+        self.game.model.modified = False
+
+    def _complete_close(self):
+        self._remove_temp_files()
+        Activity._complete_close(self)
+
+    def _remove_temp_files(self):
+        tmp_root = os.path.join(os.environ['SUGAR_ACTIVITY_ROOT'], 'instance')
+        for root, dirs, files in os.walk(tmp_root, topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
 
     def _change_mode(self, mode):
+        logging.debug("Change mode %s" % mode)
         if mode == _MODE_CREATE:
             if self.play_mode == True:
                 self.hbox.remove(self.scoreboard)
                 self.hbox.remove(self.table)
                 self.hbox.pack_start(self.createcardpanel, False)
                 self.hbox.pack_start(self.cardlist)
+                self.game.model.create_temp_directories()
+                self.createcardpanel.set_temp_folder(
+                        self.game.model.temp_folder)
             self.play_mode = False
         else:
+            if self.game.model.modified:
+                self.cardlist.update_model(self.game.model)
+                self.game.reset_game()
+                self.table.change_game(None, self.game.model.data,
+                        self.game.model.grid)
+                self.save()
+
             if self.play_mode == False:
                 self.hbox.remove(self.createcardpanel)
                 self.hbox.remove(self.cardlist)
@@ -247,7 +332,11 @@ class MemorizeActivity(Activity):
         _logger.debug('Change game %s', game_name)
         self.game.change_game(widget, game_name, size, mode, title, color)
         if game_name is not None:
-            self.cardlist.load_game(game_name)
+            self.cardlist.load_game(self.game)
+
+    def change_equal_pairs(self, widget, state):
+        self.cardlist.update_model(self.game.model)
+        self.createcardpanel.change_equal_pairs(widget, state)
 
     def _shared_cb(self, activity):
         _logger.debug('My activity was shared')

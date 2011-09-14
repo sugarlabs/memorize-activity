@@ -22,6 +22,8 @@ from os.path import join, dirname
 from gettext import gettext as _
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.toolcombobox import ToolComboBox
+from sugar.graphics.alert import Alert
+from sugar.graphics.icon import Icon
 
 import logging
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
@@ -93,8 +95,28 @@ class MemorizeToolbarBuilder(gobject.GObject):
         self.emit('game_changed', None, game_size, 'size', None, None)
     
     def _game_changed_cb(self, combobox):
+        logging.debug('Game modified %s is_demo %s', self.activity.game.model.modified, self.activity.game.model.is_demo)
         if combobox.get_active() == 0:
             return
+        if self.activity.game.model.is_demo:
+            self._change_game()
+        else:
+            alert = Alert()
+            alert.props.title = _('Discard your modified game?')
+            icon = Icon(icon_name='dialog-ok')
+            alert.add_button(1, _('Discard'), icon)
+            icon = Icon(icon_name='dialog-cancel')
+            alert.add_button(0, _('Do not discard'), icon)
+            alert.connect('response', self._change_game_alert_cb)
+            self.activity.add_alert(alert)
+
+    def _change_game_alert_cb(self, alert, response_id):
+        if alert is not None:
+            self.activity.remove_alert(alert)
+        if response_id == 1:
+            self._change_game()
+
+    def _change_game(self):
         current_game = self._game_combo.combo.get_active()
         game_name = self.standard_game_names[current_game]
         title = game_name
@@ -105,9 +127,9 @@ class MemorizeToolbarBuilder(gobject.GObject):
             game_name = self.standard_game_names[index]
             
         game_file = join(dirname(__file__), 'demos', game_name+'.zip')
-        self.emit('game_changed', game_file, game_size, 'demo', title, None)
         self._game_combo.combo.set_active(0)
-        
+        self.emit('game_changed', game_file, game_size, 'demo', title, None)
+
     def update_toolbar(self, widget, data, grid):
         size = data.get('size')
         self._size_combo.combo.handler_block(self.size_handle_id)

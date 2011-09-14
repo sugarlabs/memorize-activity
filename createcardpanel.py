@@ -18,12 +18,10 @@
 #
 
 import gtk
-from os import environ
 from os.path import join, basename
 import hippo
 
 import shutil
-import tempfile
 from gettext import gettext as _
 import svgcard
 import logging
@@ -232,6 +230,10 @@ class CreateCardPanel(gtk.EventBox):
                 self._addbutton.set_sensitive(False)
                 self._updatebutton.set_sensitive(False)
 
+    def set_temp_folder(self, temp_folder):
+        self.cardeditor1.temp_folder = temp_folder
+        self.cardeditor2.temp_folder = temp_folder
+
 class CardEditor(gtk.EventBox):
 
     __gsignals__ = {
@@ -245,8 +247,7 @@ class CardEditor(gtk.EventBox):
 
         self.snd = None
 
-        tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
-        self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
+        self.temp_folder = None
 
         box = gtk.VBox()
         box.props.spacing = theme.PAD
@@ -384,7 +385,7 @@ class CardEditor(gtk.EventBox):
 
             self.set_speak(None)
 
-            dst = join(self.temp_folder, basename(index))
+            dst = join(self.temp_folder, 'sounds', basename(index))
             shutil.copy(index, dst)
             self.set_snd(dst)
             icon_theme = gtk.icon_theme_get_default()

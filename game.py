@@ -79,6 +79,8 @@ class MemorizeGame(GObject):
     def load_game(self, game_name, size, mode):
         self.set_load_mode('Loading game')   
         if self.model.read(game_name) == 0:
+            logging.debug('load_game set is_demo mode %s', mode)
+            self.model.is_demo = (mode == 'demo')
             self.model.def_grid(size)
             self.model.data['running'] = 'False'
             self.model.data['mode'] = mode
@@ -119,7 +121,10 @@ class MemorizeGame(GObject):
                 self.emit('flip-card', self.model.grid.index(card), False)
                 self.emit('set-border', self.model.grid.index(card),
                           stroke_color, fill_color)
-        
+        logging.debug('load_remote set is_demo mode %s', mode)
+        if mode != 'reset':
+            self.model.is_demo = (mode == 'demo')
+
     def add_buddy(self, buddy, score = 0):
         _logger.debug('Buddy %r was added to game', buddy.props.nick)
         self.players.append(buddy)
@@ -299,6 +304,8 @@ class MemorizeGame(GObject):
     def change_game(self, widget, game_name, size, mode,
                     title = None, color= None):
         if mode in ['file', 'demo']:
+            logging.debug('change_game set is_demo mode %s', mode)
+            self.model.is_demo = (mode == 'demo')
             if self.model.read(game_name) != 0:
                 logging.error(' Reading setup file %s', game_name)
                 return
