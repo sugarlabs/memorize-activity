@@ -149,6 +149,7 @@ class Model(object):
 
     def read(self, game_file):
         self.modified = False
+        self.count = 0
         self.data['key'] = basename(game_file)
         self.data['game_file'] = game_file
         self.data['path'] = self.temp_folder

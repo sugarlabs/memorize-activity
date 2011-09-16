@@ -79,17 +79,23 @@ class MemorizeToolbarBuilder(gobject.GObject):
         self._restart_button = ToolButton('game-new')
         self._restart_button.connect('clicked', self._game_reset_cb)
         self._restart_button.set_tooltip(_('Restart Game'))
+        self._restart_button.set_sensitive(False)
         self.toolbar.insert(self._restart_button, -1)
         self._restart_button.show()
 
     def _game_reset_cb(self, widget):
+        self._restart_button.set_sensitive(False)
         self.emit('game_changed', None, None, 'reset', None, None)
         
     def update_controls(self, active):
         self._size_combo.set_sensitive(active)
         self._game_combo.set_sensitive(active)
-        self._restart_button.set_sensitive(active)
+        self._restart_button.set_sensitive(active and
+                self.activity.game.model.count > 0)
     
+    def card_flipped(self, widget, identifier, signal = False):
+        self._restart_button.set_sensitive(self.activity.game.model.count > 0)
+
     def _game_size_cb(self, widget):
         game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
         self.emit('game_changed', None, game_size, 'size', None, None)

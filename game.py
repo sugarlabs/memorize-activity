@@ -173,6 +173,7 @@ class MemorizeGame(GObject):
             self.card_flipped(widget, identifier)
 
     def card_flipped(self, widget, identifier, signal = False):        
+        self.model.count = self.model.count + 1
         if self._flop_cards:
             source_remove(self._flop_card_timeout)
             self.flop_card(self._flop_cards[0], self._flop_cards[1])
@@ -322,6 +323,7 @@ class MemorizeGame(GObject):
     def reset_game(self, size = None):
         if size == None:
             size = int(self.model.data['size'])
+        self.model.count = 0
         self.model.def_grid(size)    
         self.load_remote(self.model.grid, self.model.data, False) 
         

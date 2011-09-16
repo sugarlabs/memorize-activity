@@ -133,6 +133,8 @@ class MemorizeActivity(Activity):
 
         self.table.connect('key-press-event', self.table.key_press_event)
         self.table.connect('card-flipped', self.game.card_flipped)
+        self.table.connect('card-flipped',
+                self._memorizeToolbarBuilder.card_flipped)
         self.table.connect('card-overflipped', self.game.card_overflipped)
         self.table.connect('card-highlighted', self.game.card_highlighted)
 
@@ -324,9 +326,6 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
         self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)
                 
-    def restart(self, widget):
-        self.game.reset()
-
     def change_game(self, widget, game_name, size, mode,
                     title=None, color=None):
         _logger.debug('Change game %s', game_name)
