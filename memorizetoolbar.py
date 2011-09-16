@@ -84,6 +84,7 @@ class MemorizeToolbarBuilder(gobject.GObject):
 
     def _game_reset_cb(self, widget):
         self._restart_button.set_sensitive(False)
+        self.activity.game.model.count = 0
         self.emit('game_changed', None, None, 'reset', None, None)
 
     def update_controls(self, active):
