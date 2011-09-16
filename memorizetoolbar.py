@@ -15,7 +15,6 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
 import gobject
 from os.path import join, dirname
 
@@ -34,7 +33,7 @@ _logger = logging.getLogger('memorize-activity')
 class MemorizeToolbarBuilder(gobject.GObject):
 
     __gtype_name__ = 'MemoryToolbarBuilder'
-    
+
     standard_game_names = ['Load demo games',
                            'addition',
                            'letters',
@@ -49,7 +48,7 @@ class MemorizeToolbarBuilder(gobject.GObject):
     __gsignals__ = {
     'game_changed': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT])
     }
-    
+
     def __init__(self, activity):
         gobject.GObject.__init__(self)
         self.activity = activity
@@ -65,11 +64,11 @@ class MemorizeToolbarBuilder(gobject.GObject):
                 'changed', self._game_size_cb)
         self.toolbar.insert(self._size_combo, -1)
         self._size_combo.combo.set_active(0)
-        
-        # Change demo games combobox        
+
+        # Change demo games combobox
         self._game_combo = ToolComboBox()
         for i, f in enumerate(self.standard_game_names):
-            f = _(f)    
+            f = _(f)
             self._game_combo.combo.append_item(i, f)
         self._game_combo.combo.set_active(0)
         self._game_combo.combo.connect('changed', self._game_changed_cb)
@@ -86,22 +85,21 @@ class MemorizeToolbarBuilder(gobject.GObject):
     def _game_reset_cb(self, widget):
         self._restart_button.set_sensitive(False)
         self.emit('game_changed', None, None, 'reset', None, None)
-        
+
     def update_controls(self, active):
         self._size_combo.set_sensitive(active)
         self._game_combo.set_sensitive(active)
         self._restart_button.set_sensitive(active and
                 self.activity.game.model.count > 0)
-    
-    def card_flipped(self, widget, identifier, signal = False):
+
+    def card_flipped(self, widget, identifier, signal=False):
         self._restart_button.set_sensitive(self.activity.game.model.count > 0)
 
     def _game_size_cb(self, widget):
         game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
         self.emit('game_changed', None, game_size, 'size', None, None)
-    
+
     def _game_changed_cb(self, combobox):
-        logging.debug('Game modified %s is_demo %s', self.activity.game.model.modified, self.activity.game.model.is_demo)
         if combobox.get_active() == 0:
             return
         if self.activity.game.model.is_demo:
@@ -127,18 +125,18 @@ class MemorizeToolbarBuilder(gobject.GObject):
         game_name = self.standard_game_names[current_game]
         title = game_name
         game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
-        
+
         if game_name in self.translated_game_names:
             index = self.translated_game_names.index(game_name)
             game_name = self.standard_game_names[index]
-            
-        game_file = join(dirname(__file__), 'demos', game_name+'.zip')
+
+        game_file = join(dirname(__file__), 'demos', game_name + '.zip')
         self._game_combo.combo.set_active(0)
         self.emit('game_changed', game_file, game_size, 'demo', title, None)
 
     def update_toolbar(self, widget, data, grid):
         size = data.get('size')
         self._size_combo.combo.handler_block(self.size_handle_id)
-        size_index = self._sizes.index(size+' X '+size)
+        size_index = self._sizes.index(size + ' X ' + size)
         self._size_combo.combo.set_active(int(size_index))
         self._size_combo.combo.handler_unblock(self.size_handle_id)

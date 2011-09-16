@@ -23,6 +23,7 @@ import speak.espeak
 import speak.face
 import theme
 
+
 class Face(gtk.EventBox):
     def __init__(self):
         gtk.EventBox.__init__(self)
@@ -46,6 +47,7 @@ class Face(gtk.EventBox):
         pixbuf = card._read_icon_data('front')
         self.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
 
+
 def look_at():
     if not speak.espeak.supported:
         return
@@ -56,6 +58,7 @@ def look_at():
     for i in _cache:
         if i.parent:
             i.face.look_at(x, y)
+
 
 def acquire():
     if not speak.espeak.supported:

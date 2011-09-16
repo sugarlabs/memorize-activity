@@ -18,7 +18,6 @@
 #
 
 from os.path import join, dirname
-import gc
 import rsvg
 import re
 import gtk
@@ -33,22 +32,27 @@ import speak.voice
 
 _logger = logging.getLogger('memorize-activity')
 
+
 class SvgCard(gtk.EventBox):
 
     border_svg = join(dirname(__file__), 'images', 'card.svg')
 
     # Default properties
     default_props = {}
-    default_props['back'] = {'fill_color':'#b2b3b7', 'stroke_color':'#b2b3b7',
-                             'opacity':'1'}
-    default_props['back_h'] = {'fill_color':'#b2b3b7',
-                               'stroke_color':'#ffffff', 'opacity':'1'}
-    default_props['back_text'] = {'text_color':'#c7c8cc'}
-    default_props['front'] = {'fill_color':'#4c4d4f', 'stroke_color':'#ffffff',
-                              'opacity':'1'}
-    default_props['front_h'] = {'fill_color':'#555555',
-                                'stroke_color':'#888888', 'opacity':'1'}
-    default_props['front_text'] = {'text_color':'#ffffff'}
+    default_props['back'] = {'fill_color': '#b2b3b7',
+                             'stroke_color': '#b2b3b7',
+                             'opacity': '1'}
+    default_props['back_h'] = {'fill_color': '#b2b3b7',
+                               'stroke_color': '#ffffff',
+                               'opacity': '1'}
+    default_props['back_text'] = {'text_color': '#c7c8cc'}
+    default_props['front'] = {'fill_color': '#4c4d4f',
+                              'stroke_color': '#ffffff',
+                              'opacity': '1'}
+    default_props['front_h'] = {'fill_color': '#555555',
+                                'stroke_color': '#888888',
+                                'opacity': '1'}
+    default_props['front_text'] = {'text_color': '#ffffff'}
 
     cache = {}
 
@@ -118,15 +122,15 @@ class SvgCard(gtk.EventBox):
                         self.create_text_layout(props['card_text'])
 
             width, height = layout.get_pixel_size()
-            y = (self.size - height)/2
+            y = (self.size - height) / 2
             if self.flipped:
-                if self.align == '2': # top
+                if self.align == '2':  # top
                     y = 0
-                elif self.align == '3': # bottom
+                elif self.align == '3':  # bottom
                     y = self.size - height
 
             widget.window.draw_layout(self.gc, layout=layout,
-                    x=(self.size - width)/2, y=y,
+                    x=(self.size - width) / 2, y=y,
                     foreground=gtk.gdk.color_parse(props['text_color']))
 
         return False
@@ -135,7 +139,7 @@ class SvgCard(gtk.EventBox):
         icon_data = self.props[view]
         key = str(self.size) + icon_data.get('fill_color') + \
                 icon_data.get('stroke_color')
-        if self.cache.has_key(key):
+        if key in self.cache:
             return self.cache[key]
 
         icon_file = open(self.border_svg, 'r')
@@ -154,15 +158,15 @@ class SvgCard(gtk.EventBox):
         data = re.sub('<!ENTITY opacity .*>', entity, data)
 
         data = re.sub('size_card1', str(self.size), data)
-        data = re.sub('size_card2', str(self.size-6), data)
-        data = re.sub('size_card3', str(self.size-17), data)
+        data = re.sub('size_card2', str(self.size - 6), data)
+        data = re.sub('size_card3', str(self.size - 17), data)
         pixbuf = rsvg.Handle(data=data).get_pixbuf()
         self.cache[key] = pixbuf
         return pixbuf
 
     def set_border(self, stroke_color, fill_color):
-        self.props['front'].update({'fill_color' : fill_color,
-                                    'stroke_color' : stroke_color})
+        self.props['front'].update({'fill_color': fill_color,
+                                    'stroke_color': stroke_color})
         self.queue_draw()
         while gtk.events_pending():
             gtk.main_iteration()
@@ -186,7 +190,7 @@ class SvgCard(gtk.EventBox):
     def get_pixbuf(self):
         return self.jpeg
 
-    def set_highlight(self, status, mouse = False):
+    def set_highlight(self, status, mouse=False):
         if self.flipped:
             if mouse:
                 return
@@ -236,13 +240,11 @@ class SvgCard(gtk.EventBox):
                     speaking_face.face.say(self.get_text())
 
         self.current_face = 'front'
-        self.flipped  = True
+        self.flipped = True
         self.queue_draw()
 
         while gtk.events_pending():
             gtk.main_iteration()
-
-        #gc.collect()
 
     def cement(self):
         if not self.get_speak():
@@ -335,6 +337,7 @@ class SvgCard(gtk.EventBox):
 
     def get_speak(self):
         return self.props['front_text'].get('speak')
+
 
 def PIXELS_PANGO(x):
     return x * 1000

@@ -21,12 +21,13 @@ import os
 
 import theme
 
+
 class Score(svglabel.SvgLabel):
-    
+
     selected_color = "#818286"
     default_color = "#4c4d4f"
     status = False
-    
+
     def __init__(self, fill_color, stroke_color, pixbuf=None,
                  pixbuf_sel=None, status=False):
         filename = os.path.join(os.path.dirname(__file__), "images/score.svg")
@@ -46,12 +47,12 @@ class Score(svglabel.SvgLabel):
             self.pixbuf = self.pixbuf_sel
         else:
             self.pixbuf = self.pixbuf_un
-            
+
         svglabel.SvgLabel.__init__(self, filename, fill_color, stroke_color,
                 self.pixbuf, self.default_color, theme.SCORE_SIZE,
                 theme.SCORE_SIZE)
         self.set_selected(status)
-        
+
     def set_selected(self, status):
         self.status = status
         if status:
@@ -62,10 +63,10 @@ class Score(svglabel.SvgLabel):
             self.pixbuf = self.pixbuf_un
             self.modify_bg(gtk.STATE_NORMAL,
                            gtk.gdk.color_parse(self.default_color))
-        self.queue_draw()     
-        
+        self.queue_draw()
+
     def get_pixbuf_un(self):
         return self.pixbuf_un
-    
+
     def get_pixbuf_sel(self):
         return self.pixbuf_sel

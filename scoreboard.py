@@ -21,6 +21,7 @@ from playerscoreboard import PlayerScoreboard
 
 _logger = logging.getLogger('memorize-activity')
 
+
 class Scoreboard(gtk.EventBox):
     def __init__(self):
         gtk.EventBox.__init__(self)
@@ -28,15 +29,15 @@ class Scoreboard(gtk.EventBox):
         self.players = {}
         self.current_buddy = None
 
-        self.vbox = gtk.VBox(False)        
-        
+        self.vbox = gtk.VBox(False)
+
         fill_box = gtk.EventBox()
         fill_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#4c4d4f'))
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True)
-                   
+
         scroll = gtk.ScrolledWindow()
-        scroll.props.shadow_type = gtk.SHADOW_NONE           
+        scroll.props.shadow_type = gtk.SHADOW_NONE
         scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         scroll.add_with_viewport(self.vbox)
         scroll.set_border_width(0)
@@ -47,41 +48,40 @@ class Scoreboard(gtk.EventBox):
     def change_game(self, widget, data, grid):
         for buddy in self.players.keys():
             self.players[buddy].change_game(len(grid))
-        
+
     def add_buddy(self, widget, buddy, score):
         ### FIXME: this breaks when the body is empty
         nick = buddy.props.nick
         stroke_color, fill_color = buddy.props.color.split(',')
         player = PlayerScoreboard(nick, fill_color, stroke_color, score)
         player.show()
-        self.players[buddy] = player        
+        self.players[buddy] = player
         self.vbox.pack_start(player, False, False)
         if score == -1:
             player.set_wait_mode(True)
         self.show_all()
-            
+
     def rem_buddy(self, widget, buddy):
-        self.vbox.remove(self.players[buddy])        
-        del self.players[buddy] ### fix for self.players[id]
-    
+        self.vbox.remove(self.players[buddy])
+        del self.players[buddy]  # fix for self.players[id]
+
     def set_selected(self, widget, buddy):
         if self.current_buddy is not None:
             old = self.players[self.current_buddy]
             old.set_selected(False)
-        self.current_buddy = buddy 
+        self.current_buddy = buddy
         player = self.players[buddy]
         player.set_selected(True)
-    
+
     def set_buddy_message(self, widget, buddy, msg):
         self.players[buddy].set_message(msg)
-        
+
     def increase_score(self, widget, buddy):
         self.players[buddy].increase_score()
 
     def reset(self, widget):
         for buddy in self.players.keys():
             self.players[buddy].reset()
-            
+
     def set_wait_mode(self, widget, buddy, status):
         self.players[buddy].set_wait_mode(status)
-        

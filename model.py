@@ -28,25 +28,26 @@ from sugar.activity.activity import get_bundle_path, get_activity_root
 
 _logger = logging.getLogger('model')
 
+
 class Pair(gobject.GObject):
     __gproperties__ = {
-        'aimg' : (str, None, None, None, gobject.PARAM_READWRITE),
-        'asnd' : (str, None, None, None, gobject.PARAM_READWRITE),
+        'aimg': (str, None, None, None, gobject.PARAM_READWRITE),
+        'asnd': (str, None, None, None, gobject.PARAM_READWRITE),
         'achar': (str, None, None, None, gobject.PARAM_READWRITE),
-        'bimg' : (str, None, None, None, gobject.PARAM_READWRITE),
-        'bsnd' : (str, None, None, None, gobject.PARAM_READWRITE),
+        'bimg': (str, None, None, None, gobject.PARAM_READWRITE),
+        'bsnd': (str, None, None, None, gobject.PARAM_READWRITE),
         'bchar': (str, None, None, None, gobject.PARAM_READWRITE),
         'aspeak': (str, None, None, None, gobject.PARAM_READWRITE),
         'bspeak': (str, None, None, None, gobject.PARAM_READWRITE),
-        'color' : (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, \
+        'color': (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, \
                    gobject.PARAM_READWRITE)
     }
 
     def __init__(self):
         gobject.GObject.__init__(self)
-        self._properties = {'aimg':None, 'asnd':None, 'achar':None, 'bimg':None,
-                            'bsnd':None, 'bchar':None, 'color':100,
-                            'aspeak':None, 'bspeak':None}
+        self._properties = {'aimg': None, 'asnd': None, 'achar': None,
+                            'bimg': None, 'bsnd': None, 'bchar': None,
+                            'color': 100, 'aspeak': None, 'bspeak': None}
 
     def do_get_property(self, pspec):
         """Retrieve a particular property from our property dictionary
@@ -122,7 +123,7 @@ class Model(object):
             self.dtd = libxml2.parseDTD(None, join(get_bundle_path(),
                     'memorize.dtd'))
         except libxml2.parserError, e:
-            _logger.error('Init: no memorize.dtd found ' +str(e))
+            _logger.error('Init: no memorize.dtd found ' + str(e))
             self.dtd = None
         self.ctxt = libxml2.newValidCtxt()
 
@@ -155,7 +156,7 @@ class Model(object):
         self.data['path'] = self.temp_folder
         self.data['pathimg'] = join(self.data['path'], 'images')
         self.data['pathsnd'] = join(self.data['path'], 'sounds')
-        
+
         ''' extracts files in the zip file '''
         game_name = basename(game_file)[:-4]
         zipFile = zipfile.ZipFile(game_file, "r")
@@ -168,14 +169,14 @@ class Model(object):
                 file(join(directory, name), 'wb').write(zipFile.read(each))
 
         self.pairs = {}
-        
+
         ''' reads the configuration from an xml file '''
         try:
             xml_file = join(environ['SUGAR_ACTIVITY_ROOT'],
                             self.data['path'], 'game.xml')
             doc = libxml2.parseFile(xml_file)
             if doc.validateDtd(self.ctxt, self.dtd):
-        
+
                 # get the requested nodes
                 xpa = doc.xpathNewContext()
                 res = xpa.xpathEval("//*")
@@ -189,7 +190,7 @@ class Model(object):
                         for attribute in attributes:
                             if(attribute.name == 'text'):
                                 pass
-                            else:                            
+                            else:
                                 pair.set_property(attribute.name,
                                                   attribute.content)
                         self.pairs[str(idpair)] = pair
@@ -198,19 +199,19 @@ class Model(object):
                         for attribute in attributes:
                             if(attribute.name == 'text'):
                                 pass
-                            elif(attribute.name == 'name'):    
+                            elif(attribute.name == 'name'):
                                 self.data['name'] = attribute.content
                             elif(attribute.name == 'scoresnd'):
                                 self.data['scoresnd'] = attribute.content
-                            elif(attribute.name == 'winsnd'):      
+                            elif(attribute.name == 'winsnd'):
                                 self.data['winsnd'] = attribute.content
-                            elif(attribute.name == 'divided'):         
+                            elif(attribute.name == 'divided'):
                                 self.data['divided'] = attribute.content
-                            elif(attribute.name == 'face'):     
+                            elif(attribute.name == 'face'):
                                 self.data['face'] = attribute.content
-                            elif(attribute.name == 'face1'):         
+                            elif(attribute.name == 'face1'):
                                 self.data['face1'] = attribute.content
-                            elif(attribute.name == 'face2'):        
+                            elif(attribute.name == 'face2'):
                                 self.data['face2'] = attribute.content
                             elif(attribute.name == 'align'):
                                 self.data['align'] = attribute.content
@@ -224,43 +225,43 @@ class Model(object):
             doc.freeDoc()
             return 0
         except libxml2.parserError, e:
-            _logger.error('Read: Error parsing file ' +str(e))
+            _logger.error('Read: Error parsing file ' + str(e))
             return 2
-        
+
     def write(self):
         ''' writes the configuration to an xml file '''
         doc = libxml2.newDoc("1.0")
         root = doc.newChild(None, "memorize", None)
-        
-        if(self.data.get('name', None) != None):                            
+
+        if(self.data.get('name', None) != None):
             root.setProp("name", self.data['name'])
-        
+
         if(self.data.get('divided', None) != None):
             root.setProp('divided', '1')
             root.setProp('face1', '1')
             root.setProp('face2', '2')
         else:
             root.setProp('divided', '0')
-        
+
         if(self.data.get('equal_pairs', None) != None):
             root.setProp('equal_pairs', self.data['equal_pairs'])
-        
-        if(self.data.get('scoresnd', None) != None):                            
+
+        if(self.data.get('scoresnd', None) != None):
             root.setProp("scoresnd", self.data['scoresnd'])
-        if(self.data.get('winsnd', None) != None):                            
+        if(self.data.get('winsnd', None) != None):
             root.setProp("winsnd", self.data['winsnd'])
-        if(self.data.get('divided', None) != None):                            
+        if(self.data.get('divided', None) != None):
             root.setProp("divided", self.data['divided'])
-        if(self.data.get('face', None) != None):                            
+        if(self.data.get('face', None) != None):
             root.setProp("face", self.data['face'])
-        if(self.data.get('face1', None) != None):                            
+        if(self.data.get('face1', None) != None):
             root.setProp("face1", self.data['face1'])
-        if(self.data.get('face2', None) != None):                            
+        if(self.data.get('face2', None) != None):
             root.setProp("face2", self.data['face2'])
-        if(self.data.get('align', None) != None):                            
+        if(self.data.get('align', None) != None):
             root.setProp("align", self.data['align'])
 
-        for key in self.pairs:            
+        for key in self.pairs:
             elem = root.newChild(None, "pair", None)
             if self.pairs[key].props.aimg != None:
                 elem.setProp("aimg", self.pairs[key].props.aimg)
@@ -288,12 +289,11 @@ class Model(object):
             return 2
         doc.freeDoc()
         return 0
-        
 
     def def_grid(self, size):
         ''' create the grid for the play from the pairs information
         and shuffles the grid so they always appear in a different
-        place        
+        place
         '''
         psize = (size * size / 2)
         _logger.debug('Size requested: %d', psize)
@@ -339,8 +339,8 @@ class Model(object):
                 i += 1
             else:
                 break
-        
-        numpairs = len(self.pairs)      
+
+        numpairs = len(self.pairs)
         if numpairs < psize:
             _logger.debug('Defgrid: Not enough pairs, requested=%s had=%s'
                           % (psize, numpairs))

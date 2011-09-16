@@ -30,8 +30,9 @@ SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
 PATH = '/org/laptop/Memorize'
 
+
 class Messenger(ExportedGObject):
-    
+
     def __init__(self, tube, is_initiator, get_buddy, game):
         ExportedGObject.__init__(self, tube, PATH)
         self._tube = tube
@@ -39,7 +40,7 @@ class Messenger(ExportedGObject):
         self._get_buddy = get_buddy
         self.game = game
         self.ordered_bus_names = []
-        self.entered = False        
+        self.entered = False
         self._tube.watch_participants(self.participant_change_cb)
         self.files = {}
 
@@ -56,20 +57,20 @@ class Messenger(ExportedGObject):
             else:
                 self._hello_signal()
         self.entered = True
-    
-    # hello methods    
-   
+
+    # hello methods
+
     @signal(IFACE, signature='')
     def _hello_signal(self):
         pass
-    
+
     def _hello_handler(self):
-        self._tube.add_signal_receiver(self._hello_receiver, 
-                                       '_hello_signal', 
-                                       IFACE, 
-                                       path=PATH, 
+        self._tube.add_signal_receiver(self._hello_receiver,
+                                       '_hello_signal',
+                                       IFACE,
+                                       path=PATH,
                                        sender_keyword='sender')
-    
+
     def _hello_receiver(self, sender=None):
         self.ordered_bus_names.append(sender)
         data = self.game.model.data
@@ -80,13 +81,10 @@ class Messenger(ExportedGObject):
             self.file_sender(sender, path, title, color)
 
         remote_object = self._tube.get_object(sender, PATH)
-        remote_object.load_game(self.ordered_bus_names, 
-                                self.game.get_grid(), 
-                                self.game.collect_data(), 
-                                self.game.players.index(self.game.current_player),
-                                #self.game.waiting_players,
-                                path)
-    
+        remote_object.load_game(self.ordered_bus_names,
+                self.game.get_grid(), self.game.collect_data(),
+                self.game.players.index(self.game.current_player), path)
+
     @method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}ns',
             out_signature='', byte_arrays=True)
     def load_game(self, bus_names, grid, data, current_player, path):
@@ -104,28 +102,28 @@ class Messenger(ExportedGObject):
 
         self._flip_handler()
         self._change_game_handler()
-    
+
     def change_game(self, sender, mode, grid, data, waiting_list, zip):
         path = self.game.model.data['game_file']
-        
+
         if mode == 'file':
             title = data.get('title', 'Received game')
-            color = data.get('color', '')    
-            self.file_sender('all', path, title, color)    
+            color = data.get('color', '')
+            self.file_sender('all', path, title, color)
 
         self._change_game_signal(mode, grid, data, path)
-    
+
     def _change_game_handler(self):
-        self._tube.add_signal_receiver(self._change_game_receiver, 
-                                       '_change_game_signal', 
-                                        IFACE, path=PATH, 
-                                        sender_keyword='sender', 
+        self._tube.add_signal_receiver(self._change_game_receiver,
+                                       '_change_game_signal',
+                                        IFACE, path=PATH,
+                                        sender_keyword='sender',
                                         byte_arrays=True)
-    
+
     @signal(IFACE, signature='saa{ss}a{ss}s')
     def _change_game_signal(self, mode, grid, data, path):
         pass
-    
+
     def _change_game_receiver(self, mode, grid, data, path, sender=None):
         # ignore my own signal
         if sender == self._tube.get_unique_name():
@@ -137,13 +135,13 @@ class Messenger(ExportedGObject):
             self.game.model.read(game_file)
         if mode == 'file':
             self.game.model.read(self.files[path])
-        
-        if self.game.model.data.has_key('path'):    
+
+        if 'path' in self.game.model.data:
             data['path'] = self.game.model.data['path']
             data['pathimg'] = self.game.model.data['pathimg']
             data['pathsnd'] = self.game.model.data['pathsnd']
         self.game.load_remote(grid, data, mode, True)
-               
+
     # File transfer methods
 
     def file_sender(self, target, filename, title, color):
@@ -156,20 +154,20 @@ class Messenger(ExportedGObject):
             self._file_part_signal(target, filename, part + 1,
                                    num_parts, bytes, title, color)
         f.close()
-    
+
     @signal(dbus_interface=IFACE, signature='ssuuayss')
     def _file_part_signal(self, target, filename, part, numparts,
                           bytes, title, color):
         pass
-        
+
     def _file_part_handler(self):
-        self._tube.add_signal_receiver(self._file_part_receiver, 
-                                        '_file_part_signal', 
-                                        IFACE, 
-                                        path=PATH, 
-                                        sender_keyword='sender', 
+        self._tube.add_signal_receiver(self._file_part_receiver,
+                                        '_file_part_signal',
+                                        IFACE,
+                                        path=PATH,
+                                        sender_keyword='sender',
                                         byte_arrays=True)
-        
+
     def _file_part_receiver(self, target, filename, part, numparts,
                             bytes, title=None, color=None, sender=None):
         # ignore my own signal
@@ -178,7 +176,7 @@ class Messenger(ExportedGObject):
 
         if target != self._tube.get_unique_name() and target != 'all':
             return
-        
+
         # first chunk
         if part == 1:
             tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
@@ -187,16 +185,16 @@ class Messenger(ExportedGObject):
             self.temp_file = join(temp_dir, 'game.zip')
             self.files[filename] = self.temp_file
             self.f = open(self.temp_file, 'a+b')
-        
+
         self.f.write(bytes)
-        
+
         percentage = int(float(part) / float(numparts) * 100.0)
         self.game.set_load_mode(_('Receiving game') + ': '
                                 + str(percentage) + '% ' + _('done') + '.')
 
         # last chunk
         if part == numparts:
-            self.f.close()   
+            self.f.close()
             #file = self.files[filename]
             # Saves the zip in datastore
             gameObject = datastore.create()
@@ -207,19 +205,17 @@ class Messenger(ExportedGObject):
             datastore.write(gameObject)
             #gameObject.destroy()
 
-
-    # flip card methods         
-
+    # flip card methods
     def flip_sender(self, widget, id):
         self._flip_signal(id)
-    
+
     def _flip_handler(self):
-        self._tube.add_signal_receiver(self._flip_receiver, 
-                                       '_flip_signal', 
-                                       IFACE, 
-                                       path=PATH, 
+        self._tube.add_signal_receiver(self._flip_receiver,
+                                       '_flip_signal',
+                                       IFACE,
+                                       path=PATH,
                                        sender_keyword='sender')
-    
+
     @signal(IFACE, signature='n')
     def _flip_signal(self, card_number):
         pass

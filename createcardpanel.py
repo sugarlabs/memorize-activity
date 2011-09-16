@@ -30,7 +30,7 @@ from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.icon import Icon
 from sugar.graphics.palette import Palette
 from port.widgets import ToggleToolButton
-from port.widgets import CanvasRoundBox, ToolComboBox
+from port.widgets import ToolComboBox
 from port import chooser
 
 import theme
@@ -39,6 +39,7 @@ import speak.widgets
 import speak.face
 
 _logger = logging.getLogger('memorize-activity')
+
 
 class CreateCardPanel(gtk.EventBox):
     __gsignals__ = {
@@ -116,41 +117,45 @@ class CreateCardPanel(gtk.EventBox):
     def emit_add_pair(self, widget):
         self._addbutton.set_sensitive(False)
         if self.equal_pairs:
-            self.emit('add-pair', self.cardeditor1.get_text(), 
-                      self.cardeditor1.get_text(), 
-                      self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd(),
-                      self.cardeditor1.get_speak(), self.cardeditor1.get_speak()
-                      )
+            self.emit('add-pair', self.cardeditor1.get_text(),
+                      self.cardeditor1.get_text(),
+                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor1.get_snd(),
+                      self.cardeditor1.get_snd(),
+                      self.cardeditor1.get_speak(),
+                      self.cardeditor1.get_speak())
         else:
-            self.emit('add-pair', self.cardeditor1.get_text(), 
-                      self.cardeditor2.get_text(), 
-                      self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor2.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd(),
-                      self.cardeditor1.get_speak(), self.cardeditor2.get_speak()
-                      )
+            self.emit('add-pair', self.cardeditor1.get_text(),
+                      self.cardeditor2.get_text(),
+                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor2.get_pixbuf(),
+                      self.cardeditor1.get_snd(),
+                      self.cardeditor2.get_snd(),
+                      self.cardeditor1.get_speak(),
+                      self.cardeditor2.get_speak())
         self.clean(None)
 
     def emit_update_pair(self, widget):
         self._addbutton.set_sensitive(False)
         if self.equal_pairs:
-            self.emit('update-pair', self.cardeditor1.get_text(), 
-                      self.cardeditor1.get_text(), 
-                      self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor1.get_snd(),
-                      self.cardeditor1.get_speak(), self.cardeditor1.get_speak()
-                      )
+            self.emit('update-pair', self.cardeditor1.get_text(),
+                      self.cardeditor1.get_text(),
+                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor1.get_snd(),
+                      self.cardeditor1.get_snd(),
+                      self.cardeditor1.get_speak(),
+                      self.cardeditor1.get_speak())
         else:
-            self.emit('update-pair', self.cardeditor1.get_text(), 
-                      self.cardeditor2.get_text(), 
-                      self.cardeditor1.get_pixbuf(), 
-                      self.cardeditor2.get_pixbuf(), 
-                      self.cardeditor1.get_snd(), self.cardeditor2.get_snd(),
-                      self.cardeditor1.get_speak(), self.cardeditor2.get_speak()
-                      )
+            self.emit('update-pair', self.cardeditor1.get_text(),
+                      self.cardeditor2.get_text(),
+                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor2.get_pixbuf(),
+                      self.cardeditor1.get_snd(),
+                      self.cardeditor2.get_snd(),
+                      self.cardeditor1.get_speak(),
+                      self.cardeditor2.get_speak())
         self.clean(None)
 
     def pair_selected(self, widget, selected, newtext1, newtext2, aimg, bimg,
@@ -212,8 +217,8 @@ class CreateCardPanel(gtk.EventBox):
     def _update_buttom_status(self):
         if not self.equal_pairs:
             if (self._card1_has_text or self._card1_has_picture \
-                    or self._card1_has_sound) and (self._card2_has_text 
-                                                   or self._card2_has_picture 
+                    or self._card1_has_sound) and (self._card2_has_text
+                                                   or self._card2_has_picture
                                                    or self._card2_has_sound):
                 self._addbutton.set_sensitive(True)
                 self._updatebutton.set_sensitive(self._updatebutton_sensitive)
@@ -232,6 +237,7 @@ class CreateCardPanel(gtk.EventBox):
     def set_temp_folder(self, temp_folder):
         self.cardeditor1.temp_folder = temp_folder
         self.cardeditor2.temp_folder = temp_folder
+
 
 class CardEditor(gtk.EventBox):
 
@@ -257,11 +263,11 @@ class CardEditor(gtk.EventBox):
         box.pack_start(self.previewlabel, False)
 
         self.card = svgcard.SvgCard(-1,
-                { 'front_text'  : { 'card_text'     : '',
-                                    'text_color'    : '#ffffff' },
-                  'front_border': { 'fill_color'    : '#4c4d4f',
-                                    'stroke_color'  : '#ffffff',
-                                    'opacity'       : '1' } },
+                 {'front_text': {'card_text': '',
+                                 'text_color': '#ffffff'},
+                  'front_border': {'fill_color': '#4c4d4f',
+                                   'stroke_color': '#ffffff',
+                                   'opacity': '1'}},
                 None, theme.PAIR_SIZE, 1, '#c0c0c0')
         self.card.flip()
         card_align = gtk.Alignment(.5, .5, 0, 0)
@@ -351,8 +357,8 @@ class CardEditor(gtk.EventBox):
             self.set_speak(None)
 
             pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
-                    index, theme.PAIR_SIZE - theme.PAD*2,
-                    theme.PAIR_SIZE - theme.PAD*2)
+                    index, theme.PAIR_SIZE - theme.PAD * 2,
+                    theme.PAIR_SIZE - theme.PAD * 2)
             size = max(pixbuf_t.get_width(), pixbuf_t.get_height())
             pixbuf_z = gtk.gdk.pixbuf_new_from_file_at_size(
                 'images/white.png', size, size)
@@ -360,7 +366,7 @@ class CardEditor(gtk.EventBox):
                                pixbuf_t.get_height(), 0, 0, 1, 1,
                                gtk.gdk.INTERP_BILINEAR, 255)
             self.card.set_pixbuf(pixbuf_z)
-            _logger.debug('Picture Loaded: '+index)
+            _logger.debug('Picture Loaded: ' + index)
             self.emit('has-picture', True)
             del pixbuf_t
             del pixbuf_z
@@ -383,7 +389,7 @@ class CardEditor(gtk.EventBox):
                                             style.XLARGE_ICON_SIZE, 0)
             self.card.set_pixbuf(pixbuf_t)
             self.emit('has-sound', True)
-            _logger.debug('Audio Loaded: '+dst)
+            _logger.debug('Audio Loaded: ' + dst)
 
         chooser.pick(parent=self.get_toplevel(),
                      what=chooser.AUDIO,
@@ -419,6 +425,7 @@ class CardEditor(gtk.EventBox):
         if self.usespeak is not None:
             self.usespeak.props.active = False
             self.usespeak.palette.face.shut_up()
+
 
 class SpeakPalette(Palette):
     def __init__(self, editor):

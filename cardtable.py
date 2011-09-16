@@ -20,13 +20,13 @@ import pango
 import svgcard
 import os
 import math
-import gc
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 import logging
 _logger = logging.getLogger('memorize-activity')
 
 import theme
+
 
 class CardTable(gtk.EventBox):
 
@@ -60,7 +60,7 @@ class CardTable(gtk.EventBox):
         self.load_message = gtk.Label('Loading Game')
         self.load_message.modify_fg(gtk.STATE_NORMAL,
                                     gtk.gdk.color_parse('#ffffff'))
-        self.load_message.modify_font(pango.FontDescription("10"))
+        self.load_message.modify_font(pango.FontDescription('10'))
         self.load_message.show()
         self.first_load = True
         self.load_mode = False
@@ -105,7 +105,7 @@ class CardTable(gtk.EventBox):
         self.selected_card = [0, 0]
         self.flipped_card = -1
         self.table_positions = {}
-        
+
         # Build the table
         if data['divided'] == '1':
             text1 = str(self.data.get('face1', ''))
@@ -124,25 +124,26 @@ class CardTable(gtk.EventBox):
             else:
                 jpg = None
             props = {}
-            props['front_text'] = {'card_text':card.get('char', ''),
+            props['front_text'] = {'card_text': card.get('char', ''),
                                   'speak': card.get('speak')}
 
             if card['ab'] == 'a':
-                props['back_text'] = {'card_text':text1}
+                props['back_text'] = {'card_text': text1}
             elif card['ab'] == 'b':
-                props['back_text'] = {'card_text':text2}
+                props['back_text'] = {'card_text': text2}
 
             align = self.data.get('align', '1')
             card = svgcard.SvgCard(identifier, props, jpg,
                                    self.card_size, align)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
-            card.connect("button-press-event", self.flip_card_mouse, identifier)
+            card.connect('button-press-event',
+                    self.flip_card_mouse, identifier)
             self.table_positions[(x, y)] = 1
             self.cd2id[card] = identifier
             self.id2cd[identifier] = card
             self.cards[(x, y)] = card
             self.dict[identifier] = (x, y)
-            self.table.attach(card, x, x+1, y, y+1, gtk.SHRINK, gtk.SHRINK)
+            self.table.attach(card, x, x + 1, y, y + 1, gtk.SHRINK, gtk.SHRINK)
 
             x += 1
             if x == self.size:
@@ -164,7 +165,7 @@ class CardTable(gtk.EventBox):
         self.load_game(None, data, grid)
 
     def get_card_size(self, size_table):
-        x = (self._workspace_size + theme.CARD_PAD * (size_table-1)) / \
+        x = (self._workspace_size + theme.CARD_PAD * (size_table - 1)) / \
                 size_table - theme.CARD_PAD * 2
         return x
 
@@ -181,45 +182,45 @@ class CardTable(gtk.EventBox):
         y = self.selected_card[1]
 
         if event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left):
-            if self.table_positions.has_key((x-1, y)):
-                card = self.cards[x-1, y]
+            if (x - 1, y) in self.table_positions:
+                card = self.cards[x - 1, y]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right):
-            if self.table_positions.has_key((x+1, y)):
-                card = self.cards[x+1, y]
+            if (x + 1, y) in self.table_positions:
+                card = self.cards[x + 1, y]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up):
-            if self.table_positions.has_key((x, y-1)):
-                card = self.cards[x, y-1]
+            if (x, y - 1) in self.table_positions:
+                card = self.cards[x, y - 1]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
-        
+
         elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.KP_Down):
-            if self.table_positions.has_key((x, y+1)):
-                card = self.cards[x, y+1]
+            if (x, y + 1) in self.table_positions:
+                card = self.cards[x, y + 1]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (gtk.keysyms.space, gtk.keysyms.KP_Page_Down):
             card = self.cards[x, y]
             self.card_flipped(card)
-    
+
     def flip_card_mouse(self, widget, event, identifier):
         position = self.dict[identifier]
         card = self.cards[position]
         self.card_flipped(card)
 
     def card_flipped(self, card):
-        identifer  = self.cd2id[card]
+        identifer = self.cd2id[card]
         if card.is_flipped():
             self.emit('card-overflipped', identifer)
         else:
             self.emit('card-flipped', identifer, False)
-            
+
     def set_border(self, widget, identifer, stroke_color, fill_color):
         self.id2cd[identifer].set_border(stroke_color, fill_color)
 
@@ -240,7 +241,7 @@ class CardTable(gtk.EventBox):
     def reset(self, widget):
         for identifer in self.id2cd.keys():
             self.id2cd[identifer].reset()
-           
+
     def _set_load_mode(self, mode):
         if mode:
             self.remove(self.table)
@@ -251,10 +252,10 @@ class CardTable(gtk.EventBox):
         self.load_mode = mode
         self.queue_draw()
         while gtk.events_pending():
-            gtk.main_iteration() 
-        
+            gtk.main_iteration()
+
     def load_msg(self, widget, msg):
         if not self.load_mode:
             self._set_load_mode(True)
         self.load_message.set_text(msg)
-        self.queue_draw() 
+        self.queue_draw()

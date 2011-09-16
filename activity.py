@@ -37,9 +37,9 @@ import telepathy.client
 
 from sugar.activity.widgets import ActivityToolbarButton
 from sugar.activity.widgets import StopButton
-from sugar.graphics.toolbarbox import ToolbarButton, ToolbarBox
+from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.graphics.radiotoolbutton import RadioToolButton
-from sugar.activity.activity import Activity, ActivityToolbox
+from sugar.activity.activity import Activity
 from sugar.presence import presenceservice
 from sugar.presence.tubeconn import TubeConnection
 
@@ -61,13 +61,14 @@ PATH = '/org/laptop/Memorize'
 _MODE_PLAY = 1
 _MODE_CREATE = 2
 
+
 class MemorizeActivity(Activity):
-    
+
     def __init__(self, handle):
         Activity.__init__(self, handle)
 
         self.play_mode = None
-        
+
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
 
@@ -165,7 +166,7 @@ class MemorizeActivity(Activity):
 
         self._memorizeToolbarBuilder.connect('game_changed',
                 self.change_game)
-        
+
         self.hbox = gtk.HBox(False)
         self.set_canvas(self.hbox)
 
@@ -185,15 +186,15 @@ class MemorizeActivity(Activity):
         # Get the Presence Service
         self.pservice = presenceservice.get_instance()
         self.initiating = None
-            
+
         # Buddy object for you
         owner = self.pservice.get_owner()
         self.owner = owner
         self.current = 0
-        
-        self.game.set_myself(self.owner)  
+
+        self.game.set_myself(self.owner)
         self.connect('shared', self._shared_cb)
-        
+
         # Owner.props.key
         if self._shared_activity:
             # We are joining the activity
@@ -207,16 +208,16 @@ class MemorizeActivity(Activity):
                     'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
             self.cardlist.load_game(self.game)
-            _logger.debug('loading conventional')       
+            _logger.debug('loading conventional')
         self.game.add_buddy(self.owner)
         self.show_all()
 
     def _change_mode_bt(self, button):
         if button.get_active():
             self._change_mode(button.mode)
-        
+
     def read_file(self, file_path):
-        if self.metadata.has_key('icon-color'):
+        if 'icon-color' in self.metadata:
             color = self.metadata['icon-color']
         else:
             color = profile.get_color().to_string()
@@ -270,7 +271,7 @@ class MemorizeActivity(Activity):
             bsnd = self.game.model.pairs[pair].get_property('bsnd')
             if bsnd != None:
                 if equal_pairs:
-                    bsndfile = 'snd'+str(pair)+'.ogg'
+                    bsndfile = 'snd' + str(pair) + '.ogg'
                 else:
                     bsndfile = 'bsnd' + str(pair) + '.ogg'
                 game_zip.write(os.path.join(temp_snd_folder, bsnd),
@@ -325,7 +326,7 @@ class MemorizeActivity(Activity):
             self.play_mode = True
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
         self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)
-                
+
     def change_game(self, widget, game_name, size, mode,
                     title=None, color=None):
         _logger.debug('Change game %s', game_name)
@@ -353,10 +354,10 @@ class MemorizeActivity(Activity):
         self.conn = self._shared_activity.telepathy_conn
         self.tubes_chan = self._shared_activity.telepathy_tubes_chan
         self.text_chan = self._shared_activity.telepathy_text_chan
-        
+
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal( \
                 'NewTube', self._new_tube_cb)
-        
+
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         self._shared_activity.connect('buddy-left', self._buddy_left_cb)
 
@@ -386,7 +387,7 @@ class MemorizeActivity(Activity):
 
         _logger.debug('This is not my activity: waiting for a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
-            reply_handler=self._list_tubes_reply_cb, 
+            reply_handler=self._list_tubes_reply_cb,
             error_handler=self._list_tubes_error_cb)
 
     def _new_tube_cb(self, identifier, initiator, tube_type, service,
@@ -401,7 +402,7 @@ class MemorizeActivity(Activity):
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube( \
                         identifier)
 
-            self.tube_conn = TubeConnection(self.conn, 
+            self.tube_conn = TubeConnection(self.conn,
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], identifier,
                 group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
 
@@ -422,8 +423,8 @@ class MemorizeActivity(Activity):
             assert handle != 0
         return self.pservice.get_buddy_by_telepathy_handle( \
                 self.tp_conn_name, self.tp_conn_path, handle)
-             
-    def _buddy_joined_cb (self, activity, buddy):
+
+    def _buddy_joined_cb(self, activity, buddy):
         if buddy != self.owner:
             if buddy.props.nick == '':
                 _logger.debug("buddy joined: empty nick=%s. Will not add.",
@@ -432,7 +433,7 @@ class MemorizeActivity(Activity):
                 _logger.debug("buddy joined: %s", buddy.props.nick)
                 self.game.add_buddy(buddy)
 
-    def _buddy_left_cb (self, activity, buddy):
+    def _buddy_left_cb(self, activity, buddy):
         if buddy.props.nick == '':
             _logger.debug("buddy joined: empty nick=%s. Will not remove",
                           buddy.props.nick)
@@ -440,11 +441,11 @@ class MemorizeActivity(Activity):
             _logger.debug("buddy left: %s", buddy.props.nick)
             self.game.rem_buddy(buddy)
 
-    def _focus_in(self, event, data=None):        
+    def _focus_in(self, event, data=None):
         self.game.audio.play()
-        
-    def _focus_out(self, event, data=None):                
+
+    def _focus_out(self, event, data=None):
         self.game.audio.pause()
-        
-    def _cleanup_cb(self, data=None):        
-        self.game.audio.stop()        
+
+    def _cleanup_cb(self, data=None):
+        self.game.audio.stop()
