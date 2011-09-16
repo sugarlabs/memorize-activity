@@ -19,7 +19,6 @@
 
 import gtk
 from os.path import join, basename
-import hippo
 
 import shutil
 from gettext import gettext as _
@@ -301,16 +300,7 @@ class CardEditor(gtk.EventBox):
         else:
             self.usespeak = None
 
-        toolbar_box = CanvasRoundBox(
-                radius=8,
-                border=2,
-                border_color=style.COLOR_BUTTON_GREY.get_int(),
-                background_color=style.COLOR_PANEL_GREY.get_int())
-        toolbar_box.append(hippo.CanvasWidget(widget=toolbar),
-                hippo.PACK_EXPAND)
-        toolbar_canvas = hippo.Canvas()
-        toolbar_canvas.set_root(toolbar_box)
-        box.pack_start(toolbar_canvas, False)
+        box.pack_start(toolbar, False)
 
         self.add(box)
 
