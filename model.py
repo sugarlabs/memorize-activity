@@ -116,7 +116,7 @@ class Model(object):
         self.data['face'] = ''
         self.data['align'] = '1'
         self.data['divided'] = '0'
-        self.data['equal_pairs'] = '1'
+        self.data['equal_pairs'] = '0'
 
         try:
             self.dtd = libxml2.parseDTD(None, join(get_bundle_path(),
