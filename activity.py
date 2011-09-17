@@ -96,14 +96,13 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder = \
                 memorizetoolbar.MemorizeToolbarBuilder(self)
 
-        toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
-
         self._createToolbarBuilder = \
             createtoolbar.CreateToolbarBuilder(self)
 
         separator = gtk.SeparatorToolItem()
         separator.set_expand(True)
         separator.set_draw(False)
+        separator.set_size_request(0, -1)
         toolbar_box.toolbar.insert(separator, -1)
 
         toolbar_box.toolbar.insert(StopButton(self), -1)
