@@ -42,12 +42,12 @@ class CreateToolbarBuilder(gobject.GObject):
         self.toolbar = self.activity.get_toolbar_box().toolbar
 
         self._equal_pairs = ToggleToolButton('pair-non-equals')
-        self._equal_pairs.set_tooltip(_('Click for equal pairs'))
+        self._equal_pairs.set_tooltip(_('Set equal pairs'))
         self._equal_pairs.connect('toggled', self._emit_equal_pairs)
         self.toolbar.insert(self._equal_pairs, -1)
 
         self._grouped = ToggleToolButton('grouped_game1')
-        self._grouped.set_tooltip(_('Click for grouped game'))
+        self._grouped.set_tooltip(_('Set grouped game'))
         self._grouped.connect('toggled', self._grouped_cb)
         self.toolbar.insert(self._grouped, -1)
 
@@ -92,21 +92,21 @@ class CreateToolbarBuilder(gobject.GObject):
         self.emit('create_equal_pairs', self._equal_pairs.get_active())
         if self._equal_pairs.get_active():
             self._equal_pairs.set_named_icon('pair-equals')
-            self._equal_pairs.set_tooltip(_('Click for non equal pairs'))
+            self._equal_pairs.set_tooltip(_('Set non equal pairs'))
             self.activity.game.model.data['equal_pairs'] = '1'
         else:
             self._equal_pairs.set_named_icon('pair-non-equals')
-            self._equal_pairs.set_tooltip(_('Click for equal pairs'))
+            self._equal_pairs.set_tooltip(_('Set equal pairs'))
             self.activity.game.model.data['equal_pairs'] = '0'
 
     def _grouped_cb(self, widget):
         if self._grouped.get_active():
             self._grouped.set_named_icon('grouped_game2')
-            self._grouped.set_tooltip(_('Click for ungrouped game'))
+            self._grouped.set_tooltip(_('Set ungrouped game'))
             self.activity.game.model.data['divided'] = '1'
         else:
             self._grouped.set_named_icon('grouped_game1')
-            self._grouped.set_tooltip(_('Click for grouped game'))
+            self._grouped.set_tooltip(_('Set grouped game'))
             self.activity.game.model.data['divided'] = '0'
 
     def update_create_toolbar(self, widget, game_name, equal_pairs, grouped):
