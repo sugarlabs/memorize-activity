@@ -96,6 +96,8 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder = \
                 memorizetoolbar.MemorizeToolbarBuilder(self)
 
+        toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
+
         self._createToolbarBuilder = \
             createtoolbar.CreateToolbarBuilder(self)
 
