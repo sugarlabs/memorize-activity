@@ -18,7 +18,7 @@
 import gtk
 import svgcard
 import logging
-from os.path import join
+from os.path import join, basename
 import shutil
 
 from model import Pair
@@ -156,22 +156,12 @@ class CardList(gtk.EventBox):
             asnd = self.pairs[pair].get_sound(1)
             logging.debug('update_model asnd %s', asnd)
             if asnd != None:
-                if equal_pairs:
-                    asndfile = 'snd' + str(pair) + '.ogg'
-                else:
-                    asndfile = 'asnd' + str(pair) + '.ogg'
-                pair_card.set_property('asnd', asndfile)
-                shutil.move(asnd, join(temp_snd_folder, asndfile))
+                pair_card.set_property('asnd', basename(asnd))
             # bsnd
             bsnd = self.pairs[pair].get_sound(2)
             logging.debug('update_model bsnd %s', bsnd)
             if bsnd != None:
-                if equal_pairs:
-                    bsndfile = 'snd' + str(pair) + '.ogg'
-                else:
-                    bsndfile = 'bsnd' + str(pair) + '.ogg'
-                    shutil.move(bsnd, join(temp_snd_folder, bsndfile))
-                pair_card.set_property('bsnd', bsndfile)
+                pair_card.set_property('bsnd', basename(bsnd))
 
             game_model.pairs[pair] = pair_card
 

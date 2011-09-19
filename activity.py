@@ -258,23 +258,14 @@ class MemorizeActivity(Activity):
             # asnd
             asnd = self.game.model.pairs[pair].get_property('asnd')
             if asnd != None:
-                if equal_pairs:
-                    asndfile = 'snd' + str(pair) + '.ogg'
-                else:
-                    asndfile = 'asnd' + str(pair) + '.ogg'
-                _logger.error(asndfile + ': ' + asnd)
                 game_zip.write(os.path.join(temp_snd_folder, asnd),
-                                os.path.join('sounds', asndfile))
+                                os.path.join('sounds', asnd))
 
             # bsnd
             bsnd = self.game.model.pairs[pair].get_property('bsnd')
             if bsnd != None:
-                if equal_pairs:
-                    bsndfile = 'snd' + str(pair) + '.ogg'
-                else:
-                    bsndfile = 'bsnd' + str(pair) + '.ogg'
                 game_zip.write(os.path.join(temp_snd_folder, bsnd),
-                                os.path.join('sounds', bsndfile))
+                                os.path.join('sounds', bsnd))
 
         self.game.model.game_path = self.game.model.temp_folder
         self.game.model.write()

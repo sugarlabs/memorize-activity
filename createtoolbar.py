@@ -89,7 +89,6 @@ class CreateToolbarBuilder(gobject.GObject):
         self._clear_button.set_sensitive(active)
 
     def _emit_equal_pairs(self, widget):
-        self.emit('create_equal_pairs', self._equal_pairs.get_active())
         if self._equal_pairs.get_active():
             self._equal_pairs.set_named_icon('pair-equals')
             self._equal_pairs.set_tooltip(_('Set non equal pairs'))
@@ -98,6 +97,7 @@ class CreateToolbarBuilder(gobject.GObject):
             self._equal_pairs.set_named_icon('pair-non-equals')
             self._equal_pairs.set_tooltip(_('Set equal pairs'))
             self.activity.game.model.data['equal_pairs'] = '0'
+        self.emit('create_equal_pairs', self._equal_pairs.get_active())
 
     def _grouped_cb(self, widget):
         if self._grouped.get_active():
