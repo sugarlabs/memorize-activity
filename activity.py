@@ -275,7 +275,6 @@ class MemorizeActivity(Activity):
                 'game.xml')
         game_zip.close()
         self.metadata['mime_type'] = 'application/x-memorize-project'
-        self.game.model.modified = False
 
     def _complete_close(self):
         self._remove_temp_files()
@@ -308,6 +307,7 @@ class MemorizeActivity(Activity):
                 self.table.change_game(None, self.game.model.data,
                         self.game.model.grid)
                 self.save()
+                self.game.model.modified = False
 
             if self.play_mode == False:
                 self.hbox.remove(self.createcardpanel)
