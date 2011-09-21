@@ -202,7 +202,7 @@ class MemorizeActivity(Activity):
             self.connect('joined', self._joined_cb)
             if self.get_shared():
                 # We've already joined
-                self._joined_cb()
+                self._joined_cb(self)
         elif not self._jobject.file_path:
             _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
             game_file = os.path.join(os.path.dirname(__file__), 'demos',
@@ -210,7 +210,9 @@ class MemorizeActivity(Activity):
             self.game.load_game(game_file, 4, 'demo')
             self.cardlist.load_game(self.game)
             _logger.debug('loading conventional')
-        self.game.add_buddy(self.owner)
+            self.game.add_buddy(self.owner)
+        else:
+            self.game.add_buddy(self.owner)
         self.show_all()
 
     def _change_mode_bt(self, button):
