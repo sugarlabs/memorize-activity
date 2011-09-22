@@ -272,6 +272,7 @@ class MemorizeActivity(Activity):
                                 os.path.join('sounds', bsnd))
 
         self.game.model.game_path = self.game.model.temp_folder
+        self.game.model.data['name'] = str(self.get_title())
         self.game.model.write()
         game_zip.write(os.path.join(self.game.model.temp_folder, 'game.xml'),
                 'game.xml')
