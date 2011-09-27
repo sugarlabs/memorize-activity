@@ -46,6 +46,7 @@ class CardList(gtk.EventBox):
         self.current_pair = None
         self.current_game_key = None
         self.model = None
+        self.pair_list_modified = False
 
         self.vbox = gtk.VBox(False)
 
@@ -164,6 +165,7 @@ class CardList(gtk.EventBox):
                 pair_card.set_property('bsnd', basename(bsnd))
 
             game_model.pairs[pair] = pair_card
+        self.pair_list_modified = False
 
     def clean_list(self, button=None, load=False):
         if button != None:
@@ -172,6 +174,7 @@ class CardList(gtk.EventBox):
         del self.pairs
         self.pairs = []
         if not load:
+            self.pair_list_modified = True
             self.model.mark_modified()
 
     def add_pair(self, widget, achar, bchar, aimg, bimg, asnd, bsnd,
@@ -183,6 +186,7 @@ class CardList(gtk.EventBox):
         pair.connect('pair-closed', self.rem_pair)
         if not load:
             self.model.mark_modified()
+            self.pair_list_modified = True
         if show:
             self.show_all()
 
@@ -217,6 +221,7 @@ class CardList(gtk.EventBox):
         self.current_pair.change_sound(asnd, bsnd)
         self.current_pair.change_speak(aspeak, bspeak)
         self.model.mark_modified()
+        self.pair_list_modified = False
 
 
 class CardPair(gtk.EventBox):

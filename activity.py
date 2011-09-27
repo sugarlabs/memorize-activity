@@ -234,6 +234,9 @@ class MemorizeActivity(Activity):
             Activity.close(self)
 
     def write_file(self, file_path):
+        if self.cardlist.pair_list_modified:
+            self.cardlist.update_model(self.game.model)
+
         temp_img_folder = os.path.join(self.game.model.temp_folder, 'images')
         temp_snd_folder = os.path.join(self.game.model.temp_folder, 'sounds')
         self.game.model.create_temp_directories()
