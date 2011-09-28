@@ -38,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2009-11-11 00:54-0400\n"
+"POT-Creation-Date: 2011-09-27 00:32-0400\n"
+"PO-Revision-Date: 2011-09-28 11:38+0200\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
@@ -47,117 +47,129 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 1.2.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Mémoriser"
 
-#: activity.py:70
-msgid "Play"
-msgstr "Jouer"
+#: activity.py:82
+msgid "Play game"
+msgstr "Jouer une partie"
 
-#: activity.py:74
-msgid "Create"
-msgstr "Créer"
+#: activity.py:90
+msgid "Edit game"
+msgstr "Modifier la partie"
 
-#: createcardpanel.py:79
+#: createcardpanel.py:77
 msgid "Add as new pair"
 msgstr "Ajouter une nouvelle paire"
 
-#: createcardpanel.py:82
+#: createcardpanel.py:80
 msgid "Add"
 msgstr "Ajouter"
 
-#: createcardpanel.py:87
+#: createcardpanel.py:85
 msgid "Update selected pair"
 msgstr "Mettre à jour la paire sélectionnée"
 
-#: createcardpanel.py:90
+#: createcardpanel.py:88
 msgid "Update"
 msgstr "Mise à jour"
 
-#: createcardpanel.py:255
+#: createcardpanel.py:261
 msgid "Preview:"
 msgstr "Aperçu :"
 
-#: createcardpanel.py:271
+#: createcardpanel.py:277
 msgid "Text:"
 msgstr "Texte :"
 
-#: createcardpanel.py:283
+#: createcardpanel.py:289
 msgid "Insert picture"
 msgstr "Insérer une image"
 
-#: createcardpanel.py:288
+#: createcardpanel.py:294
 msgid "Insert sound"
 msgstr "Insérer un son"
 
-#: createcardpanel.py:434
+#: createcardpanel.py:432
 msgid "Pronounce text during tile flip"
 msgstr "Prononcer le texte pendant le retournement"
 
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "Nouvelle partie"
+#: createtoolbar.py:45 createtoolbar.py:98
+msgid "Set equal pairs"
+msgstr "Définir des paires égales"
 
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Charge la partie"
+#: createtoolbar.py:50 createtoolbar.py:109
+msgid "Set grouped game"
+msgstr "Définir une partie groupée"
+
+#: createtoolbar.py:55
+msgid "Clear current game"
+msgstr "Effacer la partie en cours"
 
 #: createtoolbar.py:71
-msgid "Save game"
-msgstr "Sauvegarder la partie"
+msgid "Clear all the tiles from the game?"
+msgstr "Effacer toutes les pièces de la partie ?"
 
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Nom de la partie"
+#: createtoolbar.py:73
+msgid "Clear"
+msgstr "Effacer"
 
-#: createtoolbar.py:85
-msgid "Equal pairs"
-msgstr "Paires égales"
+#: createtoolbar.py:75
+msgid "Do not clear"
+msgstr "Ne pas effacer"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Cliquer pour une partie en groupe"
+#: createtoolbar.py:94
+msgid "Set non equal pairs"
+msgstr "Définir des paires inégales"
 
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Choisis la partie mémorisée"
+#: createtoolbar.py:105
+msgid "Set ungrouped game"
+msgstr "Définir une partie non groupée"
 
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Cliquer pour une partie hors groupe"
-
-#: game.py:92
+#: game.py:94
 msgid "Loading game..."
 msgstr "Chargement d'une partie..."
 
-#: memorizetoolbar.py:40
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Addition"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Lettres"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Sons"
+
+#: memorizetoolbar.py:70
 msgid "Load demo games"
 msgstr "Charge des parties de démonstrations"
 
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "addition"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "lettres"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "sons"
-
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Redémarre la partie"
 
-#: messenger.py:195
+#: memorizetoolbar.py:111
+msgid "Discard your modified game?"
+msgstr "Annuler les modifications ?"
+
+#: memorizetoolbar.py:113
+msgid "Discard"
+msgstr "Annuler"
+
+#: memorizetoolbar.py:115
+msgid "Do not discard"
+msgstr "Ne pas annuler"
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Réception d'une partie"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "terminé"
 
@@ -171,7 +183,7 @@ msgstr "Suédois"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr "Icelandais"
+msgstr "Islandais"
 
 #: speak/voice.py:39
 msgid "Romanian"
@@ -292,6 +304,36 @@ msgstr "Polonais"
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "Esperanto"
+
+#~ msgid "Play"
+#~ msgstr "Jouer"
+
+#~ msgid "Create"
+#~ msgstr "Créer"
+
+#~ msgid "New game"
+#~ msgstr "Nouvelle partie"
+
+#~ msgid "Load game"
+#~ msgstr "Charge la partie"
+
+#~ msgid "Save game"
+#~ msgstr "Sauvegarder la partie"
+
+#~ msgid "Game name"
+#~ msgstr "Nom de la partie"
+
+#~ msgid "Equal pairs"
+#~ msgstr "Paires égales"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Cliquer pour une partie en groupe"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Choisis la partie mémorisée"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Cliquer pour une partie hors groupe"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "Prononce le texte en retournant la carte"
