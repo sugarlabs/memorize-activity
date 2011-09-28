@@ -22,130 +22,153 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2010-08-03 23:26+0200\n"
-"Last-Translator: தங்கமணி <thangam.arunx@gmail.com>\n"
+"POT-Creation-Date: 2011-09-27 00:32-0400\n"
+"PO-Revision-Date: 2011-07-03 14:39+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "நினைவில் நிறுத்திக்கொள்"
 
-#: activity.py:70
-msgid "Play"
-msgstr "ஆடு"
+#: activity.py:82
+msgid "Play game"
+msgstr ""
 
-#: activity.py:74
-msgid "Create"
-msgstr "உருவாக்கு"
+#: activity.py:90
+msgid "Edit game"
+msgstr ""
 
-#: createcardpanel.py:79
+#: createcardpanel.py:77
 msgid "Add as new pair"
 msgstr "புதிய இணையாகச் சேர்"
 
-#: createcardpanel.py:82
+#: createcardpanel.py:80
 msgid "Add"
 msgstr "சேர்"
 
-#: createcardpanel.py:87
+#: createcardpanel.py:85
 msgid "Update selected pair"
 msgstr "தெரிவு செய்யப்பட்ட இணையை இற்றைப்படுத்தல்"
 
-#: createcardpanel.py:90
+#: createcardpanel.py:88
 msgid "Update"
 msgstr "புதுப்பி"
 
-#: createcardpanel.py:255
+#: createcardpanel.py:261
 msgid "Preview:"
 msgstr "பார்வை மாதிரி"
 
-#: createcardpanel.py:271
+#: createcardpanel.py:277
 msgid "Text:"
 msgstr "உள்ளடக்கம்"
 
-#: createcardpanel.py:283
+#: createcardpanel.py:289
 msgid "Insert picture"
 msgstr "படத்தைச் செருகு"
 
-#: createcardpanel.py:288
+#: createcardpanel.py:294
 msgid "Insert sound"
 msgstr "ஒலியைச் செருகு"
 
-#: createcardpanel.py:434
+#: createcardpanel.py:432
 msgid "Pronounce text during tile flip"
 msgstr "தலை மாறும்போது உரையை உச்சரிக்கவும்"
 
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "புதிய ஆட்டம்"
+#: createtoolbar.py:45 createtoolbar.py:98
+msgid "Set equal pairs"
+msgstr ""
 
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "ஆட்டத்தை ஏற்றுதல்"
+#: createtoolbar.py:50 createtoolbar.py:109
+msgid "Set grouped game"
+msgstr ""
+
+#: createtoolbar.py:55
+msgid "Clear current game"
+msgstr ""
 
 #: createtoolbar.py:71
-msgid "Save game"
-msgstr "ஆட்டத்தை சேமி"
+msgid "Clear all the tiles from the game?"
+msgstr ""
 
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "ஆட்டப் பெயர்"
+#: createtoolbar.py:73
+msgid "Clear"
+msgstr ""
 
-#: createtoolbar.py:85
-msgid "Equal pairs"
-msgstr "சமமான இணை"
+#: createtoolbar.py:75
+msgid "Do not clear"
+msgstr ""
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "குழு ஆட்டத்திற்கு இவ்விடத்தில் சொடுக்கக்வும் "
+#: createtoolbar.py:94
+msgid "Set non equal pairs"
+msgstr ""
 
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "நினைவகத்திலுள்ள ஆட்டத்தை தெரிக்வு செய்"
+#: createtoolbar.py:105
+msgid "Set ungrouped game"
+msgstr ""
 
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "தனியாட்டததை சொடுக்கு"
-
-#: game.py:92
+#: game.py:94
 msgid "Loading game..."
 msgstr "ஆட்டத்தை ஏற்று"
 
-#: memorizetoolbar.py:40
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "கூட்டு"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "எழுத்துக்கள்"
+
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "ஒலிகள்"
+
+#: memorizetoolbar.py:70
 msgid "Load demo games"
 msgstr "மாதிரி ஆட்டத்தை ஏற்றுக"
 
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "கூட்டு"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "எழுத்துக்கள்"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "ஒலிகள்"
-
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "மீண்டும் ஆட்டத்தைத் துவக்கு"
 
-#: messenger.py:195
+#: memorizetoolbar.py:111
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:113
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:115
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "ஆட்டத்தை பெறு"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "முடிவு"
 
@@ -280,6 +303,36 @@ msgstr "பொலிஸ்"
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "எஸ்பிறன்ரோ"
+
+#~ msgid "Play"
+#~ msgstr "ஆடு"
+
+#~ msgid "Create"
+#~ msgstr "உருவாக்கு"
+
+#~ msgid "New game"
+#~ msgstr "புதிய ஆட்டம்"
+
+#~ msgid "Load game"
+#~ msgstr "ஆட்டத்தை ஏற்றுதல்"
+
+#~ msgid "Save game"
+#~ msgstr "ஆட்டத்தை சேமி"
+
+#~ msgid "Game name"
+#~ msgstr "ஆட்டப் பெயர்"
+
+#~ msgid "Equal pairs"
+#~ msgstr "சமமான இணை"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "குழு ஆட்டத்திற்கு இவ்விடத்தில் சொடுக்கக்வும்"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "நினைவகத்திலுள்ள ஆட்டத்தை தெரிக்வு செய்"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "தனியாட்டததை சொடுக்கு"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "காட்சி வில்லையை ஏற்றும் போது உரையை உச்சரி"
