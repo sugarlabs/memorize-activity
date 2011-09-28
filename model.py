@@ -310,7 +310,7 @@ class Model(object):
         for key in keys:
             if i < psize:
                 elem = {}
-                elem['pairkey'] = key
+                elem['pairkey'] = str(key)
                 elem['state'] = '0'
                 elem['ab'] = 'a'
                 if self.pairs[key].props.aimg != None:
@@ -324,7 +324,7 @@ class Model(object):
                 temp1.append(elem)
 
                 elem = {}
-                elem['pairkey'] = key
+                elem['pairkey'] = str(key)
                 elem['state'] = '0'
                 elem['ab'] = 'b'
                 if self.pairs[key].props.bimg != None:
