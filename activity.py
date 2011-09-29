@@ -226,13 +226,9 @@ class MemorizeActivity(Activity):
         self.change_game(None, file_path, 4, 'file',
                               self.metadata['title'], color)
 
-    def close(self, skip_save=False):
-        if self.game.model.is_demo:
-            Activity.close(self, skip_save=True)
-        else:
-            Activity.close(self)
-
     def write_file(self, file_path):
+        if self.game.model.is_demo:
+            return
         if self.cardlist.pair_list_modified:
             self.cardlist.update_model(self.game.model)
 
