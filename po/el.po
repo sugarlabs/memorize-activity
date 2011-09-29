@@ -1,115 +1,347 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-03-23 13:40-0400\n"
+"POT-Creation-Date: 2011-09-27 00:32-0400\n"
+"PO-Revision-Date: 2009-11-09 08:27-0400\n"
 "Last-Translator: Γιάννης Κασκαμανίδης <ttnfy17@yahoo.gr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 1.2.1\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Απομνημόνευση"
 
-#: activity.py:70
-msgid "Play"
-msgstr "Πάιξε"
+#: activity.py:82
+msgid "Play game"
+msgstr ""
 
-#: activity.py:74
-msgid "Create"
-msgstr "Δημιούργησε"
+#: activity.py:90
+msgid "Edit game"
+msgstr ""
 
-#: createcardpanel.py:52
+#: createcardpanel.py:77
 msgid "Add as new pair"
-msgstr "Πρόσθεσε σαν νέο ζευγάρι"
+msgstr "Προσθήκη ως νέου ζευγαριού"
 
-#: createcardpanel.py:60
+#: createcardpanel.py:80
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: createcardpanel.py:85
 msgid "Update selected pair"
-msgstr "Ενημέρωσε το επιλεγμένο ζευγάρι"
+msgstr "Ενημέρωση επιλεγμένου ζευγαριού"
 
-#: createcardpanel.py:180
+#: createcardpanel.py:88
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: createcardpanel.py:261
 msgid "Preview:"
 msgstr "Προεπισκόπηση:"
 
-#: createcardpanel.py:182
+#: createcardpanel.py:277
 msgid "Text:"
 msgstr "Κείμενο:"
 
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "Διάλλεξε φωτογραφία"
+#: createcardpanel.py:289
+msgid "Insert picture"
+msgstr "Εισαγωγή εικόνας"
 
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "Διάλλεξε ήχο"
+#: createcardpanel.py:294
+msgid "Insert sound"
+msgstr "Εισαγωγή ήχου"
 
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "Νέο παιχνίδι"
+#: createcardpanel.py:432
+msgid "Pronounce text during tile flip"
+msgstr "Προφορά του κειμένου όταν γυρίζουν τα πλακίδια"
 
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Φόρτωσε το παιχνίδι"
+#: createtoolbar.py:45 createtoolbar.py:98
+msgid "Set equal pairs"
+msgstr ""
+
+#: createtoolbar.py:50 createtoolbar.py:109
+msgid "Set grouped game"
+msgstr ""
+
+#: createtoolbar.py:55
+msgid "Clear current game"
+msgstr ""
+
+#: createtoolbar.py:71
+msgid "Clear all the tiles from the game?"
+msgstr ""
 
 #: createtoolbar.py:73
-msgid "Save game"
-msgstr "Αποθήκευσε το παιχνίδι"
+msgid "Clear"
+msgstr ""
 
-#: createtoolbar.py:83
-msgid "Game name"
-msgstr "Όνομα παιχνιδιού"
+#: createtoolbar.py:75
+msgid "Do not clear"
+msgstr ""
 
-#: createtoolbar.py:87
-msgid "Equal pairs"
-msgstr "Όμοια ζευγάρια"
+#: createtoolbar.py:94
+msgid "Set non equal pairs"
+msgstr ""
 
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Κλίκ για ομαδικό παιχνίδι"
+#: createtoolbar.py:105
+msgid "Set ungrouped game"
+msgstr ""
 
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "Διάλλεξε παιχνίδι μνήμης"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Κλίκ για μη ομαδικό παιχνίδι"
-
-#: game.py:105
+#: game.py:94
 msgid "Loading game..."
 msgstr "Φόρτωση παιχνιδιού..."
 
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Φόρτωσε δοκιμαστικά παιχνίδια"
-
-#: memorizetoolbar.py:41
-msgid "addition"
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
 msgstr "προσθήκη"
 
-#: memorizetoolbar.py:42
-msgid "letters"
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
 msgstr "γράμματα"
 
-#: memorizetoolbar.py:43
-msgid "sounds"
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
 msgstr "ήχοι"
 
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:70
+msgid "Load demo games"
+msgstr "Φόρτωση δοκιμαστικών παιχνιδιών"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
-msgstr "Ξαναπαίξε"
+msgstr "Επανέναρξη παιχνιδιού"
 
-#: messenger.py:183
+#: memorizetoolbar.py:111
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:113
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:115
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
-msgstr "Λαμβάνω το παιχνίδι"
+msgstr "Λήψη του παιχνιδιού"
 
-#: messenger.py:183
+#: messenger.py:193
 msgid "done"
-msgstr "έτοιμο"
+msgstr "Ολοκληρώθηκε"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Βραζιλιάνικα"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Σουηδικά"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Ισλανδικά"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Ρουμάνικα"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Σουαχίλι"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Χίντι"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Ολλανδικά"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Λατινικά"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Ουγγρικά"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Γλώσσα Π.Γ.Δ.Μ."
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Ουαλικά"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Γαλλικά"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Νορβηγικά"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ρωσικά"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Αφρικάανς"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Φινλανδικά"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Προκαθορισμένη"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Καντονέζικα"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Σκοτσέζικα"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Ελληνικά"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Βιετναμέζικα"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Αγγλικά"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Λανκασάιρ"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Ιταλικά"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Πορτογαλικά"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Γερμανικά"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Ψίθυρος"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Κροατικά"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Τσέχικα"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Σλοβάκικα"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Ισπανικά"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Πολωνικά"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Εσπεράντο"
+
+#~ msgid "Play"
+#~ msgstr "Αναπαραγωγή"
+
+#~ msgid "Create"
+#~ msgstr "Δημιουργία"
+
+#~ msgid "New game"
+#~ msgstr "Νέο παιχνίδι"
+
+#~ msgid "Load game"
+#~ msgstr "Φόρτωση παιχνιδιού"
+
+#~ msgid "Save game"
+#~ msgstr "Αποθήκευση παιχνιδιού"
+
+#~ msgid "Game name"
+#~ msgstr "Όνομα παιχνιδιού"
+
+#~ msgid "Equal pairs"
+#~ msgstr "Όμοια ζευγάρια"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Κλικ για ομαδικό παιχνίδι"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Επιλογή παιχνιδιού μνήμης"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Κλικ για μη ομαδικό παιχνίδι"
+
+#~ msgid "Pronounce text while fliping tile"
+#~ msgstr "Προφορά κειμένου καθώς κάνετε κλικ στο πλακάκι"
+
+#~ msgid "Choose image"
+#~ msgstr "Επιλογή εικόνας"
+
+#~ msgid "Choose audio"
+#~ msgstr "Επιλογή ήχου"
 
 #~ msgid "capitals"
 #~ msgstr "κεφαλαία"
