@@ -208,7 +208,6 @@ class MemorizeActivity(Activity):
             game_file = os.path.join(os.path.dirname(__file__), 'demos',
                     'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
-            self.cardlist.load_game(self.game)
             _logger.debug('loading conventional')
             self.game.add_buddy(self.owner)
         else:
@@ -302,6 +301,7 @@ class MemorizeActivity(Activity):
                 self.hbox.remove(self.table)
                 self.hbox.pack_start(self.createcardpanel, False)
                 self.hbox.pack_start(self.cardlist)
+                self.cardlist.load_game(self.game)
                 self.game.model.create_temp_directories()
                 self.createcardpanel.set_temp_folder(
                         self.game.model.temp_folder)
@@ -329,8 +329,7 @@ class MemorizeActivity(Activity):
                     title=None, color=None):
         _logger.debug('Change game %s', game_name)
         self.game.change_game(widget, game_name, size, mode, title, color)
-        if game_name is not None:
-            self.cardlist.load_game(self.game)
+        self.cardlist.game_loaded = False
 
     def change_equal_pairs(self, widget, state):
         self.cardlist.update_model(self.game.model)

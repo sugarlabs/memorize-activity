@@ -47,6 +47,7 @@ class CardList(gtk.EventBox):
         self.current_game_key = None
         self.model = None
         self.pair_list_modified = False
+        self.game_loaded = False
 
         self.vbox = gtk.VBox(False)
 
@@ -65,6 +66,9 @@ class CardList(gtk.EventBox):
         self.show_all()
 
     def load_game(self, game):
+        if self.game_loaded:
+            return
+        self.get_window().freeze_updates()
         self.model = game.model
         self.current_game_key = self.model.data['game_file']
         game_pairs = self.model.pairs
@@ -101,9 +105,11 @@ class CardList(gtk.EventBox):
                     game_pairs[key].props.bchar, aimg, bimg, asnd, bsnd,
                     game_pairs[key].props.aspeak, game_pairs[key].props.bspeak,
                     False, load=True)
+        self.get_window().thaw_updates()
         self.emit('update-create-toolbar', self.model.data['name'],
                   self.model.data['equal_pairs'],
                   self.model.data['divided'])
+        self.game_loaded = True
 
     def update_model(self, game_model):
         game_model.pairs = {}
