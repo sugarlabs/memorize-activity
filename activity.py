@@ -305,10 +305,10 @@ class MemorizeActivity(Activity):
         else:
             if self.game.model.modified:
                 self.cardlist.update_model(self.game.model)
+                self.save()
                 self.game.reset_game()
                 self.table.change_game(None, self.game.model.data,
                         self.game.model.grid)
-                self.save()
                 self.game.model.modified = False
 
             if self.play_mode == False:

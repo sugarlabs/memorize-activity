@@ -147,6 +147,7 @@ class Model(object):
         logging.debug('Model mark_modified is_demo False')
         self.is_demo = False
         self.modified = True
+        self.data['mode'] = 'file'
 
     def read(self, game_file):
         self.modified = False
