@@ -67,18 +67,24 @@ class CreateToolbarBuilder(gobject.GObject):
         tool_item.show()
 
     def _clear_game_bt(self, button):
-        alert = Alert()
-        alert.props.title = _('Clear all the tiles from the game?')
-        icon = Icon(icon_name='dialog-ok')
-        alert.add_button(1, _('Clear'), icon)
-        icon = Icon(icon_name='dialog-cancel')
-        alert.add_button(0, _('Do not clear'), icon)
-        alert.connect('response', self._clear_game_alert_cb)
-        self.activity.add_alert(alert)
+        if self.activity.game.model.is_demo:
+            self.clear_game()
+        else:
+            alert = Alert()
+            alert.props.title = _('Clear all the tiles from the game?')
+            icon = Icon(icon_name='dialog-ok')
+            alert.add_button(1, _('Clear'), icon)
+            icon = Icon(icon_name='dialog-cancel')
+            alert.add_button(0, _('Do not clear'), icon)
+            alert.connect('response', self._clear_game_alert_cb)
+            self.activity.add_alert(alert)
 
     def _clear_game_alert_cb(self, alert, response_id):
         self.activity.remove_alert(alert)
         if response_id == 1:
+            self.clear_game()
+
+    def clear_game(self):
             self._equal_pairs.set_active(False)
             self._grouped.set_active(False)
             self.emit('create_new_game')
