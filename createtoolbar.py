@@ -20,6 +20,7 @@ from gettext import gettext as _
 import gtk
 import gobject
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+import logging
 
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.toggletoolbutton import ToggleToolButton
@@ -43,12 +44,13 @@ class CreateToolbarBuilder(gobject.GObject):
 
         self._equal_pairs = ToggleToolButton('pair-non-equals')
         self._equal_pairs.set_tooltip(_('Set equal pairs'))
-        self._equal_pairs.connect('toggled', self._emit_equal_pairs)
+        self.id_equal_cb = self._equal_pairs.connect('toggled',
+                self._emit_equal_pairs)
         self.toolbar.insert(self._equal_pairs, -1)
 
         self._grouped = ToggleToolButton('grouped_game1')
         self._grouped.set_tooltip(_('Set grouped game'))
-        self._grouped.connect('toggled', self._grouped_cb)
+        self.id_grouped_cb = self._grouped.connect('toggled', self._grouped_cb)
         self.toolbar.insert(self._grouped, -1)
 
         self._clear_button = ToolButton('edit-clear')
@@ -105,6 +107,8 @@ class CreateToolbarBuilder(gobject.GObject):
             self._equal_pairs.set_tooltip(_('Set equal pairs'))
             self.activity.game.model.data['equal_pairs'] = '0'
         self.emit('create_equal_pairs', self._equal_pairs.get_active())
+        logging.debug('createtoolbar._emit_equal_pairs')
+        self.activity.game.model.mark_modified()
 
     def _grouped_cb(self, widget):
         if self._grouped.get_active():
@@ -115,7 +119,14 @@ class CreateToolbarBuilder(gobject.GObject):
             self._grouped.set_named_icon('grouped_game1')
             self._grouped.set_tooltip(_('Set grouped game'))
             self.activity.game.model.data['divided'] = '0'
+        logging.debug('createtoolbar._grouped_cb')
+        self.activity.game.model.mark_modified()
 
     def update_create_toolbar(self, widget, game_name, equal_pairs, grouped):
+        self._equal_pairs.handler_block(self.id_equal_cb)
         self._equal_pairs.set_active(equal_pairs == '1')
+        self._equal_pairs.handler_unblock(self.id_equal_cb)
+
+        self._grouped.handler_block(self.id_grouped_cb)
         self._grouped.set_active(grouped == '1')
+        self._grouped.handler_unblock(self.id_grouped_cb)
