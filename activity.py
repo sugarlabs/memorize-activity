@@ -219,7 +219,11 @@ class MemorizeActivity(Activity):
                               self.metadata['title'], color)
 
     def write_file(self, file_path):
+        logging.debug('WRITE_FILE is_demo %s', self.game.model.is_demo)
         if self.game.model.is_demo:
+            # if is a demo game only want keep the metadata
+            self._jobject.set_file_path(None)
+            raise NotImplementedError
             return
         if self.cardlist.pair_list_modified:
             self.cardlist.update_model(self.game.model)
