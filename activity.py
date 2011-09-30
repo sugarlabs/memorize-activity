@@ -38,7 +38,7 @@ import telepathy.client
 from sugar.activity.widgets import ActivityToolbarButton
 from sugar.activity.widgets import StopButton
 from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.graphics.radiotoolbutton import RadioToolButton
+from sugar.graphics.toggletoolbutton import ToggleToolButton
 from sugar.activity.activity import Activity
 from sugar.presence import presenceservice
 from sugar.presence.tubeconn import TubeConnection
@@ -75,28 +75,15 @@ class MemorizeActivity(Activity):
         self.activity_button = ActivityToolbarButton(self)
         toolbar_box.toolbar.insert(self.activity_button, -1)
 
-        tool_group = None
-        self._play_button = RadioToolButton()
-        self._play_button.mode = _MODE_PLAY
-        self._play_button.props.icon_name = 'player_play'
-        self._play_button.set_tooltip(_('Play game'))
-        self._play_button.props.group = tool_group
-        toolbar_box.toolbar.insert(self._play_button, -1)
-        tool_group = self._play_button
-
-        self._edit_button = RadioToolButton()
-        self._edit_button.mode = _MODE_CREATE
-        self._edit_button.props.icon_name = 'view-source'
-        self._edit_button.set_tooltip(_('Edit game'))
-        self._edit_button.props.group = tool_group
-        toolbar_box.toolbar.insert(self._edit_button, -1)
-
-        toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
-
         self._memorizeToolbarBuilder = \
                 memorizetoolbar.MemorizeToolbarBuilder(self)
 
         toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
+
+        self._edit_button = ToggleToolButton('view-source')
+        self._edit_button.set_tooltip(_('Edit game'))
+        self._edit_button.set_active(False)
+        toolbar_box.toolbar.insert(self._edit_button, -1)
 
         self._createToolbarBuilder = \
             createtoolbar.CreateToolbarBuilder(self)
@@ -130,8 +117,7 @@ class MemorizeActivity(Activity):
                 self.change_equal_pairs)
         self.game = game.MemorizeGame()
 
-        self._play_button.connect('clicked', self._change_mode_bt)
-        self._edit_button.connect('clicked', self._change_mode_bt)
+        self._edit_button.connect('toggled', self._change_mode_bt)
 
         self.table.connect('key-press-event', self.table.key_press_event)
         self.table.connect('card-flipped', self.game.card_flipped)
@@ -216,7 +202,13 @@ class MemorizeActivity(Activity):
 
     def _change_mode_bt(self, button):
         if button.get_active():
-            self._change_mode(button.mode)
+            self._change_mode(_MODE_CREATE)
+            button.set_named_icon('player_play')
+            button.set_tooltip(_('Play game'))
+        else:
+            self._change_mode(_MODE_PLAY)
+            button.set_named_icon('view-source')
+            button.set_tooltip(_('Edit game'))
 
     def read_file(self, file_path):
         if 'icon-color' in self.metadata:

@@ -55,16 +55,6 @@ class MemorizeToolbarBuilder(gobject.GObject):
         self.toolbar = self.activity.get_toolbar_box().toolbar
         self.jobject = None
 
-        # Change size combobox
-        self._size_combo = ToolComboBox()
-        self._sizes = ['4 X 4', '5 X 5', '6 X 6']
-        for i, f in enumerate(self._sizes):
-            self._size_combo.combo.append_item(i, f)
-        self.size_handle_id = self._size_combo.combo.connect( \
-                'changed', self._game_size_cb)
-        self.toolbar.insert(self._size_combo, -1)
-        self._size_combo.combo.set_active(0)
-
         # Change demo games button
         self._demo_games = RadioMenuButton(icon_name='memorize-collection')
         self._demo_games.props.tooltip = _('Load demo games')
@@ -75,6 +65,16 @@ class MemorizeToolbarBuilder(gobject.GObject):
             self._demo_games.props.palette.menu.append(menu_item)
             menu_item.show()
         self.toolbar.insert(self._demo_games, -1)
+
+        # Change size combobox
+        self._size_combo = ToolComboBox()
+        self._sizes = ['4 X 4', '5 X 5', '6 X 6']
+        for i, f in enumerate(self._sizes):
+            self._size_combo.combo.append_item(i, f)
+        self.size_handle_id = self._size_combo.combo.connect( \
+                'changed', self._game_size_cb)
+        self.toolbar.insert(self._size_combo, -1)
+        self._size_combo.combo.set_active(0)
 
         # Reset Button
         self._restart_button = ToolButton('game-new')
