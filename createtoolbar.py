@@ -43,18 +43,18 @@ class CreateToolbarBuilder(gobject.GObject):
         self.toolbar = self.activity.get_toolbar_box().toolbar
 
         self._equal_pairs = ToggleToolButton('pair-non-equals')
-        self._equal_pairs.set_tooltip(_('Set equal pairs'))
+        self._equal_pairs.set_tooltip(_('Match different tiles'))
         self.id_equal_cb = self._equal_pairs.connect('toggled',
                 self._emit_equal_pairs)
         self.toolbar.insert(self._equal_pairs, -1)
 
         self._grouped = ToggleToolButton('grouped_game1')
-        self._grouped.set_tooltip(_('Set grouped game'))
+        self._grouped.set_tooltip(_('Mixed tiles game'))
         self.id_grouped_cb = self._grouped.connect('toggled', self._grouped_cb)
         self.toolbar.insert(self._grouped, -1)
 
         self._clear_button = ToolButton('edit-clear')
-        self._clear_button.set_tooltip(_('Clear current game'))
+        self._clear_button.set_tooltip(_('Clear all tiles'))
         self._clear_button.connect('clicked', self._clear_game_bt)
         self.toolbar.insert(self._clear_button, -1)
 
@@ -100,11 +100,11 @@ class CreateToolbarBuilder(gobject.GObject):
     def _emit_equal_pairs(self, widget):
         if self._equal_pairs.get_active():
             self._equal_pairs.set_named_icon('pair-equals')
-            self._equal_pairs.set_tooltip(_('Set non equal pairs'))
+            self._equal_pairs.set_tooltip(_('Match identical tiles'))
             self.activity.game.model.data['equal_pairs'] = '1'
         else:
             self._equal_pairs.set_named_icon('pair-non-equals')
-            self._equal_pairs.set_tooltip(_('Set equal pairs'))
+            self._equal_pairs.set_tooltip(_('Match different tiles'))
             self.activity.game.model.data['equal_pairs'] = '0'
         self.emit('create_equal_pairs', self._equal_pairs.get_active())
         logging.debug('createtoolbar._emit_equal_pairs')
@@ -113,11 +113,11 @@ class CreateToolbarBuilder(gobject.GObject):
     def _grouped_cb(self, widget):
         if self._grouped.get_active():
             self._grouped.set_named_icon('grouped_game2')
-            self._grouped.set_tooltip(_('Set ungrouped game'))
+            self._grouped.set_tooltip(_('Grouped tiles game'))
             self.activity.game.model.data['divided'] = '1'
         else:
             self._grouped.set_named_icon('grouped_game1')
-            self._grouped.set_tooltip(_('Set grouped game'))
+            self._grouped.set_tooltip(_('Mixed tiles game'))
             self.activity.game.model.data['divided'] = '0'
         logging.debug('createtoolbar._grouped_cb')
         self.activity.game.model.mark_modified()
