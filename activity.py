@@ -121,8 +121,6 @@ class MemorizeActivity(Activity):
 
         self.table.connect('key-press-event', self.table.key_press_event)
         self.table.connect('card-flipped', self.game.card_flipped)
-        self.table.connect('card-flipped',
-                self._memorizeToolbarBuilder.card_flipped)
         self.table.connect('card-overflipped', self.game.card_overflipped)
         self.table.connect('card-highlighted', self.game.card_highlighted)
 
