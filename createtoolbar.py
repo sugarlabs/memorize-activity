@@ -44,13 +44,12 @@ class CreateToolbarBuilder(gobject.GObject):
 
         self._equal_pairs = ToggleToolButton('pair-non-equals')
         self._equal_pairs.set_tooltip(_('Match different tiles'))
-        self.id_equal_cb = self._equal_pairs.connect('toggled',
-                self._emit_equal_pairs)
+        self._equal_pairs.connect('toggled', self._emit_equal_pairs)
         self.toolbar.insert(self._equal_pairs, -1)
 
         self._grouped = ToggleToolButton('grouped_game1')
         self._grouped.set_tooltip(_('Mixed tiles game'))
-        self.id_grouped_cb = self._grouped.connect('toggled', self._grouped_cb)
+        self._grouped.connect('toggled', self._grouped_cb)
         self.toolbar.insert(self._grouped, -1)
 
         self._clear_button = ToolButton('edit-clear')
@@ -123,10 +122,5 @@ class CreateToolbarBuilder(gobject.GObject):
         self.activity.game.model.mark_modified()
 
     def update_create_toolbar(self, widget, game_name, equal_pairs, grouped):
-        self._equal_pairs.handler_block(self.id_equal_cb)
         self._equal_pairs.set_active(equal_pairs == '1')
-        self._equal_pairs.handler_unblock(self.id_equal_cb)
-
-        self._grouped.handler_block(self.id_grouped_cb)
         self._grouped.set_active(grouped == '1')
-        self._grouped.handler_unblock(self.id_grouped_cb)
