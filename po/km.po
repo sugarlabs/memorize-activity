@@ -6,111 +6,270 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-03-17 18:01-0400\n"
-"Last-Translator: Rit Lim <rit.lim@gmail.com>\n"
+"POT-Creation-Date: 2011-10-04 00:36-0400\n"
+"PO-Revision-Date: 2011-04-28 16:42+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: km\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "ទន្ទេញ"
 
-#: activity.py:70
-msgid "Play"
-msgstr "លេញ"
+#: activity.py:84 activity.py:211
+msgid "Edit game"
+msgstr ""
 
-#: activity.py:74
-msgid "Create"
-msgstr "បង្កើត"
+#: activity.py:207
+msgid "Play game"
+msgstr ""
 
-#: createcardpanel.py:52
+#: createcardpanel.py:77
 msgid "Add as new pair"
 msgstr "ថែមទៅជាគូថ្មី"
 
-#: createcardpanel.py:60
+#: createcardpanel.py:80
+msgid "Add"
+msgstr "បន្ថែម"
+
+#: createcardpanel.py:85
 msgid "Update selected pair"
 msgstr "កែជំរើស​គូ"
 
-#: createcardpanel.py:180
+#: createcardpanel.py:88
+msgid "Update"
+msgstr "ធ្វើ​ឲ្យ​ទាន់​សម័យ"
+
+#: createcardpanel.py:261
 msgid "Preview:"
 msgstr "ព្រាង"
 
-#: createcardpanel.py:182
+#: createcardpanel.py:277
 msgid "Text:"
-msgstr "អត្ថបត"
+msgstr "អត្ថបត ៖"
 
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "ជ្ររើស​រូបភាប"
+#: createcardpanel.py:289
+msgid "Insert picture"
+msgstr "បញ្ចូល​រូបភាព"
 
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "ជ្ររើស​សំលេង"
+#: createcardpanel.py:294
+msgid "Insert sound"
+msgstr "បញ្ចូល​សំឡេង"
 
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "លេង​សាឡើងវិញ"
+#: createcardpanel.py:432
+msgid "Pronounce text during tile flip"
+msgstr ""
 
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "រៀបចំ​ល្បែង"
+#: createtoolbar.py:46 createtoolbar.py:107
+msgid "Match different tiles"
+msgstr ""
 
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr "ថត​ទុក"
+#: createtoolbar.py:52 createtoolbar.py:120
+msgid "Mixed tiles game"
+msgstr ""
 
-#: createtoolbar.py:83
-msgid "Game name"
-msgstr "ឈ្មោះ​ល្បែង"
+#: createtoolbar.py:57
+msgid "Clear all tiles"
+msgstr ""
 
-#: createtoolbar.py:87
-msgid "Equal pairs"
-msgstr "គូប៉ុន​គ្នា"
+#: createtoolbar.py:77
+msgid "Clear all the tiles from the game?"
+msgstr ""
 
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "ចុច​ដើម្បី​លេង​ល្បែង​ជា​ក្រុម"
+#: createtoolbar.py:79
+msgid "Clear"
+msgstr "ជម្រះ"
 
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "ច្រើសរើស​ចំណាំ​ល្បែង"
+#: createtoolbar.py:81
+msgid "Do not clear"
+msgstr ""
 
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "ចុច​ដើម្បី​លេង​ល្បែង​មិនជា​ក្រុម"
+#: createtoolbar.py:103
+msgid "Match identical tiles"
+msgstr ""
 
-#: game.py:105
+#: createtoolbar.py:116
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
 msgid "Loading game..."
 msgstr "រៀប​ចំ​ល្បែង"
 
-#: memorizetoolbar.py:40
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "វិធី​បូក"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "អក្សរ"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "សំឡេង"
+
+#: memorizetoolbar.py:60
 msgid "Load demo games"
 msgstr "រៀប​ចំ​​បង្ហាញ​ល្បែង"
 
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "បូក​លេខ"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "អក្សរ"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "សំលេញ"
-
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "ចាប់​ផ្ដើម​ឡើង​វិញ"
 
-#: messenger.py:183
+#: memorizetoolbar.py:111
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:113
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:115
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "កំពុង​ទទួល​ល្បែង"
 
-#: messenger.py:183
+#: messenger.py:193
 msgid "done"
 msgstr "រួច​ហើយ"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "ប្រេស៊ីល"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "ស៊ុយអែដ (sv)"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "អ៊ីស្លង់"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "រ៉ូម៉ានី (ro)"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "ស្វាហ៊ីលី"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "ហិណ្ឌូ"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "ហូឡង់​ (nl)"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "ឡាតាំង"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "ហុងគ្រី (hu)"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "ម៉ាសេដូនី (mk)"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "វែល"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "បារាំង (fr)"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "ន័រវែស"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "រុស្ស៊ី (ru)"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "អាហ្វ្រីកាអាន"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "ហ្វាំងឡង់ (fi)"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "លំនាំដើម"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "កាន់តូនេស៊ី"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr ""
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "ក្រិក (el)"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "​វៀតណាម​"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "អង់គ្លេស (en)"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "ឡាន់កាសាយអ៊ើ"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "អ៊ីតាលី (it)"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "ព័រទុយហ្គាល់"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "អាល្លឺម៉ង់ (de)"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr ""
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "ក្រូអាត (hr)"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "ឆែក​ (cs)"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "ស្លូវ៉ាគី (sk)"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "អេស្ប៉ាញ (es)"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "ប៉ូឡូញ (pl)"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "អេស្ពេរ៉ាន់តូ (eo)"
