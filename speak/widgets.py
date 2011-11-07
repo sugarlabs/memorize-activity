@@ -14,7 +14,7 @@
 
 import logging
 
-from port.widgets import ComboBox
+from sugar.graphics.combobox import ComboBox
 
 import voice
 
@@ -46,3 +46,19 @@ class Voices(ComboBox):
             self.face.status.voice = self.props.value
         finally:
             self.handler_unblock_by_func(self._changed_cb)
+
+    def select(self, id=None, name=None):
+        if id is not None:
+            column = 0
+            value = id
+        elif name is not None:
+            column = 1
+            value = name
+        else:
+            return
+
+        for i, item in enumerate(self.get_model()):
+            if item[column] != value:
+                continue
+            self.set_active(i)
+            break

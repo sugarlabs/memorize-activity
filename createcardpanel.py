@@ -29,8 +29,8 @@ from sugar.graphics import style
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.icon import Icon
 from sugar.graphics.palette import Palette
-from port.widgets import ToggleToolButton
-from port.widgets import ToolComboBox
+from sugar.graphics.toggletoolbutton import ToggleToolButton
+from sugar.graphics.toolcombobox import ToolComboBox
 from port import chooser
 
 import theme
@@ -299,8 +299,8 @@ class CardEditor(gtk.EventBox):
 
         if speak.espeak.supported:
             self.usespeak = ToggleToolButton(
-                    named_icon='speak',
-                    palette=SpeakPalette(self))
+                    named_icon='speak')
+            self.usespeak.set_palette(SpeakPalette(self))
             toolbar.pack_start(self.usespeak, False)
             self.usespeak.connect('toggled', self._usespeak_cb)
         else:
