@@ -37,6 +37,7 @@ import theme
 import speak.espeak
 import speak.widgets
 import speak.face
+from port.roundbox import RoundBox
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -282,17 +283,17 @@ class CardEditor(gtk.EventBox):
         self.textentry.connect('changed', self.update_text)
         box.pack_start(self.textentry, False)
 
-        toolbar = gtk.HBox()
+        toolbar = RoundBox()
 
         browsepicture = ToolButton(
                 icon_name='import_picture',
                 tooltip=_('Insert picture'))
-        toolbar.pack_start(browsepicture, False)
+        toolbar.add(browsepicture)
 
         browsesound = ToolButton(
                 icon_name='import_sound',
                 tooltip=_('Insert sound'))
-        toolbar.pack_start(browsesound, False)
+        toolbar.add(browsesound)
 
         browsepicture.connect('clicked', self._load_image)
         browsesound.connect('clicked', self._load_audio)
@@ -301,7 +302,7 @@ class CardEditor(gtk.EventBox):
             self.usespeak = ToggleToolButton(
                     named_icon='speak')
             self.usespeak.set_palette(SpeakPalette(self))
-            toolbar.pack_start(self.usespeak, False)
+            toolbar.add(self.usespeak)
             self.usespeak.connect('toggled', self._usespeak_cb)
         else:
             self.usespeak = None
