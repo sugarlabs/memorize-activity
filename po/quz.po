@@ -1,0 +1,338 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-09-27 00:32-0400\n"
+"PO-Revision-Date: 2011-11-26 08:55+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: quz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#  "Memorizar"
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr ""
+
+#  "Jugar"
+#: activity.py:82
+msgid "Play game"
+msgstr ""
+
+#  "Editar juego"
+#: activity.py:90
+msgid "Edit game"
+msgstr ""
+
+#  "Añadir un nuevo par"
+#: createcardpanel.py:77
+msgid "Add as new pair"
+msgstr ""
+
+#  "Añadir"
+#: createcardpanel.py:80
+msgid "Add"
+msgstr "Yapay"
+
+#  "Actualizar par seleccionado"
+#: createcardpanel.py:85
+msgid "Update selected pair"
+msgstr ""
+
+#  "Actualizar"
+#: createcardpanel.py:88
+msgid "Update"
+msgstr ""
+
+#  "Vista previa:"
+#: createcardpanel.py:261
+msgid "Preview:"
+msgstr ""
+
+#  "Texto:"
+#: createcardpanel.py:277
+msgid "Text:"
+msgstr "Qillqa:"
+
+#  "Insertar imagen"
+#: createcardpanel.py:289
+msgid "Insert picture"
+msgstr ""
+
+#  "Insertar sonido"
+#: createcardpanel.py:294
+msgid "Insert sound"
+msgstr ""
+
+#  "Pronunciar texto mientras voltea la carta"
+#: createcardpanel.py:432
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#  "Seleccionar pares iguales"
+#: createtoolbar.py:45 createtoolbar.py:98
+msgid "Set equal pairs"
+msgstr ""
+
+#  "Seleccionar juego por grupos"
+#: createtoolbar.py:50 createtoolbar.py:109
+msgid "Set grouped game"
+msgstr ""
+
+#  "Limpiar el juego"
+#: createtoolbar.py:55
+msgid "Clear current game"
+msgstr ""
+
+#  "¿Limpiar todas las piezas del juego?"
+#: createtoolbar.py:71
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#  "Limpiar"
+#: createtoolbar.py:73
+msgid "Clear"
+msgstr "Pichay"
+
+#  "No Limpiar"
+#: createtoolbar.py:75
+msgid "Do not clear"
+msgstr ""
+
+#  "Seleccionar pares distintos"
+#: createtoolbar.py:94
+msgid "Set non equal pairs"
+msgstr ""
+
+#  "Seleccionar juego sin grupos"
+#: createtoolbar.py:105
+msgid "Set ungrouped game"
+msgstr ""
+
+#  "Cargando juego..."
+#: game.py:94
+msgid "Loading game..."
+msgstr ""
+
+#  "Adición"
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr ""
+
+#  "Letras"
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr ""
+
+#  "Sonidos"
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "Uyarina"
+
+#  "Cargar juegos de demostración"
+#: memorizetoolbar.py:70
+msgid "Load demo games"
+msgstr ""
+
+#  "Reiniciar Juego"
+#: memorizetoolbar.py:82
+msgid "Restart Game"
+msgstr ""
+
+#  "¿Descartar tu juego modificado?"
+#: memorizetoolbar.py:111
+msgid "Discard your modified game?"
+msgstr ""
+
+#  "Descartar"
+#: memorizetoolbar.py:113
+msgid "Discard"
+msgstr ""
+
+#  "No descartar"
+#: memorizetoolbar.py:115
+msgid "Do not discard"
+msgstr ""
+
+#  "Recibiendo juego"
+#: messenger.py:192
+msgid "Receiving game"
+msgstr ""
+
+#  "hecho"
+#: messenger.py:193
+msgid "done"
+msgstr "Ruwasqaña"
+
+#  "Brasil"
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Portugues simi"
+
+#  "Sueco"
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Sueco simi"
+
+#  "Islandés"
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Islandes simi"
+
+#  "Rumano"
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Rumano simi"
+
+#  "Swahili"
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Suajli simi"
+
+#  "Hindi"
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi simi"
+
+#  "Holandés"
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Holandes simi"
+
+#  "Latín"
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Latino simi"
+
+#  "Húngaro"
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Hüngaro simi"
+
+#  "Macedonio"
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macedonio simi"
+
+#  "Galés"
+#: speak/voice.py:46
+#, fuzzy
+msgid "Welsh"
+msgstr "Galës simi"
+
+#  "Francés"
+#: speak/voice.py:47
+msgid "French"
+msgstr "Frances simi"
+
+#  "Noruego"
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Noruego simi"
+
+#  "Ruso"
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ruso simi"
+
+#  "Afrikáans"
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Africaans simi"
+
+#  "Finés"
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Finlandes simi"
+
+#  "Predeterminada"
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "kikinqasqha"
+
+#  "Cantonés"
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Cantonés simi"
+
+#  "Escocés"
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Escocés simi"
+
+#  "Griego"
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Griego simi"
+
+#  "Vietnamita"
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnamita simi"
+
+#  "Inglés"
+#: speak/voice.py:57
+msgid "English"
+msgstr "Inglish simi"
+
+#  "Lancashire"
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancshiri simi"
+
+#  "Italiano"
+#: speak/voice.py:59
+#, fuzzy
+msgid "Italian"
+msgstr "Itslisno simi"
+
+#  "Portugués"
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugués Simi"
+
+#  "Alemán"
+#: speak/voice.py:61
+msgid "German"
+msgstr "Aleman simi"
+
+#  "Susurro"
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "waylluquq"
+
+#  "Croata"
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Croata simi"
+
+#  "Checo"
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Cueco simi"
+
+#  "Eslovaco"
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Eslovaco simi"
+
+#  "Español"
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Castilla simi"
+
+#  "Polaco"
+#: speak/voice.py:67
+#, fuzzy
+msgid "Polish"
+msgstr "Poalco simi"
+
+#  "Esperanto"
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto simi"
