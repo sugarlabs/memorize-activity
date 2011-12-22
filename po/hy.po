@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2011-11-10 15:31+0200\n"
+"PO-Revision-Date: 2011-12-22 02:37+0200\n"
 "Last-Translator: anush.mkrtchyan <anush.mkrtchyan@ca1492.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hy\n"
@@ -43,7 +43,7 @@ msgstr "Հիշել"
 
 #: activity.py:70
 msgid "Play"
-msgstr "Խաղ"
+msgstr "նվագարկել"
 
 #: activity.py:74
 msgid "Create"
@@ -139,7 +139,7 @@ msgstr "հնչյուններ"
 
 #: memorizetoolbar.py:63
 msgid "Restart Game"
-msgstr "Խաղի Կրկնամեկնարկ"
+msgstr "Խաղը վերսկսել"
 
 #: messenger.py:195
 msgid "Receiving game"
@@ -207,7 +207,7 @@ msgstr "Ռուսերեն"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr "Աֆրիկաանս"
+msgstr "Աֆրիկերեն"
 
 #: speak/voice.py:51
 msgid "Finnish"
@@ -215,7 +215,7 @@ msgstr "Ֆիններեն"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr "Ենթադրյալ"
+msgstr "Ելման դիրք"
 
 #: speak/voice.py:53
 msgid "Cantonese"
@@ -267,7 +267,7 @@ msgstr "Չեխերեն"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr "Սլովակական"
+msgstr "Սլովակերեն"
 
 #: speak/voice.py:66
 msgid "Spanish"
