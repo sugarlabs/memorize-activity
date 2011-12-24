@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2011-12-22 02:37+0200\n"
-"Last-Translator: anush.mkrtchyan <anush.mkrtchyan@ca1492.com>\n"
+"PO-Revision-Date: 2011-12-23 04:14+0200\n"
+"Last-Translator: Jasmine <udea_jasmine@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Հիշել"
 
 #: activity.py:70
 msgid "Play"
-msgstr "նվագարկել"
+msgstr "Վերարտադրել"
 
 #: activity.py:74
 msgid "Create"
@@ -75,7 +75,7 @@ msgstr "Տեքստ"
 
 #: createcardpanel.py:283
 msgid "Insert picture"
-msgstr "Ներդնել Պատկերը"
+msgstr "Զետեղել Պատկերը"
 
 #: createcardpanel.py:288
 msgid "Insert sound"
@@ -83,7 +83,7 @@ msgstr "Ներդնել ձայն"
 
 #: createcardpanel.py:434
 msgid "Pronounce text during tile flip"
-msgstr "Արտասանել տեքստը շրջելու ժամանակ"
+msgstr "Արտասանել տեքստը` մասնիկը շրջելու ժամանակ"
 
 #: createtoolbar.py:51
 msgid "New game"
@@ -107,15 +107,15 @@ msgstr "Հավասար զույգեր"
 
 #: createtoolbar.py:97 createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr "Քլիք խմբային խաղի համար"
+msgstr "Քլիք` խմբային խաղի համար"
 
 #: createtoolbar.py:114 memorizetoolbar.py:118
 msgid "Choose memorize game"
-msgstr "Ընտրել հիշելու խաղը"
+msgstr "Ընտրել հիշողության խաղը"
 
 #: createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr "Քլիք անխումբ խաղի համար"
+msgstr "Քլիք` անխումբ խաղի համար"
 
 #: game.py:92
 msgid "Loading game..."
@@ -123,7 +123,7 @@ msgstr "Խաղի բեռնում..."
 
 #: memorizetoolbar.py:40
 msgid "Load demo games"
-msgstr "Բեռնել ցուցախաղերը"
+msgstr "Բեռնել ցուցադրական խաղերը"
 
 #: memorizetoolbar.py:41
 msgid "addition"
@@ -147,7 +147,7 @@ msgstr "Խաղի ընդունում"
 
 #: messenger.py:196
 msgid "done"
-msgstr "արված է"
+msgstr "պատրաստ է"
 
 #: speak/voice.py:36
 msgid "Brazil"
@@ -163,11 +163,11 @@ msgstr "Իսլանդերեն"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr "Ռումինական"
+msgstr "Ռումիներեն"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr "Սուախիլի"
+msgstr "Սուահիլի"
 
 #: speak/voice.py:41
 msgid "Hindi"
@@ -175,7 +175,7 @@ msgstr "Հինդի"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr "Գերմաներեն"
+msgstr "Հոլանդերեն"
 
 #: speak/voice.py:43
 msgid "Latin"
@@ -191,7 +191,7 @@ msgstr "Մակեդոներեն"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr "Ուելս"
+msgstr "Ուելսի լեզու"
 
 #: speak/voice.py:47
 msgid "French"
@@ -199,15 +199,16 @@ msgstr "Ֆրանսերեն"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr "Նորվեգական"
+msgstr "Նորվեգերեն"
 
 #: speak/voice.py:49
 msgid "Russian"
 msgstr "Ռուսերեն"
 
+# Հարավաֆրիկյան Հանրապետության լեզուն
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr "Աֆրիկերեն"
+msgstr "Աֆրիկաան"
 
 #: speak/voice.py:51
 msgid "Finnish"
@@ -215,11 +216,12 @@ msgstr "Ֆիններեն"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr "Ելման դիրք"
+msgstr "Նախորոշված"
 
+# Չինարենի բարբառ -տարբերակ
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr "Կանտոնական"
+msgstr "Կանտոներեն"
 
 #: speak/voice.py:54
 msgid "Scottish"
@@ -227,7 +229,7 @@ msgstr "Շոտլանդերեն"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr "Հուներեն"
+msgstr "Հունարեն"
 
 #: speak/voice.py:56
 msgid "Vietnam"
