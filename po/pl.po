@@ -1,124 +1,287 @@
-#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"PO-Revision-Date: 2011-12-12 03:07+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.0.5\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
-msgid "Loading game..."
-msgstr ""
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Zapamiętaj"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
-msgid "Load demo games"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
-msgid "Restart Game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "Receiving game"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
-msgid "done"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
+#: activity.py:70
 msgid "Play"
-msgstr ""
+msgstr "Zagraj"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
+#: activity.py:74
+msgid "Create"
+msgstr "Stwórz"
+
+#: createcardpanel.py:79
 msgid "Add as new pair"
-msgstr ""
+msgstr "Dodaj nową parę"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
+#: createcardpanel.py:82
+msgid "Add"
+msgstr "Dodaj"
+
+#: createcardpanel.py:87
 msgid "Update selected pair"
-msgstr ""
+msgstr "Odśwież wybraną parę"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
+#: createcardpanel.py:90
+msgid "Update"
+msgstr "Odśwież"
+
+#: createcardpanel.py:255
 msgid "Preview:"
-msgstr ""
+msgstr "Podgląd:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
+#: createcardpanel.py:271
 msgid "Text:"
-msgstr ""
+msgstr "Tekst:"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
-msgid "Choose image"
-msgstr ""
+#: createcardpanel.py:283
+msgid "Insert picture"
+msgstr "Wstaw obraz"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
-msgid "Choose audio"
-msgstr ""
+#: createcardpanel.py:288
+msgid "Insert sound"
+msgstr "Wstaw dźwięk"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
+#: createcardpanel.py:434
+msgid "Pronounce text during tile flip"
+msgstr "Wymów tekst podczas przekręcania się klocka"
+
+#: createtoolbar.py:51
 msgid "New game"
-msgstr ""
+msgstr "Nowa gra"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
+#: createtoolbar.py:61 memorizetoolbar.py:73
+msgid "Load game"
+msgstr "Wgraj grę"
+
+#: createtoolbar.py:71
 msgid "Save game"
-msgstr ""
+msgstr "Zapisz grę"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
+#: createtoolbar.py:81
 msgid "Game name"
-msgstr ""
+msgstr "Nazwa gry"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
+#: createtoolbar.py:85
 msgid "Equal pairs"
-msgstr ""
+msgstr "Identyczne pary"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
+#: createtoolbar.py:97 createtoolbar.py:158
 msgid "Click for grouped game"
-msgstr ""
+msgstr "Kliknij aby grać w grupie"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: createtoolbar.py:114 memorizetoolbar.py:118
+msgid "Choose memorize game"
+msgstr "Wybierz grę pamięciową"
+
+#: createtoolbar.py:154
 msgid "Click for ungrouped game"
-msgstr ""
+msgstr "Kliknij aby zagrać bez grupy"
+
+#: game.py:92
+msgid "Loading game..."
+msgstr "Ładowanie gry..."
+
+#: memorizetoolbar.py:40
+msgid "Load demo games"
+msgstr "Załaduj gry w wersji demo"
+
+#: memorizetoolbar.py:41
+msgid "addition"
+msgstr "dodawanie"
+
+#: memorizetoolbar.py:42
+msgid "letters"
+msgstr "litery"
+
+#: memorizetoolbar.py:43
+msgid "sounds"
+msgstr "dźwięki"
+
+#: memorizetoolbar.py:63
+msgid "Restart Game"
+msgstr "Restartuj Grę"
+
+#: messenger.py:195
+msgid "Receiving game"
+msgstr "Odbieram grę"
+
+#: messenger.py:196
+msgid "done"
+msgstr "gotowe"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Brazylijski"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Szwedzki"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Islandzki"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Rumuński"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Suahili"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindi"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Holenderski"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Łacina"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Węgierski"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macedoński"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Walijski"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Francuski"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "norweski Nynorsk"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Rosyjski"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrykanerski"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Fiński"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Domyślny"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Kantoński"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Szkocki"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Grecki"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Wietnamski"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Angielski"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Włoski"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugalski"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Niemiecki"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Szept"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Chorwacki"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Czeski"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Słowacki"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Hiszpański"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Polski"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
