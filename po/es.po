@@ -155,15 +155,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2010-02-24 21:31+0200\n"
-"Last-Translator: <aliosh2006@gmail.com>\n"
+"PO-Revision-Date: 2011-10-30 02:05+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
@@ -409,6 +409,45 @@ msgstr "Polaco"
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "Esperanto"
+
+#~ msgid "Play game"
+#~ msgstr "Jugar"
+
+#~ msgid "Edit game"
+#~ msgstr "Editar juego"
+
+#~ msgid "Set equal pairs"
+#~ msgstr "Seleccionar pares iguales"
+
+#~ msgid "Set grouped game"
+#~ msgstr "Seleccionar juego por grupos"
+
+#~ msgid "Clear current game"
+#~ msgstr "Limpiar el juego"
+
+#~ msgid "Clear all the tiles from the game?"
+#~ msgstr "¿Limpiar todas las piezas del juego?"
+
+#~ msgid "Clear"
+#~ msgstr "Limpiar"
+
+#~ msgid "Do not clear"
+#~ msgstr "No Limpiar"
+
+#~ msgid "Set non equal pairs"
+#~ msgstr "Seleccionar pares distintos"
+
+#~ msgid "Set ungrouped game"
+#~ msgstr "Seleccionar juego sin grupos"
+
+#~ msgid "Discard your modified game?"
+#~ msgstr "¿Descartar tu juego modificado?"
+
+#~ msgid "Discard"
+#~ msgstr "Descartar"
+
+#~ msgid "Do not discard"
+#~ msgstr "No descartar"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "Pronuncia el texto mientras das la vuelta a la carta"
