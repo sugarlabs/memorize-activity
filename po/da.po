@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2011-10-29 03:51+0200\n"
+"POT-Creation-Date: 2011-12-02 00:33-0500\n"
+"PO-Revision-Date: 2012-01-21 03:07+0200\n"
 "Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -21,111 +21,123 @@ msgstr ""
 msgid "Memorize"
 msgstr "Memorér"
 
-#: activity.py:70
-msgid "Play"
-msgstr "Spil"
+#: activity.py:84 activity.py:209
+msgid "Edit game"
+msgstr "Redigér spil"
 
-#: activity.py:74
-msgid "Create"
-msgstr "Opret"
+#: activity.py:205
+msgid "Play game"
+msgstr "Spil spillet"
 
-#: createcardpanel.py:79
+#: createcardpanel.py:77
 msgid "Add as new pair"
 msgstr "Tilføj som nyt par"
 
-#: createcardpanel.py:82
+#: createcardpanel.py:80
 msgid "Add"
 msgstr "Tilføj"
 
-#: createcardpanel.py:87
+#: createcardpanel.py:85
 msgid "Update selected pair"
 msgstr "Opdatér markerede par"
 
-#: createcardpanel.py:90
+#: createcardpanel.py:88
 msgid "Update"
 msgstr "Opdatér"
 
-#: createcardpanel.py:255
+#: createcardpanel.py:261
 msgid "Preview:"
 msgstr "Forhåndsvis:"
 
-#: createcardpanel.py:271
+#: createcardpanel.py:277
 msgid "Text:"
 msgstr "Tekst:"
 
-#: createcardpanel.py:283
+#: createcardpanel.py:289
 msgid "Insert picture"
 msgstr "Indsæt billede"
 
-#: createcardpanel.py:288
+#: createcardpanel.py:294
 msgid "Insert sound"
 msgstr "Indsæt lyd"
 
-#: createcardpanel.py:434
+#: createcardpanel.py:432
 msgid "Pronounce text during tile flip"
 msgstr "Udtal tekst mens brik vendes"
 
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "Nyt spil"
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr "Match forskellige felter"
 
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Indlæs spil"
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr "Spil med blandede felter"
 
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "Gem spil"
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr "Ryd alle felter"
 
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Navn på spil"
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr "Ryd alle felterne fra spillet?"
 
-#: createtoolbar.py:85
-msgid "Equal pairs"
-msgstr "Ens par"
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr "Ryd"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Klik for grupperet spil"
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr "Undlad at rydde"
 
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Vælg memorér-spil"
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr "Match identiske felter"
 
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Klik for ikke-grupperet spil"
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr "Spil med grupperede felter"
 
-#: game.py:92
+#: game.py:94
 msgid "Loading game..."
 msgstr "Indlæser spil..."
 
-#: memorizetoolbar.py:40
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Addition"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Bogstaver"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Lyde"
+
+#: memorizetoolbar.py:60
 msgid "Load demo games"
 msgstr "Indlæs demo-spil"
 
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "addition"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "bogstaver"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "lyde"
-
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Genstart spil"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr "Forkast dit tilpassede spil?"
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr "Forkast"
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr "Forkast ikke"
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Modtagende spil"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "færdig"
 
@@ -261,11 +273,35 @@ msgstr "Polsk"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play game"
-#~ msgstr "Spil spillet"
+#~ msgid "Play"
+#~ msgstr "Spil"
 
-#~ msgid "Edit game"
-#~ msgstr "Redigér spil"
+#~ msgid "Create"
+#~ msgstr "Opret"
+
+#~ msgid "New game"
+#~ msgstr "Nyt spil"
+
+#~ msgid "Load game"
+#~ msgstr "Indlæs spil"
+
+#~ msgid "Save game"
+#~ msgstr "Gem spil"
+
+#~ msgid "Game name"
+#~ msgstr "Navn på spil"
+
+#~ msgid "Equal pairs"
+#~ msgstr "Ens par"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Klik for grupperet spil"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Vælg memorér-spil"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Klik for ikke-grupperet spil"
 
 #~ msgid "Set equal pairs"
 #~ msgstr "Angiv ens par"
@@ -276,26 +312,8 @@ msgstr "Esperanto"
 #~ msgid "Clear current game"
 #~ msgstr "Ryd aktuelle spil"
 
-#~ msgid "Clear all the tiles from the game?"
-#~ msgstr "Ryd alle felterne fra spillet?"
-
-#~ msgid "Clear"
-#~ msgstr "Ryd"
-
-#~ msgid "Do not clear"
-#~ msgstr "Undlad at rydde"
-
 #~ msgid "Set non equal pairs"
 #~ msgstr "Angiv par som ikke er ens"
 
 #~ msgid "Set ungrouped game"
 #~ msgstr "Angiv spil som ikke er grupperet"
-
-#~ msgid "Discard your modified game?"
-#~ msgstr "Forkast dit tilpassede spil?"
-
-#~ msgid "Discard"
-#~ msgstr "Forkast"
-
-#~ msgid "Do not discard"
-#~ msgstr "Forkast ikke"
