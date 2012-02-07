@@ -61,6 +61,13 @@ PATH = '/org/laptop/Memorize'
 _MODE_PLAY = 1
 _MODE_CREATE = 2
 
+# These strings are added only to enable the translators
+# to translate the words needed in the stable version
+# We can remove them when the version with the new UI is available
+# to all the users.
+
+changed_strings = [_('Play'), _('Create'), _('Game name:'), _('Equal pairs'),
+        _('addition'), _('letters'), _('sounds')]
 
 class MemorizeActivity(Activity):
 
