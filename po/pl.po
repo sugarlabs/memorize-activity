@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2011-12-12 03:07+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"POT-Creation-Date: 2011-12-02 00:33-0500\n"
+"PO-Revision-Date: 2012-01-26 12:21+0200\n"
+"Last-Translator: lkjlkj <agniechka@o2.pl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -46,111 +46,133 @@ msgstr ""
 msgid "Memorize"
 msgstr "Zapamiętaj"
 
-#: activity.py:70
-msgid "Play"
-msgstr "Zagraj"
+#: activity.py:84 activity.py:209
+msgid "Edit game"
+msgstr "Edytuj grę"
 
-#: activity.py:74
-msgid "Create"
-msgstr "Stwórz"
+#: activity.py:205
+msgid "Play game"
+msgstr "Graj"
 
-#: createcardpanel.py:79
+#: createcardpanel.py:77
 msgid "Add as new pair"
 msgstr "Dodaj nową parę"
 
-#: createcardpanel.py:82
+#: createcardpanel.py:80
 msgid "Add"
 msgstr "Dodaj"
 
-#: createcardpanel.py:87
+#: createcardpanel.py:85
 msgid "Update selected pair"
 msgstr "Odśwież wybraną parę"
 
-#: createcardpanel.py:90
+#: createcardpanel.py:88
 msgid "Update"
 msgstr "Odśwież"
 
-#: createcardpanel.py:255
+#: createcardpanel.py:261
 msgid "Preview:"
 msgstr "Podgląd:"
 
-#: createcardpanel.py:271
+#: createcardpanel.py:277
 msgid "Text:"
 msgstr "Tekst:"
 
-#: createcardpanel.py:283
+#: createcardpanel.py:289
 msgid "Insert picture"
 msgstr "Wstaw obraz"
 
-#: createcardpanel.py:288
+#: createcardpanel.py:294
 msgid "Insert sound"
 msgstr "Wstaw dźwięk"
 
-#: createcardpanel.py:434
+#: createcardpanel.py:432
 msgid "Pronounce text during tile flip"
 msgstr "Wymów tekst podczas przekręcania się klocka"
 
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "Nowa gra"
+#: createtoolbar.py:46 createtoolbar.py:106
+#, fuzzy
+msgid "Match different tiles"
+msgstr "Dopasuj różne płytki"
 
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Wgraj grę"
+#: createtoolbar.py:51 createtoolbar.py:119
+#, fuzzy
+msgid "Mixed tiles game"
+msgstr "Gra w wymieszane płytki"
 
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "Zapisz grę"
+#: createtoolbar.py:56
+#, fuzzy
+msgid "Clear all tiles"
+msgstr "Wyczyść wszystkie płytki"
 
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Nazwa gry"
+#: createtoolbar.py:76
+#, fuzzy
+msgid "Clear all the tiles from the game?"
+msgstr "Wyczyścić wszystkie płytki z gry?"
 
-#: createtoolbar.py:85
-msgid "Equal pairs"
-msgstr "Identyczne pary"
+#: createtoolbar.py:78
+#, fuzzy
+msgid "Clear"
+msgstr "Wyczyść"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Kliknij aby grać w grupie"
+#: createtoolbar.py:80
+#, fuzzy
+msgid "Do not clear"
+msgstr "Nie czyść"
 
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Wybierz grę pamięciową"
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr "Dopasuj identyczne płytki"
 
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Kliknij aby zagrać bez grupy"
+#: createtoolbar.py:115
+#, fuzzy
+msgid "Grouped tiles game"
+msgstr "Gra w pogrupowane płytki"
 
-#: game.py:92
+#: game.py:94
 msgid "Loading game..."
 msgstr "Ładowanie gry..."
 
-#: memorizetoolbar.py:40
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Dodawanie"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Litery"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Dźwięki"
+
+#: memorizetoolbar.py:60
 msgid "Load demo games"
 msgstr "Załaduj gry w wersji demo"
 
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "dodawanie"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "litery"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "dźwięki"
-
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Restartuj Grę"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+#, fuzzy
+msgid "Discard your modified game?"
+msgstr "Odrzucić zmodyfikowaną grę?"
+
+#: memorizetoolbar.py:107
+#, fuzzy
+msgid "Discard"
+msgstr "Odrzuć"
+
+#: memorizetoolbar.py:109
+#, fuzzy
+msgid "Do not discard"
+msgstr "Nie odrzucaj"
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Odbieram grę"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "gotowe"
 
@@ -285,3 +307,33 @@ msgstr "Polski"
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "Esperanto"
+
+#~ msgid "Play"
+#~ msgstr "Zagraj"
+
+#~ msgid "Create"
+#~ msgstr "Stwórz"
+
+#~ msgid "New game"
+#~ msgstr "Nowa gra"
+
+#~ msgid "Load game"
+#~ msgstr "Wgraj grę"
+
+#~ msgid "Save game"
+#~ msgstr "Zapisz grę"
+
+#~ msgid "Game name"
+#~ msgstr "Nazwa gry"
+
+#~ msgid "Equal pairs"
+#~ msgstr "Identyczne pary"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Kliknij aby grać w grupie"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Wybierz grę pamięciową"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Kliknij aby zagrać bez grupy"

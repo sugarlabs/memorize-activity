@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2011-10-30 01:34+0200\n"
+"POT-Creation-Date: 2011-12-02 00:33-0500\n"
+"PO-Revision-Date: 2012-01-23 20:51+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_US\n"
@@ -45,111 +45,123 @@ msgstr ""
 msgid "Memorize"
 msgstr "Memorize"
 
-#: activity.py:70
-msgid "Play"
-msgstr "Play"
+#: activity.py:84 activity.py:209
+msgid "Edit game"
+msgstr "Edit game"
 
-#: activity.py:74
-msgid "Create"
-msgstr "Create"
+#: activity.py:205
+msgid "Play game"
+msgstr "Play game"
 
-#: createcardpanel.py:79
+#: createcardpanel.py:77
 msgid "Add as new pair"
 msgstr "Add as new pair"
 
-#: createcardpanel.py:82
+#: createcardpanel.py:80
 msgid "Add"
 msgstr "Add"
 
-#: createcardpanel.py:87
+#: createcardpanel.py:85
 msgid "Update selected pair"
 msgstr "Update selected pair"
 
-#: createcardpanel.py:90
+#: createcardpanel.py:88
 msgid "Update"
 msgstr "Update"
 
-#: createcardpanel.py:255
+#: createcardpanel.py:261
 msgid "Preview:"
 msgstr "Preview:"
 
-#: createcardpanel.py:271
+#: createcardpanel.py:277
 msgid "Text:"
 msgstr "Text:"
 
-#: createcardpanel.py:283
+#: createcardpanel.py:289
 msgid "Insert picture"
 msgstr "Insert picture"
 
-#: createcardpanel.py:288
+#: createcardpanel.py:294
 msgid "Insert sound"
 msgstr "Insert sound"
 
-#: createcardpanel.py:434
+#: createcardpanel.py:432
 msgid "Pronounce text during tile flip"
 msgstr "Pronounce text during tile flip"
 
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "New game"
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr "Match different tiles"
 
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Load game"
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr "Mixed tiles game"
 
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "Save game"
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr "Clear all tiles"
 
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Game name"
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr "Clear all the tiles from the game?"
 
-#: createtoolbar.py:85
-msgid "Equal pairs"
-msgstr "Equal pairs"
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr "Clear"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Click for grouped game"
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr "Do not clear"
 
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Choose memorize game"
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr "Match identical tiles"
 
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Click for ungrouped game"
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr "Grouped tiles game"
 
-#: game.py:92
+#: game.py:94
 msgid "Loading game..."
 msgstr "Loading game..."
 
-#: memorizetoolbar.py:40
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Addition"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Letters"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Sounds"
+
+#: memorizetoolbar.py:60
 msgid "Load demo games"
 msgstr "Load demo games"
 
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "addition"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "letters"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "sounds"
-
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Restart Game"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr "Discard your modified game?"
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr "Discard"
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr "Do not discard"
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Receiving game"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "done"
 
@@ -285,11 +297,35 @@ msgstr "Polish"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play game"
-#~ msgstr "Play game"
+#~ msgid "Play"
+#~ msgstr "Play"
 
-#~ msgid "Edit game"
-#~ msgstr "Edit game"
+#~ msgid "Create"
+#~ msgstr "Create"
+
+#~ msgid "New game"
+#~ msgstr "New game"
+
+#~ msgid "Load game"
+#~ msgstr "Load game"
+
+#~ msgid "Save game"
+#~ msgstr "Save game"
+
+#~ msgid "Game name"
+#~ msgstr "Game name"
+
+#~ msgid "Equal pairs"
+#~ msgstr "Equal pairs"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Click for grouped game"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Choose memorize game"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Click for ungrouped game"
 
 #~ msgid "Set equal pairs"
 #~ msgstr "Set equal pairs"
@@ -300,26 +336,8 @@ msgstr "Esperanto"
 #~ msgid "Clear current game"
 #~ msgstr "Clear current game"
 
-#~ msgid "Clear all the tiles from the game?"
-#~ msgstr "Clear all the tiles from the game?"
-
-#~ msgid "Clear"
-#~ msgstr "Clear"
-
-#~ msgid "Do not clear"
-#~ msgstr "Do not clear"
-
 #~ msgid "Set non equal pairs"
 #~ msgstr "Set non equal pairs"
 
 #~ msgid "Set ungrouped game"
 #~ msgstr "Set ungrouped game"
-
-#~ msgid "Discard your modified game?"
-#~ msgstr "Discard your modified game?"
-
-#~ msgid "Discard"
-#~ msgstr "Discard"
-
-#~ msgid "Do not discard"
-#~ msgstr "Do not discard"
