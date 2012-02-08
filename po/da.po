@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 00:33-0500\n"
-"PO-Revision-Date: 2012-01-21 03:07+0200\n"
+"POT-Creation-Date: 2012-02-08 00:32-0500\n"
+"PO-Revision-Date: 2012-02-08 23:21+0200\n"
 "Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -21,47 +21,75 @@ msgstr ""
 msgid "Memorize"
 msgstr "Memorér"
 
-#: activity.py:84 activity.py:209
+#: activity.py:69
+msgid "Play"
+msgstr "Spil"
+
+#: activity.py:69
+msgid "Create"
+msgstr "Opret"
+
+#: activity.py:69
+msgid "Game name:"
+msgstr "Navn på spil:"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Ens par"
+
+#: activity.py:70
+msgid "addition"
+msgstr "addition"
+
+#: activity.py:70
+msgid "letters"
+msgstr "bogstaver"
+
+#: activity.py:70
+msgid "sounds"
+msgstr "lyde"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr "Redigér spil"
 
-#: activity.py:205
+#: activity.py:212
 msgid "Play game"
 msgstr "Spil spillet"
 
-#: createcardpanel.py:77
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "Tilføj som nyt par"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "Tilføj"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "Opdatér markerede par"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "Opdatér"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "Forhåndsvis:"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "Tekst:"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "Indsæt billede"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "Indsæt lyd"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr "Udtal tekst mens brik vendes"
 
@@ -273,12 +301,6 @@ msgstr "Polsk"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play"
-#~ msgstr "Spil"
-
-#~ msgid "Create"
-#~ msgstr "Opret"
-
 #~ msgid "New game"
 #~ msgstr "Nyt spil"
 
@@ -287,12 +309,6 @@ msgstr "Esperanto"
 
 #~ msgid "Save game"
 #~ msgstr "Gem spil"
-
-#~ msgid "Game name"
-#~ msgstr "Navn på spil"
-
-#~ msgid "Equal pairs"
-#~ msgstr "Ens par"
 
 #~ msgid "Click for grouped game"
 #~ msgstr "Klik for grupperet spil"
