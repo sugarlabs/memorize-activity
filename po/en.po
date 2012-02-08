@@ -38,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 00:33-0500\n"
-"PO-Revision-Date: 2012-01-23 20:54+0200\n"
+"POT-Creation-Date: 2012-02-08 00:32-0500\n"
+"PO-Revision-Date: 2012-02-08 09:41+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -53,47 +53,75 @@ msgstr ""
 msgid "Memorize"
 msgstr "Memorize"
 
-#: activity.py:84 activity.py:209
+#: activity.py:69
+msgid "Play"
+msgstr "Play"
+
+#: activity.py:69
+msgid "Create"
+msgstr "Create"
+
+#: activity.py:69
+msgid "Game name:"
+msgstr "Game name:"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Equal pairs"
+
+#: activity.py:70
+msgid "addition"
+msgstr "addition"
+
+#: activity.py:70
+msgid "letters"
+msgstr "letters"
+
+#: activity.py:70
+msgid "sounds"
+msgstr "sounds"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr "Edit game"
 
-#: activity.py:205
+#: activity.py:212
 msgid "Play game"
 msgstr "Play game"
 
-#: createcardpanel.py:77
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "Add as new pair"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "Add"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "Update selected pair"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "Update"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "Preview:"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "Text:"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "Insert picture"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "Insert sound"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr "Pronounce text during tile flip"
 
@@ -305,12 +333,6 @@ msgstr "Polish"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play"
-#~ msgstr "Play"
-
-#~ msgid "Create"
-#~ msgstr "Create"
-
 #~ msgid "New game"
 #~ msgstr "New game"
 
@@ -319,12 +341,6 @@ msgstr "Esperanto"
 
 #~ msgid "Save game"
 #~ msgstr "Save game"
-
-#~ msgid "Game name"
-#~ msgstr "Game name"
-
-#~ msgid "Equal pairs"
-#~ msgstr "Equal pairs"
 
 #~ msgid "Click for grouped game"
 #~ msgstr "Click for grouped game"
