@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 00:33-0500\n"
-"PO-Revision-Date: 2012-01-26 01:17+0200\n"
+"POT-Creation-Date: 2012-02-08 00:32-0500\n"
+"PO-Revision-Date: 2012-02-08 10:07+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
@@ -45,47 +45,75 @@ msgstr ""
 msgid "Memorize"
 msgstr "Memorizar"
 
-#: activity.py:84 activity.py:209
+#: activity.py:69
+msgid "Play"
+msgstr "Jogar"
+
+#: activity.py:69
+msgid "Create"
+msgstr "Criar"
+
+#: activity.py:69
+msgid "Game name:"
+msgstr "Nome do jogo:"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Pares iguais"
+
+#: activity.py:70
+msgid "addition"
+msgstr "adição"
+
+#: activity.py:70
+msgid "letters"
+msgstr "letras"
+
+#: activity.py:70
+msgid "sounds"
+msgstr "sons"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr "Editar jogo"
 
-#: activity.py:205
+#: activity.py:212
 msgid "Play game"
 msgstr "Jogar jogo"
 
-#: createcardpanel.py:77
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "Adicionar como novo par"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "Adicionar"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "Actualizar par selecionado"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "Actualizar"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "Previsualização:"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "Texto:"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "Inserir imagem"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "Inserir som"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr "Pronunciar texto ao revirar carta"
 
@@ -297,12 +325,6 @@ msgstr "Polaco"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play"
-#~ msgstr "Jogar"
-
-#~ msgid "Create"
-#~ msgstr "Criar"
-
 #~ msgid "New game"
 #~ msgstr "Novo jogo"
 
@@ -311,12 +333,6 @@ msgstr "Esperanto"
 
 #~ msgid "Save game"
 #~ msgstr "Guardar jogo"
-
-#~ msgid "Game name"
-#~ msgstr "Nome do jogo"
-
-#~ msgid "Equal pairs"
-#~ msgstr "Pares iguais"
 
 #~ msgid "Click for grouped game"
 #~ msgstr "Clica para jogo agrupado"
