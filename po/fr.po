@@ -38,9 +38,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 00:33-0500\n"
-"PO-Revision-Date: 2012-01-22 11:08+0200\n"
-"Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
+"POT-Creation-Date: 2012-02-08 00:32-0500\n"
+"PO-Revision-Date: 2012-02-08 10:14+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -53,47 +53,75 @@ msgstr ""
 msgid "Memorize"
 msgstr "Mémoriser"
 
-#: activity.py:84 activity.py:209
+#: activity.py:69
+msgid "Play"
+msgstr "Jouer"
+
+#: activity.py:69
+msgid "Create"
+msgstr "Créer"
+
+#: activity.py:69
+msgid "Game name:"
+msgstr "Nom de la partie:"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Paires égales"
+
+#: activity.py:70
+msgid "addition"
+msgstr "addition"
+
+#: activity.py:70
+msgid "letters"
+msgstr "lettres"
+
+#: activity.py:70
+msgid "sounds"
+msgstr "sons"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr "Modifier la partie"
 
-#: activity.py:205
+#: activity.py:212
 msgid "Play game"
 msgstr "Jouer une partie"
 
-#: createcardpanel.py:77
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "Ajouter une nouvelle paire"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "Ajouter"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "Mettre à jour la paire sélectionnée"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "Mise à jour"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "Aperçu :"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "Texte :"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "Insérer une image"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "Insérer un son"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr "Prononcer le texte pendant le retournement"
 
@@ -139,7 +167,7 @@ msgstr "Addition"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr "lettres"
+msgstr "Lettres"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
@@ -305,12 +333,6 @@ msgstr "Polonais"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play"
-#~ msgstr "Jouer"
-
-#~ msgid "Create"
-#~ msgstr "Créer"
-
 #~ msgid "New game"
 #~ msgstr "Nouvelle partie"
 
@@ -319,12 +341,6 @@ msgstr "Esperanto"
 
 #~ msgid "Save game"
 #~ msgstr "Sauvegarder la partie"
-
-#~ msgid "Game name"
-#~ msgstr "Nom de la partie"
-
-#~ msgid "Equal pairs"
-#~ msgstr "Paires égales"
 
 #~ msgid "Click for grouped game"
 #~ msgstr "Cliquer pour une partie en groupe"
