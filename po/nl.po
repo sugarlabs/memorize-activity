@@ -22,130 +22,178 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2010-07-01 22:43+0200\n"
-"Last-Translator: whe <heppew@yahoo.com>\n"
+"POT-Creation-Date: 2012-02-08 00:32-0500\n"
+"PO-Revision-Date: 2012-02-08 10:09+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Onthouden"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "Speel"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "Maken"
 
-#: createcardpanel.py:79
-msgid "Add as new pair"
-msgstr "Toevoegen als nieuw paar"
+#: activity.py:69
+msgid "Game name:"
+msgstr "Spelnaam:"
 
-#: createcardpanel.py:82
-msgid "Add"
-msgstr "Toevoegen"
-
-#: createcardpanel.py:87
-msgid "Update selected pair"
-msgstr "Geselecteerd paar vernieuwen"
-
-#: createcardpanel.py:90
-msgid "Update"
-msgstr "Bijwerken"
-
-#: createcardpanel.py:255
-msgid "Preview:"
-msgstr "Bekijken:"
-
-#: createcardpanel.py:271
-msgid "Text:"
-msgstr "Tekst:"
-
-#: createcardpanel.py:283
-msgid "Insert picture"
-msgstr "Afbeelding invoegen"
-
-#: createcardpanel.py:288
-msgid "Insert sound"
-msgstr "Geluid invoegen"
-
-#: createcardpanel.py:434
-msgid "Pronounce text during tile flip"
-msgstr "Spreek de tekst uit gedurende de tegel omslag"
-
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "Nieuw spel"
-
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Laad spel"
-
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "Spel opslaan"
-
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Spelnaam"
-
-#: createtoolbar.py:85
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "Gelijke paren"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Kies groepsspel"
-
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Kies geheugenspel"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Kies niet-groepsspel"
-
-#: game.py:92
-msgid "Loading game..."
-msgstr "Laad spel..."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Laad demo spellen"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
 msgid "addition"
-msgstr "optellen"
+msgstr "optelling"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
 msgid "letters"
 msgstr "letters"
 
-#: memorizetoolbar.py:43
+#: activity.py:70
 msgid "sounds"
 msgstr "geluiden"
 
-#: memorizetoolbar.py:63
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr "Bewerk spel"
+
+#: activity.py:212
+msgid "Play game"
+msgstr "Speel spel"
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Toevoegen als nieuw paar"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Toevoegen"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Geselecteerd paar vernieuwen"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr "Bijwerken"
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "Bekijken:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Tekst:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr "Afbeelding invoegen"
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr "Geluid invoegen"
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr "Spreek de tekst uit gedurende de tegel omslag"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr "Pas verschillende tegels"
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr "Meng tegelspel"
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr "Wis alle tegels"
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr "Wis alle tegels van het spel?"
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr "Wissen"
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr "Niet wissen"
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr "Pas identieke tegels"
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr "Groepeer tegel spel"
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "Laad spel..."
+
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Optelling"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Letters"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Geluiden"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Laad demo spellen"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Herstart spel"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr "Negeer je gewijzigde spel?"
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr "Negeer"
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr "Negeer niet"
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Spel ontvangen"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "klaar"
 
@@ -159,7 +207,7 @@ msgstr "Zweeds"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr "IJslands"
+msgstr "Ijslands"
 
 #: speak/voice.py:39
 msgid "Romanian"
@@ -280,6 +328,24 @@ msgstr "Pools"
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "Esperanto"
+
+#~ msgid "New game"
+#~ msgstr "Nieuw spel"
+
+#~ msgid "Load game"
+#~ msgstr "Laad spel"
+
+#~ msgid "Save game"
+#~ msgstr "Spel opslaan"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Kies groepsspel"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Kies geheugenspel"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Kies niet-groepsspel"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "Tekst uitspreken bij omdraaien van tegel"
