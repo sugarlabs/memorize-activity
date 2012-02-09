@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 00:33-0500\n"
-"PO-Revision-Date: 2012-01-25 16:36+0200\n"
+"POT-Creation-Date: 2012-02-08 00:32-0500\n"
+"PO-Revision-Date: 2012-02-09 14:04+0200\n"
 "Last-Translator: anush.mkrtchyan <anush.mkrtchyan@ca1492.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hy\n"
@@ -41,47 +41,75 @@ msgstr ""
 msgid "Memorize"
 msgstr "Հիշել"
 
-#: activity.py:84 activity.py:209
+#: activity.py:69
+msgid "Play"
+msgstr "Վերարտադրել"
+
+#: activity.py:69
+msgid "Create"
+msgstr "Ստեղծել"
+
+#: activity.py:69
+msgid "Game name:"
+msgstr "Խաղի անունը`"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Հավասար զույգեր"
+
+#: activity.py:70
+msgid "addition"
+msgstr "Ավելացում"
+
+#: activity.py:70
+msgid "letters"
+msgstr "Տառեր"
+
+#: activity.py:70
+msgid "sounds"
+msgstr "Հնչյուններ"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr "Խմբագրել խաղը"
 
-#: activity.py:205
+#: activity.py:212
 msgid "Play game"
 msgstr "Խաղալ խաղը"
 
-#: createcardpanel.py:77
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "Ավելացնել որպես նոր զույգ"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "Ավելացնել"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "Արդիականացնել ընտրած զույգը"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "Արդիականացում"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "Նախատեսք"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "Տեքստ"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "Զետեղել Պատկերը"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "Զետեղել ձայնը"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr "Արտասանել տեքստը` մասնիկը շրջելու ժամանակ"
 
@@ -295,12 +323,6 @@ msgstr "Լեհերեն"
 msgid "Esperanto"
 msgstr "Էսպերանտո"
 
-#~ msgid "Play"
-#~ msgstr "Վերարտադրել"
-
-#~ msgid "Create"
-#~ msgstr "Ստեղծել"
-
 #~ msgid "New game"
 #~ msgstr "Նոր խաղ"
 
@@ -309,12 +331,6 @@ msgstr "Էսպերանտո"
 
 #~ msgid "Save game"
 #~ msgstr "Պահել խաղը"
-
-#~ msgid "Game name"
-#~ msgstr "Խաղի անունը"
-
-#~ msgid "Equal pairs"
-#~ msgstr "Հավասար զույգեր"
 
 #~ msgid "Click for grouped game"
 #~ msgstr "Քլիք` խմբային խաղի համար"
