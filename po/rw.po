@@ -1,116 +1,357 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-07-31 12:21+0200\n"
-"Last-Translator: GASHAYIJA Guillaume <gashayija2002@yahoo.com>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2012-02-23 02:27+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: rw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1) ;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Fata mumutwe"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "Kina"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "Rema"
 
-#: createcardpanel.py:52
-msgid "Add as new pair"
-msgstr "Ongeraho nk`umuguru mushya"
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
+msgstr "Izina ry`u mukino:"
 
-#: createcardpanel.py:60
-msgid "Update selected pair"
-msgstr "Ha  agaciro umugurui watoranyijwe"
-
-#: createcardpanel.py:180
-msgid "Preview:"
-msgstr "Ibibanziriza"
-
-#: createcardpanel.py:182
-msgid "Text:"
-msgstr "Umwandiko"
-
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "Toranya vishusho"
-
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "Toranya  isohiora majwi"
-
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "Umukino mushya"
-
-#: createtoolbar.py:63
-#: memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Load umukino"
-
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr "Bika umukino"
-
-#: createtoolbar.py:83
-msgid "Game name"
-msgstr "Izina ry`u mukino"
-
-#: createtoolbar.py:87
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "Iiminguru ingana"
 
-#: createtoolbar.py:99
-#: createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Kanda kw`itsinda ry`umukino"
-
-#: createtoolbar.py:116
-#: memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "Toranya gufata umukino mu mutwe"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Kanda umukino utari mw`itsinda"
-
-#: game.py:105
-msgid "Loading game..."
-msgstr "Loading umukino.."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Load demo imikino"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
+#, fuzzy
 msgid "addition"
 msgstr "Igiteranyo"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
+#, fuzzy
 msgid "letters"
 msgstr "Amabaruwa"
 
-#: memorizetoolbar.py:43
+#: activity.py:70
+#, fuzzy
 msgid "sounds"
 msgstr "Amajwi"
 
-#: memorizetoolbar.py:63
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Ongeraho nk`umuguru mushya"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Ongeraho"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Ha agaciro umugurui watoranyijwe"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr ""
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "Ibibanziriza:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Umwandiko:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr ""
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr ""
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "Loading umukino..."
+
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "Igiteranyo"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "Amabaruwa"
+
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "Amajwi"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Load demo imikino"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Kongera gutangira umukino"
 
-#: messenger.py:183
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Umukino urimo kwakirwa"
 
-#: messenger.py:183
+#: messenger.py:193
 msgid "done"
 msgstr "Icyakozwe"
 
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr ""
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Ikinyasuwede"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Ikinyisilande"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Ikinyarumaniya"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Igiswayili"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Igihindi"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Ikinyaholande"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Ikilatini"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Ikinyahangariya"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Ikinyamacedoniya"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Ikiwelishi"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Igifaransa"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Ikinyanoruveji nayinorusiki"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ikirusiya"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Ikinyafurikansi"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Ikinyafinilande"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr ""
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr ""
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr ""
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Ikigereki"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Ikinyaviyetinamu"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Icyongereza"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr ""
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Igitaliyani"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Igiporutigali"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Ikidage"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr ""
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Ikinyakorowasi"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Ikinyaceke"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Igisilovake"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Igisipanyole"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Ikinyapolonye"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Icyesiperanto"
+
+#~ msgid "New game"
+#~ msgstr "Umukino mushya"
+
+#~ msgid "Load game"
+#~ msgstr "Load umukino"
+
+#~ msgid "Save game"
+#~ msgstr "Bika umukino"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Kanda kw`itsinda ry`umukino"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Toranya gufata umukino mu mutwe"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Kanda umukino utari mw`itsinda"
+
+#~ msgid "Choose image"
+#~ msgstr "Toranya vishusho"
+
+#~ msgid "Choose audio"
+#~ msgstr "Toranya  isohiora majwi"
