@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-08 00:32-0500\n"
-"PO-Revision-Date: 2012-02-08 10:07+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2012-04-02 23:52+0200\n"
+"Last-Translator: Eduardo H. <hoboprimate@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -91,15 +91,15 @@ msgstr "Adicionar"
 
 #: createcardpanel.py:86
 msgid "Update selected pair"
-msgstr "Actualizar par selecionado"
+msgstr "Atualizar par selecionado"
 
 #: createcardpanel.py:89
 msgid "Update"
-msgstr "Actualizar"
+msgstr "Atualizar"
 
 #: createcardpanel.py:262
 msgid "Preview:"
-msgstr "Previsualização:"
+msgstr "Pré-visualização:"
 
 #: createcardpanel.py:278
 msgid "Text:"
@@ -115,7 +115,7 @@ msgstr "Inserir som"
 
 #: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
-msgstr "Pronunciar texto ao revirar carta"
+msgstr "Pronunciar texto ao virar carta"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
@@ -187,11 +187,11 @@ msgstr "Não descartar"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr "Recebendo jogo"
+msgstr "A receber jogo"
 
 #: messenger.py:193
 msgid "done"
-msgstr "pronto"
+msgstr "finalizado"
 
 #: speak/voice.py:36
 msgid "Brazil"
