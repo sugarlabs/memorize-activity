@@ -116,6 +116,8 @@ class MemorizeActivity(Activity):
                 self.cardlist.add_pair)
         self.createcardpanel.connect('update-pair',
                 self.cardlist.update_selected)
+        self.createcardpanel.connect('change-font',
+                self.cardlist.change_font)
         self._createToolbarBuilder.connect('create_new_game',
                 self.cardlist.clean_list)
         self._createToolbarBuilder.connect('create_new_game',
@@ -155,6 +157,8 @@ class MemorizeActivity(Activity):
                 self._memorizeToolbarBuilder.update_toolbar)
         self.game.connect('change_game',
                 self._memorizeToolbarBuilder.update_toolbar)
+        self.game.connect('change_game',
+                self.createcardpanel.update_font_combos)
 
         self._memorizeToolbarBuilder.connect('game_changed',
                 self.change_game)

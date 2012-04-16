@@ -71,6 +71,8 @@ class CardList(gtk.EventBox):
         self.get_window().freeze_updates()
         self.model = game.model
         self.current_game_key = self.model.data['game_file']
+        font_name1 = self.model.data['font_name1']
+        font_name2 = self.model.data['font_name2']
         game_pairs = self.model.pairs
         game_data = self.model.data
         self.clean_list(load=True)
@@ -104,7 +106,7 @@ class CardList(gtk.EventBox):
             self.add_pair(None, game_pairs[key].props.achar,
                     game_pairs[key].props.bchar, aimg, bimg, asnd, bsnd,
                     game_pairs[key].props.aspeak, game_pairs[key].props.bspeak,
-                    False, load=True)
+                    font_name1, font_name2, False, load=True)
         self.get_window().thaw_updates()
         self.emit('update-create-toolbar', self.model.data['name'],
                   self.model.data['equal_pairs'],
@@ -184,8 +186,9 @@ class CardList(gtk.EventBox):
             self.model.mark_modified()
 
     def add_pair(self, widget, achar, bchar, aimg, bimg, asnd, bsnd,
-            aspeak, bspeak, show=True, load=False):
-        pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak)
+            aspeak, bspeak, font_name1, font_name2, show=True, load=False):
+        pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak,
+                font_name1, font_name2)
         self.vbox.pack_end(pair, False, True)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
@@ -195,6 +198,15 @@ class CardList(gtk.EventBox):
             self.pair_list_modified = True
         if show:
             self.show_all()
+
+    def change_font(self, widget, group, font_name):
+        for pair in self.pairs:
+            pair.change_font(group, font_name)
+        if group == 1:
+            self.model.data['font_name1'] = font_name
+        if group == 2:
+            self.model.data['font_name2'] = font_name
+        self.model.mark_modified()
 
     def rem_pair(self, widget, event):
         self.vbox.remove(widget)
@@ -238,7 +250,8 @@ class CardPair(gtk.EventBox):
     }
 
     def __init__(self, text1, text2=None, aimg=None, bimg=None,
-            asnd=None, bsnd=None, aspeak=None, bspeak=None):
+            asnd=None, bsnd=None, aspeak=None, bspeak=None,
+            font_name1=None, font_name2=None):
         gtk.EventBox.__init__(self)
         self.bg_color = '#000000'
 
@@ -258,7 +271,7 @@ class CardPair(gtk.EventBox):
                   'front': {'fill_color': '#4c4d4f',
                             'stroke_color': '#ffffff',
                             'opacity': '1'}},
-                  None, theme.PAIR_SIZE, 1, self.bg_color)
+                  None, theme.PAIR_SIZE, 1, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_pixbuf(aimg)
         align = gtk.Alignment(.5, .5, 0, 0)
@@ -272,7 +285,7 @@ class CardPair(gtk.EventBox):
                   'front': {'fill_color': '#4c4d4f',
                             'stroke_color': '#ffffff',
                             'opacity': '1'}},
-                  None, theme.PAIR_SIZE, 1, self.bg_color)
+                  None, theme.PAIR_SIZE, 1, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_pixbuf(bimg)
         align = gtk.Alignment(.5, .5, 0, 0)
@@ -325,6 +338,12 @@ class CardPair(gtk.EventBox):
     def change_sound(self, asnd, bsnd):
         self.asnd = asnd
         self.bsnd = bsnd
+
+    def change_font(self, card, font_name):
+        if card == 1:
+            self.bcard1.change_font(font_name)
+        else:
+            self.bcard2.change_font(font_name)
 
     def get_text(self, card):
         if card == 1:

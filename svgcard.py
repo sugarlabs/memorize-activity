@@ -29,6 +29,7 @@ from sugar.util import LRU
 import theme
 import face
 import speak.voice
+import model
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -57,7 +58,7 @@ class SvgCard(gtk.EventBox):
     cache = {}
 
     def __init__(self, identifier, pprops, jpeg, size,
-                 align, bg_color='#000000'):
+                 align, bg_color='#000000', font_name=model.DEFAULT_FONT):
         gtk.EventBox.__init__(self)
 
         self.bg_color = bg_color
@@ -70,6 +71,7 @@ class SvgCard(gtk.EventBox):
         self.size = size
         self.align = align
         self.text_layouts = [None, None]
+        self.font_name = font_name
 
         self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
         self.set_size_request(size, size)
@@ -300,7 +302,7 @@ class SvgCard(gtk.EventBox):
             layout = self.create_pango_layout(text)
             layout.set_width(PIXELS_PANGO(card_size))
             layout.set_wrap(pango.WRAP_WORD)
-            desc = pango.FontDescription('Deja Vu Sans bold ' + str(size))
+            desc = pango.FontDescription(self.font_name + " " + str(size))
             layout.set_font_description(desc)
 
             if layout.get_line_count() <= max_lines_count and \
@@ -316,6 +318,17 @@ class SvgCard(gtk.EventBox):
         _text_layout_cache[key] = layout
 
         return layout
+
+    def change_font(self, font_name):
+        # remove from local cache
+        self.text_layouts[self.flipped] = False
+        text = self.props['front_text']['card_text']
+        key = (self.size, text)
+        if key in _text_layout_cache:
+            del _text_layout_cache[key]
+
+        self.font_name = font_name
+        self.queue_draw()
 
     def set_background(self, color):
         self.bg_color = color

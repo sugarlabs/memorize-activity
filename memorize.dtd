@@ -10,7 +10,9 @@
   face1       CDATA   #IMPLIED
   face2       CDATA   #IMPLIED
   align       CDATA   #IMPLIED
-  equal_pairs CDATA   #IMPLIED    
+  equal_pairs CDATA   #IMPLIED
+  font_name1  CDATA   #IMPLIED
+  font_name2  CDATA   #IMPLIED
 >
 
 <!ELEMENT pair (#PCDATA)* >

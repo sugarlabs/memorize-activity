@@ -28,6 +28,8 @@ from sugar.activity.activity import get_bundle_path, get_activity_root
 
 _logger = logging.getLogger('model')
 
+DEFAULT_FONT = 'Sans'
+
 
 class Pair(gobject.GObject):
     __gproperties__ = {
@@ -118,6 +120,8 @@ class Model(object):
         self.data['align'] = '1'
         self.data['divided'] = '0'
         self.data['equal_pairs'] = '0'
+        self.data['font_name1'] = DEFAULT_FONT
+        self.data['font_name2'] = DEFAULT_FONT
 
         try:
             self.dtd = libxml2.parseDTD(None, join(get_bundle_path(),
@@ -218,6 +222,10 @@ class Model(object):
                                 self.data['align'] = attribute.content
                             elif(attribute.name == 'equal_pairs'):
                                 self.data['equal_pairs'] = attribute.content
+                            elif(attribute.name == 'font_name1'):
+                                self.data['font_name1'] = attribute.content
+                            elif(attribute.name == 'font_name2'):
+                                self.data['font_name2'] = attribute.content
                 xpa.xpathFreeContext()
             else:
                 _logger.error('Read: Error in validation of the file')
@@ -246,7 +254,10 @@ class Model(object):
 
         if(self.data.get('equal_pairs', None) != None):
             root.setProp('equal_pairs', self.data['equal_pairs'])
-
+        if(self.data.get('font_name1', None) != None):
+            root.setProp('font_name1', self.data['font_name1'])
+        if(self.data.get('font_name2', None) != None):
+            root.setProp('font_name2', self.data['font_name2'])
         if(self.data.get('scoresnd', None) != None):
             root.setProp("scoresnd", self.data['scoresnd'])
         if(self.data.get('winsnd', None) != None):

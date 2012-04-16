@@ -31,6 +31,7 @@ from sugar.graphics.icon import Icon
 from sugar.graphics.palette import Palette
 from sugar.graphics.toggletoolbutton import ToggleToolButton
 from sugar.graphics.toolcombobox import ToolComboBox
+from fontcombobox import FontComboBox
 from port import chooser
 
 import theme
@@ -38,14 +39,16 @@ import speak.espeak
 import speak.widgets
 import speak.face
 from port.roundbox import RoundBox
+import model
 
 _logger = logging.getLogger('memorize-activity')
 
 
 class CreateCardPanel(gtk.EventBox):
     __gsignals__ = {
-        'add-pair': (SIGNAL_RUN_FIRST, None, 8 * [TYPE_PYOBJECT]),
+        'add-pair': (SIGNAL_RUN_FIRST, None, 10 * [TYPE_PYOBJECT]),
         'update-pair': (SIGNAL_RUN_FIRST, None, 8 * [TYPE_PYOBJECT]),
+        'change-font': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
     }
 
     def __init__(self):
@@ -92,8 +95,8 @@ class CreateCardPanel(gtk.EventBox):
 
         # Set card editors
 
-        self.cardeditor1 = CardEditor()
-        self.cardeditor2 = CardEditor()
+        self.cardeditor1 = CardEditor(1)
+        self.cardeditor2 = CardEditor(2)
         self.clean(None)
         self.cardeditor1.connect('has-text', self.receive_text_signals)
         self.cardeditor2.connect('has-text', self.receive_text_signals)
@@ -101,6 +104,8 @@ class CreateCardPanel(gtk.EventBox):
         self.cardeditor2.connect('has-picture', self.receive_picture_signals)
         self.cardeditor1.connect('has-sound', self.receive_sound_signals)
         self.cardeditor2.connect('has-sound', self.receive_sound_signals)
+        self.cardeditor1.connect('change-font', self.receive_font_signals)
+        self.cardeditor2.connect('change-font', self.receive_font_signals)
 
         # edit panel
 
@@ -115,6 +120,15 @@ class CreateCardPanel(gtk.EventBox):
 
         self.show_all()
 
+    def update_font_combos(self, widget, data, grid):
+        logging.error('update font %s', data)
+        if 'font_name1' in  data:
+            self.cardeditor1.set_font_name(data['font_name1'])
+            self.cardeditor1.card.change_font(data['font_name1'])
+        if 'font_name2' in  data:
+            self.cardeditor2.set_font_name(data['font_name2'])
+            self.cardeditor2.card.change_font(data['font_name2'])
+
     def emit_add_pair(self, widget):
         self._addbutton.set_sensitive(False)
         if self.equal_pairs:
@@ -125,7 +139,9 @@ class CreateCardPanel(gtk.EventBox):
                       self.cardeditor1.get_snd(),
                       self.cardeditor1.get_snd(),
                       self.cardeditor1.get_speak(),
-                      self.cardeditor1.get_speak())
+                      self.cardeditor1.get_speak(),
+                      self.cardeditor1.get_font_name(),
+                      self.cardeditor1.get_font_name())
         else:
             self.emit('add-pair', self.cardeditor1.get_text(),
                       self.cardeditor2.get_text(),
@@ -134,7 +150,9 @@ class CreateCardPanel(gtk.EventBox):
                       self.cardeditor1.get_snd(),
                       self.cardeditor2.get_snd(),
                       self.cardeditor1.get_speak(),
-                      self.cardeditor2.get_speak())
+                      self.cardeditor2.get_speak(),
+                      self.cardeditor1.get_font_name(),
+                      self.cardeditor2.get_font_name())
         self.clean(None)
 
     def emit_update_pair(self, widget):
@@ -215,6 +233,16 @@ class CreateCardPanel(gtk.EventBox):
             self._card2_has_sound = has_sound
         self._update_buttom_status()
 
+    def receive_font_signals(self, widget, font_name):
+        if self.equal_pairs:
+            self.emit('change-font', 1, font_name)
+            self.emit('change-font', 2, font_name)
+        else:
+            if widget == self.cardeditor1:
+                self.emit('change-font', 1, font_name)
+            if widget == self.cardeditor2:
+                self.emit('change-font', 2, font_name)
+
     def _update_buttom_status(self):
         if not self.equal_pairs:
             if (self._card1_has_text or self._card1_has_picture \
@@ -246,13 +274,14 @@ class CardEditor(gtk.EventBox):
         'has-text': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
         'has-picture': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
         'has-sound': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'change-font': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
     }
 
-    def __init__(self):
+    def __init__(self, editor_index):
         gtk.EventBox.__init__(self)
 
         self.snd = None
-
+        self.editor_index = editor_index
         self.temp_folder = None
 
         box = gtk.VBox()
@@ -307,9 +336,26 @@ class CardEditor(gtk.EventBox):
         else:
             self.usespeak = None
 
-        box.pack_start(toolbar, False)
+        self.font_combo = FontComboBox()
+        self.id_font_changed = self.font_combo.connect("changed",
+                self.__font_changed_cb)
+        self.font_combo.set_font_name(model.DEFAULT_FONT)
+
+        box.pack_start(self.font_combo, True, True, 0)
 
         self.add(box)
+
+    def __font_changed_cb(self, widget):
+        font = widget.get_font_name()
+        logging.error('Selected font %s', font)
+        if font:
+            self.card.change_font(font)
+            self.emit('change-font', font)
+
+    def set_font_name(self, font_name):
+        self.font_combo.handler_block(self.id_font_changed)
+        self.font_combo.set_font_name(font_name)
+        self.font_combo.handler_unblock(self.id_font_changed)
 
     def update_text(self, entry):
         self.card.change_text(entry.get_text())
@@ -416,6 +462,9 @@ class CardEditor(gtk.EventBox):
     def get_snd(self):
         return self.snd
 
+    def get_font_name(self):
+        return self.font_combo.get_font_name()
+
     def clean(self):
         self.textentry.set_text('')
         self.card.set_pixbuf(None)
@@ -423,7 +472,7 @@ class CardEditor(gtk.EventBox):
         self.emit('has-text', False)
         self.emit('has-picture', False)
         self.emit('has-sound', False)
-        if self.usespeak is not None:
+        if self.usespeak is not None and self.usespeak.palette is not None:
             self.usespeak.props.active = False
             self.usespeak.palette.face.shut_up()
 

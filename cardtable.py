@@ -88,7 +88,8 @@ class CardTable(gtk.EventBox):
     def load_game(self, widget, data, grid):
         self.data = data
         self.cards_data = grid
-
+        font_name1 = data['font_name1']
+        font_name2 = data['font_name2']
         if self._workspace_size == 0:
             # widow is not allocated, thus postpone loading
             return
@@ -129,12 +130,14 @@ class CardTable(gtk.EventBox):
 
             if card['ab'] == 'a':
                 props['back_text'] = {'card_text': text1}
+                font_name = font_name1
             elif card['ab'] == 'b':
                 props['back_text'] = {'card_text': text2}
+                font_name = font_name2
 
             align = self.data.get('align', '1')
             card = svgcard.SvgCard(identifier, props, jpg,
-                                   self.card_size, align)
+                    self.card_size, align, '#000000', font_name)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.connect('button-press-event',
                     self.flip_card_mouse, identifier)
