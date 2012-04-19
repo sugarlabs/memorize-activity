@@ -154,9 +154,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2011-10-30 02:05+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2012-02-12 02:50+0200\n"
+"Last-Translator: AlanJAS <alanjas@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -169,112 +169,152 @@ msgstr ""
 msgid "Memorize"
 msgstr "Memorizar"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "Jugar"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "Crear"
 
-#: createcardpanel.py:79
-msgid "Add as new pair"
-msgstr "Añadir un nuevo par"
+#: activity.py:69
+msgid "Game name:"
+msgstr "Nombre del juego:"
 
-#: createcardpanel.py:82
-msgid "Add"
-msgstr "Añadir"
-
-#: createcardpanel.py:87
-msgid "Update selected pair"
-msgstr "Actualizar par seleccionado"
-
-#: createcardpanel.py:90
-msgid "Update"
-msgstr "Actualizar"
-
-#: createcardpanel.py:255
-msgid "Preview:"
-msgstr "Vista previa:"
-
-#: createcardpanel.py:271
-msgid "Text:"
-msgstr "Texto:"
-
-#: createcardpanel.py:283
-msgid "Insert picture"
-msgstr "Insertar imagen"
-
-#: createcardpanel.py:288
-msgid "Insert sound"
-msgstr "Insertar sonido"
-
-#: createcardpanel.py:434
-msgid "Pronounce text during tile flip"
-msgstr "Pronunciar texto mientras voltea la carta"
-
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "Nuevo juego"
-
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Cargar Juego"
-
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "Guardar juego"
-
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Nombre del juego"
-
-#: createtoolbar.py:85
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "Pares iguales"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Click para juego en grupo"
-
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Escoger juego de memoria"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Click para juego sin grupo"
-
-#: game.py:92
-msgid "Loading game..."
-msgstr "Cargando juego..."
-
-# How about "Cargar juegos de demostración".  Demo might not be readily understood in all locales.
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Cargar juegos de demostración"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
 msgid "addition"
 msgstr "adición"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
 msgid "letters"
 msgstr "letras"
 
-#: memorizetoolbar.py:43
+#: activity.py:70
 msgid "sounds"
 msgstr "sonidos"
 
-#: memorizetoolbar.py:63
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr "Editar juego"
+
+#: activity.py:212
+msgid "Play game"
+msgstr "Jugar"
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Añadir un nuevo par"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Añadir"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Actualizar par seleccionado"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr "Actualizar"
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "Vista previa:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Texto:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr "Insertar imagen"
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr "Insertar sonido"
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr "Pronunciar texto mientras voltea la carta"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr "Igualar fichas diferentes"
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr "Juego de fichas mixtas"
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr "Limpiar todas las fichas"
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr "¿Limpiar todas las piezas del juego?"
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr "Limpiar"
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr "No Limpiar"
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr "Iguala fichas idénticas"
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr "Juego de fichas agrupadas"
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "Cargando juego..."
+
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Adición"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Letras"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Sonidos"
+
+# How about "Cargar juegos de demostración".  Demo might not be readily understood in all locales.
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Cargar juegos de demostración"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Reiniciar Juego"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr "¿Descartar tu juego modificado?"
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr "Descartar"
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr "No descartar"
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Recibiendo juego"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "hecho"
 
@@ -410,11 +450,23 @@ msgstr "Polaco"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play game"
-#~ msgstr "Jugar"
+#~ msgid "New game"
+#~ msgstr "Nuevo juego"
 
-#~ msgid "Edit game"
-#~ msgstr "Editar juego"
+#~ msgid "Load game"
+#~ msgstr "Cargar Juego"
+
+#~ msgid "Save game"
+#~ msgstr "Guardar juego"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Click para juego en grupo"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Escoger juego de memoria"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Click para juego sin grupo"
 
 #~ msgid "Set equal pairs"
 #~ msgstr "Seleccionar pares iguales"
@@ -425,29 +477,11 @@ msgstr "Esperanto"
 #~ msgid "Clear current game"
 #~ msgstr "Limpiar el juego"
 
-#~ msgid "Clear all the tiles from the game?"
-#~ msgstr "¿Limpiar todas las piezas del juego?"
-
-#~ msgid "Clear"
-#~ msgstr "Limpiar"
-
-#~ msgid "Do not clear"
-#~ msgstr "No Limpiar"
-
 #~ msgid "Set non equal pairs"
 #~ msgstr "Seleccionar pares distintos"
 
 #~ msgid "Set ungrouped game"
 #~ msgstr "Seleccionar juego sin grupos"
-
-#~ msgid "Discard your modified game?"
-#~ msgstr "¿Descartar tu juego modificado?"
-
-#~ msgid "Discard"
-#~ msgstr "Descartar"
-
-#~ msgid "Do not discard"
-#~ msgstr "No descartar"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "Pronuncia el texto mientras das la vuelta a la carta"
