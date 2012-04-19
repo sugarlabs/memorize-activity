@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-27 00:32-0400\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
 "PO-Revision-Date: 2011-09-28 08:24+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,80 +45,112 @@ msgstr ""
 msgid "Memorize"
 msgstr "මතක තබා ගන්න"
 
-#: activity.py:82
-msgid "Play game"
-msgstr ""
+#: activity.py:69
+msgid "Play"
+msgstr "ක්‍රිඩා කරන්න"
 
-#: activity.py:90
+#: activity.py:69
+msgid "Create"
+msgstr "නිර්මානය කරන්න"
+
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
+msgstr "ක්‍රීඩාවේ නම"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "සමාන යුගල"
+
+#: activity.py:70
+#, fuzzy
+msgid "addition"
+msgstr "එකතුව"
+
+#: activity.py:70
+#, fuzzy
+msgid "letters"
+msgstr "අකුරු"
+
+#: activity.py:70
+#, fuzzy
+msgid "sounds"
+msgstr "ශබ්ද"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr ""
 
-#: createcardpanel.py:77
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "අලුත් යුගලයක් ලෙස එකතු කරන්න"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr ""
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "තෝරාගත් යුගලය යාවත්කාල කරන්න"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr ""
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "පෙරදසුන:"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "පෙළ:"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr ""
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr ""
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr ""
 
-#: createtoolbar.py:45 createtoolbar.py:98
-msgid "Set equal pairs"
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
 msgstr ""
 
-#: createtoolbar.py:50 createtoolbar.py:109
-msgid "Set grouped game"
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
 msgstr ""
 
-#: createtoolbar.py:55
-msgid "Clear current game"
+#: createtoolbar.py:56
+msgid "Clear all tiles"
 msgstr ""
 
-#: createtoolbar.py:71
+#: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
 msgstr ""
 
-#: createtoolbar.py:73
+#: createtoolbar.py:78
 msgid "Clear"
 msgstr ""
 
-#: createtoolbar.py:75
+#: createtoolbar.py:80
 msgid "Do not clear"
 msgstr ""
 
-#: createtoolbar.py:94
-msgid "Set non equal pairs"
+#: createtoolbar.py:102
+msgid "Match identical tiles"
 msgstr ""
 
-#: createtoolbar.py:105
-msgid "Set ungrouped game"
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
 msgstr ""
 
 #: game.py:94
@@ -140,7 +172,7 @@ msgstr "අකුරු"
 msgid "Sounds"
 msgstr "ශබ්ද"
 
-#: memorizetoolbar.py:70
+#: memorizetoolbar.py:60
 msgid "Load demo games"
 msgstr "නිදර්ශන ක්‍රීඩා ආරම්භ කරන්න"
 
@@ -148,15 +180,15 @@ msgstr "නිදර්ශන ක්‍රීඩා ආරම්භ කරන්
 msgid "Restart Game"
 msgstr "ක්‍රීඩාව නැවත පටන් ගන්න"
 
-#: memorizetoolbar.py:111
+#: memorizetoolbar.py:105
 msgid "Discard your modified game?"
 msgstr ""
 
-#: memorizetoolbar.py:113
+#: memorizetoolbar.py:107
 msgid "Discard"
 msgstr ""
 
-#: memorizetoolbar.py:115
+#: memorizetoolbar.py:109
 msgid "Do not discard"
 msgstr ""
 
@@ -300,12 +332,6 @@ msgstr ""
 msgid "Esperanto"
 msgstr ""
 
-#~ msgid "Play"
-#~ msgstr "ක්‍රිඩා කරන්න"
-
-#~ msgid "Create"
-#~ msgstr "නිර්මානය කරන්න"
-
 #~ msgid "New game"
 #~ msgstr "අලුත් ක්‍රීඩාවක්"
 
@@ -314,12 +340,6 @@ msgstr ""
 
 #~ msgid "Save game"
 #~ msgstr "ක්‍රීඩාව සුරකින්න "
-
-#~ msgid "Game name"
-#~ msgstr "ක්‍රීඩාවේ නම"
-
-#~ msgid "Equal pairs"
-#~ msgstr "සමාන යුගල"
 
 #~ msgid "Click for grouped game"
 #~ msgstr "සමුහ ක්‍රීඩාවක් සඳහා ක්ලික් කරන්න"

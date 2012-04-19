@@ -34,95 +34,127 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-27 00:32-0400\n"
-"PO-Revision-Date: 2009-11-09 08:27-0400\n"
-"Last-Translator: Γιάννης Κασκαμανίδης <ttnfy17@yahoo.gr>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2011-11-03 10:30+0200\n"
+"Last-Translator: pavlos hatzopoulos <phatzopoulos@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.2.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Απομνημόνευση"
 
-#: activity.py:82
-msgid "Play game"
-msgstr ""
+#: activity.py:69
+msgid "Play"
+msgstr "Αναπαραγωγή"
 
-#: activity.py:90
+#: activity.py:69
+msgid "Create"
+msgstr "Δημιουργία"
+
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
+msgstr "Όνομα παιχνιδιού"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Όμοια ζευγάρια"
+
+#: activity.py:70
+#, fuzzy
+msgid "addition"
+msgstr "Προσθήκη"
+
+#: activity.py:70
+#, fuzzy
+msgid "letters"
+msgstr "Γράμματα"
+
+#: activity.py:70
+#, fuzzy
+msgid "sounds"
+msgstr "Ήχοι"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
-msgstr ""
+msgstr "Επεξεργασία παιχνιδιού"
 
-#: createcardpanel.py:77
+#: activity.py:212
+msgid "Play game"
+msgstr "Αναπαραγωγή παιχνιδιού"
+
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "Προσθήκη ως νέου ζευγαριού"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "Ενημέρωση επιλεγμένου ζευγαριού"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "Ενημέρωση"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "Προεπισκόπηση:"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "Κείμενο:"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "Εισαγωγή εικόνας"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "Εισαγωγή ήχου"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr "Προφορά του κειμένου όταν γυρίζουν τα πλακίδια"
 
-#: createtoolbar.py:45 createtoolbar.py:98
-msgid "Set equal pairs"
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
 msgstr ""
 
-#: createtoolbar.py:50 createtoolbar.py:109
-msgid "Set grouped game"
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
 msgstr ""
 
-#: createtoolbar.py:55
-msgid "Clear current game"
+#: createtoolbar.py:56
+msgid "Clear all tiles"
 msgstr ""
 
-#: createtoolbar.py:71
+#: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Εκκαθάριση όλων των πλακιδίων από το παιχνίδι;"
 
-#: createtoolbar.py:73
+#: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "Εκκαθάριση"
 
-#: createtoolbar.py:75
+#: createtoolbar.py:80
 msgid "Do not clear"
+msgstr "Όχι εκκαθάριση"
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
 msgstr ""
 
-#: createtoolbar.py:94
-msgid "Set non equal pairs"
-msgstr ""
-
-#: createtoolbar.py:105
-msgid "Set ungrouped game"
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
 msgstr ""
 
 #: game.py:94
@@ -132,19 +164,19 @@ msgstr "Φόρτωση παιχνιδιού..."
 #: memorizetoolbar.py:43
 #, fuzzy
 msgid "Addition"
-msgstr "προσθήκη"
+msgstr "Προσθήκη"
 
 #: memorizetoolbar.py:44
 #, fuzzy
 msgid "Letters"
-msgstr "γράμματα"
+msgstr "Γράμματα"
 
 #: memorizetoolbar.py:45
 #, fuzzy
 msgid "Sounds"
-msgstr "ήχοι"
+msgstr "Ήχοι"
 
-#: memorizetoolbar.py:70
+#: memorizetoolbar.py:60
 msgid "Load demo games"
 msgstr "Φόρτωση δοκιμαστικών παιχνιδιών"
 
@@ -152,17 +184,17 @@ msgstr "Φόρτωση δοκιμαστικών παιχνιδιών"
 msgid "Restart Game"
 msgstr "Επανέναρξη παιχνιδιού"
 
-#: memorizetoolbar.py:111
+#: memorizetoolbar.py:105
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Απόρριψη του τροποποιημένου παιχνιδιού σας;"
 
-#: memorizetoolbar.py:113
+#: memorizetoolbar.py:107
 msgid "Discard"
-msgstr ""
+msgstr "Απόρριψη"
 
-#: memorizetoolbar.py:115
+#: memorizetoolbar.py:109
 msgid "Do not discard"
-msgstr ""
+msgstr "Όχι απόρριψη"
 
 #: messenger.py:192
 msgid "Receiving game"
@@ -304,12 +336,6 @@ msgstr "Πολωνικά"
 msgid "Esperanto"
 msgstr "Εσπεράντο"
 
-#~ msgid "Play"
-#~ msgstr "Αναπαραγωγή"
-
-#~ msgid "Create"
-#~ msgstr "Δημιουργία"
-
 #~ msgid "New game"
 #~ msgstr "Νέο παιχνίδι"
 
@@ -319,12 +345,6 @@ msgstr "Εσπεράντο"
 #~ msgid "Save game"
 #~ msgstr "Αποθήκευση παιχνιδιού"
 
-#~ msgid "Game name"
-#~ msgstr "Όνομα παιχνιδιού"
-
-#~ msgid "Equal pairs"
-#~ msgstr "Όμοια ζευγάρια"
-
 #~ msgid "Click for grouped game"
 #~ msgstr "Κλικ για ομαδικό παιχνίδι"
 
@@ -333,6 +353,21 @@ msgstr "Εσπεράντο"
 
 #~ msgid "Click for ungrouped game"
 #~ msgstr "Κλικ για μη ομαδικό παιχνίδι"
+
+#~ msgid "Set equal pairs"
+#~ msgstr "Ορισμός ίσων ζευγών"
+
+#~ msgid "Set grouped game"
+#~ msgstr "Ορισμός ομαδικού παιχνιδιού"
+
+#~ msgid "Clear current game"
+#~ msgstr "Εκκαθάριση τρέχοντος παιχνιδιού"
+
+#~ msgid "Set non equal pairs"
+#~ msgstr "Ορισμός μη ίσων ζευγών"
+
+#~ msgid "Set ungrouped game"
+#~ msgstr "Ορισμός μη ομαδικού παιχνιδιού"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "Προφορά κειμένου καθώς κάνετε κλικ στο πλακάκι"

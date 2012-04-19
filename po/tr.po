@@ -1,8 +1,36 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
 "PO-Revision-Date: 2008-10-07 03:21-0400\n"
 "Last-Translator: abdullah kocabas <abdullah.kocabas@abcdizustu.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,98 +43,313 @@ msgstr ""
 msgid "Memorize"
 msgstr "Eşleştirme"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "Oynat"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "Oluştur"
 
-#: createcardpanel.py:52
-msgid "Add as new pair"
-msgstr "Yeni bir çift olarak ekle"
-
-#: createcardpanel.py:60
-msgid "Update selected pair"
-msgstr "Seçilen çifti güncelle"
-
-#: createcardpanel.py:180
-msgid "Preview:"
-msgstr "Önizleme"
-
-#: createcardpanel.py:182
-msgid "Text:"
-msgstr "Metin:"
-
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "Görüntü seç"
-
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "Ses seç"
-
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "Yeni oyun"
-
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Oyun yükle"
-
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr "Oyunu kaydet"
-
-#: createtoolbar.py:83
-msgid "Game name"
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
 msgstr "Oyun adı"
 
-#: createtoolbar.py:87
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "Eşit çiftler"
 
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Grup oyunu için tıkla"
-
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "Eşleştirme oyunu seç"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Tekli oyun için tıkla"
-
-#: game.py:105
-msgid "Loading game..."
-msgstr "Oyun yükleniyor.."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Oyun demolarını yükle"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
+#, fuzzy
 msgid "addition"
 msgstr "ekleme"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
+#, fuzzy
 msgid "letters"
 msgstr "harfler"
 
-#: memorizetoolbar.py:43
+#: activity.py:70
+#, fuzzy
 msgid "sounds"
 msgstr "sesler"
 
-#: memorizetoolbar.py:63
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Yeni bir çift olarak ekle"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr ""
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Seçilen çifti güncelle"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr ""
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "Önizleme"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Metin:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr ""
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr ""
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "Oyun yükleniyor.."
+
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "ekleme"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "harfler"
+
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "sesler"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Oyun demolarını yükle"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Oyunu yeniden başlat"
 
-#: messenger.py:183
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Açılan oyun"
 
-#: messenger.py:183
+#: messenger.py:193
 msgid "done"
 msgstr "tamam"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr ""
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr ""
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr ""
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr ""
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr ""
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr ""
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr ""
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr ""
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr ""
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr ""
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr ""
+
+#: speak/voice.py:47
+msgid "French"
+msgstr ""
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr ""
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr ""
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr ""
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr ""
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr ""
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr ""
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr ""
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr ""
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr ""
+
+#: speak/voice.py:57
+msgid "English"
+msgstr ""
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr ""
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr ""
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr ""
+
+#: speak/voice.py:61
+msgid "German"
+msgstr ""
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr ""
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr ""
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr ""
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr ""
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr ""
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr ""
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr ""
+
+#~ msgid "New game"
+#~ msgstr "Yeni oyun"
+
+#~ msgid "Load game"
+#~ msgstr "Oyun yükle"
+
+#~ msgid "Save game"
+#~ msgstr "Oyunu kaydet"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Grup oyunu için tıkla"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Eşleştirme oyunu seç"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Tekli oyun için tıkla"
+
+#~ msgid "Choose image"
+#~ msgstr "Görüntü seç"
+
+#~ msgid "Choose audio"
+#~ msgstr "Ses seç"

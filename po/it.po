@@ -18,20 +18,28 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2009-11-09 02:52-0400\n"
-"Last-Translator: Carlo Falciola <cfalciola@yahoo.it>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2012-02-08 10:06+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.2.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 # Il nome indentifica il gioco ... il termine memorizza non rende l'idea anche se letteralmente sarebbe corretto.
 # Preferisco lasciare Memorize
@@ -39,115 +47,152 @@ msgstr ""
 msgid "Memorize"
 msgstr "Memorize"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "Gioca"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "Crea"
 
-#: createcardpanel.py:79
-msgid "Add as new pair"
-msgstr "Aggiungi come nuova coppia"
+#: activity.py:69
+msgid "Game name:"
+msgstr "Nome partita:"
 
-#: createcardpanel.py:82
-msgid "Add"
-msgstr "Aggiungi"
-
-#: createcardpanel.py:87
-msgid "Update selected pair"
-msgstr "Aggiorna la coppia selezionata"
-
-#: createcardpanel.py:90
-msgid "Update"
-msgstr "Aggiorna"
-
-#: createcardpanel.py:255
-msgid "Preview:"
-msgstr "Anteprima:"
-
-#: createcardpanel.py:271
-msgid "Text:"
-msgstr "Testo:"
-
-#: createcardpanel.py:283
-msgid "Insert picture"
-msgstr "Inserisci immagine"
-
-#: createcardpanel.py:288
-msgid "Insert sound"
-msgstr "Inserisci suono"
-
-#: createcardpanel.py:434
-msgid "Pronounce text during tile flip"
-msgstr "Leggi il testo girando la carta"
-
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "Nuova partita"
-
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Carica partita"
-
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "Salva partita"
-
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Nome partita"
-
-#: createtoolbar.py:85
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "Coppie identiche"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Seleziona per partita di gruppo"
-
-# o gioco di memorizzazione??? (si c'è una attività memorize, infatti (cf))
-# Memorizzato sarebbe stored o altro
-#
-# Io lascerei il nome Memorize ... in questo caso forse si può mettere anche "Scegli il gioco".
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Scegli il gioco Memorize"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Seleziona per partita da solo"
-
-#: game.py:92
-msgid "Loading game..."
-msgstr "Caricamento partita..."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Carica partite dimostrative"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
 msgid "addition"
 msgstr "somme"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
 msgid "letters"
 msgstr "lettere"
 
-#: memorizetoolbar.py:43
+#: activity.py:70
 msgid "sounds"
 msgstr "suoni"
 
-#: memorizetoolbar.py:63
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Aggiungi come nuova coppia"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Aggiungi"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Aggiorna la coppia selezionata"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr "Aggiorna"
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "Anteprima:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Testo:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr "Inserisci immagine"
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr "Inserisci suono"
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr "Leggi il testo girando la carta"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+#, fuzzy
+msgid "Clear"
+msgstr "Pulisci"
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "Caricamento partita..."
+
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Somme"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Lettere"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Suoni"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Carica partite dimostrative"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Ricomincia partita"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Ricezione partita"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "fatto"
 
@@ -216,6 +261,7 @@ msgid "Finnish"
 msgstr "Finlandese"
 
 #: speak/voice.py:52 speak/voice.py:125
+#, fuzzy
 msgid "Default"
 msgstr "Default"
 
@@ -282,6 +328,28 @@ msgstr "Polacco"
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "Esperanto"
+
+#~ msgid "New game"
+#~ msgstr "Nuova partita"
+
+#~ msgid "Load game"
+#~ msgstr "Carica partita"
+
+#~ msgid "Save game"
+#~ msgstr "Salva partita"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Seleziona per partita di gruppo"
+
+# o gioco di memorizzazione??? (si c'è una attività memorize, infatti (cf))
+# Memorizzato sarebbe stored o altro
+#
+# Io lascerei il nome Memorize ... in questo caso forse si può mettere anche "Scegli il gioco".
+#~ msgid "Choose memorize game"
+#~ msgstr "Scegli il gioco Memorize"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Seleziona per partita da solo"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "Pronuncia il testo mentre giri i tasselli"
