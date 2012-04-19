@@ -342,6 +342,7 @@ class CardEditor(gtk.EventBox):
         self.font_combo.set_font_name(model.DEFAULT_FONT)
 
         box.pack_start(self.font_combo, True, True, 0)
+        box.pack_start(toolbar, True, True, 0)
 
         self.add(box)
 
