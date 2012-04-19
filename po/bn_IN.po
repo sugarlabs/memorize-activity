@@ -1,8 +1,40 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
 "PO-Revision-Date: 2008-01-22 09:27+0000\n"
 "Last-Translator: Sankarshan Mukhopadhyay <sankarshan.mukhopadhyay@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,115 +43,329 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 1.0.2\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr ""
+
+#: activity.py:69
+msgid "Play"
+msgstr "খেলা করুন"
+
+#: activity.py:69
+msgid "Create"
+msgstr "তৈরী করুন"
+
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
+msgstr "খেলার নাম"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "সমান জোড়"
+
+#: activity.py:70
+#, fuzzy
+msgid "addition"
+msgstr "যোগ কর্ম"
+
+#: activity.py:70
+#, fuzzy
+msgid "letters"
+msgstr "অক্ষরসমূহ"
+
+#: activity.py:70
+msgid "sounds"
+msgstr ""
+
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "জোড় হিসাবে যোগ করুন"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr ""
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr ""
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr ""
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr ""
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "টেক্সট"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr ""
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr ""
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
 msgid "Loading game..."
 msgstr "খেলা শুরু হচ্ছে"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "যোগ কর্ম"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "অক্ষরসমূহ"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr ""
+
+#: memorizetoolbar.py:60
 #, fuzzy
 msgid "Load demo games"
 msgstr "ডেমো খেলাগুলি শুরু হচ্ছে"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr "যোগ কর্ম"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr "রাজধানি"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr "ড্রামগিট"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr "অক্ষরসমূহ"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr "সংখ্যাসমূহ"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr "ফোনিমসমূহ"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "খেলা পুনরাম্ভ করুন"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr "খেলা শুরু করুন"
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr "মেমোরাইজ খেলা বেছে নিন"
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "খেলা গ্রহণ করা হচ্ছে"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: messenger.py:193
 msgid "done"
 msgstr "সমাপ্ত"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr "তৈরী করুন"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
-msgid "Play"
-msgstr "খেলা করুন"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
-msgid "Add as new pair"
-msgstr "জোড় হিসাবে যোগ করুন"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
-msgid "Update selected pair"
+#: speak/voice.py:36
+msgid "Brazil"
 msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
-msgid "Preview:"
+#: speak/voice.py:37
+msgid "Swedish"
 msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
-msgid "Text:"
-msgstr "টেক্সট"
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
-msgid "Choose image"
-msgstr "ছবি বেছে নিন"
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
-msgid "Choose audio"
-msgstr "শব্দস্রোত বেছে নিন"
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
-msgid "New game"
-msgstr "নতুন খেলা"
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
-msgid "Save game"
-msgstr "খেলা সংরক্ষণ করুন"
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
-msgid "Game name"
-msgstr "খেলার নাম"
+#: speak/voice.py:43
+msgid "Latin"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
-msgid "Equal pairs"
-msgstr "সমান জোড়"
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "গ্রুপের খেলার জন্য ক্লিক করুন"
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr ""
+
+#: speak/voice.py:47
+msgid "French"
+msgstr ""
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr ""
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr ""
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr ""
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr ""
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr ""
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr ""
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr ""
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr ""
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr ""
+
+#: speak/voice.py:57
+msgid "English"
+msgstr ""
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr ""
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr ""
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr ""
+
+#: speak/voice.py:61
+msgid "German"
+msgstr ""
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr ""
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr ""
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr ""
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr ""
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr ""
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr ""
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr ""
+
+#~ msgid "New game"
+#~ msgstr "নতুন খেলা"
+
+#~ msgid "Load game"
+#~ msgstr "খেলা শুরু করুন"
+
+#~ msgid "Save game"
+#~ msgstr "খেলা সংরক্ষণ করুন"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "গ্রুপের খেলার জন্য ক্লিক করুন"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "মেমোরাইজ খেলা বেছে নিন"
+
 #, fuzzy
-msgid "Click for ungrouped game"
-msgstr "গ্রুপের খেলার জন্য ক্লিক করুন"
+#~ msgid "Click for ungrouped game"
+#~ msgstr "গ্রুপের খেলার জন্য ক্লিক করুন"
+
+#~ msgid "Choose image"
+#~ msgstr "ছবি বেছে নিন"
+
+#~ msgid "Choose audio"
+#~ msgstr "শব্দস্রোত বেছে নিন"
+
+#~ msgid "capitals"
+#~ msgstr "রাজধানি"
+
+#~ msgid "drumgit"
+#~ msgstr "ড্রামগিট"
+
+#~ msgid "numbers"
+#~ msgstr "সংখ্যাসমূহ"
+
+#~ msgid "phonemes"
+#~ msgstr "ফোনিমসমূহ"

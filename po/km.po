@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-04 00:36-0400\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
 "PO-Revision-Date: 2011-04-28 16:42+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,79 +21,110 @@ msgstr ""
 msgid "Memorize"
 msgstr "ទន្ទេញ"
 
-#: activity.py:84 activity.py:211
+#: activity.py:69
+msgid "Play"
+msgstr ""
+
+#: activity.py:69
+msgid "Create"
+msgstr ""
+
+#: activity.py:69
+msgid "Game name:"
+msgstr ""
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr ""
+
+#: activity.py:70
+#, fuzzy
+msgid "addition"
+msgstr "វិធី​បូក"
+
+#: activity.py:70
+#, fuzzy
+msgid "letters"
+msgstr "អក្សរ"
+
+#: activity.py:70
+#, fuzzy
+msgid "sounds"
+msgstr "សំឡេង"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:207
+#: activity.py:212
 msgid "Play game"
 msgstr ""
 
-#: createcardpanel.py:77
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "ថែមទៅជាគូថ្មី"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "បន្ថែម"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "កែជំរើស​គូ"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "ធ្វើ​ឲ្យ​ទាន់​សម័យ"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "ព្រាង"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "អត្ថបត ៖"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "បញ្ចូល​រូបភាព"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "បញ្ចូល​សំឡេង"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr ""
 
-#: createtoolbar.py:46 createtoolbar.py:107
+#: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
 msgstr ""
 
-#: createtoolbar.py:52 createtoolbar.py:120
+#: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
 msgstr ""
 
-#: createtoolbar.py:57
+#: createtoolbar.py:56
 msgid "Clear all tiles"
 msgstr ""
 
-#: createtoolbar.py:77
+#: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
 msgstr ""
 
-#: createtoolbar.py:79
+#: createtoolbar.py:78
 msgid "Clear"
 msgstr "ជម្រះ"
 
-#: createtoolbar.py:81
+#: createtoolbar.py:80
 msgid "Do not clear"
 msgstr ""
 
-#: createtoolbar.py:103
+#: createtoolbar.py:102
 msgid "Match identical tiles"
 msgstr ""
 
-#: createtoolbar.py:116
+#: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr ""
 
@@ -102,6 +133,7 @@ msgid "Loading game..."
 msgstr "រៀប​ចំ​ល្បែង"
 
 #: memorizetoolbar.py:43
+#, fuzzy
 msgid "Addition"
 msgstr "វិធី​បូក"
 
@@ -111,6 +143,7 @@ msgid "Letters"
 msgstr "អក្សរ"
 
 #: memorizetoolbar.py:45
+#, fuzzy
 msgid "Sounds"
 msgstr "សំឡេង"
 
@@ -122,15 +155,15 @@ msgstr "រៀប​ចំ​​បង្ហាញ​ល្បែង"
 msgid "Restart Game"
 msgstr "ចាប់​ផ្ដើម​ឡើង​វិញ"
 
-#: memorizetoolbar.py:111
+#: memorizetoolbar.py:105
 msgid "Discard your modified game?"
 msgstr ""
 
-#: memorizetoolbar.py:113
+#: memorizetoolbar.py:107
 msgid "Discard"
 msgstr ""
 
-#: memorizetoolbar.py:115
+#: memorizetoolbar.py:109
 msgid "Do not discard"
 msgstr ""
 

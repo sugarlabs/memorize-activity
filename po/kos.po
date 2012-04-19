@@ -2,11 +2,39 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-14 10:26+0000\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
 "PO-Revision-Date: 2009-09-02 21:33-0400\n"
 "Last-Translator: Chris Leonard <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,246 +49,282 @@ msgstr ""
 msgid "Memorize"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/game.py:93
-msgid "Loading game..."
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/messenger.py:192
-msgid "Receiving game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/messenger.py:192
-msgid "done"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:51
-msgid "New game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:61
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:73
-msgid "Load game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:71
-msgid "Save game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:81
-msgid "Game name"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:85
-msgid "Equal pairs"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:97
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:156
-msgid "Click for grouped game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:114
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createtoolbar.py:152
-msgid "Click for ungrouped game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:41
-msgid "addition"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:42
-msgid "letters"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:43
-msgid "sounds"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/memorizetoolbar.py:63
-msgid "Restart Game"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:82
-msgid "Add as new pair"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:85
-msgid "Add"
-msgstr "Sang"
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:90
-msgid "Update selected pair"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:93
-msgid "Update"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:254
-msgid "Preview:"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:270
-msgid "Text:"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:282
-msgid "Insert picture"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:287
-msgid "Insert sound"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/createcardpanel.py:427
-msgid "Pronounce text while fliping tile"
-msgstr ""
-
-#: /home/sugar/src/activities/memorize.activity/activity.py:74
+#: activity.py:69
 msgid "Play"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/activity.py:78
+#: activity.py:69
 msgid "Create"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:36
+#: activity.py:69
+msgid "Game name:"
+msgstr ""
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr ""
+
+#: activity.py:70
+msgid "addition"
+msgstr ""
+
+#: activity.py:70
+msgid "letters"
+msgstr ""
+
+#: activity.py:70
+msgid "sounds"
+msgstr ""
+
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr ""
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Sang"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr ""
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr ""
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr ""
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr ""
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr ""
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr ""
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
+msgid "Loading game..."
+msgstr ""
+
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr ""
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr ""
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr ""
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr ""
+
+#: memorizetoolbar.py:82
+msgid "Restart Game"
+msgstr ""
+
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
+msgid "Receiving game"
+msgstr ""
+
+#: messenger.py:193
+msgid "done"
+msgstr ""
+
+#: speak/voice.py:36
 msgid "Brazil"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:37
+#: speak/voice.py:37
 msgid "Swedish"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:38
+#: speak/voice.py:38
 msgid "Icelandic"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:39
+#: speak/voice.py:39
 msgid "Romanian"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:40
+#: speak/voice.py:40
 msgid "Swahili"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:41
+#: speak/voice.py:41
 msgid "Hindi"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:42
+#: speak/voice.py:42
 msgid "Dutch"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:43
+#: speak/voice.py:43
 msgid "Latin"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:44
+#: speak/voice.py:44
 msgid "Hungarian"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:45
+#: speak/voice.py:45
 msgid "Macedonian"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:46
+#: speak/voice.py:46
 msgid "Welsh"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:47
+#: speak/voice.py:47
 msgid "French"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:48
+#: speak/voice.py:48
 msgid "Norwegian"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:49
+#: speak/voice.py:49
 msgid "Russian"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:50
+#: speak/voice.py:50
 msgid "Afrikaans"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:51
+#: speak/voice.py:51
 msgid "Finnish"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:52
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:125
+#: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:53
+#: speak/voice.py:53
 msgid "Cantonese"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:54
+#: speak/voice.py:54
 msgid "Scottish"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:55
+#: speak/voice.py:55
 msgid "Greek"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:56
+#: speak/voice.py:56
 msgid "Vietnam"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:57
+#: speak/voice.py:57
 msgid "English"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:58
+#: speak/voice.py:58
 msgid "Lancashire"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:59
+#: speak/voice.py:59
 msgid "Italian"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:60
+#: speak/voice.py:60
 msgid "Portugal"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:61
+#: speak/voice.py:61
 msgid "German"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:62
+#: speak/voice.py:62
 msgid "Whisper"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:63
+#: speak/voice.py:63
 msgid "Croatian"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:64
+#: speak/voice.py:64
 msgid "Czech"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:65
+#: speak/voice.py:65
 msgid "Slovak"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:66
+#: speak/voice.py:66
 msgid "Spanish"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:67
+#: speak/voice.py:67
 msgid "Polish"
 msgstr ""
 
-#: /home/sugar/src/activities/memorize.activity/speak/voice.py:68
+#: speak/voice.py:68
 msgid "Esperanto"
 msgstr ""

@@ -1,115 +1,360 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-07-02 23:48+0100\n"
-"Last-Translator: Satyanarayana Murthy Saladi <saladism@gmail.com>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2011-11-27 06:14+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "గుర్తింపు ఆట"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "ఆడు"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "సృష్టించు"
 
-#: createcardpanel.py:52
-msgid "Add as new pair"
-msgstr "కొత్త జంట చేర్చు"
-
-#: createcardpanel.py:60
-msgid "Update selected pair"
-msgstr "ఎంచుకొన్న జతను తాజాపరచు"
-
-#: createcardpanel.py:180
-msgid "Preview:"
-msgstr "రిహార్సు:"
-
-#: createcardpanel.py:182
-msgid "Text:"
-msgstr "వచనం:"
-
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "చిత్రం కోరుకో"
-
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "ద్వని కోరుకో"
-
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "కొత్త ఆట"
-
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "ఆట అమర్చు"
-
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr "ఆట బద్రపరచు"
-
-#: createtoolbar.py:83
-msgid "Game name"
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
 msgstr "ఆట పేరు"
 
-#: createtoolbar.py:87
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "సమాన జతలు"
 
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "గుంపు ఆటకు నొక్కు"
-
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "గుర్తింపు ఆట కోరుకో "
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "గుంపుగా కాని ఆటకు నొక్కు"
-
-#: game.py:105
-msgid "Loading game..."
-msgstr "ఆట అమరుస్తున్నా..."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "ఉదహరించే ఆటలు అమర్చనా"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
+#, fuzzy
 msgid "addition"
 msgstr "కూడిక"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
+#, fuzzy
 msgid "letters"
 msgstr "అక్షరములు"
 
-#: memorizetoolbar.py:43
+#: activity.py:70
+#, fuzzy
 msgid "sounds"
 msgstr "శబ్దము"
 
-#: memorizetoolbar.py:63
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "కొత్త జంట చేర్చు"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr ""
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "ఎంచుకొన్న జతను తాజాపరచు"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr ""
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "రిహార్సు:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "వచనం:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr ""
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr ""
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "ఆట అమరుస్తున్నా..."
+
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "కూడిక"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "అక్షరములు"
+
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "శబ్దము"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "ఉదహరించే ఆటలు అమర్చనా"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "ఆట తిరిగి ఆడు"
 
-#: messenger.py:183
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "ఆట అందుకోబడుతోంది"
 
-#: messenger.py:183
+#: messenger.py:193
 msgid "done"
 msgstr "పూర్తయింది"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr ""
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr ""
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr ""
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr ""
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr ""
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr ""
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr ""
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr ""
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr ""
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr ""
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr ""
+
+#: speak/voice.py:47
+msgid "French"
+msgstr ""
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr ""
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr ""
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr ""
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr ""
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr ""
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr ""
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr ""
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr ""
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr ""
+
+#: speak/voice.py:57
+msgid "English"
+msgstr ""
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr ""
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr ""
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr ""
+
+#: speak/voice.py:61
+msgid "German"
+msgstr ""
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr ""
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr ""
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr ""
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr ""
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr ""
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr ""
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr ""
+
+#~ msgid "New game"
+#~ msgstr "కొత్త ఆట"
+
+#~ msgid "Load game"
+#~ msgstr "ఆట అమర్చు"
+
+#~ msgid "Save game"
+#~ msgstr "ఆట బద్రపరచు"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "గుంపు ఆటకు నొక్కు"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "గుర్తింపు ఆట కోరుకో"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "గుంపుగా కాని ఆటకు నొక్కు"
+
+#~ msgid "Choose image"
+#~ msgstr "చిత్రం కోరుకో"
+
+#~ msgid "Choose audio"
+#~ msgstr "ద్వని కోరుకో"
 
 #~ msgid "capitals"
 #~ msgstr "మొదటిబరి అక్షరములు"

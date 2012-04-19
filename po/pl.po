@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 00:33-0500\n"
-"PO-Revision-Date: 2012-01-26 12:21+0200\n"
-"Last-Translator: lkjlkj <agniechka@o2.pl>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2012-02-09 18:04+0200\n"
+"Last-Translator: Marcin <ulinski.marcin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -46,86 +46,107 @@ msgstr ""
 msgid "Memorize"
 msgstr "Zapamiętaj"
 
-#: activity.py:84 activity.py:209
+#: activity.py:69
+msgid "Play"
+msgstr "Zagraj"
+
+#: activity.py:69
+msgid "Create"
+msgstr "Stwórz"
+
+#: activity.py:69
+msgid "Game name:"
+msgstr "Nazwa gry:"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Identyczne pary"
+
+#: activity.py:70
+msgid "addition"
+msgstr "dodawanie"
+
+#: activity.py:70
+msgid "letters"
+msgstr "litery"
+
+#: activity.py:70
+msgid "sounds"
+msgstr "dźwięki"
+
+#: activity.py:91 activity.py:216
 msgid "Edit game"
 msgstr "Edytuj grę"
 
-#: activity.py:205
+#: activity.py:212
 msgid "Play game"
 msgstr "Graj"
 
-#: createcardpanel.py:77
+#: createcardpanel.py:78
 msgid "Add as new pair"
 msgstr "Dodaj nową parę"
 
-#: createcardpanel.py:80
+#: createcardpanel.py:81
 msgid "Add"
 msgstr "Dodaj"
 
-#: createcardpanel.py:85
+#: createcardpanel.py:86
 msgid "Update selected pair"
 msgstr "Odśwież wybraną parę"
 
-#: createcardpanel.py:88
+#: createcardpanel.py:89
 msgid "Update"
 msgstr "Odśwież"
 
-#: createcardpanel.py:261
+#: createcardpanel.py:262
 msgid "Preview:"
 msgstr "Podgląd:"
 
-#: createcardpanel.py:277
+#: createcardpanel.py:278
 msgid "Text:"
 msgstr "Tekst:"
 
-#: createcardpanel.py:289
+#: createcardpanel.py:290
 msgid "Insert picture"
 msgstr "Wstaw obraz"
 
-#: createcardpanel.py:294
+#: createcardpanel.py:295
 msgid "Insert sound"
 msgstr "Wstaw dźwięk"
 
-#: createcardpanel.py:432
+#: createcardpanel.py:433
 msgid "Pronounce text during tile flip"
 msgstr "Wymów tekst podczas przekręcania się klocka"
 
 #: createtoolbar.py:46 createtoolbar.py:106
-#, fuzzy
 msgid "Match different tiles"
 msgstr "Dopasuj różne płytki"
 
 #: createtoolbar.py:51 createtoolbar.py:119
-#, fuzzy
 msgid "Mixed tiles game"
 msgstr "Gra w wymieszane płytki"
 
 #: createtoolbar.py:56
-#, fuzzy
 msgid "Clear all tiles"
-msgstr "Wyczyść wszystkie płytki"
+msgstr "Usuń wszystkie płytki"
 
 #: createtoolbar.py:76
-#, fuzzy
 msgid "Clear all the tiles from the game?"
-msgstr "Wyczyścić wszystkie płytki z gry?"
+msgstr "Usunąć wszystkie płytki z gry?"
 
 #: createtoolbar.py:78
-#, fuzzy
 msgid "Clear"
-msgstr "Wyczyść"
+msgstr "Usuń"
 
 #: createtoolbar.py:80
-#, fuzzy
 msgid "Do not clear"
-msgstr "Nie czyść"
+msgstr "Nie usuwaj"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
 msgstr "Dopasuj identyczne płytki"
 
 #: createtoolbar.py:115
-#, fuzzy
 msgid "Grouped tiles game"
 msgstr "Gra w pogrupowane płytki"
 
@@ -154,17 +175,14 @@ msgid "Restart Game"
 msgstr "Restartuj Grę"
 
 #: memorizetoolbar.py:105
-#, fuzzy
 msgid "Discard your modified game?"
 msgstr "Odrzucić zmodyfikowaną grę?"
 
 #: memorizetoolbar.py:107
-#, fuzzy
 msgid "Discard"
 msgstr "Odrzuć"
 
 #: memorizetoolbar.py:109
-#, fuzzy
 msgid "Do not discard"
 msgstr "Nie odrzucaj"
 
@@ -308,12 +326,6 @@ msgstr "Polski"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#~ msgid "Play"
-#~ msgstr "Zagraj"
-
-#~ msgid "Create"
-#~ msgstr "Stwórz"
-
 #~ msgid "New game"
 #~ msgstr "Nowa gra"
 
@@ -322,12 +334,6 @@ msgstr "Esperanto"
 
 #~ msgid "Save game"
 #~ msgstr "Zapisz grę"
-
-#~ msgid "Game name"
-#~ msgstr "Nazwa gry"
-
-#~ msgid "Equal pairs"
-#~ msgstr "Identyczne pary"
 
 #~ msgid "Click for grouped game"
 #~ msgstr "Kliknij aby grać w grupie"

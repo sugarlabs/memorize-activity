@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
-"PO-Revision-Date: 2011-08-19 07:58+0200\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2012-03-02 05:17+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hus\n"
@@ -15,119 +15,166 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Dhaykol"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "Ubat'"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
-msgstr "ts'ejka'"
+msgstr "Ts'ejka'"
 
-#: createcardpanel.py:79
-msgid "Add as new pair"
-msgstr "Punchiy jun i it tsábchil"
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
+msgstr "Bijil an ubat'intaláb:"
 
-#: createcardpanel.py:82
-msgid "Add"
-msgstr "Punchiy"
-
-#: createcardpanel.py:87
-msgid "Update selected pair"
-msgstr "Itmedha tsabchil xi takudh"
-
-#: createcardpanel.py:90
-msgid "Update"
-msgstr "Ajumta'lits"
-
-#: createcardpanel.py:255
-msgid "Preview:"
-msgstr "K'aal tsu-uxlalab"
-
-#: createcardpanel.py:271
-msgid "Text:"
-msgstr "Dhuchláb"
-
-#: createcardpanel.py:283
-msgid "Insert picture"
-msgstr "Ofsba' an t'ipláb"
-
-#: createcardpanel.py:288
-msgid "Insert sound"
-msgstr "Otsba' in janídh"
-
-#: createcardpanel.py:434
-msgid "Pronounce text during tile flip"
-msgstr "Bijiy an dhuchlab ani' ka wenk'a an dhuchláb"
-
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "It ubat'intaláb"
-
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "K'adhba' an ubat'intaláb"
-
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "Dhaya' an ubat'intaláb"
-
-#: createtoolbar.py:81
-msgid "Game name"
-msgstr "Bijil an ubat'intaláb"
-
-#: createtoolbar.py:85
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "Tsabchik jununúl"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Ni'ninchi' abal an ubat'intaláb ti yanel."
+#: activity.py:70
+#, fuzzy
+msgid "addition"
+msgstr "punk'uy"
 
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "Takuy i ubat'intalán ba' an dhaykol."
+#: activity.py:70
+#, fuzzy
+msgid "letters"
+msgstr "dhuche'"
 
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Ni'chi' abal an ubat'intalab kwetem"
+#: activity.py:70
+#, fuzzy
+msgid "sounds"
+msgstr "kawintaláb"
 
-#: game.py:92
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Punchiy jun i it tsábchil"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Punchiy"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Itmedha tsabchil xi takudh"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr "Ajumta'lits"
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "K'aal tsu-uxlalab:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Dhuchláb:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr "Ofsba' an t'ipláb"
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr "Otsba' in janídh"
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr "Bijiy an dhuchlab ani' ka wenk'a an dhuchláb"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
 msgid "Loading game..."
-msgstr "K'adhba' i ubat'intalán"
+msgstr "K'adhba' i ubat'intalán..."
 
-#: memorizetoolbar.py:40
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "punk'uy"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "dhuche'"
+
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "kawintaláb"
+
+#: memorizetoolbar.py:60
 msgid "Load demo games"
 msgstr "K'adhba' i ubat'intaláb abal ka t'ipoy"
 
-#: memorizetoolbar.py:41
-msgid "addition"
-msgstr "Punk'uy"
-
-#: memorizetoolbar.py:42
-msgid "letters"
-msgstr "Dhuche'"
-
-#: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "Kawintaláb"
-
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Tsab tujchij an ubat'intaláb"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "Bats'ul ubat'intaláb"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
-msgstr "Ts'ejkadh"
+msgstr "ts'ejkadh"
 
 #: speak/voice.py:36
 msgid "Brazil"
@@ -260,3 +307,21 @@ msgstr "Polaco"
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "Aychix"
+
+#~ msgid "New game"
+#~ msgstr "It ubat'intaláb"
+
+#~ msgid "Load game"
+#~ msgstr "K'adhba' an ubat'intaláb"
+
+#~ msgid "Save game"
+#~ msgstr "Dhaya' an ubat'intaláb"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Ni'ninchi' abal an ubat'intaláb ti yanel"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Takuy i ubat'intalán ba' an dhaykol"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Ni'chi' abal an ubat'intalab kwetem"

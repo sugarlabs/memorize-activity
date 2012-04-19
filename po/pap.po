@@ -2,115 +2,360 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 22:31+0100\n"
-"PO-Revision-Date: 2008-06-19 08:02-0400\n"
-"Last-Translator: Urso Wieske <uwieske@gmail.com>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2010-02-16 02:37+0200\n"
+"Last-Translator: <esse_line@msn.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pap\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
 msgstr "Memorisá"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
-msgstr "Reprodusi"
+msgstr "Reprodusí"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "Krea"
 
-#: createcardpanel.py:52
-msgid "Add as new pair"
-msgstr "Agrega komo un par nobo"
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
+msgstr "Nòmber di wega"
 
-#: createcardpanel.py:60
-msgid "Update selected pair"
-msgstr "Aktualisa e par selektá"
-
-#: createcardpanel.py:180
-msgid "Preview:"
-msgstr "Bista previo"
-
-#: createcardpanel.py:182
-msgid "Text:"
-msgstr "Teksto"
-
-#: createcardpanel.py:243
-msgid "Choose image"
-msgstr "Skohe imagen"
-
-#: createcardpanel.py:263
-msgid "Choose audio"
-msgstr "Skohe audio"
-
-#: createtoolbar.py:53
-msgid "New game"
-msgstr "Wega nobo"
-
-#: createtoolbar.py:63 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "Karga wega"
-
-#: createtoolbar.py:73
-msgid "Save game"
-msgstr "Warda wega"
-
-#: createtoolbar.py:83
-msgid "Game name"
-msgstr "Nomber di wega"
-
-#: createtoolbar.py:87
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "Par igual"
 
-#: createtoolbar.py:99 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "Klik pa wega den grupo"
-
-#: createtoolbar.py:116 memorizetoolbar.py:117
-msgid "Choose memorize game"
-msgstr "Skohe wega di memoria"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "Klik for di wega sin grupo"
-
-#: game.py:105
-msgid "Loading game..."
-msgstr "Kargando wega..."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "Karga weganan di demonstrashon"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
+#, fuzzy
 msgid "addition"
 msgstr "adishon"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
+#, fuzzy
 msgid "letters"
-msgstr "letranan"
+msgstr "lèternan"
+
+#: activity.py:70
+#, fuzzy
+msgid "sounds"
+msgstr "zonidonan"
+
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Agregá komo un par nobo"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Agregá"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Aktualisá e par selektá"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr "Aktualisá"
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "Bista previo:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Teksto:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr "Hinka plachi/potrèt"
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr "Hinka zonido"
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr "Pronunsiá teksto segun mosaiko/aseleho ta bira"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "Kargando wega..."
 
 #: memorizetoolbar.py:43
-msgid "sounds"
-msgstr "sonidonan"
+#, fuzzy
+msgid "Addition"
+msgstr "adishon"
 
-#: memorizetoolbar.py:63
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "lèternan"
+
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "zonidonan"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Karga weganan di demostrashon"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "Reinisia Wega"
 
-#: messenger.py:183
-msgid "Receiving game"
-msgstr "Resibiendo wega"
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
 
-#: messenger.py:183
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
+msgid "Receiving game"
+msgstr "Aseptando wega"
+
+#: messenger.py:193
 msgid "done"
 msgstr "kla"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Brazil"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Sueka"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Islandes"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Rumano"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahili"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindu"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Hulandes"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Latin"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Hungaro"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Macedonia"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Wales"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Franses"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Norwechi"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ruso"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikano"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Finlandes"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Default"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Kantones"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Escoses"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Griego"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vietnamis"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Ingles"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Italiano"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugues"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Aleman"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Flùister"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Kroasia"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Chèko"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Slovakia"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Spañó"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Polako"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#~ msgid "New game"
+#~ msgstr "Wega nobo"
+
+#~ msgid "Load game"
+#~ msgstr "Karga wega"
+
+#~ msgid "Save game"
+#~ msgstr "Warda wega"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "Klik pa wega den grupo"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "Skohe wega di memoria"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "Klik pa wega for di den grupo"
+
+#~ msgid "Choose image"
+#~ msgstr "Skohe imagen"
+
+#~ msgid "Choose audio"
+#~ msgstr "Skohe audio"

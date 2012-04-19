@@ -1,9 +1,13 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Khaled Hosny <khaledhosny@eglug.org>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-17 00:32-0400\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
 "PO-Revision-Date: 2010-02-19 18:18+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -19,111 +23,158 @@ msgstr ""
 msgid "Memorize"
 msgstr "تذكّر"
 
-#: activity.py:70
+#: activity.py:69
 msgid "Play"
 msgstr "العب"
 
-#: activity.py:74
+#: activity.py:69
 msgid "Create"
 msgstr "أنشئ"
 
-#: createcardpanel.py:79
-msgid "Add as new pair"
-msgstr "أضف كزوج جديد"
-
-#: createcardpanel.py:82
-msgid "Add"
-msgstr "أضِف"
-
-#: createcardpanel.py:87
-msgid "Update selected pair"
-msgstr "حدِّث الزوج المحدد"
-
-#: createcardpanel.py:90
-msgid "Update"
-msgstr "حدّث"
-
-#: createcardpanel.py:255
-msgid "Preview:"
-msgstr "معاينة:"
-
-#: createcardpanel.py:271
-msgid "Text:"
-msgstr "نص:"
-
-#: createcardpanel.py:283
-msgid "Insert picture"
-msgstr "أدرِج صورة"
-
-#: createcardpanel.py:288
-msgid "Insert sound"
-msgstr "أدرج صوتا"
-
-#: createcardpanel.py:434
-msgid "Pronounce text during tile flip"
-msgstr "انطق النص عند قلب البلاطة"
-
-#: createtoolbar.py:51
-msgid "New game"
-msgstr "لعبة جديدة"
-
-#: createtoolbar.py:61 memorizetoolbar.py:73
-msgid "Load game"
-msgstr "حمل لعبة"
-
-#: createtoolbar.py:71
-msgid "Save game"
-msgstr "احفظ اللعبة"
-
-#: createtoolbar.py:81
-msgid "Game name"
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
 msgstr "اسم اللعبة"
 
-#: createtoolbar.py:85
+#: activity.py:69
 msgid "Equal pairs"
 msgstr "أزواج متساوية"
 
-#: createtoolbar.py:97 createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "انقر لتلعب لعبة جماعية"
-
-#: createtoolbar.py:114 memorizetoolbar.py:118
-msgid "Choose memorize game"
-msgstr "اختر لعبة تذكّر"
-
-#: createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "انقر لتلعب لعبة فردية"
-
-#: game.py:92
-msgid "Loading game..."
-msgstr "يُحمّل اللعبة..."
-
-#: memorizetoolbar.py:40
-msgid "Load demo games"
-msgstr "حمّل ألعاب تجريبية"
-
-#: memorizetoolbar.py:41
+#: activity.py:70
+#, fuzzy
 msgid "addition"
 msgstr "الجمع"
 
-#: memorizetoolbar.py:42
+#: activity.py:70
+#, fuzzy
 msgid "letters"
 msgstr "الحروف"
 
-#: memorizetoolbar.py:43
+#: activity.py:70
+#, fuzzy
 msgid "sounds"
 msgstr "الأصوات"
 
-#: memorizetoolbar.py:63
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "أضف كزوج جديد"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "أضِف"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "حدِّث الزوج المحدد"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr "حدّث"
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "معاينة:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "نص:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr "أدرِج صورة"
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr "أدرج صوتا"
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr "انطق النص عند قلب البلاطة"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "يُحمّل اللعبة..."
+
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "الجمع"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "الحروف"
+
+#: memorizetoolbar.py:45
+#, fuzzy
+msgid "Sounds"
+msgstr "الأصوات"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "حمّل ألعاب تجريبية"
+
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "أعِد تشغيل اللعبة"
 
-#: messenger.py:195
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "يستلم اللعبة"
 
-#: messenger.py:196
+#: messenger.py:193
 msgid "done"
 msgstr "تمّ"
 
@@ -258,6 +309,24 @@ msgstr "بولندية "
 #: speak/voice.py:68
 msgid "Esperanto"
 msgstr "إسبرانتو"
+
+#~ msgid "New game"
+#~ msgstr "لعبة جديدة"
+
+#~ msgid "Load game"
+#~ msgstr "حمل لعبة"
+
+#~ msgid "Save game"
+#~ msgstr "احفظ اللعبة"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "انقر لتلعب لعبة جماعية"
+
+#~ msgid "Choose memorize game"
+#~ msgstr "اختر لعبة تذكّر"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "انقر لتلعب لعبة فردية"
 
 #~ msgid "Pronounce text while fliping tile"
 #~ msgstr "نطق النص بينما يتم قلب المربع "

@@ -1,124 +1,365 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-31 16:33-0300\n"
-"PO-Revision-Date: 2008-01-09 09:15+0000\n"
-"Last-Translator: Sohaib Obaidi <ebtihaj_obaidi@yahoo.com>\n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: 2010-01-10 23:30-0400\n"
+"Last-Translator: Chris Leonard <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.0.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.2.1\n"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/game.py:103
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr ""
+
+#: activity.py:69
+msgid "Play"
+msgstr "بازی"
+
+#: activity.py:69
+msgid "Create"
+msgstr "آفریدن"
+
+#: activity.py:69
+#, fuzzy
+msgid "Game name:"
+msgstr "نام بازی"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "جوره های مساوی"
+
+#: activity.py:70
+#, fuzzy
+msgid "addition"
+msgstr "افزایش"
+
+#: activity.py:70
+#, fuzzy
+msgid "letters"
+msgstr "حروف"
+
+#: activity.py:70
+msgid "sounds"
+msgstr ""
+
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:212
+msgid "Play game"
+msgstr ""
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "یک جوره تازه را اضافه کن"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr ""
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "جوره انتخاب شده را بروز کن"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr ""
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "پیش نمایش:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "متن:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr ""
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr ""
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr ""
+
+#: game.py:94
 msgid "Loading game..."
 msgstr "بارگذاری بازی در حال جریان"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:43
+#: memorizetoolbar.py:43
+#, fuzzy
+msgid "Addition"
+msgstr "افزایش"
+
+#: memorizetoolbar.py:44
+#, fuzzy
+msgid "Letters"
+msgstr "حروف"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr ""
+
+#: memorizetoolbar.py:60
 #, fuzzy
 msgid "Load demo games"
 msgstr "بارگذاری بازی های دمو"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:44
-msgid "addition"
-msgstr "افزایش"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:45
-msgid "capitals"
-msgstr "حروف بزرگ"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:46
-msgid "drumgit"
-msgstr ""
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:47
-msgid "letters"
-msgstr "حروف"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:48
-msgid "numbers"
-msgstr "اعداد"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:49
-msgid "phonemes"
-msgstr "صدا های ساده"
-
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:69
+#: memorizetoolbar.py:82
 msgid "Restart Game"
 msgstr "شروع دوباره بازی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:79
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:63
-msgid "Load game"
-msgstr "بارگذاری بازی"
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/memorizetoolbar.py:123
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:116
-msgid "Choose memorize game"
-msgstr "بازی حافظیی را انتخاب نمائید"
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr ""
+
+#: messenger.py:192
 msgid "Receiving game"
 msgstr "بدست آوردن بازی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/messenger.py:180
+#: messenger.py:193
 msgid "done"
 msgstr "شد"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:70
-msgid "Create"
-msgstr "آفریدن"
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr ""
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/activity.py:74
-msgid "Play"
-msgstr "بازی"
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "سوئدی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:50
-msgid "Add as new pair"
-msgstr "یک جوره تازه را اضافه کن"
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "ایسلندی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:58
-msgid "Update selected pair"
-msgstr "جوره انتخاب شده را بروز کن"
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "رومانیایی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:175
-msgid "Preview:"
-msgstr "پیش نمایش:"
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "سواحلی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:177
-msgid "Text:"
-msgstr "متن:"
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "هندی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:238
-msgid "Choose image"
-msgstr "شکل را انتخاب کن"
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "هلندی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createcardpanel.py:258
-msgid "Choose audio"
-msgstr "شنیدنی را انتخاب کن"
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "لاتینی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:53
-msgid "New game"
-msgstr "بازی جدید"
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "مجاری"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:73
-msgid "Save game"
-msgstr "بازی را ثبت کن"
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "مقدونی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:83
-msgid "Game name"
-msgstr "نام بازی"
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "ویلزی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:87
-msgid "Equal pairs"
-msgstr "جوره های مساوی"
+#: speak/voice.py:47
+msgid "French"
+msgstr "فرانسوی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:99
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:158
-msgid "Click for grouped game"
-msgstr "برای بازی گروهی تیک کن "
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "نورسک جدید نروژی"
 
-#: /home/msgodoi/olpc/workspace/Memorize.activity/createtoolbar.py:154
-msgid "Click for ungrouped game"
-msgstr "برای بازی غیرگروهی تیک کن"
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "روسی"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "آفریکانس"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "فنلاندی"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr ""
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr ""
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr ""
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr ""
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "ویتنامی"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "انگلیسی"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr ""
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "ایتالیایی"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "پرتغالی"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "آلمانی"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr ""
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "کرواتی"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "چکی"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "اسلواکی"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "اسپانیایی"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "لهستانی"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "اسپرانتو"
+
+#~ msgid "New game"
+#~ msgstr "بازی جدید"
+
+#~ msgid "Load game"
+#~ msgstr "بارگذاری بازی"
+
+#~ msgid "Save game"
+#~ msgstr "بازی را ثبت کن"
+
+#~ msgid "Click for grouped game"
+#~ msgstr "برای بازی گروهی تیک کن "
+
+#~ msgid "Choose memorize game"
+#~ msgstr "بازی حافظیی را انتخاب نمائید"
+
+#~ msgid "Click for ungrouped game"
+#~ msgstr "برای بازی غیرگروهی تیک کن"
+
+#~ msgid "Choose image"
+#~ msgstr "شکل را انتخاب کن"
+
+#~ msgid "Choose audio"
+#~ msgstr "شنیدنی را انتخاب کن"
+
+#~ msgid "capitals"
+#~ msgstr "حروف بزرگ"
+
+#~ msgid "numbers"
+#~ msgstr "اعداد"
+
+#~ msgid "phonemes"
+#~ msgstr "صدا های ساده"
