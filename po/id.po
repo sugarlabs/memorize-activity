@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-15 00:32-0500\n"
-"PO-Revision-Date: 2011-01-05 06:29+0200\n"
+"PO-Revision-Date: 2012-05-22 02:46+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: id\n"
@@ -43,7 +43,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
@@ -55,7 +55,7 @@ msgstr ""
 
 #: activity.py:69
 msgid "Create"
-msgstr ""
+msgstr "Buat"
 
 #: activity.py:69
 msgid "Game name:"
@@ -74,8 +74,9 @@ msgid "letters"
 msgstr ""
 
 #: activity.py:70
+#, fuzzy
 msgid "sounds"
-msgstr ""
+msgstr "Suara"
 
 #: activity.py:91 activity.py:216
 msgid "Edit game"
@@ -102,12 +103,14 @@ msgid "Update"
 msgstr ""
 
 #: createcardpanel.py:262
+#, fuzzy
 msgid "Preview:"
-msgstr ""
+msgstr "Pratilik:"
 
 #: createcardpanel.py:278
+#, fuzzy
 msgid "Text:"
-msgstr ""
+msgstr "Teks:"
 
 #: createcardpanel.py:290
 msgid "Insert picture"
@@ -166,8 +169,9 @@ msgid "Letters"
 msgstr ""
 
 #: memorizetoolbar.py:45
+#, fuzzy
 msgid "Sounds"
-msgstr ""
+msgstr "Suara"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
@@ -182,8 +186,9 @@ msgid "Discard your modified game?"
 msgstr ""
 
 #: memorizetoolbar.py:107
+#, fuzzy
 msgid "Discard"
-msgstr ""
+msgstr "Abaikan"
 
 #: memorizetoolbar.py:109
 msgid "Do not discard"
@@ -194,8 +199,9 @@ msgid "Receiving game"
 msgstr ""
 
 #: messenger.py:193
+#, fuzzy
 msgid "done"
-msgstr ""
+msgstr "selesai"
 
 #: speak/voice.py:36
 msgid "Brazil"
