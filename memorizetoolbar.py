@@ -60,7 +60,7 @@ class MemorizeToolbarBuilder(gobject.GObject):
         self._demo_games.props.tooltip = _('Load demo games')
 
         for i, game in enumerate(self.translated_game_names):
-            menu_item = MenuItem(game)
+            menu_item = MenuItem(game, icon_name=self.standard_game_names[i])
             menu_item.connect('activate', self.__activate_game_cb, i)
             self._demo_games.props.palette.menu.append(menu_item)
             menu_item.show()
