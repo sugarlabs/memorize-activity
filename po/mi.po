@@ -1,0 +1,301 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.7.0\n"
+
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr "Whakamaumahara"
+
+#: activity.py:69
+msgid "Play"
+msgstr "Tākaro"
+
+#: activity.py:69
+msgid "Create"
+msgstr "Waihanga"
+
+#: activity.py:69
+msgid "Game name:"
+msgstr "Ingoa tākaro:"
+
+#: activity.py:69
+msgid "Equal pairs"
+msgstr "Takirua rite"
+
+#: activity.py:70
+msgid "addition"
+msgstr "tāpiritanga"
+
+#: activity.py:70
+msgid "letters"
+msgstr "ngā pū"
+
+#: activity.py:70
+msgid "sounds"
+msgstr "ngā oro"
+
+#: activity.py:91 activity.py:216
+msgid "Edit game"
+msgstr "Whakatika tākaro"
+
+#: activity.py:212
+msgid "Play game"
+msgstr "Pūrei tākaro"
+
+#: createcardpanel.py:78
+msgid "Add as new pair"
+msgstr "Tāpiri hei takirua hōu"
+
+#: createcardpanel.py:81
+msgid "Add"
+msgstr "Tāpiri"
+
+#: createcardpanel.py:86
+msgid "Update selected pair"
+msgstr "Whakahōu takirua kua tīpakohia"
+
+#: createcardpanel.py:89
+msgid "Update"
+msgstr "Whakahōu"
+
+#: createcardpanel.py:262
+msgid "Preview:"
+msgstr "Arokite:"
+
+#: createcardpanel.py:278
+msgid "Text:"
+msgstr "Kupu:"
+
+#: createcardpanel.py:290
+msgid "Insert picture"
+msgstr "Kōkuhu pikitia"
+
+#: createcardpanel.py:295
+msgid "Insert sound"
+msgstr "Kōkuhu oro"
+
+#: createcardpanel.py:433
+msgid "Pronounce text during tile flip"
+msgstr "Whakahua kupu i te wā pori tāpa"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr "Whakataurite momo tāpa kē"
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr "Tākaro tāpa ranu"
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr "Ūkuia ngā tāpa katoa"
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr "Ūkuia ngā tāpa katoa o te tākaro?"
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr "Ūkui"
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr "Kaua e ūkui"
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr "Whakataurite ngā tāpa ōrite"
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr "Tākaro tāpa whakarōpū"
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "E ūtaina ana te tākaro..."
+
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Tāpiritanga"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Ngā Pū"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Ngā Oro"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Ūtaina tākaro whakaaturanga"
+
+#: memorizetoolbar.py:82
+msgid "Restart Game"
+msgstr "Tīmata Anō te Tākaro"
+
+#: memorizetoolbar.py:105
+msgid "Discard your modified game?"
+msgstr "Tūrakina tō tākaro whakakē?"
+
+#: memorizetoolbar.py:107
+msgid "Discard"
+msgstr "Tūraki"
+
+#: memorizetoolbar.py:109
+msgid "Do not discard"
+msgstr "Kaua e tūraki"
+
+#: messenger.py:192
+msgid "Receiving game"
+msgstr "E whiwhi ana i te tākaro"
+
+#: messenger.py:193
+msgid "done"
+msgstr "kua mutu"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Parahi"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Huitihi"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Tiorangiana"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Romaniana"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Huahīri"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hiniri"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr ""
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Rātini"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Hanekariana"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Makerōnia"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Wēra"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Wīwī"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "NowīhianaNowīhiana"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ruhiana"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Awherikāna"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Whinihi"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Taunoa"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Kanetonihi"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Kotiana"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Kariki"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Whitināmu"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Ingarihi"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Rānekahire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Ītariana"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Potukara"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Tiamana"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "HuipaHuipa"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Koroātiana"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Tiekerowākia"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Horowāka"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Pāniora"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Pourihi"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Eperānato"
