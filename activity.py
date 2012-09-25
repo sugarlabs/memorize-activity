@@ -122,6 +122,8 @@ class MemorizeActivity(Activity):
                 self.cardlist.clean_list)
         self._createToolbarBuilder.connect('create_new_game',
                 self.createcardpanel.clean)
+        self._createToolbarBuilder.connect('create_new_game',
+                self._memorizeToolbarBuilder.reset)
         self._createToolbarBuilder.connect('create_equal_pairs',
                 self.change_equal_pairs)
         self.game = game.MemorizeGame()

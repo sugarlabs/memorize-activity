@@ -65,6 +65,7 @@ class MemorizeToolbarBuilder(gobject.GObject):
             self._demo_games.props.palette.menu.append(menu_item)
             menu_item.show()
         self.toolbar.insert(self._demo_games, -1)
+        self._selected_game = self.standard_game_names[0]
 
         # Change size combobox
         self._size_combo = RadioMenuButton(icon_name='change_size')
@@ -77,6 +78,7 @@ class MemorizeToolbarBuilder(gobject.GObject):
             self._size_combo.props.palette.menu.append(menu_item)
             menu_item.show()
         self.toolbar.insert(self._size_combo, -1)
+        self._selected_game_size = self._sizes[0][0]
 
         # Reset Button
         self._restart_button = ToolButton('game-new')
@@ -95,8 +97,10 @@ class MemorizeToolbarBuilder(gobject.GObject):
         self._restart_button.set_sensitive(active)
 
     def _game_size_cb(self, widget, i):
-        game_size = int(self._sizes[i][0])
-        self.emit('game_changed', None, game_size, 'size', None, None)
+        self._selected_game_size = int(self._sizes[i][0])
+        self._size_combo.props.icon_name = self._sizes[i]
+        self.emit('game_changed', None, self._selected_game_size, 'size', None,
+                None)
 
     def __activate_game_cb(self, menu, i):
         self._game_selected_index = i
@@ -120,16 +124,16 @@ class MemorizeToolbarBuilder(gobject.GObject):
 
     def _change_game(self):
         title = self.translated_game_names[self._game_selected_index]
-        game_size = int(self._sizes[self._size_combo.combo.get_active()][0])
+        game_size = int(self._selected_game_size)
 
         game_name = self.standard_game_names[self._game_selected_index]
-
+        self._demo_games.props.icon_name = game_name
         game_file = join(dirname(__file__), 'demos', game_name + '.zip')
         self.emit('game_changed', game_file, game_size, 'demo', title, None)
 
+    def reset(self, widget):
+        self._demo_games.props.icon_name = 'memorize-collection'
+
     def update_toolbar(self, widget, data, grid):
         size = data.get('size')
-        self._size_combo.combo.handler_block(self.size_handle_id)
-        size_index = self._sizes.index(size + ' X ' + size)
-        self._size_combo.combo.set_active(int(size_index))
-        self._size_combo.combo.handler_unblock(self.size_handle_id)
+        self._size_combo.props.icon_name = size + ' X ' + size
