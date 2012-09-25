@@ -7,3 +7,4 @@ activity_version = 42
 show_launcher = yes
 mime_types = application/x-memorize-project;
 license = GPLv2+
+summary = Here you can play games that challenge your memory! But, more importantly, you can create your own game to test the memory of others!
