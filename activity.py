@@ -69,6 +69,7 @@ _MODE_CREATE = 2
 changed_strings = [_('Play'), _('Create'), _('Game name:'), _('Equal pairs'),
         _('addition'), _('letters'), _('sounds')]
 
+
 class MemorizeActivity(Activity):
 
     def __init__(self, handle):

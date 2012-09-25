@@ -323,7 +323,7 @@ class MemorizeGame(GObject):
         self.model.count = 0
         self.model.def_grid(size)
         self.load_remote(self.model.grid, self.model.data,
-                self.model.data['mode'],False)
+                self.model.data['mode'], False)
 
     def set_load_mode(self, msg):
         self.emit('load_mode', msg)
