@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:32-0500\n"
-"PO-Revision-Date: 2012-02-08 23:21+0200\n"
+"POT-Creation-Date: 2012-09-26 00:31-0400\n"
+"PO-Revision-Date: 2012-09-30 15:49+0200\n"
 "Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -49,47 +49,47 @@ msgstr "bogstaver"
 msgid "sounds"
 msgstr "lyde"
 
-#: activity.py:91 activity.py:216
+#: activity.py:92 activity.py:223
 msgid "Edit game"
 msgstr "Redigér spil"
 
-#: activity.py:212
+#: activity.py:219
 msgid "Play game"
 msgstr "Spil spillet"
 
-#: createcardpanel.py:78
+#: createcardpanel.py:81
 msgid "Add as new pair"
 msgstr "Tilføj som nyt par"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:84
 msgid "Add"
 msgstr "Tilføj"
 
-#: createcardpanel.py:86
+#: createcardpanel.py:89
 msgid "Update selected pair"
 msgstr "Opdatér markerede par"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:92
 msgid "Update"
 msgstr "Opdatér"
 
-#: createcardpanel.py:262
+#: createcardpanel.py:291
 msgid "Preview:"
 msgstr "Forhåndsvis:"
 
-#: createcardpanel.py:278
+#: createcardpanel.py:307
 msgid "Text:"
 msgstr "Tekst:"
 
-#: createcardpanel.py:290
+#: createcardpanel.py:319
 msgid "Insert picture"
 msgstr "Indsæt billede"
 
-#: createcardpanel.py:295
+#: createcardpanel.py:324
 msgid "Insert sound"
 msgstr "Indsæt lyd"
 
-#: createcardpanel.py:433
+#: createcardpanel.py:483
 msgid "Pronounce text during tile flip"
 msgstr "Udtal tekst mens brik vendes"
 
@@ -145,19 +145,23 @@ msgstr "Lyde"
 msgid "Load demo games"
 msgstr "Indlæs demo-spil"
 
-#: memorizetoolbar.py:82
+#: memorizetoolbar.py:72
+msgid "Change size"
+msgstr "Tilpas størrelse"
+
+#: memorizetoolbar.py:86
 msgid "Restart Game"
 msgstr "Genstart spil"
 
-#: memorizetoolbar.py:105
+#: memorizetoolbar.py:111
 msgid "Discard your modified game?"
 msgstr "Forkast dit tilpassede spil?"
 
-#: memorizetoolbar.py:107
+#: memorizetoolbar.py:113
 msgid "Discard"
 msgstr "Forkast"
 
-#: memorizetoolbar.py:109
+#: memorizetoolbar.py:115
 msgid "Do not discard"
 msgstr "Forkast ikke"
 
