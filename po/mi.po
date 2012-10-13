@@ -2,23 +2,31 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:32-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"PO-Revision-Date: 2012-09-21 22:35+0200\n"
+"Last-Translator: hariru <hariruroa@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: mi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.7.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
 msgid "Memorize"
 msgstr "Whakamaumahara"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Here you can play games that challenge your memory! But, more importantly, "
+"you can create your own game to test the memory of others!"
+msgstr ""
 
 #: activity.py:69
 msgid "Play"
@@ -48,47 +56,47 @@ msgstr "ngā pū"
 msgid "sounds"
 msgstr "ngā oro"
 
-#: activity.py:91 activity.py:216
+#: activity.py:92 activity.py:223
 msgid "Edit game"
 msgstr "Whakatika tākaro"
 
-#: activity.py:212
+#: activity.py:219
 msgid "Play game"
 msgstr "Pūrei tākaro"
 
-#: createcardpanel.py:78
+#: createcardpanel.py:81
 msgid "Add as new pair"
 msgstr "Tāpiri hei takirua hōu"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:84
 msgid "Add"
 msgstr "Tāpiri"
 
-#: createcardpanel.py:86
+#: createcardpanel.py:89
 msgid "Update selected pair"
 msgstr "Whakahōu takirua kua tīpakohia"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:92
 msgid "Update"
 msgstr "Whakahōu"
 
-#: createcardpanel.py:262
+#: createcardpanel.py:291
 msgid "Preview:"
 msgstr "Arokite:"
 
-#: createcardpanel.py:278
+#: createcardpanel.py:307
 msgid "Text:"
 msgstr "Kupu:"
 
-#: createcardpanel.py:290
+#: createcardpanel.py:319
 msgid "Insert picture"
 msgstr "Kōkuhu pikitia"
 
-#: createcardpanel.py:295
+#: createcardpanel.py:324
 msgid "Insert sound"
 msgstr "Kōkuhu oro"
 
-#: createcardpanel.py:433
+#: createcardpanel.py:483
 msgid "Pronounce text during tile flip"
 msgstr "Whakahua kupu i te wā pori tāpa"
 
@@ -144,19 +152,23 @@ msgstr "Ngā Oro"
 msgid "Load demo games"
 msgstr "Ūtaina tākaro whakaaturanga"
 
-#: memorizetoolbar.py:82
+#: memorizetoolbar.py:72
+msgid "Change size"
+msgstr ""
+
+#: memorizetoolbar.py:86
 msgid "Restart Game"
 msgstr "Tīmata Anō te Tākaro"
 
-#: memorizetoolbar.py:105
+#: memorizetoolbar.py:111
 msgid "Discard your modified game?"
 msgstr "Tūrakina tō tākaro whakakē?"
 
-#: memorizetoolbar.py:107
+#: memorizetoolbar.py:113
 msgid "Discard"
 msgstr "Tūraki"
 
-#: memorizetoolbar.py:109
+#: memorizetoolbar.py:115
 msgid "Do not discard"
 msgstr "Kaua e tūraki"
 
@@ -194,7 +206,7 @@ msgstr "Hiniri"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Tatimana"
 
 #: speak/voice.py:43
 msgid "Latin"
