@@ -31,8 +31,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2012-02-09 18:04+0200\n"
-"Last-Translator: Marcin <ulinski.marcin@gmail.com>\n"
+"PO-Revision-Date: 2012-10-13 00:25+0200\n"
+"Last-Translator: Kamila <kamilafilipowska@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr ""
 
 #: activity.py:69
 msgid "Play"
-msgstr "Zagraj"
+msgstr "Odtwórz"
 
 #: activity.py:69
 msgid "Create"
@@ -255,7 +255,7 @@ msgstr "Francuski"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr "norweski Nynorsk"
+msgstr "Norweski"
 
 #: speak/voice.py:49
 msgid "Russian"

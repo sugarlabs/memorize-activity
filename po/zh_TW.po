@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Memorize\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"POT-Creation-Date: 2012-09-27 14:55-0400\n"
 "PO-Revision-Date: 2012-03-22 17:23+0200\n"
 "Last-Translator: Yuan <yuanchao@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
@@ -41,9 +41,16 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
 msgid "Memorize"
 msgstr "記憶遊戲"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Here you can play games that challenge your memory! But, more importantly, "
+"you can create your own game to test the memory of others!"
+msgstr ""
 
 #: activity.py:69
 msgid "Play"
@@ -73,47 +80,47 @@ msgstr "字母"
 msgid "sounds"
 msgstr "聲音"
 
-#: activity.py:91 activity.py:216
+#: activity.py:92 activity.py:223
 msgid "Edit game"
 msgstr "編輯遊戲"
 
-#: activity.py:212
+#: activity.py:219
 msgid "Play game"
 msgstr "進行遊戲"
 
-#: createcardpanel.py:78
+#: createcardpanel.py:81
 msgid "Add as new pair"
 msgstr "增加新配對"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:84
 msgid "Add"
 msgstr "新增"
 
-#: createcardpanel.py:86
+#: createcardpanel.py:89
 msgid "Update selected pair"
 msgstr "更新選取的配對"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:92
 msgid "Update"
 msgstr "更新"
 
-#: createcardpanel.py:262
+#: createcardpanel.py:291
 msgid "Preview:"
 msgstr "預覽:"
 
-#: createcardpanel.py:278
+#: createcardpanel.py:307
 msgid "Text:"
 msgstr "文字:"
 
-#: createcardpanel.py:290
+#: createcardpanel.py:319
 msgid "Insert picture"
 msgstr "插入圖案"
 
-#: createcardpanel.py:295
+#: createcardpanel.py:324
 msgid "Insert sound"
 msgstr "插入音效"
 
-#: createcardpanel.py:433
+#: createcardpanel.py:483
 msgid "Pronounce text during tile flip"
 msgstr "翻動卡片時唸出文字"
 
@@ -169,19 +176,23 @@ msgstr "聲音"
 msgid "Load demo games"
 msgstr "載入範例遊戲"
 
-#: memorizetoolbar.py:82
+#: memorizetoolbar.py:72
+msgid "Change size"
+msgstr ""
+
+#: memorizetoolbar.py:86
 msgid "Restart Game"
 msgstr "重新開始"
 
-#: memorizetoolbar.py:105
+#: memorizetoolbar.py:111
 msgid "Discard your modified game?"
 msgstr "捨棄編輯過的遊戲嗎？"
 
-#: memorizetoolbar.py:107
+#: memorizetoolbar.py:113
 msgid "Discard"
 msgstr "捨棄"
 
-#: memorizetoolbar.py:109
+#: memorizetoolbar.py:115
 msgid "Do not discard"
 msgstr "不要捨棄"
 

@@ -34,18 +34,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:32-0500\n"
-"PO-Revision-Date: 2008-03-01 13:05-0500\n"
-"Last-Translator: Alexander Todorov <atodorov@redhat.com>\n"
+"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"PO-Revision-Date: 2012-07-24 08:34+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.0.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
 msgid "Memorize"
 msgstr "Запаметяване"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Here you can play games that challenge your memory! But, more importantly, "
+"you can create your own game to test the memory of others!"
+msgstr ""
 
 #: activity.py:69
 msgid "Play"
@@ -79,47 +88,47 @@ msgstr "букви"
 msgid "sounds"
 msgstr "Звуци"
 
-#: activity.py:91 activity.py:216
+#: activity.py:92 activity.py:223
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:212
+#: activity.py:219
 msgid "Play game"
 msgstr ""
 
-#: createcardpanel.py:78
+#: createcardpanel.py:81
 msgid "Add as new pair"
 msgstr "Добавяне"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:84
 msgid "Add"
 msgstr ""
 
-#: createcardpanel.py:86
+#: createcardpanel.py:89
 msgid "Update selected pair"
 msgstr "Обновяване"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:92
 msgid "Update"
 msgstr ""
 
-#: createcardpanel.py:262
+#: createcardpanel.py:291
 msgid "Preview:"
 msgstr "Преглед:"
 
-#: createcardpanel.py:278
+#: createcardpanel.py:307
 msgid "Text:"
 msgstr "Текст:"
 
-#: createcardpanel.py:290
+#: createcardpanel.py:319
 msgid "Insert picture"
 msgstr ""
 
-#: createcardpanel.py:295
+#: createcardpanel.py:324
 msgid "Insert sound"
 msgstr ""
 
-#: createcardpanel.py:433
+#: createcardpanel.py:483
 msgid "Pronounce text during tile flip"
 msgstr ""
 
@@ -178,19 +187,23 @@ msgstr "Звуци"
 msgid "Load demo games"
 msgstr "Примерни игри"
 
-#: memorizetoolbar.py:82
+#: memorizetoolbar.py:72
+msgid "Change size"
+msgstr ""
+
+#: memorizetoolbar.py:86
 msgid "Restart Game"
 msgstr "Рестартиране на играта"
 
-#: memorizetoolbar.py:105
+#: memorizetoolbar.py:111
 msgid "Discard your modified game?"
 msgstr ""
 
-#: memorizetoolbar.py:107
+#: memorizetoolbar.py:113
 msgid "Discard"
 msgstr ""
 
-#: memorizetoolbar.py:109
+#: memorizetoolbar.py:115
 msgid "Do not discard"
 msgstr ""
 
@@ -204,67 +217,67 @@ msgstr "готово"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "бразилски португалски"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "шведски"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "исландски"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "румънски"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "суахили"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "хинди"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "холандски"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "латински"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "унгарски"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "македонски"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "уелски"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "френски"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "норвежки"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "руски"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "африканс"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "фински"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
@@ -280,15 +293,15 @@ msgstr ""
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "гръцки"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "виетнамски"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "английски"
 
 #: speak/voice.py:58
 msgid "Lancashire"
@@ -296,15 +309,15 @@ msgstr ""
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "италиански"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "португалски"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "немски"
 
 #: speak/voice.py:62
 msgid "Whisper"
@@ -312,27 +325,27 @@ msgstr ""
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "хърватски"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "чешки"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "словашки"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "испански"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "полски"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "есперанто"
 
 #~ msgid "New game"
 #~ msgstr "Нова игра"

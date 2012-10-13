@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:32-0500\n"
+"POT-Creation-Date: 2012-09-27 14:55-0400\n"
 "PO-Revision-Date: 2012-02-09 14:04+0200\n"
 "Last-Translator: anush.mkrtchyan <anush.mkrtchyan@ca1492.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,9 +37,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
 msgid "Memorize"
 msgstr "Հիշել"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Here you can play games that challenge your memory! But, more importantly, "
+"you can create your own game to test the memory of others!"
+msgstr ""
 
 #: activity.py:69
 msgid "Play"
@@ -69,47 +76,47 @@ msgstr "Տառեր"
 msgid "sounds"
 msgstr "Հնչյուններ"
 
-#: activity.py:91 activity.py:216
+#: activity.py:92 activity.py:223
 msgid "Edit game"
 msgstr "Խմբագրել խաղը"
 
-#: activity.py:212
+#: activity.py:219
 msgid "Play game"
 msgstr "Խաղալ խաղը"
 
-#: createcardpanel.py:78
+#: createcardpanel.py:81
 msgid "Add as new pair"
 msgstr "Ավելացնել որպես նոր զույգ"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:84
 msgid "Add"
 msgstr "Ավելացնել"
 
-#: createcardpanel.py:86
+#: createcardpanel.py:89
 msgid "Update selected pair"
 msgstr "Արդիականացնել ընտրած զույգը"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:92
 msgid "Update"
 msgstr "Արդիականացում"
 
-#: createcardpanel.py:262
+#: createcardpanel.py:291
 msgid "Preview:"
 msgstr "Նախատեսք"
 
-#: createcardpanel.py:278
+#: createcardpanel.py:307
 msgid "Text:"
 msgstr "Տեքստ"
 
-#: createcardpanel.py:290
+#: createcardpanel.py:319
 msgid "Insert picture"
 msgstr "Զետեղել Պատկերը"
 
-#: createcardpanel.py:295
+#: createcardpanel.py:324
 msgid "Insert sound"
 msgstr "Զետեղել ձայնը"
 
-#: createcardpanel.py:433
+#: createcardpanel.py:483
 msgid "Pronounce text during tile flip"
 msgstr "Արտասանել տեքստը` մասնիկը շրջելու ժամանակ"
 
@@ -165,19 +172,23 @@ msgstr "Հնչյուններ"
 msgid "Load demo games"
 msgstr "Բեռնել ցուցադրական խաղերը"
 
-#: memorizetoolbar.py:82
+#: memorizetoolbar.py:72
+msgid "Change size"
+msgstr ""
+
+#: memorizetoolbar.py:86
 msgid "Restart Game"
 msgstr "Խաղը վերսկսել"
 
-#: memorizetoolbar.py:105
+#: memorizetoolbar.py:111
 msgid "Discard your modified game?"
 msgstr "Հեռացնե՞լ ձեր ձևափոխված խաղը"
 
-#: memorizetoolbar.py:107
+#: memorizetoolbar.py:113
 msgid "Discard"
 msgstr "Հեռացնել"
 
-#: memorizetoolbar.py:109
+#: memorizetoolbar.py:115
 msgid "Do not discard"
 msgstr "Չհեռացնել"
 

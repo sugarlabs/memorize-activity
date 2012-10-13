@@ -7,15 +7,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2011-11-26 05:00+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: aym\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Translate Toolkit 1.7.0\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -68,10 +66,9 @@ msgstr ""
 msgid "Add as new pair"
 msgstr ""
 
-#  "Añadir"
 #: createcardpanel.py:84
 msgid "Add"
-msgstr "Yapxataña"
+msgstr ""
 
 #: createcardpanel.py:89
 msgid "Update selected pair"
@@ -85,10 +82,9 @@ msgstr ""
 msgid "Preview:"
 msgstr ""
 
-#  "Texto:"
 #: createcardpanel.py:307
 msgid "Text:"
-msgstr "Qillqawi:"
+msgstr ""
 
 #: createcardpanel.py:319
 msgid "Insert picture"
@@ -118,10 +114,9 @@ msgstr ""
 msgid "Clear all the tiles from the game?"
 msgstr ""
 
-#  "Limpiar"
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr "Qhana"
+msgstr ""
 
 #: createtoolbar.py:80
 msgid "Do not clear"
