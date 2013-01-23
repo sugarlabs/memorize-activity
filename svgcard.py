@@ -96,7 +96,7 @@ class SvgCard(Gtk.EventBox):
         self.draw = Gtk.DrawingArea()
         self.draw.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
         self.draw.set_events(Gdk.EventMask.ALL_EVENTS_MASK)
-        self.draw.connect('expose-event', self._expose_cb)
+        self.draw.connect('draw', self.__draw_cb)
         self.draw.connect('realize', self._realize_cb)
         self.draw.show_all()
 
@@ -110,13 +110,16 @@ class SvgCard(Gtk.EventBox):
     def _realize_cb(self, widget):
         self.gc = widget.window.new_gc()
 
-    def _expose_cb(self, widget, event):
+    def __draw_cb(self, widget, context):
         pixbuf = self._read_icon_data(self.current_face)
-        widget.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
+        Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
+        context.paint()
 
         if self.show_jpeg:
-            widget.window.draw_pixbuf(None, self.jpeg, 0, 0,
-                    theme.SVG_PAD, theme.SVG_PAD)
+            print 'draw'
+            Gdk.cairo_set_source_pixbuf(context, self.jpeg, 0, 0)
+            context.paint()
+            # FIXME theme.SVG_PAD, theme.SVG_PAD)
 
         if self.show_text:
             props = self.props[self.flipped and 'front_text' or 'back_text']

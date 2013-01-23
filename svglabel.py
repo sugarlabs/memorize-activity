@@ -44,10 +44,11 @@ class SvgLabel(Gtk.DrawingArea):
             self.pixbuf = self._read_icon_data(self.filename, self.fill_color,
                 self.stroke_color)
 
-        self.connect('expose-event', self._expose_cb)
+        self.connect('draw', self.__draw_cb)
 
-    def _expose_cb(self, widget, event):
-        widget.window.draw_pixbuf(None, self.pixbuf, 0, 0, 0, 0)
+    def __draw_cb(self, widget, context):
+        Gdk.cairo_set_source_pixbuf(context, self.pixbuf, 0, 0)
+        context.paint()
         return False
 
     def _read_icon_data(self, filename, fill_color, stroke_color):

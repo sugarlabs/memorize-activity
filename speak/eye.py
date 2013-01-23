@@ -33,7 +33,7 @@ class Eye(Gtk.DrawingArea):
     def __init__(self, fill_color):
         Gtk.DrawingArea.__init__(self)
 
-        self.connect("expose_event", self.expose)
+        self.connect("draw", self.__draw_cb)
         self.frame = 0
         self.blink = False
         self.x, self.y = 0,0
@@ -110,7 +110,7 @@ class Eye(Gtk.DrawingArea):
 
         return a.width/2 + dx, a.height/2 + dy
 
-    def expose(self, widget, event):
+    def __draw_cb(self, widget, context):
         self.frame += 1
         bounds = self.get_allocation()
 

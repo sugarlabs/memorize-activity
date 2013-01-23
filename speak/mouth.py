@@ -34,7 +34,7 @@ class Mouth(Gtk.DrawingArea):
 
         Gtk.DrawingArea.__init__(self)
 
-        self.connect("expose_event",self.expose)
+        self.connect("draw",self.__draw_cb)
         self.buffers = []
         self.buffer_size = 256
         self.main_buffers = []
@@ -62,8 +62,8 @@ class Mouth(Gtk.DrawingArea):
         else:
             self.volume = numpy.core.max(self.main_buffers)# - numpy.core.min(self.main_buffers)
 
-    def expose(self, widget, event):
-        """This function is the "expose" event handler and does all the drawing."""
+    def __draw_cb(self, widget, context):
+        """This function is the "draw" event handler and does all the drawing."""
         bounds = self.get_allocation()
 
         self.processBuffer(bounds)

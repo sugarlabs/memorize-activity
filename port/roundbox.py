@@ -17,7 +17,7 @@ class RoundBox(Gtk.HBox):
         self.border = self._BORDER_DEFAULT
         self.border_color = style.COLOR_BLACK
         self.background_color = None
-        self.connect("expose_event", self.__expose_cb)
+        self.connect("draw", self.__draw_cb)
         self.connect("size-allocate", self.__size_allocate_cb)
         self.connect("add", self.__add_cb)
 
@@ -30,7 +30,7 @@ class RoundBox(Gtk.HBox):
         self._width = allocation.width
         self._height = allocation.height
 
-    def __expose_cb(self, widget, event):
+    def __draw_cb(self, widget, context):
         cr = widget.window.cairo_create()
         #cr.save()
         x = self._x + self._BORDER_DEFAULT / 2
