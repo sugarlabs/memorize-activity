@@ -331,8 +331,7 @@ class CardEditor(Gtk.EventBox):
         browsesound.connect('clicked', self._load_audio)
 
         if speak.espeak.supported:
-            self.usespeak = ToggleToolButton(
-                    named_icon='speak')
+            self.usespeak = ToggleToolButton(icon_name='speak')
             self.usespeak.set_palette(SpeakPalette(self))
             toolbar.add(self.usespeak)
             self.usespeak.connect('toggled', self._usespeak_cb)
