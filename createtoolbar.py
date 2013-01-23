@@ -22,10 +22,10 @@ from gi.repository import GObject
 
 import logging
 
-from sugar.graphics.toolbutton import ToolButton
-from sugar.graphics.toggletoolbutton import ToggleToolButton
-from sugar.graphics.alert import Alert
-from sugar.graphics.icon import Icon
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3.graphics.toggletoolbutton import ToggleToolButton
+from sugar3.graphics.alert import Alert
+from sugar3.graphics.icon import Icon
 
 
 class CreateToolbarBuilder(GObject.GObject):

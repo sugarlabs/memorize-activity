@@ -2,7 +2,7 @@ import math
 
 from gi.repository import Gtk
 
-from sugar.graphics import style
+from sugar3.graphics import style
 
 
 class RoundBox(Gtk.HBox):

@@ -37,15 +37,15 @@ GObject.threads_init()
 import telepathy
 import telepathy.client
 
-from sugar.activity.widgets import ActivityToolbarButton
-from sugar.activity.widgets import StopButton
-from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.graphics.toggletoolbutton import ToggleToolButton
-from sugar.activity.activity import Activity
-from sugar.presence import presenceservice
-from sugar.presence.tubeconn import TubeConnection
+from sugar3.activity.widgets import ActivityToolbarButton
+from sugar3.activity.widgets import StopButton
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.graphics.toggletoolbutton import ToggleToolButton
+from sugar3.activity.activity import Activity
+from sugar3.presence import presenceservice
+from sugar3.presence.tubeconn import TubeConnection
 
-from sugar import profile
+from sugar3 import profile
 import cardtable
 import scoreboard
 import game

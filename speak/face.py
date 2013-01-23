@@ -29,7 +29,7 @@ from gettext import gettext as _
 
 from gi.repository import Gtk
 
-import sugar.graphics.style as style
+import sugar3.graphics.style as style
 
 import espeak
 import eye

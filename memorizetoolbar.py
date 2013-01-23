@@ -19,12 +19,12 @@ from gi.repository import GObject
 from os.path import join, dirname
 
 from gettext import gettext as _
-from sugar.graphics.toolbutton import ToolButton
-from sugar.graphics.toolcombobox import ToolComboBox
-from sugar.graphics.alert import Alert
-from sugar.graphics.icon import Icon
-from sugar.activity.widgets import RadioMenuButton
-from sugar.graphics.menuitem import MenuItem
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3.graphics.toolcombobox import ToolComboBox
+from sugar3.graphics.alert import Alert
+from sugar3.graphics.icon import Icon
+from sugar3.activity.widgets import RadioMenuButton
+from sugar3.graphics.menuitem import MenuItem
 
 import logging
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT

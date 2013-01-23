@@ -17,8 +17,8 @@
 from gi.repository import Gtk
 import logging
 
-from sugar import mime
-from sugar.graphics.objectchooser import ObjectChooser
+from sugar3 import mime
+from sugar3.graphics.objectchooser import ObjectChooser
 
 TEXT  = hasattr(mime, 'GENERIC_TYPE_TEXT') and mime.GENERIC_TYPE_TEXT or None
 IMAGE = hasattr(mime, 'GENERIC_TYPE_IMAGE') and mime.GENERIC_TYPE_IMAGE or None

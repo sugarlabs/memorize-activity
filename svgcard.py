@@ -27,7 +27,7 @@ from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Pango
 
-from sugar.util import LRU
+from sugar3.util import LRU
 
 import theme
 import face

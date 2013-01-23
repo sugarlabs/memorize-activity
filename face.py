@@ -18,7 +18,7 @@ from gi.repository import Gdk
 import logging
 _logger = logging.getLogger('memorize-activity')
 
-from sugar.graphics import style
+from sugar3.graphics import style
 
 import speak.espeak
 import speak.face

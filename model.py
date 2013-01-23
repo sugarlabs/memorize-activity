@@ -24,7 +24,7 @@ from gi.repository import GObject
 import zipfile
 import tempfile
 
-from sugar.activity.activity import get_bundle_path, get_activity_root
+from sugar3.activity.activity import get_bundle_path, get_activity_root
 
 _logger = logging.getLogger('model')
 

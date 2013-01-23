@@ -26,8 +26,8 @@ import shutil
 
 from model import Pair
 
-from sugar.graphics import style
-from sugar.graphics.icon import Icon
+from sugar3.graphics import style
+from sugar3.graphics.icon import Icon
 
 import theme
 
