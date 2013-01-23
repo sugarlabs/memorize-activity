@@ -34,7 +34,8 @@ class CreateToolbarBuilder(GObject.GObject):
 
     __gsignals__ = {
         'create_new_game': (GObject.SignalFlags.RUN_FIRST, None, []),
-        'create_equal_pairs': (GObject.SignalFlags.RUN_FIRST, None, [object]),
+        'create_equal_pairs': (GObject.SignalFlags.RUN_FIRST,
+                               None, [GObject.TYPE_PYOBJECT]),
     }
 
     def __init__(self, activity):

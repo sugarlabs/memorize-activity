@@ -16,6 +16,7 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 
 import svglabel
 import logging

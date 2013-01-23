@@ -38,9 +38,9 @@ class CardList(Gtk.EventBox):
 
     __gsignals__ = {
         'pair-selected': (GObject.SignalFlags.RUN_FIRST,
-                          None, 9 * [object]),
+                          None, 9 * [GObject.TYPE_PYOBJECT]),
         'update-create-toolbar': (GObject.SignalFlags.RUN_FIRST,
-                                  None, 3 * [object]),
+                                  None, 3 * [GObject.TYPE_PYOBJECT]),
     }
 
     def __init__(self):
@@ -248,8 +248,10 @@ class CardList(Gtk.EventBox):
 class CardPair(Gtk.EventBox):
 
     __gsignals__ = {
-        'pair-selected': (GObject.SignalFlags.RUN_FIRST, None, [object]),
-        'pair-closed': (GObject.SignalFlags.RUN_FIRST, None, [object]),
+        'pair-selected': (GObject.SignalFlags.RUN_FIRST,
+                          None, [GObject.TYPE_PYOBJECT]),
+        'pair-closed': (GObject.SignalFlags.RUN_FIRST,
+                        None, [GObject.TYPE_PYOBJECT]),
     }
 
     def __init__(self, text1, text2=None, aimg=None, bimg=None,

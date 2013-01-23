@@ -34,9 +34,11 @@ import theme
 class CardTable(Gtk.EventBox):
 
     __gsignals__ = {
-        'card-flipped': (GObject.SignalFlags.RUN_FIRST, None, [int, object]),
+        'card-flipped': (GObject.SignalFlags.RUN_FIRST,
+                         None, [int, GObject.TYPE_PYOBJECT]),
         'card-overflipped': (GObject.SignalFlags.RUN_FIRST, None, [int]),
-        'card-highlighted': (GObject.SignalFlags.RUN_FIRST, None, [int, object]),
+        'card-highlighted': (GObject.SignalFlags.RUN_FIRST,
+                             None, [int, GObject.TYPE_PYOBJECT]),
         }
 
     def __init__(self):

@@ -49,9 +49,9 @@ _logger = logging.getLogger('memorize-activity')
 
 class CreateCardPanel(Gtk.EventBox):
     __gsignals__ = {
-        'add-pair': (GObject.SignalFlags.RUN_FIRST, None, 10 * [object]),
-        'update-pair': (GObject.SignalFlags.RUN_FIRST, None, 8 * [object]),
-        'change-font': (GObject.SignalFlags.RUN_FIRST, None, 2 * [object]),
+        'add-pair': (GObject.SignalFlags.RUN_FIRST, None, 10 * [GObject.TYPE_PYOBJECT]),
+        'update-pair': (GObject.SignalFlags.RUN_FIRST, None, 8 * [GObject.TYPE_PYOBJECT]),
+        'change-font': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
     }
 
     def __init__(self):
@@ -274,10 +274,10 @@ class CreateCardPanel(Gtk.EventBox):
 class CardEditor(Gtk.EventBox):
 
     __gsignals__ = {
-        'has-text': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'has-picture': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'has-sound': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'change-font': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'has-text': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
+        'has-picture': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
+        'has-sound': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
+        'change-font': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
     }
 
     def __init__(self, editor_index):

@@ -15,8 +15,10 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gi.repository import GObject
+import logging
 from os.path import join, dirname
+
+from gi.repository import GObject
 
 from gettext import gettext as _
 from sugar3.graphics.toolbutton import ToolButton
@@ -25,9 +27,6 @@ from sugar3.graphics.alert import Alert
 from sugar3.graphics.icon import Icon
 from sugar3.activity.widgets import RadioMenuButton
 from sugar3.graphics.menuitem import MenuItem
-
-import logging
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -46,7 +45,7 @@ class MemorizeToolbarBuilder(GObject.GObject):
                             ]
 
     __gsignals__ = {
-    'game_changed': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT])
+    'game_changed': (GObject.SignalFlags.RUN_FIRST, None, 5 * [GObject.TYPE_PYOBJECT])
     }
 
     def __init__(self, activity):
