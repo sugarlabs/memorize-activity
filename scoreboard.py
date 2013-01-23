@@ -37,7 +37,7 @@ class Scoreboard(Gtk.EventBox):
         fill_box = Gtk.EventBox()
         fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#4c4d4f'))
         fill_box.show()
-        self.vbox.pack_end(fill_box, True, True)
+        self.vbox.pack_end(fill_box, True, True, 0)
 
         scroll = Gtk.ScrolledWindow()
         scroll.props.shadow_type = Gtk.ShadowType.NONE
@@ -59,7 +59,7 @@ class Scoreboard(Gtk.EventBox):
         player = PlayerScoreboard(nick, fill_color, stroke_color, score)
         player.show()
         self.players[buddy] = player
-        self.vbox.pack_start(player, False, False)
+        self.vbox.pack_start(player, False, False, 0)
         if score == -1:
             player.set_wait_mode(True)
         self.show_all()

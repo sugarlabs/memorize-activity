@@ -16,6 +16,7 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 
@@ -57,7 +58,7 @@ class CardList(Gtk.EventBox):
         fill_box = Gtk.Label()
         fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
         fill_box.show()
-        self.vbox.pack_end(fill_box, True, True)
+        self.vbox.pack_end(fill_box, True, True, 0)
 
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -192,7 +193,7 @@ class CardList(Gtk.EventBox):
             aspeak, bspeak, font_name1, font_name2, show=True, load=False):
         pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak,
                 font_name1, font_name2)
-        self.vbox.pack_end(pair, False, True)
+        self.vbox.pack_end(pair, False, True, 0)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
         pair.connect('pair-closed', self.rem_pair)

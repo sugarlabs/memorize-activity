@@ -55,7 +55,6 @@ class CardTable(Gtk.EventBox):
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
         self.table = Gtk.Table()
         self.table.grab_focus()
-        self.table.set_focus(True)
         self.table.set_can_default(True)
         self.table.set_row_spacings(theme.CARD_PAD)
         self.table.set_col_spacings(theme.CARD_PAD)

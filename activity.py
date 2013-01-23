@@ -305,7 +305,7 @@ class MemorizeActivity(Activity):
             if self.play_mode == True:
                 self.hbox.remove(self.scoreboard)
                 self.hbox.remove(self.table)
-                self.hbox.pack_start(self.createcardpanel, False)
+                self.hbox.pack_start(self.createcardpanel, False, False, 0)
                 self.hbox.pack_start(self.cardlist, True, True, 0)
                 self.cardlist.load_game(self.game)
                 self.game.model.create_temp_directories()
@@ -326,7 +326,7 @@ class MemorizeActivity(Activity):
                 self.hbox.remove(self.cardlist)
             if self.play_mode in (False, None):
                 self.hbox.pack_start(self.scoreboard, True, True, 0)
-                self.hbox.pack_start(self.table, False)
+                self.hbox.pack_start(self.table, False, False, 0)
             self.play_mode = True
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
         self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)

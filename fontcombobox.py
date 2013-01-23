@@ -28,7 +28,7 @@ class FontComboBox(Gtk.ComboBox):
         Gtk.ComboBox.__init__(self)
 
         font_renderer = Gtk.CellRendererText()
-        self.pack_start(font_renderer, True, True, 0)
+        self.pack_start(font_renderer, True)
         self.add_attribute(font_renderer, 'text', 0)
         self.add_attribute(font_renderer, 'font', 0)
         font_model = Gtk.ListStore(str)

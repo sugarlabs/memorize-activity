@@ -60,7 +60,7 @@ class CreateCardPanel(Gtk.EventBox):
             icon = Icon(
                     icon_name=icon_name,
                     icon_size=Gtk.IconSize.LARGE_TOOLBAR)
-            label_box.pack_start(icon, False)
+            label_box.pack_start(icon, False, False, 0)
             label = Gtk.Label(label=label)
             label.modify_fg(Gtk.StateType.NORMAL,
                     style.COLOR_TOOLBAR_GREY.get_gdk_color())
@@ -86,7 +86,7 @@ class CreateCardPanel(Gtk.EventBox):
         self._addbutton.set_icon_widget(
                 make_label('pair-add', ' ' + _('Add')))
         self._addbutton.connect('clicked', self.emit_add_pair)
-        buttons_bar.pack_start(self._addbutton, False)
+        buttons_bar.pack_start(self._addbutton, False, False, 0)
 
         self._updatebutton = ToolButton(
                 tooltip=_('Update selected pair'),
@@ -94,7 +94,7 @@ class CreateCardPanel(Gtk.EventBox):
         self._updatebutton.set_icon_widget(
                 make_label('pair-update', ' ' + _('Update')))
         self._updatebutton.connect('clicked', self.emit_update_pair)
-        buttons_bar.pack_start(self._updatebutton, False)
+        buttons_bar.pack_start(self._updatebutton, False, False, 0)
 
         # Set card editors
 
@@ -117,8 +117,8 @@ class CreateCardPanel(Gtk.EventBox):
         self.card_box.pack_start(self.cardeditor2, True, True, 0)
 
         box = Gtk.VBox()
-        box.pack_start(self.card_box, False)
-        box.pack_start(buttons_bar, False)
+        box.pack_start(self.card_box, False, False, 0)
+        box.pack_start(buttons_bar, False, False, 0)
         self.add(box)
 
         self.show_all()
@@ -293,7 +293,7 @@ class CardEditor(Gtk.EventBox):
 
         self.previewlabel = Gtk.Label(label=_('Preview:'))
         self.previewlabel.set_alignment(0, 1)
-        box.pack_start(self.previewlabel, False)
+        box.pack_start(self.previewlabel, False, False, 0)
 
         self.card = svgcard.SvgCard(-1,
                  {'front_text': {'card_text': '',
@@ -305,15 +305,15 @@ class CardEditor(Gtk.EventBox):
         self.card.flip()
         card_align = Gtk.Alignment.new(.5, .5, 0, 0)
         card_align.add(self.card)
-        box.pack_start(card_align, False)
+        box.pack_start(card_align, False, False, 0)
 
         textlabel = Gtk.Label(label=_('Text:'))
         textlabel.set_alignment(0, 1)
-        box.pack_start(textlabel, False)
+        box.pack_start(textlabel, False, False, 0)
 
         self.textentry = Gtk.Entry()
         self.textentry.connect('changed', self.update_text)
-        box.pack_start(self.textentry, False)
+        box.pack_start(self.textentry, False, False, 0)
 
         toolbar = RoundBox()
 
@@ -492,10 +492,10 @@ class SpeakPalette(Palette):
         usespeak_play = ToolButton(icon_name='media-playback-start')
         usespeak_play.connect('clicked', lambda button:
                 self.face.say(editor.get_text()))
-        toolbar.pack_start(usespeak_play, False)
+        toolbar.pack_start(usespeak_play, False, False, 0)
 
         self.voices = speak.widgets.Voices(self.face)
-        toolbar.pack_start(ToolComboBox(self.voices, True, True, 0))
+        toolbar.pack_start(ToolComboBox(self.voices), True, True, 0)
 
         toolbar.show_all()
         self.set_content(toolbar)
