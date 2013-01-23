@@ -15,7 +15,7 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
+from gi.repository import Gtk
 import svgcard
 import logging
 from os.path import join, basename
@@ -33,7 +33,7 @@ import theme
 _logger = logging.getLogger('memorize-activity')
 
 
-class CardList(gtk.EventBox):
+class CardList(Gtk.EventBox):
 
     __gsignals__ = {
         'pair-selected': (SIGNAL_RUN_FIRST, None, 9 * [TYPE_PYOBJECT]),
@@ -41,7 +41,7 @@ class CardList(gtk.EventBox):
     }
 
     def __init__(self):
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
         self.pairs = []
         self.current_pair = None
         self.current_game_key = None
@@ -49,19 +49,19 @@ class CardList(gtk.EventBox):
         self.pair_list_modified = False
         self.game_loaded = False
 
-        self.vbox = gtk.VBox(False)
+        self.vbox = Gtk.VBox(False)
 
-        fill_box = gtk.Label()
-        fill_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
+        fill_box = Gtk.Label()
+        fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True)
 
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scroll.add_with_viewport(self.vbox)
         scroll.set_border_width(0)
-        scroll.get_child().modify_bg(gtk.STATE_NORMAL,
-                                     gtk.gdk.color_parse('#000000'))
+        scroll.get_child().modify_bg(Gtk.StateType.NORMAL,
+                                     Gdk.color_parse('#000000'))
         self.add(scroll)
         self.show_all()
 
@@ -78,14 +78,14 @@ class CardList(gtk.EventBox):
         self.clean_list(load=True)
         for key in game_pairs:
             if game_pairs[key].props.aimg != None:
-                aimg = gtk.gdk.pixbuf_new_from_file( \
+                aimg = GdkPixbuf.Pixbuf.new_from_file( \
                     join(self.model.data['pathimg'],
                          game_pairs[key].props.aimg))
             else:
                 aimg = None
 
             if game_pairs[key].props.bimg != None:
-                bimg = gtk.gdk.pixbuf_new_from_file( \
+                bimg = GdkPixbuf.Pixbuf.new_from_file( \
                     join(self.model.data['pathimg'],
                          game_pairs[key].props.bimg))
             else:
@@ -242,7 +242,7 @@ class CardList(gtk.EventBox):
         self.pair_list_modified = False
 
 
-class CardPair(gtk.EventBox):
+class CardPair(Gtk.EventBox):
 
     __gsignals__ = {
         'pair-selected': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
@@ -252,7 +252,7 @@ class CardPair(gtk.EventBox):
     def __init__(self, text1, text2=None, aimg=None, bimg=None,
             asnd=None, bsnd=None, aspeak=None, bspeak=None,
             font_name1=None, font_name2=None):
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
         self.bg_color = '#000000'
 
         self.asnd = asnd
@@ -260,7 +260,7 @@ class CardPair(gtk.EventBox):
 
         self.current_game_key = None
 
-        row = gtk.HBox()
+        row = Gtk.HBox()
         row.props.border_width = 10
         row.props.spacing = 10
 
@@ -274,9 +274,9 @@ class CardPair(gtk.EventBox):
                   None, theme.PAIR_SIZE, 1, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_pixbuf(aimg)
-        align = gtk.Alignment(.5, .5, 0, 0)
+        align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(self.bcard1)
-        row.pack_start(align)
+        row.pack_start(align, True, True, 0)
 
         self.bcard2 = svgcard.SvgCard(-1,
                 {'front_text': {'card_text': text2,
@@ -288,26 +288,26 @@ class CardPair(gtk.EventBox):
                   None, theme.PAIR_SIZE, 1, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_pixbuf(bimg)
-        align = gtk.Alignment(.5, .5, 0, 0)
+        align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(self.bcard2)
-        row.pack_start(align)
+        row.pack_start(align, True, True, 0)
 
         close_image = Icon(
                 icon_name='remove',
-                icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
-        align = gtk.Alignment(.5, .5)
+                icon_size=Gtk.IconSize.LARGE_TOOLBAR)
+        align = Gtk.Alignment.new(.5, .5)
         align.add(close_image)
-        close_button = gtk.ToolButton()
+        close_button = Gtk.ToolButton()
         close_button.set_icon_widget(align)
         close_button.connect('clicked', self.emit_close)
         close_button.set_size_request(style.STANDARD_ICON_SIZE,
                 style.STANDARD_ICON_SIZE)
-        align = gtk.Alignment(.5, 0, 0, 0)
+        align = Gtk.Alignment.new(.5, 0, 0, 0)
         align.add(close_button)
         row.pack_start(align, False)
 
         self.connect('button-press-event', self.emit_selected)
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
+        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.bg_color))
         self.add(row)
         self.show_all()
 
@@ -323,7 +323,7 @@ class CardPair(gtk.EventBox):
         else:
             self.bg_color = '#b2b3b7'
 
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.bg_color))
+        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.bg_color))
         self.bcard1.set_background(self.bg_color)
         self.bcard2.set_background(self.bg_color)
 

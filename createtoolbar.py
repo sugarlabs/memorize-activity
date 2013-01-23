@@ -17,8 +17,8 @@
 
 from gettext import gettext as _
 
-import gtk
-import gobject
+from gi.repository import Gtk
+from gi.repository import GObject
 from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 import logging
 
@@ -28,7 +28,7 @@ from sugar.graphics.alert import Alert
 from sugar.graphics.icon import Icon
 
 
-class CreateToolbarBuilder(gobject.GObject):
+class CreateToolbarBuilder(GObject.GObject):
 
     __gtype_name__ = 'CreateToolbar'
 
@@ -38,7 +38,7 @@ class CreateToolbarBuilder(gobject.GObject):
     }
 
     def __init__(self, activity):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.activity = activity
         self.toolbar = self.activity.get_toolbar_box().toolbar
 
@@ -60,7 +60,7 @@ class CreateToolbarBuilder(gobject.GObject):
         self.toolbar.show_all()
 
     def _add_widget(self, widget, expand=False):
-        tool_item = gtk.ToolItem()
+        tool_item = Gtk.ToolItem()
         tool_item.set_expand(expand)
         tool_item.add(widget)
         widget.show()

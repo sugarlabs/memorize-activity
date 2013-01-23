@@ -21,16 +21,16 @@
 #     You should have received a copy of the GNU General Public License
 #     along with Speak.activity.  If not, see <http://www.gnu.org/licenses/>.
 
-import pygtk
-import gtk
-import gtk.gdk
-import gobject
+import gi
+from gi.repository import Gtk
+import Gtk.gdk
+from gi.repository import GObject
 import cairo
 import math
 
-class Eye(gtk.DrawingArea):
+class Eye(Gtk.DrawingArea):
     def __init__(self, fill_color):
-        gtk.DrawingArea.__init__(self)
+        GObject.GObject.__init__(self)
         self.connect("expose_event", self.expose)
         self.frame = 0
         self.blink = False
@@ -38,8 +38,8 @@ class Eye(gtk.DrawingArea):
         self.fill_color = fill_color
 
         # listen for clicks
-        self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-        self.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
+        self.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
+        self.add_events(Gdk.EventMask.BUTTON_RELEASE_MASK)
         self.connect("button_press_event", self._mouse_pressed_cb)
         self.connect("button_release_event", self._mouse_released_cb)
 
@@ -48,7 +48,7 @@ class Eye(gtk.DrawingArea):
         # Unfortunately that would cause a lot of CPU usage.  So instead we rely on our parent to
         # tell us to redraw when the mouse has moved.  We still need to call add_events so that
         # our parent will get mouse motion events, but we don't connect the callback for them ourselves.
-        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         # self.connect("motion_notify_event", self._mouse_moved_cb)
 
     def _mouse_moved_cb(self, widget, event):

@@ -17,7 +17,7 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
+from gi.repository import Gtk
 from os.path import join, basename
 
 import shutil
@@ -44,7 +44,7 @@ import model
 _logger = logging.getLogger('memorize-activity')
 
 
-class CreateCardPanel(gtk.EventBox):
+class CreateCardPanel(Gtk.EventBox):
     __gsignals__ = {
         'add-pair': (SIGNAL_RUN_FIRST, None, 10 * [TYPE_PYOBJECT]),
         'update-pair': (SIGNAL_RUN_FIRST, None, 8 * [TYPE_PYOBJECT]),
@@ -53,19 +53,19 @@ class CreateCardPanel(gtk.EventBox):
 
     def __init__(self):
         def make_label(icon_name, label):
-            label_box = gtk.HBox()
+            label_box = Gtk.HBox()
             icon = Icon(
                     icon_name=icon_name,
-                    icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+                    icon_size=Gtk.IconSize.LARGE_TOOLBAR)
             label_box.pack_start(icon, False)
-            label = gtk.Label(label)
-            label.modify_fg(gtk.STATE_NORMAL,
+            label = Gtk.Label(label=label)
+            label.modify_fg(Gtk.StateType.NORMAL,
                     style.COLOR_TOOLBAR_GREY.get_gdk_color())
-            label_box.pack_start(label)
+            label_box.pack_start(label, True, True, 0)
             label_box.show_all()
             return label_box
 
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.equal_pairs = False
         self._updatebutton_sensitive = False
@@ -74,7 +74,7 @@ class CreateCardPanel(gtk.EventBox):
 
         # save buttons
 
-        buttons_bar = gtk.HBox()
+        buttons_bar = Gtk.HBox()
         buttons_bar.props.border_width = 10
 
         self._addbutton = ToolButton(
@@ -109,11 +109,11 @@ class CreateCardPanel(gtk.EventBox):
 
         # edit panel
 
-        self.card_box = gtk.HBox()
-        self.card_box.pack_start(self.cardeditor1)
-        self.card_box.pack_start(self.cardeditor2)
+        self.card_box = Gtk.HBox()
+        self.card_box.pack_start(self.cardeditor1, True, True, 0)
+        self.card_box.pack_start(self.cardeditor2, True, True, 0)
 
-        box = gtk.VBox()
+        box = Gtk.VBox()
         box.pack_start(self.card_box, False)
         box.pack_start(buttons_bar, False)
         self.add(box)
@@ -201,7 +201,7 @@ class CreateCardPanel(gtk.EventBox):
                 self.card_box.remove(self.cardeditor2)
         else:
             if not self.cardeditor2.parent:
-                self.card_box.pack_start(self.cardeditor2)
+                self.card_box.pack_start(self.cardeditor2, True, True, 0)
 
     def clean(self, widget):
         self.cardeditor1.clean()
@@ -268,7 +268,7 @@ class CreateCardPanel(gtk.EventBox):
         self.cardeditor2.temp_folder = temp_folder
 
 
-class CardEditor(gtk.EventBox):
+class CardEditor(Gtk.EventBox):
 
     __gsignals__ = {
         'has-text': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
@@ -278,17 +278,17 @@ class CardEditor(gtk.EventBox):
     }
 
     def __init__(self, editor_index):
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.snd = None
         self.editor_index = editor_index
         self.temp_folder = None
 
-        box = gtk.VBox()
+        box = Gtk.VBox()
         box.props.spacing = theme.PAD
         box.props.border_width = theme.PAD
 
-        self.previewlabel = gtk.Label(_('Preview:'))
+        self.previewlabel = Gtk.Label(label=_('Preview:'))
         self.previewlabel.set_alignment(0, 1)
         box.pack_start(self.previewlabel, False)
 
@@ -300,15 +300,15 @@ class CardEditor(gtk.EventBox):
                                    'opacity': '1'}},
                 None, theme.PAIR_SIZE, 1, '#c0c0c0')
         self.card.flip()
-        card_align = gtk.Alignment(.5, .5, 0, 0)
+        card_align = Gtk.Alignment.new(.5, .5, 0, 0)
         card_align.add(self.card)
         box.pack_start(card_align, False)
 
-        textlabel = gtk.Label(_('Text:'))
+        textlabel = Gtk.Label(label=_('Text:'))
         textlabel.set_alignment(0, 1)
         box.pack_start(textlabel, False)
 
-        self.textentry = gtk.Entry()
+        self.textentry = Gtk.Entry()
         self.textentry.connect('changed', self.update_text)
         box.pack_start(self.textentry, False)
 
@@ -404,15 +404,15 @@ class CardEditor(gtk.EventBox):
 
             self.set_speak(None)
 
-            pixbuf_t = gtk.gdk.pixbuf_new_from_file_at_size(
+            pixbuf_t = GdkPixbuf.Pixbuf.new_from_file_at_size(
                     index, theme.PAIR_SIZE - theme.PAD * 2,
                     theme.PAIR_SIZE - theme.PAD * 2)
             size = max(pixbuf_t.get_width(), pixbuf_t.get_height())
-            pixbuf_z = gtk.gdk.pixbuf_new_from_file_at_size(
+            pixbuf_z = GdkPixbuf.Pixbuf.new_from_file_at_size(
                 'images/white.png', size, size)
             pixbuf_t.composite(pixbuf_z, 0, 0, pixbuf_t.get_width(),
                                pixbuf_t.get_height(), 0, 0, 1, 1,
-                               gtk.gdk.INTERP_BILINEAR, 255)
+                               GdkPixbuf.InterpType.BILINEAR, 255)
             self.card.set_pixbuf(pixbuf_z)
             _logger.debug('Picture Loaded: ' + index)
             self.emit('has-picture', True)
@@ -432,7 +432,7 @@ class CardEditor(gtk.EventBox):
             dst = join(self.temp_folder, 'sounds', basename(index))
             shutil.copy(index, dst)
             self.set_snd(dst)
-            icon_theme = gtk.icon_theme_get_default()
+            icon_theme = Gtk.IconTheme.get_default()
             pixbuf_t = icon_theme.load_icon("audio-x-generic",
                                             style.XLARGE_ICON_SIZE, 0)
             self.card.set_pixbuf(pixbuf_t)
@@ -484,8 +484,8 @@ class SpeakPalette(Palette):
 
         self.face = speak.face.View()
 
-        toolbar = gtk.HBox()
-        toolbar.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
+        toolbar = Gtk.HBox()
+        toolbar.modify_bg(Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
 
         usespeak_play = ToolButton(icon_name='media-playback-start')
         usespeak_play.connect('clicked', lambda button:
@@ -493,7 +493,7 @@ class SpeakPalette(Palette):
         toolbar.pack_start(usespeak_play, False)
 
         self.voices = speak.widgets.Voices(self.face)
-        toolbar.pack_start(ToolComboBox(self.voices))
+        toolbar.pack_start(ToolComboBox(self.voices, True, True, 0))
 
         toolbar.show_all()
         self.set_content(toolbar)

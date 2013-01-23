@@ -15,7 +15,7 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
+from gi.repository import Gtk
 
 import svglabel
 import logging
@@ -28,10 +28,10 @@ import theme
 _logger = logging.getLogger('memorize-activity')
 
 
-class PlayerScoreboard(gtk.EventBox):
+class PlayerScoreboard(Gtk.EventBox):
 
     def __init__(self, nick, fill_color, stroke_color, score=0):
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.default_color = '#4c4d4f'
         self.selected_color = '#818286'
@@ -46,15 +46,15 @@ class PlayerScoreboard(gtk.EventBox):
         self.connect('size-allocate', self._allocate_cb)
 
         # Set table
-        self.table = gtk.Table(2, 2, False)
-        self.modify_bg(gtk.STATE_NORMAL,
-                       gtk.gdk.color_parse(self.current_color))
+        self.table = Gtk.Table(2, 2, False)
+        self.modify_bg(Gtk.StateType.NORMAL,
+                       Gdk.color_parse(self.current_color))
         self.table.set_row_spacings(theme.PAD / 2)
         self.table.set_col_spacings(theme.PAD / 2)
         self.table.set_border_width(theme.PAD)
 
         # Score table
-        self.score_table = gtk.Table()
+        self.score_table = Gtk.Table()
         self.score_table.set_row_spacings(theme.PAD / 2)
         self.score_table.set_col_spacings(theme.PAD / 2)
 
@@ -73,17 +73,17 @@ class PlayerScoreboard(gtk.EventBox):
                 theme.BODY_WIDTH, theme.BODY_HEIGHT)
 
         # Set nick label
-        self.nick = gtk.Label(nick)
-        self.nick.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#ffffff'))
+        self.nick = Gtk.Label(label=nick)
+        self.nick.modify_fg(Gtk.StateType.NORMAL, Gdk.color_parse('#ffffff'))
         self.nick.set_alignment(0, 0.5)
 
         # Set message label
-        self.msg = gtk.Label('Waiting for next game...')
-        self.msg.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#ffffff'))
+        self.msg = Gtk.Label(label='Waiting for next game...')
+        self.msg.modify_fg(Gtk.StateType.NORMAL, Gdk.color_parse('#ffffff'))
         self.msg.set_alignment(0, 0.5)
 
         self.add(self.table)
-        self.table.attach(self.icon, 0, 1, 0, 3, gtk.SHRINK, gtk.SHRINK)
+        self.table.attach(self.icon, 0, 1, 0, 3, Gtk.AttachOptions.SHRINK, Gtk.AttachOptions.SHRINK)
         self.table.attach(self.nick, 1, 2, 0, 1)
         self.table.attach(self.score_table, 1, 2, 1, 2)
 
@@ -123,7 +123,7 @@ class PlayerScoreboard(gtk.EventBox):
         self.scores.append(new_score)
         new_score.show()
         self.score_table.attach(new_score, self.current_x, self.current_x + 1,
-                self.current_y, self.current_y + 1, gtk.SHRINK, gtk.SHRINK)
+                self.current_y, self.current_y + 1, Gtk.AttachOptions.SHRINK, Gtk.AttachOptions.SHRINK)
         self.current_x += 1
         if self.current_x == self._score_cols:
             self.current_x = 0
@@ -136,8 +136,8 @@ class PlayerScoreboard(gtk.EventBox):
             self.current_color = self.selected_color
         else:
             self.current_color = self.default_color
-        self.modify_bg(gtk.STATE_NORMAL,
-                       gtk.gdk.color_parse(self.current_color))
+        self.modify_bg(Gtk.StateType.NORMAL,
+                       Gdk.color_parse(self.current_color))
         self.icon.set_background(self.current_color)
         for score in self.scores:
             score.set_selected(sel)

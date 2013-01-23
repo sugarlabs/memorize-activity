@@ -14,7 +14,7 @@
 
 """Object chooser method"""
 
-import gtk
+from gi.repository import Gtk
 import logging
 
 from sugar import mime
@@ -47,7 +47,7 @@ def pick(cb=None, default=None, parent=None, what=None):
     out = None
 
     try:
-        if chooser.run() == gtk.RESPONSE_ACCEPT:
+        if chooser.run() == Gtk.ResponseType.ACCEPT:
             jobject = chooser.get_selected_object()
             logging.debug('ObjectChooser: %r' % jobject)
 

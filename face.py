@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import gtk
+from gi.repository import Gtk
 
 import logging
 _logger = logging.getLogger('memorize-activity')
@@ -24,11 +24,11 @@ import speak.face
 import theme
 
 
-class Face(gtk.EventBox):
+class Face(Gtk.EventBox):
     def __init__(self):
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
 
-        self.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
+        self.modify_bg(Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
 
         self.face = speak.face.View(style.Color('#4b4c4e'))
         self.face.set_border_width(theme.SVG_PAD)
@@ -52,7 +52,7 @@ def look_at():
     if not speak.espeak.supported:
         return
 
-    display = gtk.gdk.display_get_default()
+    display = Gdk.Display.get_default()
     screen_, x, y, modifiers_ = display.get_pointer()
 
     for i in _cache:

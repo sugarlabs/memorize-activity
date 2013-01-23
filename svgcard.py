@@ -20,8 +20,8 @@
 from os.path import join, dirname
 import rsvg
 import re
-import gtk
-import pango
+from gi.repository import Gtk
+from gi.repository import Pango
 import logging
 
 from sugar.util import LRU
@@ -34,7 +34,7 @@ import model
 _logger = logging.getLogger('memorize-activity')
 
 
-class SvgCard(gtk.EventBox):
+class SvgCard(Gtk.EventBox):
 
     border_svg = join(dirname(__file__), 'images', 'card.svg')
 
@@ -59,7 +59,7 @@ class SvgCard(gtk.EventBox):
 
     def __init__(self, identifier, pprops, jpeg, size,
                  align, bg_color='#000000', font_name=model.DEFAULT_FONT):
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.bg_color = bg_color
         self.flipped = False
@@ -73,7 +73,7 @@ class SvgCard(gtk.EventBox):
         self.text_layouts = [None, None]
         self.font_name = font_name
 
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
+        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
         self.set_size_request(size, size)
 
         # Views properties
@@ -90,14 +90,14 @@ class SvgCard(gtk.EventBox):
             self.show_text = True
         self.current_face = 'back'
 
-        self.draw = gtk.DrawingArea()
-        self.draw.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(bg_color))
-        self.draw.set_events(gtk.gdk.ALL_EVENTS_MASK)
+        self.draw = Gtk.DrawingArea()
+        self.draw.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
+        self.draw.set_events(Gdk.EventMask.ALL_EVENTS_MASK)
         self.draw.connect('expose-event', self._expose_cb)
         self.draw.connect('realize', self._realize_cb)
         self.draw.show_all()
 
-        self.workspace = gtk.VBox()
+        self.workspace = Gtk.VBox()
         self.workspace.add(self.draw)
         self.add(self.workspace)
         self.show_all()
@@ -133,7 +133,7 @@ class SvgCard(gtk.EventBox):
 
             widget.window.draw_layout(self.gc, layout=layout,
                     x=(self.size - width) / 2, y=y,
-                    foreground=gtk.gdk.color_parse(props['text_color']))
+                    foreground=Gdk.color_parse(props['text_color']))
 
         return False
 
@@ -162,7 +162,7 @@ class SvgCard(gtk.EventBox):
         data = re.sub('size_card1', str(self.size), data)
         data = re.sub('size_card2', str(self.size - 6), data)
         data = re.sub('size_card3', str(self.size - 17), data)
-        pixbuf = rsvg.Handle(data=data).get_pixbuf()
+        pixbuf = Rsvg.Handle.new_from_data(data).get_pixbuf()
         self.cache[key] = pixbuf
         return pixbuf
 
@@ -170,8 +170,8 @@ class SvgCard(gtk.EventBox):
         self.props['front'].update({'fill_color': fill_color,
                                     'stroke_color': stroke_color})
         self.queue_draw()
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while Gtk.events_pending():
+            Gtk.main_iteration()
 
     def set_pixbuf(self, pixbuf):
         if pixbuf == None:
@@ -186,8 +186,8 @@ class SvgCard(gtk.EventBox):
             self.show_jpeg = True
 
         self.queue_draw()
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while Gtk.events_pending():
+            Gtk.main_iteration()
 
     def get_pixbuf(self):
         return self.jpeg
@@ -213,12 +213,12 @@ class SvgCard(gtk.EventBox):
 
         if not self.flipped_once:
             if self.jpeg is not None:
-                pixbuf_t = gtk.gdk.pixbuf_new_from_file(self.jpeg)
+                pixbuf_t = GdkPixbuf.Pixbuf.new_from_file(self.jpeg)
                 if pixbuf_t.get_width() != self.size - 22 \
                         or pixbuf_t.get_height() != self.size - 22:
                     self.jpeg = pixbuf_t.scale_simple(self.size - 22,
                                                       self.size - 22,
-                                                      gtk.gdk.INTERP_BILINEAR)
+                                                      GdkPixbuf.InterpType.BILINEAR)
                     del pixbuf_t
                 else:
                     self.jpeg = pixbuf_t
@@ -245,8 +245,8 @@ class SvgCard(gtk.EventBox):
         self.flipped = True
         self.queue_draw()
 
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while Gtk.events_pending():
+            Gtk.main_iteration()
 
     def cement(self):
         if not self.get_speak():
@@ -301,8 +301,8 @@ class SvgCard(gtk.EventBox):
             card_size = self.size - theme.SVG_PAD * 2
             layout = self.create_pango_layout(text)
             layout.set_width(PIXELS_PANGO(card_size))
-            layout.set_wrap(pango.WRAP_WORD)
-            desc = pango.FontDescription(self.font_name + " " + str(size))
+            layout.set_wrap(Pango.WrapMode.WORD)
+            desc = Pango.FontDescription(self.font_name + " " + str(size))
             layout.set_font_description(desc)
 
             if layout.get_line_count() <= max_lines_count and \
@@ -313,7 +313,7 @@ class SvgCard(gtk.EventBox):
         if layout.get_line_count() > 1:
             # XXX for single line ALIGN_CENTER wrongly affects on text position
             # and also in some cases for multilined text
-            layout.set_alignment(pango.ALIGN_CENTER)
+            layout.set_alignment(Pango.Alignment.CENTER)
 
         _text_layout_cache[key] = layout
 
@@ -332,8 +332,8 @@ class SvgCard(gtk.EventBox):
 
     def set_background(self, color):
         self.bg_color = color
-        self.draw.modify_bg(gtk.STATE_NORMAL,
-                            gtk.gdk.color_parse(self.bg_color))
+        self.draw.modify_bg(Gtk.StateType.NORMAL,
+                            Gdk.color_parse(self.bg_color))
 
     def change_text(self, newtext):
         self.text_layouts[self.flipped] = None

@@ -16,7 +16,7 @@
 #
 
 import logging
-import gobject
+from gi.repository import GObject
 from os.path import join
 
 from gettext import gettext as _
@@ -58,7 +58,7 @@ class MemorizeGame(GObject):
         }
 
     def __init__(self):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.myself = None
         self.players_score = {}
         self.players = []

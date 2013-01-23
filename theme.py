@@ -15,9 +15,9 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
+from gi.repository import Gtk
 
-PAIR_SIZE = gtk.gdk.screen_width() / 5
+PAIR_SIZE = Gdk.Screen.width() / 5
 PAD = 10
 SVG_PAD = 10
 CARD_PAD = 4

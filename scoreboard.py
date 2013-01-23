@@ -15,33 +15,33 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
+from gi.repository import Gtk
 import logging
 from playerscoreboard import PlayerScoreboard
 
 _logger = logging.getLogger('memorize-activity')
 
 
-class Scoreboard(gtk.EventBox):
+class Scoreboard(Gtk.EventBox):
     def __init__(self):
-        gtk.EventBox.__init__(self)
+        GObject.GObject.__init__(self)
 
         self.players = {}
         self.current_buddy = None
 
-        self.vbox = gtk.VBox(False)
+        self.vbox = Gtk.VBox(False)
 
-        fill_box = gtk.EventBox()
-        fill_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#4c4d4f'))
+        fill_box = Gtk.EventBox()
+        fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#4c4d4f'))
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True)
 
-        scroll = gtk.ScrolledWindow()
-        scroll.props.shadow_type = gtk.SHADOW_NONE
-        scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        scroll = Gtk.ScrolledWindow()
+        scroll.props.shadow_type = Gtk.ShadowType.NONE
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroll.add_with_viewport(self.vbox)
         scroll.set_border_width(0)
-        scroll.get_child().set_property('shadow-type', gtk.SHADOW_NONE)
+        scroll.get_child().set_property('shadow-type', Gtk.ShadowType.NONE)
         self.add(scroll)
         self.show_all()
 

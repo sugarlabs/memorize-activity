@@ -17,8 +17,8 @@
 #
 
 # activate threads for gst needs
-import gobject
-gobject.threads_init()
+from gi.repository import GObject
+GObject.threads_init()
 
 import locale
 locale.setlocale(locale.LC_NUMERIC, 'C')
@@ -31,7 +31,7 @@ import os
 
 import zipfile
 
-import gtk
+from gi.repository import Gtk
 import telepathy
 import telepathy.client
 
@@ -86,7 +86,7 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder = \
                 memorizetoolbar.MemorizeToolbarBuilder(self)
 
-        toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
+        toolbar_box.toolbar.insert(Gtk.SeparatorToolItem(), -1)
 
         self._edit_button = ToggleToolButton('view-source')
         self._edit_button.set_tooltip(_('Edit game'))
@@ -96,7 +96,7 @@ class MemorizeActivity(Activity):
         self._createToolbarBuilder = \
             createtoolbar.CreateToolbarBuilder(self)
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         separator.set_expand(True)
         separator.set_draw(False)
         separator.set_size_request(0, -1)
@@ -166,7 +166,7 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder.connect('game_changed',
                 self.change_game)
 
-        self.hbox = gtk.HBox(False)
+        self.hbox = Gtk.HBox(False)
         self.set_canvas(self.hbox)
 
         # connect to the in/out events of the memorize activity
@@ -174,7 +174,7 @@ class MemorizeActivity(Activity):
         self.connect('focus_out_event', self._focus_out)
         self.connect('destroy', self._cleanup_cb)
 
-        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.connect('motion_notify_event',
                 lambda widget, event: face.look_at())
 
@@ -304,7 +304,7 @@ class MemorizeActivity(Activity):
                 self.hbox.remove(self.scoreboard)
                 self.hbox.remove(self.table)
                 self.hbox.pack_start(self.createcardpanel, False)
-                self.hbox.pack_start(self.cardlist)
+                self.hbox.pack_start(self.cardlist, True, True, 0)
                 self.cardlist.load_game(self.game)
                 self.game.model.create_temp_directories()
                 self.createcardpanel.set_temp_folder(
@@ -323,7 +323,7 @@ class MemorizeActivity(Activity):
                 self.hbox.remove(self.createcardpanel)
                 self.hbox.remove(self.cardlist)
             if self.play_mode in (False, None):
-                self.hbox.pack_start(self.scoreboard)
+                self.hbox.pack_start(self.scoreboard, True, True, 0)
                 self.hbox.pack_start(self.table, False)
             self.play_mode = True
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)

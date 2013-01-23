@@ -15,21 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-import gtk
+from gi.repository import Gtk
 
 FONT_BLACKLIST = ['cmex10', 'cmmi10', 'cmr10', 'cmsy10', 'esint10', 'eufm10',
             'msam10', 'msbm10', 'rsfs10', 'wasy10']
 
 
-class FontComboBox(gtk.ComboBox):
+class FontComboBox(Gtk.ComboBox):
 
     def __init__(self):
-        gtk.ComboBox.__init__(self)
-        font_renderer = gtk.CellRendererText()
-        self.pack_start(font_renderer)
+        GObject.GObject.__init__(self)
+        font_renderer = Gtk.CellRendererText()
+        self.pack_start(font_renderer, True, True, 0)
         self.add_attribute(font_renderer, 'text', 0)
         self.add_attribute(font_renderer, 'font', 0)
-        font_model = gtk.ListStore(str)
+        font_model = Gtk.ListStore(str)
 
         context = self.get_pango_context()
         font_index = 0
@@ -45,8 +45,8 @@ class FontComboBox(gtk.ComboBox):
                     font_faces.append(face_name)
                 self.faces[name] = font_faces
 
-        sorter = gtk.TreeModelSort(font_model)
-        sorter.set_sort_column_id(0, gtk.SORT_ASCENDING)
+        sorter = Gtk.TreeModelSort(font_model)
+        sorter.set_sort_column_id(0, Gtk.SortType.ASCENDING)
         self.set_model(sorter)
         self.show()
 

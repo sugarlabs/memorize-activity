@@ -15,7 +15,7 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gobject
+from gi.repository import GObject
 from os.path import join, dirname
 
 from gettext import gettext as _
@@ -32,7 +32,7 @@ from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 _logger = logging.getLogger('memorize-activity')
 
 
-class MemorizeToolbarBuilder(gobject.GObject):
+class MemorizeToolbarBuilder(GObject.GObject):
 
     __gtype_name__ = 'MemoryToolbarBuilder'
 
@@ -50,7 +50,7 @@ class MemorizeToolbarBuilder(gobject.GObject):
     }
 
     def __init__(self, activity):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.activity = activity
         self.toolbar = self.activity.get_toolbar_box().toolbar
         self.jobject = None
