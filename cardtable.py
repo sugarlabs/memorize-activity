@@ -16,11 +16,14 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
 from gi.repository import Pango
+
 import svgcard
 import os
 import math
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+
 
 import logging
 _logger = logging.getLogger('memorize-activity')
@@ -31,13 +34,13 @@ import theme
 class CardTable(Gtk.EventBox):
 
     __gsignals__ = {
-        'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
-        'card-overflipped': (SIGNAL_RUN_FIRST, None, [int]),
-        'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
+        'card-flipped': (GObject.SignalFlags.RUN_FIRST, None, [int, object]),
+        'card-overflipped': (GObject.SignalFlags.RUN_FIRST, None, [int]),
+        'card-highlighted': (GObject.SignalFlags.RUN_FIRST, None, [int, object]),
         }
 
     def __init__(self):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
         self.data = None
         self.cards_data = None
         self._workspace_size = 0
@@ -50,12 +53,12 @@ class CardTable(Gtk.EventBox):
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
         self.table = Gtk.Table()
         self.table.grab_focus()
-        self.table.set_flags(Gtk.CAN_FOCUS)
+        self.table.set_focus(True)
         self.table.set_can_default(True)
         self.table.set_row_spacings(theme.CARD_PAD)
         self.table.set_col_spacings(theme.CARD_PAD)
         self.table.set_border_width(theme.CARD_PAD)
-        self.table.set_resize_mode(Gtk.RESIZE_IMMEDIATE)
+        self.table.set_resize_mode(Gtk.ResizeMode.IMMEDIATE)
         self.set_property('child', self.table)
         self.load_message = Gtk.Label(label='Loading Game')
         self.load_message.modify_fg(Gtk.StateType.NORMAL,

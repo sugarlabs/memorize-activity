@@ -1,5 +1,7 @@
 import math
+
 from gi.repository import Gtk
+
 from sugar.graphics import style
 
 
@@ -9,7 +11,7 @@ class RoundBox(Gtk.HBox):
     _BORDER_DEFAULT = style.LINE_WIDTH
 
     def __init__(self, **kwargs):
-        GObject.GObject.__init__(self, **kwargs)
+        Gtk.HBox.__init__(self, **kwargs)
 
         self._radius = style.zoom(10)
         self.border = self._BORDER_DEFAULT

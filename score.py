@@ -16,8 +16,10 @@
 #
 
 import svglabel
-from gi.repository import Gtk
 import os
+
+from gi.repository import Gtk
+from gi.repository import Gdk
 
 import theme
 

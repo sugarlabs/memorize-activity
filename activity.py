@@ -16,10 +16,6 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-# activate threads for gst needs
-from gi.repository import GObject
-GObject.threads_init()
-
 import locale
 locale.setlocale(locale.LC_NUMERIC, 'C')
 
@@ -32,6 +28,12 @@ import os
 import zipfile
 
 from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+
+# activate threads for gst needs
+GObject.threads_init()
+
 import telepathy
 import telepathy.client
 

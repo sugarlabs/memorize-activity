@@ -23,15 +23,17 @@
 
 # This code is a super-stripped down version of the waveform view from Measure
 
-from gi.repository import Gtk
-import cairo
 from struct import unpack
 import numpy.core
+
+from gi.repository import Gtk
+import cairo
 
 class Mouth(Gtk.DrawingArea):
     def __init__(self, audioSource, fill_color):
 
-        GObject.GObject.__init__(self)
+        Gtk.DrawingArea.__init__(self)
+
         self.connect("expose_event",self.expose)
         self.buffers = []
         self.buffer_size = 256

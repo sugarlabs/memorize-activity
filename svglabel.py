@@ -16,7 +16,8 @@
 #
 
 from gi.repository import Gtk
-import rsvg
+from gi.repository import Gdk
+from gi.repository import Rsvg
 import re
 
 
@@ -29,7 +30,8 @@ class SvgLabel(Gtk.DrawingArea):
 
     def __init__(self, filename, fill_color, stroke_color, pixbuf=False,
             background_color='', request_x=45, request_y=45):
-        GObject.GObject.__init__(self)
+        Gtk.DrawingArea.__init__(self)
+
         self.set_size_request(request_x, request_y)
         self.filename = filename
         self.background_color = background_color

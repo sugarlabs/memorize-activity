@@ -19,7 +19,7 @@ from gettext import gettext as _
 
 from gi.repository import Gtk
 from gi.repository import GObject
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+
 import logging
 
 from sugar.graphics.toolbutton import ToolButton
@@ -33,8 +33,8 @@ class CreateToolbarBuilder(GObject.GObject):
     __gtype_name__ = 'CreateToolbar'
 
     __gsignals__ = {
-        'create_new_game': (SIGNAL_RUN_FIRST, None, []),
-        'create_equal_pairs': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'create_new_game': (GObject.SignalFlags.RUN_FIRST, None, []),
+        'create_equal_pairs': (GObject.SignalFlags.RUN_FIRST, None, [object]),
     }
 
     def __init__(self, activity):

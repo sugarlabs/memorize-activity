@@ -15,8 +15,11 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gi.repository import Gtk
 import logging
+
+from gi.repository import Gtk
+from gi.repository import Gdk
+
 from playerscoreboard import PlayerScoreboard
 
 _logger = logging.getLogger('memorize-activity')
@@ -24,7 +27,7 @@ _logger = logging.getLogger('memorize-activity')
 
 class Scoreboard(Gtk.EventBox):
     def __init__(self):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.players = {}
         self.current_buddy = None

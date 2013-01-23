@@ -23,9 +23,11 @@
 
 
 import logging 
-from gi.repository import Gtk
+
 import json
 from gettext import gettext as _
+
+from gi.repository import Gtk
 
 import sugar.graphics.style as style
 
@@ -92,7 +94,7 @@ class Status:
 
 class View(Gtk.EventBox):
     def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.status = Status()
         self.fill_color = fill_color

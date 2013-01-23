@@ -18,13 +18,16 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import GObject
+from gi.repository import GdkPixbuf
+
 from os.path import join, basename
 
 import shutil
 from gettext import gettext as _
 import svgcard
 import logging
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+
 from sugar.graphics import style
 from sugar.graphics.toolbutton import ToolButton
 from sugar.graphics.icon import Icon
@@ -46,9 +49,9 @@ _logger = logging.getLogger('memorize-activity')
 
 class CreateCardPanel(Gtk.EventBox):
     __gsignals__ = {
-        'add-pair': (SIGNAL_RUN_FIRST, None, 10 * [TYPE_PYOBJECT]),
-        'update-pair': (SIGNAL_RUN_FIRST, None, 8 * [TYPE_PYOBJECT]),
-        'change-font': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
+        'add-pair': (GObject.SignalFlags.RUN_FIRST, None, 10 * [object]),
+        'update-pair': (GObject.SignalFlags.RUN_FIRST, None, 8 * [object]),
+        'change-font': (GObject.SignalFlags.RUN_FIRST, None, 2 * [object]),
     }
 
     def __init__(self):
@@ -65,7 +68,7 @@ class CreateCardPanel(Gtk.EventBox):
             label_box.show_all()
             return label_box
 
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.equal_pairs = False
         self._updatebutton_sensitive = False
@@ -278,7 +281,7 @@ class CardEditor(Gtk.EventBox):
     }
 
     def __init__(self, editor_index):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.snd = None
         self.editor_index = editor_index

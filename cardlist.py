@@ -16,14 +16,15 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import GObject
+from gi.repository import GdkPixbuf
+
 import svgcard
 import logging
 from os.path import join, basename
 import shutil
 
 from model import Pair
-
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 from sugar.graphics import style
 from sugar.graphics.icon import Icon
@@ -36,12 +37,14 @@ _logger = logging.getLogger('memorize-activity')
 class CardList(Gtk.EventBox):
 
     __gsignals__ = {
-        'pair-selected': (SIGNAL_RUN_FIRST, None, 9 * [TYPE_PYOBJECT]),
-        'update-create-toolbar': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]),
+        'pair-selected': (GObject.SignalFlags.RUN_FIRST,
+                          None, 9 * [object]),
+        'update-create-toolbar': (GObject.SignalFlags.RUN_FIRST,
+                                  None, 3 * [object]),
     }
 
     def __init__(self):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
         self.pairs = []
         self.current_pair = None
         self.current_game_key = None
@@ -245,14 +248,14 @@ class CardList(Gtk.EventBox):
 class CardPair(Gtk.EventBox):
 
     __gsignals__ = {
-        'pair-selected': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'pair-closed': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'pair-selected': (GObject.SignalFlags.RUN_FIRST, None, [object]),
+        'pair-closed': (GObject.SignalFlags.RUN_FIRST, None, [object]),
     }
 
     def __init__(self, text1, text2=None, aimg=None, bimg=None,
             asnd=None, bsnd=None, aspeak=None, bspeak=None,
             font_name1=None, font_name2=None):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
         self.bg_color = '#000000'
 
         self.asnd = asnd
@@ -295,7 +298,7 @@ class CardPair(Gtk.EventBox):
         close_image = Icon(
                 icon_name='remove',
                 icon_size=Gtk.IconSize.LARGE_TOOLBAR)
-        align = Gtk.Alignment.new(.5, .5)
+        align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(close_image)
         close_button = Gtk.ToolButton()
         close_button.set_icon_widget(align)

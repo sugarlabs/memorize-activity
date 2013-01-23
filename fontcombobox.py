@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
 from gi.repository import Gtk
 
 FONT_BLACKLIST = ['cmex10', 'cmmi10', 'cmr10', 'cmsy10', 'esint10', 'eufm10',
@@ -24,7 +25,8 @@ FONT_BLACKLIST = ['cmex10', 'cmmi10', 'cmr10', 'cmsy10', 'esint10', 'eufm10',
 class FontComboBox(Gtk.ComboBox):
 
     def __init__(self):
-        GObject.GObject.__init__(self)
+        Gtk.ComboBox.__init__(self)
+
         font_renderer = Gtk.CellRendererText()
         self.pack_start(font_renderer, True, True, 0)
         self.add_attribute(font_renderer, 'text', 0)

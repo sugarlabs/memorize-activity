@@ -31,7 +31,7 @@ _logger = logging.getLogger('memorize-activity')
 class PlayerScoreboard(Gtk.EventBox):
 
     def __init__(self, nick, fill_color, stroke_color, score=0):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.default_color = '#4c4d4f'
         self.selected_color = '#818286'

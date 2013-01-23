@@ -21,16 +21,18 @@
 #     You should have received a copy of the GNU General Public License
 #     along with Speak.activity.  If not, see <http://www.gnu.org/licenses/>.
 
-import gi
-from gi.repository import Gtk
-import Gtk.gdk
-from gi.repository import GObject
-import cairo
 import math
+
+import cairo
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+
 
 class Eye(Gtk.DrawingArea):
     def __init__(self, fill_color):
-        GObject.GObject.__init__(self)
+        Gtk.DrawingArea.__init__(self)
+
         self.connect("expose_event", self.expose)
         self.frame = 0
         self.blink = False

@@ -13,6 +13,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 
 import logging
 _logger = logging.getLogger('memorize-activity')
@@ -26,7 +27,7 @@ import theme
 
 class Face(Gtk.EventBox):
     def __init__(self):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.modify_bg(Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
 

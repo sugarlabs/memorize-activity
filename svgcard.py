@@ -17,12 +17,15 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from os.path import join, dirname
-import rsvg
-import re
-from gi.repository import Gtk
-from gi.repository import Pango
 import logging
+from os.path import join, dirname
+import re
+
+from gi.repository import Rsvg
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+from gi.repository import Pango
 
 from sugar.util import LRU
 
@@ -59,7 +62,7 @@ class SvgCard(Gtk.EventBox):
 
     def __init__(self, identifier, pprops, jpeg, size,
                  align, bg_color='#000000', font_name=model.DEFAULT_FONT):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.bg_color = bg_color
         self.flipped = False
