@@ -82,7 +82,7 @@ class CardTable(Gtk.EventBox):
         if self._workspace_size:
             return
 
-        _logger.debug('Use %s allocation' % str(self.allocation))
+        _logger.debug('Use %s allocation' % str(allocation))
 
         self.set_size_request(size, size)
         self._workspace_size = size
