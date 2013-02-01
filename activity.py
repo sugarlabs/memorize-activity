@@ -197,7 +197,7 @@ class MemorizeActivity(Activity):
         self.connect('shared', self._shared_cb)
 
         # Owner.props.key
-        if self._shared_activity:
+        if self.get_shared_activity():
             # We are joining the activity
             self.connect('joined', self._joined_cb)
             if self.get_shared():
@@ -351,18 +351,19 @@ class MemorizeActivity(Activity):
             SERVICE, {})
 
     def _sharing_setup(self):
-        if self._shared_activity is None:
+        if self.get_shared_activity() is None:
             _logger.error('Failed to share or join activity')
             return
-        self.conn = self._shared_activity.telepathy_conn
-        self.tubes_chan = self._shared_activity.telepathy_tubes_chan
-        self.text_chan = self._shared_activity.telepathy_text_chan
+        shared_activity = self.get_shared_activity()
+        self.conn = shared_activity.telepathy_conn
+        self.tubes_chan = shared_activity.telepathy_tubes_chan
+        self.text_chan = shared_activity.telepathy_text_chan
 
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal( \
                 'NewTube', self._new_tube_cb)
 
-        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+        shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        shared_activity.connect('buddy-left', self._buddy_left_cb)
 
     def _list_tubes_reply_cb(self, tubes):
         for tube_info in tubes:
@@ -372,12 +373,12 @@ class MemorizeActivity(Activity):
         _logger.error('ListTubes() failed: %s', e)
 
     def _joined_cb(self, activity):
-        if not self._shared_activity:
+        if not self.get_shared_activity():
             return
 
         _logger.debug('Joined an existing shared activity')
 
-        for buddy in self._shared_activity.get_joined_buddies():
+        for buddy in self.get_shared_activity().get_joined_buddies():
             if buddy != self.owner:
                 _logger.debug("buddy joined - _joined_cb: %s  "
                               "(get buddies and add them to my list)",
