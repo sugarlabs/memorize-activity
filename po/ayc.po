@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2011-11-26 05:00+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2013-03-01 17:35+0200\n"
+"Last-Translator: EdgarQuispeChambi <quispedgar@yahoo.es>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: aym\n"
+"Language: ayc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr ""
+msgstr "P'iqiru katuqaña"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -27,46 +27,49 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"¡Akanxa p'iqimana katuquña kankañama anatañanaka anatasma! Ukampinsa, "
+"chiqpachanxa, yaqhanakana p'iqiparu apaqaña kankañapa ch'amanchañataki "
+"anatañanaka uñstayasma!"
 
 #: activity.py:69
 msgid "Play"
-msgstr ""
+msgstr "Anataña"
 
 #: activity.py:69
 msgid "Create"
-msgstr ""
+msgstr "Uñstayaña"
 
 #: activity.py:69
 msgid "Game name:"
-msgstr ""
+msgstr "Anatañana sutipa:"
 
 #: activity.py:69
 msgid "Equal pairs"
-msgstr ""
+msgstr "Kikipa panini"
 
 #: activity.py:70
 msgid "addition"
-msgstr ""
+msgstr "Yapxataña"
 
 #: activity.py:70
 msgid "letters"
-msgstr ""
+msgstr "qillqanaka"
 
 #: activity.py:70
 msgid "sounds"
-msgstr ""
+msgstr "sijiqinaka"
 
 #: activity.py:92 activity.py:223
 msgid "Edit game"
-msgstr ""
+msgstr "Anataña chiqachaña"
 
 #: activity.py:219
 msgid "Play game"
-msgstr ""
+msgstr "Anataña"
 
 #: createcardpanel.py:81
 msgid "Add as new pair"
-msgstr ""
+msgstr "Machaqa panini yapxataña"
 
 #  "Añadir"
 #: createcardpanel.py:84
@@ -75,15 +78,15 @@ msgstr "Yapxataña"
 
 #: createcardpanel.py:89
 msgid "Update selected pair"
-msgstr ""
+msgstr "Panini chhijllata machaqachaña"
 
 #: createcardpanel.py:92
 msgid "Update"
-msgstr ""
+msgstr "Machaqachaña"
 
 #: createcardpanel.py:291
 msgid "Preview:"
-msgstr ""
+msgstr "Nayraqata uñjäwi:"
 
 #  "Texto:"
 #: createcardpanel.py:307
@@ -92,225 +95,225 @@ msgstr "Qillqawi:"
 
 #: createcardpanel.py:319
 msgid "Insert picture"
-msgstr ""
+msgstr "Rixita apantaña"
 
 #: createcardpanel.py:324
 msgid "Insert sound"
-msgstr ""
+msgstr "Sijiqi apantaña"
 
 #: createcardpanel.py:483
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Apayaña qillqata jaqukipañkama qillqäwi arsuyaña"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Mayja mayja qillqatanaka khuskhachaña"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Kunaymana qillqatanaka wakichata anataña"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Qillqatanaka qawayata apsuña"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "¿Anataña qillqata wakichatanaka qawayata apsuña?"
 
 #  "Limpiar"
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr "Qhana"
+msgstr "Apsuña"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Jani apsuña"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Kikipa qillqata wakichatanaka khuskhachma"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Mayachata qillqatanaka wakichatampi anataña"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Anataña qhantayaña..."
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "Yapxataña"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "Qillqanaka"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "Sijiqinaka"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Yant'aña anatañanaka qhantayaña"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Taña jaqtaña"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "Anataña mayampi qalltaña"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "¿Chiqachata anatañama apanukuña?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Apanukuña"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Jani apanukuña"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "Anatäwi qhantaykasa"
 
 #: messenger.py:193
 msgid "done"
-msgstr ""
+msgstr "Luräwi"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "Portugués - Brasileño jaqi aru"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco jaqi aru"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés jaqi aru"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "Rumano jaqi aru"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili jaqi aru"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi jaqi aru"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Holandés jaqi aru"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "Latín jaqi aru"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro jaqi aru"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonio jaqi aru"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "Galés jaqi aru"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "Francés jaqi aru"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruego jaqi aru"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "Ruso jaqi aru"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikáans jaqi aru"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "Finés jaqi aru"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "Wiñayataki Wakichata"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "Cantonés jaqi aru"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "Escocés jaqi aru"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "Griego jaqi aru"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnamita jaqi aru"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "Inglés jaqi aru"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "Lancashire jaqi aru"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "Italiano jaqi aru"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "Portugués jaqi aru"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "Alemán jaqi aru"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "Chhipiqiña"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "Croata jaqi aru"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "Checo jaqi aru"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco jaqi aru"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "Español jaqi aru"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "Polaco jaqi aru"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto jaqi aru"
