@@ -1,5 +1,6 @@
 #    Copyright (C) 2006, 2007, 2008 One Laptop Per Child
 #    Copyright (C) 2009 Simon Schampijer, Aleksey Lim
+#    Copyright (C) 2013 Sugar Labs
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -39,6 +40,7 @@ from sugar.activity.widgets import ActivityToolbarButton
 from sugar.activity.widgets import StopButton
 from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.graphics.toggletoolbutton import ToggleToolButton
+from sugar.graphics import style
 from sugar.activity.activity import Activity
 from sugar.presence import presenceservice
 from sugar.presence.tubeconn import TubeConnection
@@ -76,6 +78,8 @@ class MemorizeActivity(Activity):
         Activity.__init__(self, handle)
 
         self.play_mode = None
+
+        self._calculate_sizes()
 
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
@@ -166,6 +170,10 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder.connect('game_changed',
                 self.change_game)
 
+        self.portrait_mode = gtk.gdk.screen_width() < gtk.gdk.screen_height()
+
+        self.vbox = gtk.VBox(False)
+        self.sbox = gtk.VBox()
         self.hbox = gtk.HBox(False)
         self.set_canvas(self.hbox)
 
@@ -177,6 +185,9 @@ class MemorizeActivity(Activity):
         self.add_events(gtk.gdk.POINTER_MOTION_MASK)
         self.connect('motion_notify_event',
                 lambda widget, event: face.look_at())
+
+        gtk.gdk.screen_get_default().connect('size-changed',
+                                             self.__configure_cb)
 
         # start on the game toolbar, might change this
         # to the create toolbar later
@@ -210,6 +221,46 @@ class MemorizeActivity(Activity):
             self.game.add_buddy(self.owner)
         else:
             self.game.add_buddy(self.owner)
+        self.show_all()
+
+    def _calculate_sizes(self):
+        width = gtk.gdk.screen_width()
+        height = gtk.gdk.screen_height()
+        if width < height:
+            self.table_size = (width, width)
+            self.score_size = (width, height - width - style.GRID_CELL_SIZE)
+        else:
+            self.table_size = (height - style.GRID_CELL_SIZE,
+                               height - style.GRID_CELL_SIZE)
+            self.score_size = (width - self.table_size[0],
+                               height - style.GRID_CELL_SIZE)
+
+    def __configure_cb(self, event):
+        ''' Screen size has changed '''
+        width = gtk.gdk.screen_width()
+        height = gtk.gdk.screen_height() - style.GRID_CELL_SIZE
+        self.hbox.set_size_request(width, height)
+
+        self._calculate_sizes()
+        self.vbox.set_size_request(self.table_size[0], height)
+        self.sbox.set_size_request(self.score_size[0], self.score_size[1])
+        self.sbox.show()
+
+        if width < height:
+            if self.play_mode == _MODE_PLAY and not self.portrait_mode:
+                self.table.resize(self.table_size[0])
+                self.hbox.remove(self.sbox)
+                self.vbox.pack_end(self.sbox)
+            self.portrait_mode = True
+        else:
+            if self.play_mode == _MODE_PLAY and self.portrait_mode:
+                self.table.resize(self.table_size[0])
+                self.vbox.remove(self.sbox)
+                self.hbox.pack_start(self.sbox)
+            self.portrait_mode = False
+
+        self.vbox.show()
+        self.hbox.show()
         self.show_all()
 
     def _change_mode_bt(self, button):
@@ -301,8 +352,9 @@ class MemorizeActivity(Activity):
         logging.debug("Change mode %s" % mode)
         if mode == _MODE_CREATE:
             if self.play_mode == True:
-                self.hbox.remove(self.scoreboard)
-                self.hbox.remove(self.table)
+                if not self.portrait_mode:
+                    self.hbox.remove(self.sbox)
+                self.hbox.remove(self.vbox)
                 self.hbox.pack_start(self.createcardpanel, False)
                 self.hbox.pack_start(self.cardlist)
                 self.cardlist.load_game(self.game)
@@ -322,9 +374,29 @@ class MemorizeActivity(Activity):
             if self.play_mode == False:
                 self.hbox.remove(self.createcardpanel)
                 self.hbox.remove(self.cardlist)
+
+            # Two configurations:
+            # (1) In landscape mode, sbox and table (vbox) will go into hbox
+            # (2) In portrait mode, sbox goes into vbox below table
             if self.play_mode in (False, None):
-                self.hbox.pack_start(self.scoreboard)
-                self.hbox.pack_start(self.table, False)
+                self._calculate_sizes()
+                if self.play_mode is not None:
+                    self.sbox.remove(self.scoreboard)
+                    self.vbox.remove(self.table)
+                self.sbox.set_size_request(self.score_size[0],
+                                           self.score_size[1])
+                self.sbox.pack_start(self.scoreboard)
+                height = gtk.gdk.screen_height() - style.GRID_CELL_SIZE
+                self.vbox.set_size_request(self.table_size[0], height)
+                self.vbox.pack_start(self.table)
+                if self.portrait_mode:
+                    self.hbox.remove(self.vbox)
+                    self.vbox.pack_end(self.sbox)
+                    self.hbox.pack_end(self.vbox)
+                else:
+                    self.hbox.remove(self.vbox)
+                    self.hbox.pack_end(self.vbox)
+                    self.hbox.pack_start(self.sbox)
             self.play_mode = True
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
         self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)
