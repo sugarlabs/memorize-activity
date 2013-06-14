@@ -31,14 +31,14 @@ from sugar.graphics.icon import Icon
 from sugar.graphics.palette import Palette
 from sugar.graphics.toggletoolbutton import ToggleToolButton
 from sugar.graphics.toolcombobox import ToolComboBox
-from fontcombobox import FontComboBox
+from fontcombobox import FontButton
 from port import chooser
 
 import theme
 import speak.espeak
 import speak.widgets
 import speak.face
-from port.roundbox import RoundBox
+#from port.roundbox import RoundBox
 import model
 
 _logger = logging.getLogger('memorize-activity')
@@ -112,12 +112,8 @@ class CreateCardPanel(gtk.EventBox):
 
         if not self._activity.portrait_mode:
             self.card_box = gtk.HBox()
-            self.cardeditor1.show_labels()
-            self.cardeditor2.show_labels()
         else:
             self.card_box = gtk.VBox()
-            self.cardeditor1.hide_labels()
-            self.cardeditor2.hide_labels()
 
         self.card_box.pack_start(self.cardeditor1)
         self.card_box.pack_start(self.cardeditor2)
@@ -137,12 +133,8 @@ class CreateCardPanel(gtk.EventBox):
 
         if not self._activity.portrait_mode:
             self.card_box = gtk.HBox()
-            self.cardeditor1.show_labels()
-            self.cardeditor2.show_labels()
         else:
             self.card_box = gtk.VBox()
-            self.cardeditor1.hide_labels()
-            self.cardeditor2.hide_labels()
         self.card_box.pack_start(self.cardeditor1)
         self.card_box.pack_start(self.cardeditor2)
 
@@ -343,7 +335,7 @@ class CardEditor(gtk.EventBox):
         self.textentry.connect('changed', self.update_text)
         box.pack_start(self.textentry, False)
 
-        toolbar = RoundBox()
+        toolbar = gtk.HBox()
 
         browsepicture = ToolButton(
                 icon_name='import_picture',
@@ -367,23 +359,13 @@ class CardEditor(gtk.EventBox):
         else:
             self.usespeak = None
 
-        self.font_combo = FontComboBox()
-        self.id_font_changed = self.font_combo.connect("changed",
-                self.__font_changed_cb)
-        self.font_combo.set_font_name(model.DEFAULT_FONT)
-
-        box.pack_start(self.font_combo, True, True, 0)
+        self.fontbutton = FontButton()
+        toolbar.add(self.fontbutton)
+        self.id_font_changed = self.fontbutton.connect(
+            'changed', self.__font_changed_cb)
         box.pack_start(toolbar, True, True, 0)
 
         self.add(box)
-
-    def hide_labels(self):
-        self.previewlabel.hide()
-        self.textlabel.hide()
-
-    def show_labels(self):
-        self.previewlabel.show()
-        self.textlabel.show()
 
     def __font_changed_cb(self, widget):
         font = widget.get_font_name()
@@ -393,9 +375,9 @@ class CardEditor(gtk.EventBox):
             self.emit('change-font', font)
 
     def set_font_name(self, font_name):
-        self.font_combo.handler_block(self.id_font_changed)
-        self.font_combo.set_font_name(font_name)
-        self.font_combo.handler_unblock(self.id_font_changed)
+        self.fontbutton.handler_block(self.id_font_changed)
+        self.fontbutton.set_font_name(font_name)
+        self.fontbutton.handler_unblock(self.id_font_changed)
 
     def update_text(self, entry):
         self.card.change_text(entry.get_text())
@@ -503,7 +485,7 @@ class CardEditor(gtk.EventBox):
         return self.snd
 
     def get_font_name(self):
-        return self.font_combo.get_font_name()
+        return self.fontbutton.get_font_name()
 
     def clean(self):
         self.textentry.set_text('')
