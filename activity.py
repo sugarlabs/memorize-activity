@@ -108,11 +108,13 @@ class MemorizeActivity(Activity):
 
         toolbar_box.toolbar.insert(StopButton(self), -1)
 
+        self.portrait_mode = gtk.gdk.screen_width() < gtk.gdk.screen_height()
+
         # Play game mode
         self.table = cardtable.CardTable()
         self.scoreboard = scoreboard.Scoreboard()
         self.cardlist = cardlist.CardList()
-        self.createcardpanel = createcardpanel.CreateCardPanel()
+        self.createcardpanel = createcardpanel.CreateCardPanel(self)
         self.cardlist.connect('pair-selected',
                 self.createcardpanel.pair_selected)
         self.cardlist.connect('update-create-toolbar',
@@ -169,8 +171,6 @@ class MemorizeActivity(Activity):
 
         self._memorizeToolbarBuilder.connect('game_changed',
                 self.change_game)
-
-        self.portrait_mode = gtk.gdk.screen_width() < gtk.gdk.screen_height()
 
         self.vbox = gtk.VBox(False)
         self.sbox = gtk.VBox()
@@ -262,6 +262,8 @@ class MemorizeActivity(Activity):
         self.vbox.show()
         self.hbox.show()
         self.show_all()
+        if self.play_mode != _MODE_PLAY:
+            self.createcardpanel.resize()
 
     def _change_mode_bt(self, button):
         if button.get_active():
