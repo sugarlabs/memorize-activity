@@ -27,6 +27,7 @@ from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
 
 from sugar.graphics import style
 from sugar.graphics.icon import Icon
+from sugar.graphics.tray import VTray
 
 import theme
 
@@ -49,20 +50,8 @@ class CardList(gtk.EventBox):
         self.pair_list_modified = False
         self.game_loaded = False
 
-        self.vbox = gtk.VBox(False)
-
-        fill_box = gtk.Label()
-        fill_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
-        fill_box.show()
-        self.vbox.pack_end(fill_box, True, True)
-
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.add_with_viewport(self.vbox)
-        scroll.set_border_width(0)
-        scroll.get_child().modify_bg(gtk.STATE_NORMAL,
-                                     gtk.gdk.color_parse('#000000'))
-        self.add(scroll)
+        self.tray = VTray()
+        self.add(self.tray)
         self.show_all()
 
     def load_game(self, game):
@@ -178,7 +167,7 @@ class CardList(gtk.EventBox):
     def clean_list(self, button=None, load=False):
         if button != None:
             self.current_game_key = None
-        map(lambda x: self.vbox.remove(x), self.pairs)
+        map(lambda x: self.tray.remove_item(x), self.pairs)
         del self.pairs
         self.pairs = []
         if not load:
@@ -189,7 +178,7 @@ class CardList(gtk.EventBox):
             aspeak, bspeak, font_name1, font_name2, show=True, load=False):
         pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak,
                 font_name1, font_name2)
-        self.vbox.pack_end(pair, False, True)
+        self.tray.add_item(pair)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
         pair.connect('pair-closed', self.rem_pair)
@@ -209,7 +198,7 @@ class CardList(gtk.EventBox):
         self.model.mark_modified()
 
     def rem_pair(self, widget, event):
-        self.vbox.remove(widget)
+        self.tray.remove_item(widget)
         self.pairs.remove(widget)
         del widget
         self.model.mark_modified()
@@ -242,7 +231,7 @@ class CardList(gtk.EventBox):
         self.pair_list_modified = False
 
 
-class CardPair(gtk.EventBox):
+class CardPair(gtk.ToolItem):
 
     __gsignals__ = {
         'pair-selected': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
@@ -252,7 +241,7 @@ class CardPair(gtk.EventBox):
     def __init__(self, text1, text2=None, aimg=None, bimg=None,
             asnd=None, bsnd=None, aspeak=None, bspeak=None,
             font_name1=None, font_name2=None):
-        gtk.EventBox.__init__(self)
+        gtk.ToolItem.__init__(self)
         self.bg_color = '#000000'
 
         self.asnd = asnd
