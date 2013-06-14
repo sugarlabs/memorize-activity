@@ -185,6 +185,10 @@ class CardList(gtk.EventBox):
         if not load:
             self.model.mark_modified()
             self.pair_list_modified = True
+            # workaround, this is not working
+            # self.tray.scroll_to_item(pair)
+            adj = self.tray._viewport.get_vadjustment()
+            adj.set_value(adj.get_upper())
         if show:
             self.show_all()
 
