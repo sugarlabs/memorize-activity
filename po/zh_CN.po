@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Memorize\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2012-10-02 18:32+0200\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
+"PO-Revision-Date: 2013-06-17 15:21+0200\n"
 "Last-Translator: lite <litekok@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "Language: zh_CN\n"
@@ -56,75 +56,75 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr "在这里，你可以通过玩挑战你记忆的游戏！但是，更重要的是，你可以创建自己的游戏来测试别人的记忆！"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "玩"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "开始新游戏"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "游戏名称："
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "等同配对"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "加法"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "字母"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "声音"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "编辑游戏"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "玩游戏"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "添加新配对"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "添加"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "更新选定的配对"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "更新"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "预览:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "文字:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "插入图片"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "插入声音"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "翻页时发音"
 
@@ -159,6 +159,10 @@ msgstr "配对相同的小板"
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "分组小板游戏"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr "选择字体"
 
 #: game.py:94
 msgid "Loading game..."
