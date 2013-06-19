@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2012-10-03 20:35+0200\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
+"PO-Revision-Date: 2013-06-17 16:49+0200\n"
 "Last-Translator: whe <heppew@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
@@ -58,75 +58,75 @@ msgstr ""
 "Hier kun je spellen spelen die je geheugen uitdagen! Maar, belangrijker, je "
 "kunt je eigen spel maken oom het geheugen van anderen te testen!"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Speel"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Maken"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "Spelnaam:"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Gelijke paren"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "optelling"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "letters"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "geluiden"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "Bewerk spel"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "Speel spel"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Toevoegen als nieuw paar"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "Toevoegen"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Geselecteerd paar vernieuwen"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "Bijwerken"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "Bekijken:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Tekst:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "Afbeelding invoegen"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "Geluid invoegen"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "Spreek de tekst uit gedurende de tegel omslag"
 
@@ -161,6 +161,10 @@ msgstr "Pas identieke tegels"
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "Groepeer tegel spel"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr "Selecteer lettertype"
 
 #: game.py:94
 msgid "Loading game..."
