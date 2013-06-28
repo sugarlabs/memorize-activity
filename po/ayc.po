@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2013-03-01 17:35+0200\n"
 "Last-Translator: EdgarQuispeChambi <quispedgar@yahoo.es>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,77 +31,77 @@ msgstr ""
 "chiqpachanxa, yaqhanakana p'iqiparu apaqaña kankañapa ch'amanchañataki "
 "anatañanaka uñstayasma!"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Anataña"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Uñstayaña"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "Anatañana sutipa:"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Kikipa panini"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "Yapxataña"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "qillqanaka"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "sijiqinaka"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "Anataña chiqachaña"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "Anataña"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Machaqa panini yapxataña"
 
 #  "Añadir"
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "Yapxataña"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Panini chhijllata machaqachaña"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "Machaqachaña"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "Nayraqata uñjäwi:"
 
 #  "Texto:"
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Qillqawi:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "Rixita apantaña"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "Sijiqi apantaña"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "Apayaña qillqata jaqukipañkama qillqäwi arsuyaña"
 
@@ -137,6 +137,10 @@ msgstr "Kikipa qillqata wakichatanaka khuskhachma"
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "Mayachata qillqatanaka wakichatampi anataña"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr ""
 
 #: game.py:94
 msgid "Loading game..."

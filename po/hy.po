@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2013-04-19 21:18+0200\n"
 "Last-Translator: anushnur <anush.mkrtchyan@ca1492.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,75 +51,75 @@ msgstr ""
 "ամենակարևորն այն է, որ կարող ես ստեղծել քո անձնական խաղը մյուսների "
 "հիշողությունը ստուգելու համար."
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Վերարտադրել"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Ստեղծել"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "Խաղի անունը`"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Հավասար զույգեր"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "Ավելացում"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "Տառեր"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "Հնչյուններ"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "Խմբագրել խաղը"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "Խաղալ խաղը"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Ավելացնել որպես նոր զույգ"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "Ավելացնել"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Արդիականացնել ընտրած զույգը"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "Արդիականացում"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "Նախատեսք"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Տեքստ"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "Զետեղել Պատկերը"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "Զետեղել ձայնը"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "Արտասանել տեքստը` մասնիկը շրջելու ժամանակ"
 
@@ -154,6 +154,10 @@ msgstr "Համապատասխանեցնել նույնատիպ մասնիկներ
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "Խմբավորված մասնիկների խաղ"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr ""
 
 #: game.py:94
 msgid "Loading game..."

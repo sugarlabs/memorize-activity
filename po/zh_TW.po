@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Memorize\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2012-03-22 17:23+0200\n"
 "Last-Translator: Yuan <yuanchao@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
@@ -52,75 +52,75 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "遊玩"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "開始新遊戲"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "遊戲名稱:"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "等同配對"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "加法"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "字母"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "聲音"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "編輯遊戲"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "進行遊戲"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "增加新配對"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "新增"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "更新選取的配對"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "更新"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "預覽:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "文字:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "插入圖案"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "插入音效"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "翻動卡片時唸出文字"
 
@@ -155,6 +155,10 @@ msgstr "配對相同的牌"
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "歸類牌遊戲"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr ""
 
 #: game.py:94
 msgid "Loading game..."

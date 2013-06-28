@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2012-03-02 05:17+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,79 +28,79 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Ubat'"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Ts'ejka'"
 
-#: activity.py:69
+#: activity.py:71
 #, fuzzy
 msgid "Game name:"
 msgstr "Bijil an ubat'intaláb:"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Tsabchik jununúl"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "addition"
 msgstr "punk'uy"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "letters"
 msgstr "dhuche'"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "sounds"
 msgstr "kawintaláb"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr ""
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Punchiy jun i it tsábchil"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "Punchiy"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Itmedha tsabchil xi takudh"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "Ajumta'lits"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "K'aal tsu-uxlalab:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Dhuchláb:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "Ofsba' an t'ipláb"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "Otsba' in janídh"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "Bijiy an dhuchlab ani' ka wenk'a an dhuchláb"
 
@@ -134,6 +134,10 @@ msgstr ""
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
+msgstr ""
+
+#: fontcombobox.py:42
+msgid "Select font"
 msgstr ""
 
 #: game.py:94

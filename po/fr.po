@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2012-02-08 10:14+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,75 +63,75 @@ msgstr ""
 "Mais, plus important, vous pouvez créer votre propre jeu pour tester la\n"
 "mémoire des autres !"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Jouer"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Créer"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "Nom de la partie:"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Paires égales"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "addition"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "lettres"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "sons"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "Modifier la partie"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "Jouer une partie"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Ajouter une nouvelle paire"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "Ajouter"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Mettre à jour la paire sélectionnée"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "Mise à jour"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "Aperçu :"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Texte :"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "Insérer une image"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "Insérer un son"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "Prononcer le texte pendant le retournement"
 
@@ -166,6 +166,10 @@ msgstr "Faire correspondre les pièces identiques"
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "Jeu de pièces groupées"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr ""
 
 #: game.py:94
 msgid "Loading game..."

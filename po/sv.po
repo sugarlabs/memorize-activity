@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2010-02-08 22:36+0200\n"
 "Last-Translator: Nicci Manns <nicci@saunalahti.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,79 +56,79 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Spela"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Skapa"
 
-#: activity.py:69
+#: activity.py:71
 #, fuzzy
 msgid "Game name:"
 msgstr "Spelnamn"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Jämt antal par"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "addition"
 msgstr "addition"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "letters"
 msgstr "bokstäver"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "sounds"
 msgstr "ljud"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr ""
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Lägg till som nytt par"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "Lägg till"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Uppdatera markerat par"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "Uppdatera"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "Förhandsgranskning:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Text:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "Infoga bild"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "Infoga ljud"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "Uttala text under vändnig av bricka"
 
@@ -162,6 +162,10 @@ msgstr ""
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
+msgstr ""
+
+#: fontcombobox.py:42
+msgid "Select font"
 msgstr ""
 
 #: game.py:94

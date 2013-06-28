@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: honey VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2009-06-24 16:14-0800\n"
 "Last-Translator: Loba Yeasmeen <loba@ankur.org.bd>\n"
 "Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
@@ -55,79 +55,79 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "চালানো"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "তৈরি করা"
 
-#: activity.py:69
+#: activity.py:71
 #, fuzzy
 msgid "Game name:"
 msgstr "খেলার নাম"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "সমান জোড়া"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "addition"
 msgstr "যোগ"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "letters"
 msgstr "বর্ণ"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "sounds"
 msgstr "শব্দ"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr ""
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "নতুন জোড়া হিসেবে যোগ করো"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr ""
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "নির্বাচিত জোড়া হালনাগাদ করো"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr ""
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "আগে দেখানো:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "টেক্সট:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr ""
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr ""
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr ""
 
@@ -161,6 +161,10 @@ msgstr ""
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
+msgstr ""
+
+#: fontcombobox.py:42
+msgid "Select font"
 msgstr ""
 
 #: game.py:94

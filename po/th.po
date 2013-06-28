@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2012-03-09 09:47+0200\n"
 "Last-Translator: Meechai <malaku38@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,75 +52,75 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "เล่น"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "สร้าง"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "ชื่อเกม:"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "ทำเป็นคู่"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "การบวก"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "ตัวอักษร"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "เสียง"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "แก้ไขเกม"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "เล่นเกม"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "เพิ่มเป็นคู่ใหม่"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "เพิ่ม"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "ปรับปรุงคู่ที่ถูกเลือก"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "ปรับปรุง"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "ตัวอย่าง:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "ข้อความ:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "แทรกรูปภาพ"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "แทรกเสียง"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "ออกเสียงข้อความในระหว่างพลิกแผ่นป้าย"
 
@@ -155,6 +155,10 @@ msgstr "จับคู่แผ่นป้ายที่เหมือนก
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "แผ่นป้ายถูกจับกลุ่ม"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr ""
 
 #: game.py:94
 msgid "Loading game..."

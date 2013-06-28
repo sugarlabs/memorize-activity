@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
 "PO-Revision-Date: 2012-09-27 20:33+0200\n"
 "Last-Translator: Yannis <kiolalis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,75 +56,75 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Δημιουργία"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Game name:"
 msgstr "Όνομα παιχνιδιού:"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Όμοια ζευγάρια"
 
-#: activity.py:70
+#: activity.py:72
 msgid "addition"
 msgstr "προσθήκη"
 
-#: activity.py:70
+#: activity.py:72
 msgid "letters"
 msgstr "γράμματα"
 
-#: activity.py:70
+#: activity.py:72
 msgid "sounds"
 msgstr "ήχοι"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr "Επεξεργασία παιχνιδιού"
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr "Αναπαραγωγή παιχνιδιού"
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Προσθήκη ως νέου ζευγαριού"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Ενημέρωση επιλεγμένου ζευγαριού"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr "Ενημέρωση"
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "Προεπισκόπηση:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Κείμενο:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr "Εισαγωγή εικόνας"
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr "Εισαγωγή ήχου"
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr "Προφορά του κειμένου όταν γυρίζουν τα πλακίδια"
 
@@ -159,6 +159,10 @@ msgstr "Συνδυασμός όμοιων πλακιδίων"
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
 msgstr "Παιχνίδι ομαδοποίησης πλακιδίων"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr ""
 
 #: game.py:94
 msgid "Loading game..."
