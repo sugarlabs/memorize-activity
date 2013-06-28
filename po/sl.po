@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 14:55-0400\n"
-"PO-Revision-Date: 2010-02-07 05:37+0200\n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
+"PO-Revision-Date: 2013-01-11 05:46+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sl\n"
@@ -44,7 +44,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -57,79 +57,80 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:69
+#: activity.py:71
 msgid "Play"
 msgstr "Igraj"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Create"
 msgstr "Ustvari"
 
-#: activity.py:69
+#: activity.py:71
 #, fuzzy
 msgid "Game name:"
 msgstr "Ime igre"
 
-#: activity.py:69
+#: activity.py:71
 msgid "Equal pairs"
 msgstr "Enaka para"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "addition"
 msgstr "dodatek"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "letters"
 msgstr "črke"
 
-#: activity.py:70
+#: activity.py:72
 #, fuzzy
 msgid "sounds"
 msgstr "zvoki"
 
-#: activity.py:92 activity.py:223
+#: activity.py:96 activity.py:276
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:219
+#: activity.py:272
 msgid "Play game"
 msgstr ""
 
-#: createcardpanel.py:81
+#: createcardpanel.py:82
 msgid "Add as new pair"
 msgstr "Dodaj nov par"
 
-#: createcardpanel.py:84
+#: createcardpanel.py:85
+#, fuzzy
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
-#: createcardpanel.py:89
+#: createcardpanel.py:90
 msgid "Update selected pair"
 msgstr "Posodobi izbran par"
 
-#: createcardpanel.py:92
+#: createcardpanel.py:93
 msgid "Update"
 msgstr ""
 
-#: createcardpanel.py:291
+#: createcardpanel.py:314
 msgid "Preview:"
 msgstr "Predogled:"
 
-#: createcardpanel.py:307
+#: createcardpanel.py:330
 msgid "Text:"
 msgstr "Besedilo:"
 
-#: createcardpanel.py:319
+#: createcardpanel.py:342
 msgid "Insert picture"
 msgstr ""
 
-#: createcardpanel.py:324
+#: createcardpanel.py:347
 msgid "Insert sound"
 msgstr ""
 
-#: createcardpanel.py:483
+#: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
 msgstr ""
 
@@ -150,8 +151,9 @@ msgid "Clear all the tiles from the game?"
 msgstr ""
 
 #: createtoolbar.py:78
+#, fuzzy
 msgid "Clear"
-msgstr ""
+msgstr "Izbriši"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
@@ -163,6 +165,10 @@ msgstr ""
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
+msgstr ""
+
+#: fontcombobox.py:42
+msgid "Select font"
 msgstr ""
 
 #: game.py:94
