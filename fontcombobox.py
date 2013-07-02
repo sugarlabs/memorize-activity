@@ -17,9 +17,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import os
+import shutil
 from gettext import gettext as _
 
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+from gobject import SIGNAL_RUN_FIRST
 import gio
 
 from sugar.graphics.menuitem import MenuItem
@@ -43,7 +44,6 @@ class FontButton(ToolButton):
         self.connect('clicked', self.__font_selection_cb)
 
         context = self.get_pango_context()
-        font_index = 0
 
         self._init_font_list()
 
