@@ -39,8 +39,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-02-08 10:14+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2013-07-29 14:11+0200\n"
+"Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -169,7 +169,7 @@ msgstr "Jeu de pièces groupées"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Sélectionner la police"
 
 #: game.py:94
 msgid "Loading game..."
