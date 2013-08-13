@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-10-09 21:29+0200\n"
+"PO-Revision-Date: 2013-08-13 15:44+0200\n"
 "Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
@@ -136,7 +136,7 @@ msgstr "Spil med grupperede felter"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Vælg skrifttype"
 
 #: game.py:94
 msgid "Loading game..."
