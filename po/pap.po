@@ -1,49 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Wenchi <linguares@yahoo.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2010-02-16 02:37+0200\n"
-"Last-Translator: <esse_line@msn.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2013-09-11 15:47-0400\n"
+"Last-Translator: Wenchi <linguares@yahoo.com>\n"
+"Language-Team: Suares\n"
 "Language: pap\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -55,6 +27,8 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Aki bo por hunga wega ku ta reta bo memoria! Pero, mas importante, bo por "
+"krea bo mes wega pa tèst memoria di otronan!"
 
 #: activity.py:71
 msgid "Play"
@@ -86,15 +60,16 @@ msgstr "lèternan"
 #: activity.py:72
 #, fuzzy
 msgid "sounds"
-msgstr "zonidonan"
+msgstr "zonido"
 
 #: activity.py:96 activity.py:276
+#, fuzzy
 msgid "Edit game"
-msgstr ""
+msgstr "Editá wega"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Hunga wega"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
@@ -122,7 +97,7 @@ msgstr "Teksto:"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr "Hinka plachi/potrèt"
+msgstr "Hinka plachi"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
@@ -130,43 +105,44 @@ msgstr "Hinka zonido"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr "Pronunsiá teksto segun mosaiko/aseleho ta bira"
+msgstr "Pronunsiá teksto segun mosaiko ta bòltu"
 
 #: createtoolbar.py:46 createtoolbar.py:106
+#, fuzzy
 msgid "Match different tiles"
-msgstr ""
+msgstr "Konektá diferente mosaiko"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Wega di Mosaiko mesklá"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Kita tur mosaiko"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Kita tur mosaiko for di wega?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "Kita"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "No kita"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Konektá mosaiko idéntiko"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Wega di mosaiko grupá"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Skohe tipo di lèter"
 
 #: game.py:94
 msgid "Loading game..."
@@ -178,14 +154,12 @@ msgid "Addition"
 msgstr "adishon"
 
 #: memorizetoolbar.py:44
-#, fuzzy
 msgid "Letters"
-msgstr "lèternan"
+msgstr "Lèternan"
 
 #: memorizetoolbar.py:45
-#, fuzzy
 msgid "Sounds"
-msgstr "zonidonan"
+msgstr "Zonido"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
@@ -193,23 +167,23 @@ msgstr "Karga weganan di demostrashon"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Kambia sais"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr "Reinisia Wega"
+msgstr "Reinisiá Wega"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Eliminá bo wega modifiká?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Eliminá"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "No eliminá"
 
 #: messenger.py:192
 msgid "Receiving game"
@@ -225,7 +199,7 @@ msgstr "Brazil"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr "Sueka"
+msgstr "Sueko"
 
 #: speak/voice.py:38
 msgid "Icelandic"
@@ -233,7 +207,7 @@ msgstr "Islandes"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr "Rumano"
+msgstr "Romanio"
 
 #: speak/voice.py:40
 msgid "Swahili"
@@ -261,7 +235,7 @@ msgstr "Macedonia"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr "Wales"
+msgstr "Galés"
 
 #: speak/voice.py:47
 msgid "French"
@@ -285,7 +259,7 @@ msgstr "Finlandes"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr "Default"
+msgstr "Skohé pa e sistema"
 
 #: speak/voice.py:53
 msgid "Cantonese"
@@ -293,7 +267,7 @@ msgstr "Kantones"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr "Escoses"
+msgstr "Eskoses"
 
 #: speak/voice.py:55
 msgid "Greek"
@@ -301,7 +275,7 @@ msgstr "Griego"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr "Vietnamis"
+msgstr "Vietnames"
 
 #: speak/voice.py:57
 msgid "English"
@@ -325,7 +299,7 @@ msgstr "Aleman"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr "Flùister"
+msgstr "Susurá"
 
 #: speak/voice.py:63
 msgid "Croatian"
@@ -333,7 +307,7 @@ msgstr "Kroasia"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr "Chèko"
+msgstr "Cheko"
 
 #: speak/voice.py:65
 msgid "Slovak"
