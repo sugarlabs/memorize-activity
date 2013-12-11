@@ -31,15 +31,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2011-07-15 03:56+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2013-11-27 08:07+0200\n"
+"Last-Translator: Ganesh <ganesh.ghimire@olenepal.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -51,6 +51,9 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"यहाँ तपाईँले आफ्नो स्मरणशक्ति थाह पाउने खेलहरू खेल्न सक्नु हुन्छ ! तर अझ "
+"महत्वपूर्ण, तपाईँ आफैले खेलहरू सिर्जना गरेर अरूको स्मरणशक्ति जाँच्न सक्नु "
+"हुन्छ।"
 
 #: activity.py:71
 msgid "Play"
@@ -61,36 +64,32 @@ msgid "Create"
 msgstr "बनाऊ"
 
 #: activity.py:71
-#, fuzzy
 msgid "Game name:"
-msgstr "खेलको नाम"
+msgstr "खेलको नाम:"
 
 #: activity.py:71
 msgid "Equal pairs"
 msgstr "मिलेका जोडीहरु"
 
 #: activity.py:72
-#, fuzzy
 msgid "addition"
 msgstr "जोड"
 
 #: activity.py:72
-#, fuzzy
 msgid "letters"
-msgstr "अक्षरहरु"
+msgstr "अक्षरहरू"
 
 #: activity.py:72
-#, fuzzy
 msgid "sounds"
-msgstr "आवाजहरु"
+msgstr "आवाजहरू"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "खेल सम्पादन गर"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "खेल सुरु गर"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
@@ -130,58 +129,55 @@ msgstr "टायल फ्लिप गर्दा पाठ प्रना�
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "विभिन्न टायलहरू मिलाऊ"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "मिश्रित टायल खेल"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "सबै टायलहरू हटाउ"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "खेलबाट सबै टायलहरू हटाउने?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "हटाऊ"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "नहटाऊ"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "एकै जस्ता टायलहरू मिलाऊ"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "टायल समूह खेल"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "फन्ट चयन गर"
 
 #: game.py:94
 msgid "Loading game..."
 msgstr "खेल सुरु गर्दै ..."
 
 #: memorizetoolbar.py:43
-#, fuzzy
 msgid "Addition"
 msgstr "जोड"
 
 #: memorizetoolbar.py:44
-#, fuzzy
 msgid "Letters"
-msgstr "अक्षरहरु"
+msgstr "अक्षरहरू"
 
 #: memorizetoolbar.py:45
-#, fuzzy
 msgid "Sounds"
-msgstr "आवाजहरु"
+msgstr "आवाजहरू"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
@@ -189,7 +185,7 @@ msgstr "खेलको झलक शुरु"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "आकार परिवर्तन गर"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
@@ -197,15 +193,15 @@ msgstr "खेल फेरी सुरु गर"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "तपाईँको संशोधित खेल छाड्ने?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "छाड्नुहोस्"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "नछाड्नुहोस्"
 
 #: messenger.py:192
 msgid "Receiving game"
