@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-04-02 23:52+0200\n"
+"PO-Revision-Date: 2013-12-14 17:36+0200\n"
 "Last-Translator: Eduardo H. <hoboprimate@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
@@ -51,6 +51,8 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Aqui podes jogar jogos que desafiam a tua memória! Mas, mais importante, "
+"podes criar o teu próprio jogo para testar a memória de outros!"
 
 #: activity.py:71
 msgid "Play"
@@ -158,7 +160,7 @@ msgstr "Jogo de cartas agrupadas"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Escolher tipo de letra"
 
 #: game.py:94
 msgid "Loading game..."
@@ -182,7 +184,7 @@ msgstr "Carregar jogos de demonstração"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Alterar tamanho"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
