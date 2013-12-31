@@ -200,10 +200,10 @@ class CreateCardPanel(Gtk.EventBox):
         self.clean(None)
 
         if self.equal_pairs:
-            if self.cardeditor2.parent:
+            if self.cardeditor2.get_parent():
                 self.card_box.remove(self.cardeditor2)
         else:
-            if not self.cardeditor2.parent:
+            if not self.cardeditor2.get_parent():
                 self.card_box.pack_start(self.cardeditor2, True, True, 0)
 
     def clean(self, widget):

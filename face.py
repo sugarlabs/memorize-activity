@@ -44,7 +44,7 @@ class Face(Gtk.EventBox):
         self.face.shut_up()
 
     def __draw_cb(self, widget, context):
-        card = self.parent.parent
+        card = self.get_parent().get_parent()
         pixbuf = card._read_icon_data('front')
         Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
         context.paint()
@@ -58,7 +58,7 @@ def look_at():
     screen_, x, y, modifiers_ = display.get_pointer()
 
     for i in _cache:
-        if i.parent:
+        if i.get_parent():
             i.face.look_at(x, y)
 
 
@@ -70,7 +70,7 @@ def acquire():
 
     for i in _cache:
         i.face.shut_up()
-        if not i.parent:
+        if not i.get_parent():
             face = i
 
     if not face:
