@@ -1,4 +1,5 @@
 #    Copyright (C) 2007, 2008 One Laptop Per Child
+#    Copyright (C) 2013, Ignacio Rodriguez
 #
 #    Muriel de Souza Godoi - muriel@laptop.org
 #
@@ -26,6 +27,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import Pango
+from gi.repository import PangoCairo
 
 from sugar3.util import LRU
 
@@ -97,7 +99,6 @@ class SvgCard(Gtk.EventBox):
         self.draw.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
         self.draw.set_events(Gdk.EventMask.ALL_EVENTS_MASK)
         self.draw.connect('draw', self.__draw_cb)
-        self.draw.connect('realize', self._realize_cb)
         self.draw.show_all()
 
         self.workspace = Gtk.VBox()
@@ -105,21 +106,15 @@ class SvgCard(Gtk.EventBox):
         self.add(self.workspace)
         self.show_all()
 
-        #gc.collect()
-
-    def _realize_cb(self, widget):
-        self.gc = widget.window.new_gc()
-
     def __draw_cb(self, widget, context):
         pixbuf = self._read_icon_data(self.current_face)
         Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
         context.paint()
 
         if self.show_jpeg:
-            print 'draw'
-            Gdk.cairo_set_source_pixbuf(context, self.jpeg, 0, 0)
+            Gdk.cairo_set_source_pixbuf(context, self.jpeg,
+                theme.SVG_PAD, theme.SVG_PAD)
             context.paint()
-            # FIXME theme.SVG_PAD, theme.SVG_PAD)
 
         if self.show_text:
             props = self.props[self.flipped and 'front_text' or 'back_text']
@@ -137,9 +132,13 @@ class SvgCard(Gtk.EventBox):
                 elif self.align == '3':  # bottom
                     y = self.size - height
 
-            widget.window.draw_layout(self.gc, layout=layout,
-                    x=(self.size - width) / 2, y=y,
-                    foreground=Gdk.color_parse(props['text_color']))
+            x = (self.size - width) / 2
+            context.set_source_rgb(1, 1, 1)
+            context.translate(x, y)
+            PangoCairo.update_layout(context, layout)
+            PangoCairo.show_layout(context, layout)
+            context.fill()
+
 
         return False
 
