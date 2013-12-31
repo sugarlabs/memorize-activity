@@ -170,7 +170,7 @@ class MemorizeGame(GObject.GObject):
     def card_flipped(self, widget, identifier, signal=False):
         self.model.count = self.model.count + 1
         if self._flop_cards:
-            source_remove(self._flop_card_timeout)
+            GObject.source_remove(self._flop_card_timeout)
             self.flop_card(self._flop_cards[0], self._flop_cards[1])
 
         # Check if is my turn
@@ -245,7 +245,7 @@ class MemorizeGame(GObject.GObject):
                 self.model.grid[identifier]['state'] = '1'
                 self.set_sensitive(False)
                 self._flop_cards = (identifier, self.last_flipped)
-                self._flop_card_timeout = timeout_add(theme.FLOP_BACK_TIMEOUT,
+                self._flop_card_timeout = GObject.timeout_add(theme.FLOP_BACK_TIMEOUT,
                         self.flop_card, identifier, self.last_flipped)
             self.last_flipped = -1
 
