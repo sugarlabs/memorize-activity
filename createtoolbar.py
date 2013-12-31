@@ -99,11 +99,11 @@ class CreateToolbarBuilder(GObject.GObject):
 
     def _emit_equal_pairs(self, widget):
         if self._equal_pairs.get_active():
-            self._equal_pairs.set_named_icon('pair-equals')
+            self._equal_pairs.set_icon_name('pair-equals')
             self._equal_pairs.set_tooltip(_('Match identical tiles'))
             self.activity.game.model.data['equal_pairs'] = '1'
         else:
-            self._equal_pairs.set_named_icon('pair-non-equals')
+            self._equal_pairs.set_icon_name('pair-non-equals')
             self._equal_pairs.set_tooltip(_('Match different tiles'))
             self.activity.game.model.data['equal_pairs'] = '0'
         self.emit('create_equal_pairs', self._equal_pairs.get_active())
@@ -112,11 +112,11 @@ class CreateToolbarBuilder(GObject.GObject):
 
     def _grouped_cb(self, widget):
         if self._grouped.get_active():
-            self._grouped.set_named_icon('grouped_game2')
+            self._grouped.set_icon_name('grouped_game2')
             self._grouped.set_tooltip(_('Grouped tiles game'))
             self.activity.game.model.data['divided'] = '1'
         else:
-            self._grouped.set_named_icon('grouped_game1')
+            self._grouped.set_icon_name('grouped_game1')
             self._grouped.set_tooltip(_('Mixed tiles game'))
             self.activity.game.model.data['divided'] = '0'
         logging.debug('createtoolbar._grouped_cb')

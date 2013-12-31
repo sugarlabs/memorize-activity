@@ -217,11 +217,11 @@ class MemorizeActivity(Activity):
     def _change_mode_bt(self, button):
         if button.get_active():
             self._change_mode(_MODE_CREATE)
-            button.set_named_icon('player_play')
+            button.set_icon_name('player_play')
             button.set_tooltip(_('Play game'))
         else:
             self._change_mode(_MODE_PLAY)
-            button.set_named_icon('view-source')
+            button.set_icon_name('view-source')
             button.set_tooltip(_('Edit game'))
 
     def read_file(self, file_path):
