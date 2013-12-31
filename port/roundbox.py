@@ -30,9 +30,7 @@ class RoundBox(Gtk.HBox):
         self._width = allocation.width
         self._height = allocation.height
 
-    def __draw_cb(self, widget, context):
-        cr = widget.window.cairo_create()
-        #cr.save()
+    def __draw_cb(self, widget, cr):
         x = self._x + self._BORDER_DEFAULT / 2
         y = self._y + self._BORDER_DEFAULT / 2
         width = self._width - self._BORDER_DEFAULT
