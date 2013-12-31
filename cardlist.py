@@ -152,8 +152,7 @@ class CardList(Gtk.EventBox):
                 else:
                     aimgfile = 'aimg' + str(pair) + '.jpg'
                 pair_card.set_property('aimg', aimgfile)
-                aimg.save(join(temp_img_folder, aimgfile), 'jpeg',
-                          {'quality': '85'})
+                aimg.savev(join(temp_img_folder, aimgfile), 'jpeg', [], [])
             # bimg
             bimg = self.pairs[pair].get_pixbuf(2)
             if bimg != None:
@@ -162,8 +161,7 @@ class CardList(Gtk.EventBox):
                 else:
                     bimgfile = 'bimg' + str(pair) + '.jpg'
                 pair_card.set_property('bimg', bimgfile)
-                bimg.save(join(temp_img_folder, bimgfile), 'jpeg',
-                          {'quality': '85'})
+                bimg.savev(join(temp_img_folder, bimgfile), 'jpeg', [], [])
 
             # asnd
             asnd = self.pairs[pair].get_sound(1)
@@ -310,7 +308,7 @@ class CardPair(Gtk.EventBox):
                 style.STANDARD_ICON_SIZE)
         align = Gtk.Alignment.new(.5, 0, 0, 0)
         align.add(close_button)
-        row.pack_start(align, False)
+        row.pack_start(align, False, False, 0)
 
         self.connect('button-press-event', self.emit_selected)
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.bg_color))
