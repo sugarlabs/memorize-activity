@@ -135,11 +135,13 @@ class View(Gtk.EventBox):
 
     def look_ahead(self):
         if self._eyes:
-            map(lambda e: e.look_ahead(), self._eyes)
+            #map(lambda e: e.look_ahead(), self._eyes)
+            return
 
     def look_at(self, x, y):
         if self._eyes:
-            map(lambda e, x=x, y=y: e.look_at(x,y), self._eyes)
+            #map(lambda e, x=x, y=y: e.look_at(x,y), self._eyes)
+            return
 
     def update(self, status = None):
         if not status:
