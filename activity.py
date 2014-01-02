@@ -44,8 +44,9 @@ from sugar3.graphics.toggletoolbutton import ToggleToolButton
 from sugar3.activity.activity import Activity
 from sugar3.presence import presenceservice
 from sugar3.presence.tubeconn import TubeConnection
-
+from sugar3.graphics import style
 from sugar3 import profile
+
 import cardtable
 import scoreboard
 import game
@@ -78,6 +79,8 @@ class MemorizeActivity(Activity):
         Activity.__init__(self, handle)
 
         self.play_mode = None
+
+        self._calculate_sizes()
 
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
@@ -168,8 +171,13 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder.connect('game_changed',
                 self.change_game)
 
-        self.hbox = Gtk.HBox(False)
-        self.set_canvas(self.hbox)
+        self.portrait_mode = Gdk.Screen.width() < Gdk.Screen.height()
+
+        self.box = Gtk.HBox(orientation=Gtk.Orientation.HORIZONTAL,
+                            homogeneous=False)
+        self.box.pack_start(self.table, False, False, 0)
+        self.box.pack_start(self.scoreboard, True, True, 0)
+        self.set_canvas(self.box)
 
         # connect to the in/out events of the memorize activity
         self.connect('focus_in_event', self._focus_in)
@@ -179,6 +187,9 @@ class MemorizeActivity(Activity):
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.connect('motion_notify_event',
                 lambda widget, event: face.look_at())
+
+        Gdk.Screen.get_default().connect('size-changed',
+                                         self.__configure_cb)
 
         # start on the game toolbar, might change this
         # to the create toolbar later
@@ -212,6 +223,38 @@ class MemorizeActivity(Activity):
             self.game.add_buddy(self.owner)
         else:
             self.game.add_buddy(self.owner)
+        self.show_all()
+
+    def _calculate_sizes(self):
+        width = Gdk.Screen.width()
+        height = Gdk.Screen.height()
+        if width < height:
+            self.table_size = (width, width)
+            self.score_size = (width, height - width - style.GRID_CELL_SIZE)
+        else:
+            self.table_size = (height - style.GRID_CELL_SIZE,
+                               height - style.GRID_CELL_SIZE)
+            self.score_size = (width - self.table_size[0],
+                               height - style.GRID_CELL_SIZE)
+
+    def __configure_cb(self, event):
+        ''' Screen size has changed '''
+        width = Gdk.Screen.width()
+        height = Gdk.Screen.height() - style.GRID_CELL_SIZE
+        self.box.set_size_request(width, height)
+        self._calculate_sizes()
+
+        portrait_mode = width < height
+        if portrait_mode != self.portrait_mode:
+            self.table.resize(self.table_size[0])
+            if portrait_mode:
+                self.box.set_orientation(Gtk.Orientation.VERTICAL)
+            else:
+                self.box.set_orientation(Gtk.Orientation.HORIZONTAL)
+            self.portrait_mode = portrait_mode
+            self.scoreboard.set_size_request(self.score_size[0],
+                                             self.score_size[1])
+
         self.show_all()
 
     def _change_mode_bt(self, button):
@@ -303,10 +346,11 @@ class MemorizeActivity(Activity):
         logging.debug("Change mode %s" % mode)
         if mode == _MODE_CREATE:
             if self.play_mode == True:
-                self.hbox.remove(self.scoreboard)
-                self.hbox.remove(self.table)
-                self.hbox.pack_start(self.createcardpanel, False, False, 0)
-                self.hbox.pack_start(self.cardlist, True, True, 0)
+
+                self.box.remove(self.scoreboard)
+                self.box.remove(self.table)
+                self.box.pack_start(self.createcardpanel, False, False, 0)
+                self.box.pack_start(self.cardlist, True, True, 0)
                 self.cardlist.load_game(self.game)
                 self.game.model.create_temp_directories()
                 self.createcardpanel.set_temp_folder(
@@ -322,11 +366,13 @@ class MemorizeActivity(Activity):
                 self.game.model.modified = False
 
             if self.play_mode == False:
-                self.hbox.remove(self.createcardpanel)
-                self.hbox.remove(self.cardlist)
+                self.box.remove(self.createcardpanel)
+                self.box.remove(self.cardlist)
+
             if self.play_mode in (False, None):
-                self.hbox.pack_start(self.scoreboard, True, True, 0)
-                self.hbox.pack_start(self.table, False, False, 0)
+                self.box.pack_start(self.table, False, False, 0)
+                self.box.pack_start(self.scoreboard, True, True, 0)
+                self._calculate_sizes()
             self.play_mode = True
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
         self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)
