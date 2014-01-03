@@ -42,11 +42,11 @@ class MemorizeToolbarBuilder(GObject.GObject):
     translated_game_names = [_('Addition'),
                              _('Letters'),
                              _('Sounds')
-                            ]
+                             ]
 
     __gsignals__ = {
-    'game_changed': (GObject.SignalFlags.RUN_FIRST, None, 5 * [GObject.TYPE_PYOBJECT])
-    }
+        'game_changed': (GObject.SignalFlags.RUN_FIRST, None,
+                         5 * [GObject.TYPE_PYOBJECT])}
 
     def __init__(self, activity):
         GObject.GObject.__init__(self)
@@ -99,7 +99,7 @@ class MemorizeToolbarBuilder(GObject.GObject):
         self._selected_game_size = int(self._sizes[i][0])
         self._size_combo.props.icon_name = self._sizes[i]
         self.emit('game_changed', None, self._selected_game_size, 'size', None,
-                None)
+                  None)
 
     def __activate_game_cb(self, menu, i):
         self._game_selected_index = i
