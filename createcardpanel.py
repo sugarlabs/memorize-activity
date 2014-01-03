@@ -34,15 +34,13 @@ from sugar3.graphics.icon import Icon
 from sugar3.graphics.palette import Palette
 from sugar3.graphics.toggletoolbutton import ToggleToolButton
 from sugar3.graphics.toolcombobox import ToolComboBox
-from fontcombobox import FontComboBox
+from fontcombobox import FontButton
 from port import chooser
 
 import theme
 import speak.espeak
 import speak.widgets
 import speak.face
-from port.roundbox import RoundBox
-import model
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -315,7 +313,7 @@ class CardEditor(Gtk.EventBox):
         self.textentry.connect('changed', self.update_text)
         box.pack_start(self.textentry, False, False, 0)
 
-        toolbar = RoundBox()
+        toolbar = Gtk.HBox()
 
         browsepicture = ToolButton(
                 icon_name='import_picture',
@@ -338,12 +336,10 @@ class CardEditor(Gtk.EventBox):
         else:
             self.usespeak = None
 
-        self.font_combo = FontComboBox()
-        self.id_font_changed = self.font_combo.connect("changed",
-                self.__font_changed_cb)
-        self.font_combo.set_font_name(model.DEFAULT_FONT)
-
-        box.pack_start(self.font_combo, True, True, 0)
+        self.fontbutton = FontButton()
+        toolbar.add(self.fontbutton)
+        self.id_font_changed = self.fontbutton.connect(
+            'changed', self.__font_changed_cb)
         box.pack_start(toolbar, True, True, 0)
 
         self.add(box)
@@ -356,9 +352,9 @@ class CardEditor(Gtk.EventBox):
             self.emit('change-font', font)
 
     def set_font_name(self, font_name):
-        self.font_combo.handler_block(self.id_font_changed)
-        self.font_combo.set_font_name(font_name)
-        self.font_combo.handler_unblock(self.id_font_changed)
+        self.fontbutton.handler_block(self.id_font_changed)
+        self.fontbutton.set_font_name(font_name)
+        self.fontbutton.handler_unblock(self.id_font_changed)
 
     def update_text(self, entry):
         self.card.change_text(entry.get_text())
@@ -466,7 +462,7 @@ class CardEditor(Gtk.EventBox):
         return self.snd
 
     def get_font_name(self):
-        return self.font_combo.get_font_name()
+        return self.fontbutton.get_font_name()
 
     def clean(self):
         self.textentry.set_text('')
