@@ -51,7 +51,7 @@ class CreateCardPanel(gtk.EventBox):
         'change-font': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
     }
 
-    def __init__(self, activity):
+    def __init__(self):
         def make_label(icon_name, label):
             label_box = gtk.HBox()
             icon = Icon(
@@ -67,7 +67,6 @@ class CreateCardPanel(gtk.EventBox):
 
         gtk.EventBox.__init__(self)
 
-        self._activity = activity
         self.equal_pairs = False
         self._updatebutton_sensitive = False
         self._card1_has_sound = False
@@ -75,8 +74,8 @@ class CreateCardPanel(gtk.EventBox):
 
         # save buttons
 
-        self.buttons_bar = gtk.HBox()
-        self.buttons_bar.props.border_width = 10
+        buttons_bar = gtk.HBox()
+        buttons_bar.props.border_width = 10
 
         self._addbutton = ToolButton(
                 tooltip=_('Add as new pair'),
@@ -84,7 +83,7 @@ class CreateCardPanel(gtk.EventBox):
         self._addbutton.set_icon_widget(
                 make_label('pair-add', ' ' + _('Add')))
         self._addbutton.connect('clicked', self.emit_add_pair)
-        self.buttons_bar.pack_start(self._addbutton, False)
+        buttons_bar.pack_start(self._addbutton, False)
 
         self._updatebutton = ToolButton(
                 tooltip=_('Update selected pair'),
@@ -92,7 +91,7 @@ class CreateCardPanel(gtk.EventBox):
         self._updatebutton.set_icon_widget(
                 make_label('pair-update', ' ' + _('Update')))
         self._updatebutton.connect('clicked', self.emit_update_pair)
-        self.buttons_bar.pack_start(self._updatebutton, False)
+        buttons_bar.pack_start(self._updatebutton, False)
 
         # Set card editors
 
@@ -110,46 +109,16 @@ class CreateCardPanel(gtk.EventBox):
 
         # edit panel
 
-        if not self._activity.portrait_mode:
-            self.card_box = gtk.HBox()
-            self.cardeditor1.show_labels()
-            self.cardeditor2.show_labels()
-        else:
-            self.card_box = gtk.VBox()
-            self.cardeditor1.hide_labels()
-            self.cardeditor2.hide_labels()
-
+        self.card_box = gtk.HBox()
         self.card_box.pack_start(self.cardeditor1)
         self.card_box.pack_start(self.cardeditor2)
 
-        self.box = gtk.VBox()
-        self.box.pack_start(self.card_box, False)
-        self.box.pack_start(self.buttons_bar, False)
-        self.add(self.box)
+        box = gtk.VBox()
+        box.pack_start(self.card_box, False)
+        box.pack_start(buttons_bar, False)
+        self.add(box)
 
         self.show_all()
-
-    def resize(self):
-        self.box.remove(self.card_box)
-        self.box.remove(self.buttons_bar)
-        self.card_box.remove(self.cardeditor1)
-        self.card_box.remove(self.cardeditor2)
-
-        if not self._activity.portrait_mode:
-            self.card_box = gtk.HBox()
-            self.cardeditor1.show_labels()
-            self.cardeditor2.show_labels()
-        else:
-            self.card_box = gtk.VBox()
-            self.cardeditor1.hide_labels()
-            self.cardeditor2.hide_labels()
-        self.card_box.pack_start(self.cardeditor1)
-        self.card_box.pack_start(self.cardeditor2)
-
-        self.box.pack_start(self.card_box, False)
-        self.box.pack_start(self.buttons_bar, False)
-        self.card_box.show()
-        self.buttons_bar.show()
 
     def update_font_combos(self, widget, data, grid):
         logging.error('update font %s', data)
@@ -335,9 +304,9 @@ class CardEditor(gtk.EventBox):
         card_align.add(self.card)
         box.pack_start(card_align, False)
 
-        self.textlabel = gtk.Label(_('Text:'))
-        self.textlabel.set_alignment(0, 1)
-        box.pack_start(self.textlabel, False)
+        textlabel = gtk.Label(_('Text:'))
+        textlabel.set_alignment(0, 1)
+        box.pack_start(textlabel, False)
 
         self.textentry = gtk.Entry()
         self.textentry.connect('changed', self.update_text)
@@ -376,14 +345,6 @@ class CardEditor(gtk.EventBox):
         box.pack_start(toolbar, True, True, 0)
 
         self.add(box)
-
-    def hide_labels(self):
-        self.previewlabel.hide()
-        self.textlabel.hide()
-
-    def show_labels(self):
-        self.previewlabel.show()
-        self.textlabel.show()
 
     def __font_changed_cb(self, widget):
         font = widget.get_font_name()
