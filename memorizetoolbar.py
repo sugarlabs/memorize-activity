@@ -19,6 +19,7 @@ import logging
 from os.path import join, dirname
 
 from gi.repository import GObject
+from gi.repository import Gtk
 
 from gettext import gettext as _
 from sugar3.graphics.toolbutton import ToolButton
@@ -26,6 +27,13 @@ from sugar3.graphics.alert import Alert
 from sugar3.graphics.icon import Icon
 from sugar3.activity.widgets import RadioMenuButton
 from sugar3.graphics.menuitem import MenuItem
+
+USE_ART4APPS = False
+try:
+    from art4apps import Art4Apps
+    USE_ART4APPS = True
+except ImportError:
+    pass
 
 _logger = logging.getLogger('memorize-activity')
 
@@ -62,7 +70,42 @@ class MemorizeToolbarBuilder(GObject.GObject):
             menu_item.connect('activate', self.__activate_game_cb, i)
             self._demo_games.props.palette.menu.append(menu_item)
             menu_item.show()
+
         self.toolbar.insert(self._demo_games, -1)
+
+        self._art4apps = None
+        if USE_ART4APPS:
+            self._art4apps = Art4Apps()
+            for language in self._art4apps.get_languages():
+                language_description = self._art4apps.get_language_name(
+                    language)
+                lang_menu_item = MenuItem(language_description,
+                                          'activity-start')
+                self._demo_games.props.palette.menu.append(lang_menu_item)
+                lang_menu_item.show()
+                categories_menu = Gtk.Menu()
+                # create a submenu with the categories
+                categories = {}
+                for category in self._art4apps.get_categories():
+                    if category in ['letters', 'other']:
+                        continue
+                    translated_category = self._art4apps.get_translation(
+                        category, language)
+                    if translated_category is not None:
+                        label = translated_category
+                    else:
+                        label = category
+                    categories[label] = category
+
+                for label in sorted(categories):
+                    cat_menu_item = MenuItem(label)
+                    cat_menu_item.connect('activate',
+                                          self.__activate_art4apps_game_cb,
+                                          categories[label], language)
+                    categories_menu.append(cat_menu_item)
+                    cat_menu_item.show()
+                lang_menu_item.set_submenu(categories_menu)
+
         self._selected_game = self.standard_game_names[0]
 
         # Change size combobox
@@ -99,6 +142,33 @@ class MemorizeToolbarBuilder(GObject.GObject):
         self._size_combo.props.icon_name = self._sizes[i]
         self.emit('game_changed', None, self._selected_game_size, 'size', None,
                   None)
+
+    def __activate_art4apps_game_cb(self, menu, category, language):
+        self._art4apps_data = (category, language)
+        if self.activity.game.model.is_demo:
+            self._change_art4apps_game(category, language)
+        else:
+            alert = Alert()
+            alert.props.title = _('Discard your modified game?')
+            icon = Icon(icon_name='dialog-ok')
+            alert.add_button(1, _('Discard'), icon)
+            icon = Icon(icon_name='dialog-cancel')
+            alert.add_button(0, _('Do not discard'), icon)
+            alert.connect('response', self._change_art4apps_game_alert_cb)
+            self.activity.add_alert(alert)
+
+    def _change_art4apps_game_alert_cb(self, alert, response_id):
+        if alert is not None:
+            self.activity.remove_alert(alert)
+        category, language = self._art4apps_data
+        logging.error('Selected art4apps category %s language %s',
+                      category, language)
+        self._change_art4apps_game(category, language)
+
+    def _change_art4apps_game(self, category, language):
+        game_size = int(self._selected_game_size)
+        self.emit('game_changed', category, game_size, 'art4apps', language,
+                  self._art4apps)
 
     def __activate_game_cb(self, menu, i):
         self._game_selected_index = i
