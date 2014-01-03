@@ -38,8 +38,7 @@ class CardTable(Gtk.EventBox):
                          None, [int, GObject.TYPE_PYOBJECT]),
         'card-overflipped': (GObject.SignalFlags.RUN_FIRST, None, [int]),
         'card-highlighted': (GObject.SignalFlags.RUN_FIRST,
-                             None, [int, GObject.TYPE_PYOBJECT]),
-        }
+                             None, [int, GObject.TYPE_PYOBJECT]), }
 
     def __init__(self):
         Gtk.EventBox.__init__(self)
@@ -99,7 +98,6 @@ class CardTable(Gtk.EventBox):
             return
         self.resize(size, change=False)
 
-
     def load_game(self, widget, data, grid):
         self.data = data
         self.cards_data = grid
@@ -141,7 +139,7 @@ class CardTable(Gtk.EventBox):
                 jpg = None
             props = {}
             props['front_text'] = {'card_text': card.get('char', ''),
-                                  'speak': card.get('speak')}
+                                   'speak': card.get('speak')}
 
             if card['ab'] == 'a':
                 props['back_text'] = {'card_text': text1}
@@ -151,17 +149,20 @@ class CardTable(Gtk.EventBox):
                 font_name = font_name2
 
             align = self.data.get('align', '1')
-            card = svgcard.SvgCard(identifier, props, jpg,
-                    self.card_size, align, '#000000', font_name)
+            card = svgcard.SvgCard(
+                identifier, props, jpg,
+                self.card_size, align, '#000000', font_name)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.connect('button-press-event',
-                    self.flip_card_mouse, identifier)
+                         self.flip_card_mouse, identifier)
             self.table_positions[(x, y)] = 1
             self.cd2id[card] = identifier
             self.id2cd[identifier] = card
             self.cards[(x, y)] = card
             self.dict[identifier] = (x, y)
-            self.table.attach(card, x, x + 1, y, y + 1, Gtk.AttachOptions.SHRINK, Gtk.AttachOptions.SHRINK)
+            self.table.attach(card, x, x + 1, y, y + 1,
+                              Gtk.AttachOptions.SHRINK,
+                              Gtk.AttachOptions.SHRINK)
 
             x += 1
             if x == self.size:
@@ -184,7 +185,7 @@ class CardTable(Gtk.EventBox):
 
     def get_card_size(self, size_table):
         x = (self._workspace_size + theme.CARD_PAD * (size_table - 1)) / \
-                size_table - theme.CARD_PAD * 2
+            size_table - theme.CARD_PAD * 2
         return x
 
     def mouse_event(self, widget, event, coord):
@@ -252,7 +253,7 @@ class CardTable(Gtk.EventBox):
         self.id2cd.get(identifer).cement()
 
     def highlight_card(self, widget, identifer, status):
-        if self.dict != None:
+        if self.dict is not None:
             self.selected_card = self.dict.get(identifer)
             self.id2cd.get(identifer).set_highlight(status)
 
