@@ -81,9 +81,10 @@ class Messenger(ExportedGObject):
             self.file_sender(sender, path, title, color)
 
         remote_object = self._tube.get_object(sender, PATH)
-        remote_object.load_game(self.ordered_bus_names,
-                self.game.get_grid(), self.game.collect_data(),
-                self.game.players.index(self.game.current_player), path)
+        remote_object.load_game(
+            self.ordered_bus_names,
+            self.game.get_grid(), self.game.collect_data(),
+            self.game.players.index(self.game.current_player), path)
 
     @method(dbus_interface=IFACE, in_signature='asaa{ss}a{ss}ns',
             out_signature='', byte_arrays=True)
@@ -95,7 +96,7 @@ class Messenger(ExportedGObject):
 
         for i in range(len(self.game.players)):
             self.game.increase_point(self.game.players[i],
-                    int(data.get(str(i), '0')))
+                                     int(data.get(str(i), '0')))
 
         self.game.current_player = self.game.players[current_player]
         self.game.update_turn()
@@ -116,9 +117,9 @@ class Messenger(ExportedGObject):
     def _change_game_handler(self):
         self._tube.add_signal_receiver(self._change_game_receiver,
                                        '_change_game_signal',
-                                        IFACE, path=PATH,
-                                        sender_keyword='sender',
-                                        byte_arrays=True)
+                                       IFACE, path=PATH,
+                                       sender_keyword='sender',
+                                       byte_arrays=True)
 
     @signal(IFACE, signature='saa{ss}a{ss}s')
     def _change_game_signal(self, mode, grid, data, path):
@@ -162,11 +163,11 @@ class Messenger(ExportedGObject):
 
     def _file_part_handler(self):
         self._tube.add_signal_receiver(self._file_part_receiver,
-                                        '_file_part_signal',
-                                        IFACE,
-                                        path=PATH,
-                                        sender_keyword='sender',
-                                        byte_arrays=True)
+                                       '_file_part_signal',
+                                       IFACE,
+                                       path=PATH,
+                                       sender_keyword='sender',
+                                       byte_arrays=True)
 
     def _file_part_receiver(self, target, filename, part, numparts,
                             bytes, title=None, color=None, sender=None):
