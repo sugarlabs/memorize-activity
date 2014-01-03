@@ -41,8 +41,8 @@ class Pair(GObject.GObject):
         'bchar': (str, None, None, None, GObject.PARAM_READWRITE),
         'aspeak': (str, None, None, None, GObject.PARAM_READWRITE),
         'bspeak': (str, None, None, None, GObject.PARAM_READWRITE),
-        'color': (GObject.TYPE_INT, 'Base', 'Base', 0, 10, 0, \
-                   GObject.PARAM_READWRITE)
+        'color': (GObject.TYPE_INT, 'Base', 'Base', 0, 10, 0,
+                  GObject.PARAM_READWRITE)
     }
 
     def __init__(self):
@@ -125,7 +125,7 @@ class Model(object):
 
         try:
             self.dtd = libxml2.parseDTD(None, join(get_bundle_path(),
-                    'memorize.dtd'))
+                                        'memorize.dtd'))
         except libxml2.parserError, e:
             _logger.error('Init: no memorize.dtd found ' + str(e))
             self.dtd = None
@@ -242,54 +242,54 @@ class Model(object):
         doc = libxml2.newDoc("1.0")
         root = doc.newChild(None, "memorize", None)
 
-        if(self.data.get('name', None) != None):
+        if(self.data.get('name', None) is not None):
             root.setProp("name", self.data['name'])
 
-        if(self.data.get('divided', None) != None):
+        if(self.data.get('divided', None) is not None):
             root.setProp('divided', '1')
             root.setProp('face1', '1')
             root.setProp('face2', '2')
         else:
             root.setProp('divided', '0')
 
-        if(self.data.get('equal_pairs', None) != None):
+        if(self.data.get('equal_pairs', None) is not None):
             root.setProp('equal_pairs', self.data['equal_pairs'])
-        if(self.data.get('font_name1', None) != None):
+        if(self.data.get('font_name1', None) is not None):
             root.setProp('font_name1', self.data['font_name1'])
-        if(self.data.get('font_name2', None) != None):
+        if(self.data.get('font_name2', None) is not None):
             root.setProp('font_name2', self.data['font_name2'])
-        if(self.data.get('scoresnd', None) != None):
+        if(self.data.get('scoresnd', None) is not None):
             root.setProp("scoresnd", self.data['scoresnd'])
-        if(self.data.get('winsnd', None) != None):
+        if(self.data.get('winsnd', None) is not None):
             root.setProp("winsnd", self.data['winsnd'])
-        if(self.data.get('divided', None) != None):
+        if(self.data.get('divided', None) is not None):
             root.setProp("divided", self.data['divided'])
-        if(self.data.get('face', None) != None):
+        if(self.data.get('face', None) is not None):
             root.setProp("face", self.data['face'])
-        if(self.data.get('face1', None) != None):
+        if(self.data.get('face1', None) is not None):
             root.setProp("face1", self.data['face1'])
-        if(self.data.get('face2', None) != None):
+        if(self.data.get('face2', None) is not None):
             root.setProp("face2", self.data['face2'])
-        if(self.data.get('align', None) != None):
+        if(self.data.get('align', None) is not None):
             root.setProp("align", self.data['align'])
 
         for key in self.pairs:
             elem = root.newChild(None, "pair", None)
-            if self.pairs[key].props.aimg != None:
+            if self.pairs[key].props.aimg is not None:
                 elem.setProp("aimg", self.pairs[key].props.aimg)
-            if self.pairs[key].props.asnd != None:
+            if self.pairs[key].props.asnd is not None:
                 elem.setProp("asnd", self.pairs[key].props.asnd)
-            if self.pairs[key].props.achar != None:
+            if self.pairs[key].props.achar is not None:
                 elem.setProp("achar", self.pairs[key].props.achar)
-            if self.pairs[key].props.bimg != None:
+            if self.pairs[key].props.bimg is not None:
                 elem.setProp("bimg", self.pairs[key].props.bimg)
-            if self.pairs[key].props.bsnd != None:
+            if self.pairs[key].props.bsnd is not None:
                 elem.setProp("bsnd", self.pairs[key].props.bsnd)
-            if self.pairs[key].props.bchar != None:
+            if self.pairs[key].props.bchar is not None:
                 elem.setProp("bchar", self.pairs[key].props.bchar)
-            if self.pairs[key].props.aspeak != None:
+            if self.pairs[key].props.aspeak is not None:
                 elem.setProp("aspeak", self.pairs[key].props.aspeak)
-            if self.pairs[key].props.bspeak != None:
+            if self.pairs[key].props.bspeak is not None:
                 elem.setProp("bspeak", self.pairs[key].props.bspeak)
             # elem.setProp("color", str(self.pairs[key].props.color))
 
@@ -325,13 +325,13 @@ class Model(object):
                 elem['pairkey'] = str(key)
                 elem['state'] = '0'
                 elem['ab'] = 'a'
-                if self.pairs[key].props.aimg != None:
+                if self.pairs[key].props.aimg is not None:
                     elem['img'] = self.pairs[key].props.aimg
-                if self.pairs[key].props.asnd != None:
+                if self.pairs[key].props.asnd is not None:
                     elem['snd'] = self.pairs[key].props.asnd
-                if self.pairs[key].props.achar != None:
+                if self.pairs[key].props.achar is not None:
                     elem['char'] = self.pairs[key].props.achar
-                if self.pairs[key].props.aspeak != None:
+                if self.pairs[key].props.aspeak is not None:
                     elem['speak'] = self.pairs[key].props.aspeak
                 temp1.append(elem)
 
@@ -339,13 +339,13 @@ class Model(object):
                 elem['pairkey'] = str(key)
                 elem['state'] = '0'
                 elem['ab'] = 'b'
-                if self.pairs[key].props.bimg != None:
+                if self.pairs[key].props.bimg is not None:
                     elem['img'] = self.pairs[key].props.bimg
-                if self.pairs[key].props.bsnd != None:
+                if self.pairs[key].props.bsnd is not None:
                     elem['snd'] = self.pairs[key].props.bsnd
-                if self.pairs[key].props.bchar != None:
+                if self.pairs[key].props.bchar is not None:
                     elem['char'] = self.pairs[key].props.bchar
-                if self.pairs[key].props.bspeak != None:
+                if self.pairs[key].props.bspeak is not None:
                     elem['speak'] = self.pairs[key].props.bspeak
                 temp2.append(elem)
                 i += 1
