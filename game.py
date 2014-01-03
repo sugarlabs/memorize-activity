@@ -16,12 +16,10 @@
 #
 
 import logging
-import gobject
+from gi.repository import GObject
 from os.path import join
 
 from gettext import gettext as _
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT, GObject, timeout_add
-from gobject import source_remove
 
 from model import Model
 from audio import Audio
@@ -34,31 +32,31 @@ IFACE = SERVICE
 PATH = '/org/laptop/Memorize'
 
 
-class MemorizeGame(GObject):
+class MemorizeGame(GObject.GObject):
 
     __gsignals__ = {
-        'reset_scoreboard': (SIGNAL_RUN_FIRST, None, []),
-        'reset_table': (SIGNAL_RUN_FIRST, None, []),
-        'load_mode': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'load_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
-        'change_game': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
-        'change_game_signal': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT]),
-        'set-border': (SIGNAL_RUN_FIRST, None, 3 * [TYPE_PYOBJECT]),
-        'flip-card': (SIGNAL_RUN_FIRST, None, [int, bool]),
-        'flip-card-signal': (SIGNAL_RUN_FIRST, None, [int]),
-        'cement-card': (SIGNAL_RUN_FIRST, None, [int]),
-        'flop-card': (SIGNAL_RUN_FIRST, None, [int]),
-        'highlight-card': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
-        'add_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
-        'rem_buddy': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'increase-score': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
-        'wait_mode_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
-        'msg_buddy': (SIGNAL_RUN_FIRST, None, 2 * [TYPE_PYOBJECT]),
-        'change-turn': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'reset_scoreboard': (GObject.SignalFlags.RUN_FIRST, None, []),
+        'reset_table': (GObject.SignalFlags.RUN_FIRST, None, []),
+        'load_mode': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
+        'load_game': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
+        'change_game': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
+        'change_game_signal': (GObject.SignalFlags.RUN_FIRST, None, 5 * [GObject.TYPE_PYOBJECT]),
+        'set-border': (GObject.SignalFlags.RUN_FIRST, None, 3 * [GObject.TYPE_PYOBJECT]),
+        'flip-card': (GObject.SignalFlags.RUN_FIRST, None, [int, bool]),
+        'flip-card-signal': (GObject.SignalFlags.RUN_FIRST, None, [int]),
+        'cement-card': (GObject.SignalFlags.RUN_FIRST, None, [int]),
+        'flop-card': (GObject.SignalFlags.RUN_FIRST, None, [int]),
+        'highlight-card': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
+        'add_buddy': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
+        'rem_buddy': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
+        'increase-score': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
+        'wait_mode_buddy': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
+        'msg_buddy': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
+        'change-turn': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
         }
 
     def __init__(self):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.myself = None
         self.players_score = {}
         self.players = []
@@ -172,7 +170,7 @@ class MemorizeGame(GObject):
     def card_flipped(self, widget, identifier, signal=False):
         self.model.count = self.model.count + 1
         if self._flop_cards:
-            source_remove(self._flop_card_timeout)
+            GObject.source_remove(self._flop_card_timeout)
             self.flop_card(self._flop_cards[0], self._flop_cards[1])
 
         # Check if is my turn
@@ -247,7 +245,7 @@ class MemorizeGame(GObject):
                 self.model.grid[identifier]['state'] = '1'
                 self.set_sensitive(False)
                 self._flop_cards = (identifier, self.last_flipped)
-                self._flop_card_timeout = timeout_add(theme.FLOP_BACK_TIMEOUT,
+                self._flop_card_timeout = GObject.timeout_add(theme.FLOP_BACK_TIMEOUT,
                         self.flop_card, identifier, self.last_flipped)
             self.last_flipped = -1
 

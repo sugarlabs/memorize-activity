@@ -16,10 +16,6 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-# activate threads for gst needs
-import gobject
-gobject.threads_init()
-
 import locale
 locale.setlocale(locale.LC_NUMERIC, 'C')
 
@@ -31,19 +27,26 @@ import os
 
 import zipfile
 
-import gtk
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+
+# activate threads for gst needs
+GObject.threads_init()
+
 import telepathy
 import telepathy.client
 
-from sugar.activity.widgets import ActivityToolbarButton
-from sugar.activity.widgets import StopButton
-from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.graphics.toggletoolbutton import ToggleToolButton
-from sugar.activity.activity import Activity
-from sugar.presence import presenceservice
-from sugar.presence.tubeconn import TubeConnection
+from sugar3.activity.widgets import ActivityToolbarButton
+from sugar3.activity.widgets import StopButton
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.graphics.toggletoolbutton import ToggleToolButton
+from sugar3.activity.activity import Activity
+from sugar3.presence import presenceservice
+from sugar3.presence.tubeconn import TubeConnection
+from sugar3.graphics import style
+from sugar3 import profile
 
-from sugar import profile
 import cardtable
 import scoreboard
 import game
@@ -77,6 +80,8 @@ class MemorizeActivity(Activity):
 
         self.play_mode = None
 
+        self._calculate_sizes()
+
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
 
@@ -86,7 +91,7 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder = \
                 memorizetoolbar.MemorizeToolbarBuilder(self)
 
-        toolbar_box.toolbar.insert(gtk.SeparatorToolItem(), -1)
+        toolbar_box.toolbar.insert(Gtk.SeparatorToolItem(), -1)
 
         self._edit_button = ToggleToolButton('view-source')
         self._edit_button.set_tooltip(_('Edit game'))
@@ -96,7 +101,7 @@ class MemorizeActivity(Activity):
         self._createToolbarBuilder = \
             createtoolbar.CreateToolbarBuilder(self)
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         separator.set_expand(True)
         separator.set_draw(False)
         separator.set_size_request(0, -1)
@@ -166,17 +171,25 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder.connect('game_changed',
                 self.change_game)
 
-        self.hbox = gtk.HBox(False)
-        self.set_canvas(self.hbox)
+        self.portrait_mode = Gdk.Screen.width() < Gdk.Screen.height()
+
+        self.box = Gtk.HBox(orientation=Gtk.Orientation.HORIZONTAL,
+                            homogeneous=False)
+        self.box.pack_start(self.table, False, False, 0)
+        self.box.pack_start(self.scoreboard, True, True, 0)
+        self.set_canvas(self.box)
 
         # connect to the in/out events of the memorize activity
         self.connect('focus_in_event', self._focus_in)
         self.connect('focus_out_event', self._focus_out)
         self.connect('destroy', self._cleanup_cb)
 
-        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.connect('motion_notify_event',
                 lambda widget, event: face.look_at())
+
+        Gdk.Screen.get_default().connect('size-changed',
+                                         self.__configure_cb)
 
         # start on the game toolbar, might change this
         # to the create toolbar later
@@ -195,7 +208,7 @@ class MemorizeActivity(Activity):
         self.connect('shared', self._shared_cb)
 
         # Owner.props.key
-        if self._shared_activity:
+        if self.get_shared_activity():
             # We are joining the activity
             self.connect('joined', self._joined_cb)
             if self.get_shared():
@@ -212,14 +225,46 @@ class MemorizeActivity(Activity):
             self.game.add_buddy(self.owner)
         self.show_all()
 
+    def _calculate_sizes(self):
+        width = Gdk.Screen.width()
+        height = Gdk.Screen.height()
+        if width < height:
+            self.table_size = (width, width)
+            self.score_size = (width, height - width - style.GRID_CELL_SIZE)
+        else:
+            self.table_size = (height - style.GRID_CELL_SIZE,
+                               height - style.GRID_CELL_SIZE)
+            self.score_size = (width - self.table_size[0],
+                               height - style.GRID_CELL_SIZE)
+
+    def __configure_cb(self, event):
+        ''' Screen size has changed '''
+        width = Gdk.Screen.width()
+        height = Gdk.Screen.height() - style.GRID_CELL_SIZE
+        self.box.set_size_request(width, height)
+        self._calculate_sizes()
+
+        portrait_mode = width < height
+        if portrait_mode != self.portrait_mode:
+            self.table.resize(self.table_size[0])
+            if portrait_mode:
+                self.box.set_orientation(Gtk.Orientation.VERTICAL)
+            else:
+                self.box.set_orientation(Gtk.Orientation.HORIZONTAL)
+            self.portrait_mode = portrait_mode
+            self.scoreboard.set_size_request(self.score_size[0],
+                                             self.score_size[1])
+
+        self.show_all()
+
     def _change_mode_bt(self, button):
         if button.get_active():
             self._change_mode(_MODE_CREATE)
-            button.set_named_icon('player_play')
+            button.set_icon_name('player_play')
             button.set_tooltip(_('Play game'))
         else:
             self._change_mode(_MODE_PLAY)
-            button.set_named_icon('view-source')
+            button.set_icon_name('view-source')
             button.set_tooltip(_('Edit game'))
 
     def read_file(self, file_path):
@@ -301,10 +346,11 @@ class MemorizeActivity(Activity):
         logging.debug("Change mode %s" % mode)
         if mode == _MODE_CREATE:
             if self.play_mode == True:
-                self.hbox.remove(self.scoreboard)
-                self.hbox.remove(self.table)
-                self.hbox.pack_start(self.createcardpanel, False)
-                self.hbox.pack_start(self.cardlist)
+
+                self.box.remove(self.scoreboard)
+                self.box.remove(self.table)
+                self.box.pack_start(self.createcardpanel, False, False, 0)
+                self.box.pack_start(self.cardlist, True, True, 0)
                 self.cardlist.load_game(self.game)
                 self.game.model.create_temp_directories()
                 self.createcardpanel.set_temp_folder(
@@ -320,11 +366,13 @@ class MemorizeActivity(Activity):
                 self.game.model.modified = False
 
             if self.play_mode == False:
-                self.hbox.remove(self.createcardpanel)
-                self.hbox.remove(self.cardlist)
+                self.box.remove(self.createcardpanel)
+                self.box.remove(self.cardlist)
+
             if self.play_mode in (False, None):
-                self.hbox.pack_start(self.scoreboard)
-                self.hbox.pack_start(self.table, False)
+                self.box.pack_start(self.table, False, False, 0)
+                self.box.pack_start(self.scoreboard, True, True, 0)
+                self._calculate_sizes()
             self.play_mode = True
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
         self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)
@@ -349,18 +397,19 @@ class MemorizeActivity(Activity):
             SERVICE, {})
 
     def _sharing_setup(self):
-        if self._shared_activity is None:
+        if self.get_shared_activity() is None:
             _logger.error('Failed to share or join activity')
             return
-        self.conn = self._shared_activity.telepathy_conn
-        self.tubes_chan = self._shared_activity.telepathy_tubes_chan
-        self.text_chan = self._shared_activity.telepathy_text_chan
+        shared_activity = self.get_shared_activity()
+        self.conn = shared_activity.telepathy_conn
+        self.tubes_chan = shared_activity.telepathy_tubes_chan
+        self.text_chan = shared_activity.telepathy_text_chan
 
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal( \
                 'NewTube', self._new_tube_cb)
 
-        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
+        shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        shared_activity.connect('buddy-left', self._buddy_left_cb)
 
     def _list_tubes_reply_cb(self, tubes):
         for tube_info in tubes:
@@ -370,12 +419,12 @@ class MemorizeActivity(Activity):
         _logger.error('ListTubes() failed: %s', e)
 
     def _joined_cb(self, activity):
-        if not self._shared_activity:
+        if not self.get_shared_activity():
             return
 
         _logger.debug('Joined an existing shared activity')
 
-        for buddy in self._shared_activity.get_joined_buddies():
+        for buddy in self.get_shared_activity().get_joined_buddies():
             if buddy != self.owner:
                 _logger.debug("buddy joined - _joined_cb: %s  "
                               "(get buddies and add them to my list)",

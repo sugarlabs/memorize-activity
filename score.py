@@ -16,8 +16,10 @@
 #
 
 import svglabel
-import gtk
 import os
+
+from gi.repository import Gtk
+from gi.repository import Gdk
 
 import theme
 
@@ -57,12 +59,12 @@ class Score(svglabel.SvgLabel):
         self.status = status
         if status:
             self.pixbuf = self.pixbuf_sel
-            self.modify_bg(gtk.STATE_NORMAL,
-                           gtk.gdk.color_parse(self.selected_color))
+            self.modify_bg(Gtk.StateType.NORMAL,
+                           Gdk.color_parse(self.selected_color))
         else:
             self.pixbuf = self.pixbuf_un
-            self.modify_bg(gtk.STATE_NORMAL,
-                           gtk.gdk.color_parse(self.default_color))
+            self.modify_bg(Gtk.StateType.NORMAL,
+                           Gdk.color_parse(self.default_color))
         self.queue_draw()
 
     def get_pixbuf_un(self):

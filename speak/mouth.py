@@ -23,16 +23,18 @@
 
 # This code is a super-stripped down version of the waveform view from Measure
 
-import gtk
-import cairo
 from struct import unpack
 import numpy.core
 
-class Mouth(gtk.DrawingArea):
+from gi.repository import Gtk
+import cairo
+
+class Mouth(Gtk.DrawingArea):
     def __init__(self, audioSource, fill_color):
 
-        gtk.DrawingArea.__init__(self)
-        self.connect("expose_event",self.expose)
+        Gtk.DrawingArea.__init__(self)
+
+        self.connect("draw",self.__draw_cb)
         self.buffers = []
         self.buffer_size = 256
         self.main_buffers = []
@@ -60,24 +62,24 @@ class Mouth(gtk.DrawingArea):
         else:
             self.volume = numpy.core.max(self.main_buffers)# - numpy.core.min(self.main_buffers)
 
-    def expose(self, widget, event):
-        """This function is the "expose" event handler and does all the drawing."""
+    def __draw_cb(self, widget, context):
+        """This function is the "draw" event handler and does all the drawing."""
         bounds = self.get_allocation()
 
         self.processBuffer(bounds)
 
         #Create context, disable antialiasing
-        self.context = widget.window.cairo_create()
+        self.context = context
         self.context.set_antialias(cairo.ANTIALIAS_NONE)
 
         #set a clip region for the expose event. This reduces redrawing work (and time)
-        self.context.rectangle(event.area.x, event.area.y,event.area.width, event.area.height)
-        self.context.clip()
+        #self.context.rectangle(bounds.x, bounds.y, bounds.width, bounds.height)
+        #self.context.clip()
 
         # background
-        self.context.set_source_rgba(*self.fill_color.get_rgba())
-        self.context.rectangle(0,0, bounds.width,bounds.height)
-        self.context.fill()
+        #self.context.set_source_rgba(*self.fill_color.get_rgba())
+        #self.context.rectangle(0,0, bounds.width,bounds.height)
+        #self.context.fill()
 
         # Draw the mouth
         volume = self.volume / 65535.
@@ -94,8 +96,9 @@ class Mouth(gtk.DrawingArea):
         self.context.move_to(Lx,Ly)
         self.context.curve_to(Tx,Ty, Tx,Ty, Rx,Ry)
         self.context.curve_to(Bx,By, Bx,By, Lx,Ly)
-        self.context.set_source_rgb(0,0,0)
+        self.context.set_source_rgb(0, 0, 0)
         self.context.close_path()
         self.context.stroke()
+        self.context.fill()
 
         return True

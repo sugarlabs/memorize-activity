@@ -23,11 +23,13 @@
 
 
 import logging 
-import gtk
+
 import json
 from gettext import gettext as _
 
-import sugar.graphics.style as style
+from gi.repository import Gtk
+
+import sugar3.graphics.style as style
 
 import espeak
 import eye
@@ -90,9 +92,9 @@ class Status:
         new.mouth = self.mouth
         return new
 
-class View(gtk.EventBox):
+class View(Gtk.EventBox):
     def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
-        gtk.EventBox.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.status = Status()
         self.fill_color = fill_color
@@ -103,20 +105,20 @@ class View(gtk.EventBox):
 
         # make an empty box for some eyes
         self._eyes = None
-        self._eyebox = gtk.HBox()
+        self._eyebox = Gtk.HBox()
         self._eyebox.show()
 
         # make an empty box to put the mouth in
         self._mouth = None
-        self._mouthbox = gtk.HBox()
+        self._mouthbox = Gtk.HBox()
         self._mouthbox.show()
         
         # layout the screen
-        box = gtk.VBox(homogeneous=False)
-        box.pack_start(self._eyebox)
-        box.pack_start(self._mouthbox, False)
+        box = Gtk.VBox(homogeneous=False)
+        box.pack_start(self._eyebox, True, True, 0)
+        box.pack_start(self._mouthbox, False, False, 0)
         box.set_border_width(FACE_PAD)
-        self.modify_bg(gtk.STATE_NORMAL, self.fill_color.get_gdk_color())
+        self.modify_bg(Gtk.StateType.NORMAL, self.fill_color.get_gdk_color())
         self.add(box)
 
         self._mapped = False
@@ -133,11 +135,13 @@ class View(gtk.EventBox):
 
     def look_ahead(self):
         if self._eyes:
-            map(lambda e: e.look_ahead(), self._eyes)
+            #map(lambda e: e.look_ahead(), self._eyes)
+            return
 
     def look_at(self, x, y):
         if self._eyes:
-            map(lambda e, x=x, y=y: e.look_at(x,y), self._eyes)
+            #map(lambda e, x=x, y=y: e.look_at(x,y), self._eyes)
+            return
 
     def update(self, status = None):
         if not status:
@@ -159,7 +163,7 @@ class View(gtk.EventBox):
         for i in status.eyes:
             eye = i(self.fill_color)
             self._eyes.append(eye)
-            self._eyebox.pack_start(eye, padding=FACE_PAD)
+            self._eyebox.pack_start(eye, True, True, FACE_PAD)
             eye.show()
 
         self._mouth = status.mouth(self._audio, self.fill_color)
@@ -167,7 +171,7 @@ class View(gtk.EventBox):
         self._mouthbox.add(self._mouth)
 
         # enable mouse move events so we can track the eyes while the mouse is over the mouth
-        #self._mouth.add_events(gtk.gdk.POINTER_MOTION_MASK)
+        #self._mouth.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
 
     def say(self, something):
         self._audio.speak(self._peding or self.status, something)

@@ -23,7 +23,7 @@ from os import environ, chmod
 from os.path import join, getsize, dirname, basename
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
-from sugar.datastore import datastore
+from sugar3.datastore import datastore
 from gettext import gettext as _
 
 SERVICE = 'org.laptop.Memorize'

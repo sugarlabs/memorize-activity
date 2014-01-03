@@ -1,4 +1,5 @@
 #    Copyright (C) 2006, 2007, 2008 One Laptop Per Child
+#    Copyright (C) 2013, Ignacio Rodriguez
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -15,16 +16,18 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gst
+from gi.repository import Gst
 import logging
 
 _logger = logging.getLogger('memorize-activity')
 
+Gst.init([])
+
 
 class Audio(object):
     def __init__(self):
-        self._player = gst.element_factory_make('playbin', 'player')
-        fakesink = gst.element_factory_make('fakesink', 'my-fakesink')
+        self._player = Gst.ElementFactory.make('playbin', 'player')
+        fakesink = Gst.ElementFactory.make('fakesink', 'my-fakesink')
         self._player.set_property('video-sink', fakesink)
         self._playing = None
 
@@ -36,28 +39,28 @@ class Audio(object):
         if filename:
             _logger.debug('play audio %s' % filename)
             self._player.set_property('uri', 'file://' + filename)
-            self._player.set_state(gst.STATE_NULL)
+            self._player.set_state(Gst.State.NULL)
         elif self._playing == None:
             return
         else:
             _logger.debug('continue audio')
 
-        self._player.set_state(gst.STATE_PLAYING)
+        self._player.set_state(Gst.State.PLAYING)
         self._playing = True
 
     def pause(self):
         if self._playing != None:
             _logger.debug('pause audio')
-            self._player.set_state(gst.STATE_PAUSED)
+            self._player.set_state(Gst.State.PAUSED)
             self._playing = False
 
     def stop(self):
-        self._player.set_state(gst.STATE_NULL)
+        self._player.set_state(Gst.State.NULL)
 
     def _gstmessage_cb(self, bus, message):
         message_type = message.type
 
-        if message_type in (gst.MESSAGE_EOS, gst.MESSAGE_ERROR):
-            self._player.set_state(gst.STATE_NULL)
+        if message_type in (Gst.MessageType.EOS, Gst.MessageType.ERROR):
+            self._player.set_state(Gst.State.NULL)
             self._playing = None
             _logger.debug('audio stoped with type %d' % message_type)

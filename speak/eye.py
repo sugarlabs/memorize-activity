@@ -21,101 +21,37 @@
 #     You should have received a copy of the GNU General Public License
 #     along with Speak.activity.  If not, see <http://www.gnu.org/licenses/>.
 
-import pygtk
-import gtk
-import gtk.gdk
-import gobject
-import cairo
 import math
 
-class Eye(gtk.DrawingArea):
+import cairo
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+
+
+class Eye(Gtk.DrawingArea):
     def __init__(self, fill_color):
-        gtk.DrawingArea.__init__(self)
-        self.connect("expose_event", self.expose)
+        Gtk.DrawingArea.__init__(self)
         self.frame = 0
-        self.blink = False
         self.x, self.y = 0,0
         self.fill_color = fill_color
 
-        # listen for clicks
-        self.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-        self.add_events(gtk.gdk.BUTTON_RELEASE_MASK)
-        self.connect("button_press_event", self._mouse_pressed_cb)
-        self.connect("button_release_event", self._mouse_released_cb)
 
-        # Instead of listening for mouse move events we could poll to see if the mouse has moved
-        # would let us react to the mouse even when it isn't directly over this widget.
-        # Unfortunately that would cause a lot of CPU usage.  So instead we rely on our parent to
-        # tell us to redraw when the mouse has moved.  We still need to call add_events so that
-        # our parent will get mouse motion events, but we don't connect the callback for them ourselves.
-        self.add_events(gtk.gdk.POINTER_MOTION_MASK)
-        # self.connect("motion_notify_event", self._mouse_moved_cb)
-
-    def _mouse_moved_cb(self, widget, event):
-        self.queue_draw()
-
-    def _mouse_pressed_cb(self, widget, event):
-        self.blink = True
-        self.queue_draw()
-
-    def _mouse_released_cb(self, widget, event):
-        self.blink = False
-        self.queue_draw()
-
-    def look_at(self, x, y):
-        self.x = x
-        self.y = y
-        self.queue_draw()
-
-    def look_ahead(self):
-        self.x = None
-        self.y = None
-        self.queue_draw()
-
-    # Thanks to xeyes :)
-    def computePupil(self):
-        a = self.get_allocation()
-
-        if self.x is None or self.y is None:
-            # look ahead, but not *directly* in the middle
-            if a.x + a.width/2 < self.parent.get_allocation().width/2:
-                cx = a.width * 0.6
-            else:
-                cx = a.width * 0.4
-            return cx, a.height * 0.6
-
-        EYE_X, EYE_Y = self.translate_coordinates(
-                self.get_toplevel(), a.width/2, a.height/2)
-        EYE_HWIDTH = a.width
-        EYE_HHEIGHT = a.height
-        BALL_DIST = EYE_HWIDTH/4
-
-        dx = self.x - EYE_X
-        dy = self.y - EYE_Y
-
-        if dx or dy:
-            angle = math.atan2(dy, dx)
-            cosa = math.cos(angle)
-            sina = math.sin(angle)
-            h = math.hypot(EYE_HHEIGHT * cosa, EYE_HWIDTH * sina)
-            x = (EYE_HWIDTH * EYE_HHEIGHT) * cosa / h
-            y = (EYE_HWIDTH * EYE_HHEIGHT) * sina / h
-            dist = BALL_DIST * math.hypot(x, y)
-
-            if dist < math.hypot(dx, dy):
-                dx = dist * cosa
-                dy = dist * sina
-
-        return a.width/2 + dx, a.height/2 + dy
-
-    def expose(self, widget, event):
+    def do_draw(self, context):
         self.frame += 1
         bounds = self.get_allocation()
 
+        self.context = context
+        self.context.set_antialias(cairo.ANTIALIAS_NONE)
+
+        self.draw_eye(bounds)
+        return True
+
+    def draw_eye(self, bounds):
         eyeSize = min(bounds.width, bounds.height)
         outlineWidth = eyeSize/20.0
         pupilSize = eyeSize/10.0
-        pupilX, pupilY = self.computePupil()
+        pupilX, pupilY = ((eyeSize / 2) + pupilSize * 2, eyeSize / 2)
         dX = pupilX - bounds.width/2.
         dY = pupilY - bounds.height/2.
         distance = math.sqrt(dX*dX + dY*dY)
@@ -124,19 +60,7 @@ class Eye(gtk.DrawingArea):
             pupilX = bounds.width/2 + dX*limit/distance
             pupilY = bounds.height/2 + dY*limit/distance
 
-        self.context = widget.window.cairo_create()
-        #self.context.set_antialias(cairo.ANTIALIAS_NONE)
 
-        #set a clip region for the expose event. This reduces redrawing work (and time)
-        self.context.rectangle(event.area.x, event.area.y, event.area.width, event.area.height)
-        self.context.clip()
-
-        # background
-        self.context.set_source_rgba(*self.fill_color.get_rgba())
-        self.context.rectangle(0,0,bounds.width,bounds.height)
-        self.context.fill()
-
-        # eye ball
         self.context.arc(bounds.width/2,bounds.height/2, eyeSize/2-outlineWidth/2, 0,360)
         self.context.set_source_rgb(1,1,1)
         self.context.fill()
@@ -151,7 +75,3 @@ class Eye(gtk.DrawingArea):
         self.context.arc(pupilX,pupilY,pupilSize,0,360)
         self.context.set_source_rgb(0,0,0)
         self.context.fill()
-
-        self.blink = False
-
-        return True

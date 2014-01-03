@@ -14,7 +14,7 @@
 
 import logging
 
-from sugar.graphics.combobox import ComboBox
+from sugar3.graphics.combobox import ComboBox
 
 import voice
 

@@ -15,51 +15,124 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-import gtk
 
-FONT_BLACKLIST = ['cmex10', 'cmmi10', 'cmr10', 'cmsy10', 'esint10', 'eufm10',
-            'msam10', 'msbm10', 'rsfs10', 'wasy10']
+import os
+import shutil
+from gettext import gettext as _
+
+from gi.repository import GObject
+from gi.repository import Gio
+from gi.repository import Gtk
+
+from sugar3.graphics.menuitem import MenuItem
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3 import env
+
+DEFAULT_FONTS = ['Sans', 'Serif', 'Monospace']
+USER_FONTS_FILE_PATH = env.get_profile_path('fonts')
+GLOBAL_FONTS_FILE_PATH = '/etc/sugar_fonts'
 
 
-class FontComboBox(gtk.ComboBox):
+class FontButton(ToolButton):
+
+    __gsignals__ = {
+        'changed': (GObject.SignalFlags.RUN_LAST, None, []),
+    }
 
     def __init__(self):
-        gtk.ComboBox.__init__(self)
-        font_renderer = gtk.CellRendererText()
-        self.pack_start(font_renderer)
-        self.add_attribute(font_renderer, 'text', 0)
-        self.add_attribute(font_renderer, 'font', 0)
-        font_model = gtk.ListStore(str)
+        Gtk.ComboBox.__init__(self)
+
+        ToolButton.__init__(self, icon_name='font-text',
+                            tooltip=_('Select font'))
+        self.connect('clicked', self.__font_selection_cb)
 
         context = self.get_pango_context()
-        font_index = 0
-        self.faces = {}
+
+        self._init_font_list()
+
+        self._font_name = 'Sans'
+        font_names = []
 
         for family in context.list_families():
             name = family.get_name()
-            if name not in FONT_BLACKLIST:
-                font_model.append([name])
-                font_faces = []
-                for face in family.list_faces():
-                    face_name = face.get_face_name()
-                    font_faces.append(face_name)
-                self.faces[name] = font_faces
+            if name in self._font_white_list:
+                font_names.append(name)
 
-        sorter = gtk.TreeModelSort(font_model)
-        sorter.set_sort_column_id(0, gtk.SORT_ASCENDING)
-        self.set_model(sorter)
+        for font_name in sorted(font_names):
+            menu_item = MenuItem(font_name)
+            markup = '<span font="%s">%s</span>' % (font_name, font_name)
+            menu_item.get_children()[0].set_markup(markup)
+            menu_item.connect('activate', self.__menu_activated, font_name)
+            self.props.palette.menu.append(menu_item)
+            menu_item.show()
+
         self.show()
 
+    def __font_selection_cb(self, widget):
+        if self.props.palette:
+            if not self.props.palette.is_up():
+                self.props.palette.popup(immediate=True,
+                                         state=self.props.palette.SECONDARY)
+            else:
+                self.props.palette.popdown(immediate=True)
+            return
+
+    def __menu_activated(self, menu, font_name):
+        self._font_name = font_name
+        self.emit('changed')
+
     def set_font_name(self, font_name):
-        count = 0
-        tree_iter = self.get_model().get_iter_first()
-        while tree_iter is not None:
-            value = self.get_model().get_value(tree_iter, 0)
-            if value == font_name:
-                self.set_active(count)
-            count = count + 1
-            tree_iter = self.get_model().iter_next(tree_iter)
+        self._font_name = font_name
 
     def get_font_name(self):
-        tree_iter = self.get_active_iter()
-        return self.get_model().get_value(tree_iter, 0)
+        return self._font_name
+
+    def _init_font_list(self):
+        self._font_white_list = []
+        self._font_white_list.extend(DEFAULT_FONTS)
+
+        # check if there are a user configuration file
+        if not os.path.exists(USER_FONTS_FILE_PATH):
+            # verify if exists a file in /etc
+            if os.path.exists(GLOBAL_FONTS_FILE_PATH):
+                shutil.copy(GLOBAL_FONTS_FILE_PATH, USER_FONTS_FILE_PATH)
+
+        if os.path.exists(USER_FONTS_FILE_PATH):
+            # get the font names in the file to the white list
+            fonts_file = open(USER_FONTS_FILE_PATH)
+            # get the font names in the file to the white list
+            for line in fonts_file:
+                self._font_white_list.append(line.strip())
+            # monitor changes in the file
+            gio_fonts_file = Gio.File.new_for_path(USER_FONTS_FILE_PATH)
+            self.monitor = gio_fonts_file.monitor_file(
+                Gio.FileMonitorFlags.NONE, None)
+            self.monitor.set_rate_limit(5000)
+            self.monitor.connect('changed', self._reload_fonts)
+
+    def _reload_fonts(self, monitor, gio_file, other_file, event):
+        if event != Gio.FileMonitorEvent.CHANGES_DONE_HINT:
+            return
+        self._font_white_list = []
+        self._font_white_list.extend(DEFAULT_FONTS)
+        fonts_file = open(USER_FONTS_FILE_PATH)
+        for line in fonts_file:
+            self._font_white_list.append(line.strip())
+        # update the menu
+        for child in self.props.palette.menu.get_children():
+            self.props.palette.menu.remove(child)
+            child = None
+        context = self.get_pango_context()
+        tmp_list = []
+        for family in context.list_families():
+            name = family.get_name()
+            if name in self._font_white_list:
+                tmp_list.append(name)
+        for font_name in sorted(tmp_list):
+            menu_item = MenuItem(font_name)
+            markup = '<span font="%s">%s</span>' % (font_name, font_name)
+            menu_item.get_children()[0].set_markup(markup)
+            menu_item.connect('activate', self.__menu_activated, font_name)
+            self.props.palette.menu.append(menu_item)
+            menu_item.show()
+        return False

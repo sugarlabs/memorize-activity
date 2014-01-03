@@ -15,12 +15,13 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
-import rsvg
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import Rsvg
 import re
 
 
-class SvgLabel(gtk.DrawingArea):
+class SvgLabel(Gtk.DrawingArea):
 
     filename = ''
     fill_color = ''
@@ -29,23 +30,25 @@ class SvgLabel(gtk.DrawingArea):
 
     def __init__(self, filename, fill_color, stroke_color, pixbuf=False,
             background_color='', request_x=45, request_y=45):
-        gtk.DrawingArea.__init__(self)
+        Gtk.DrawingArea.__init__(self)
+
         self.set_size_request(request_x, request_y)
         self.filename = filename
         self.background_color = background_color
         self.fill_color = fill_color
         self.stroke_color = stroke_color
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(background_color))
+        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(background_color))
         if pixbuf:
             self.pixbuf = pixbuf
         else:
             self.pixbuf = self._read_icon_data(self.filename, self.fill_color,
                 self.stroke_color)
 
-        self.connect('expose-event', self._expose_cb)
+        self.connect('draw', self.__draw_cb)
 
-    def _expose_cb(self, widget, event):
-        widget.window.draw_pixbuf(None, self.pixbuf, 0, 0, 0, 0)
+    def __draw_cb(self, widget, context):
+        Gdk.cairo_set_source_pixbuf(context, self.pixbuf, 0, 0)
+        context.paint()
         return False
 
     def _read_icon_data(self, filename, fill_color, stroke_color):
@@ -62,7 +65,7 @@ class SvgLabel(gtk.DrawingArea):
             data = re.sub('<!ENTITY stroke_color .*>', entity, data)
 
         self.data_size = len(data)
-        return rsvg.Handle(data=data).get_pixbuf()
+        return Rsvg.Handle.new_from_data(data).get_pixbuf()
 
     def set_color(self, fill_color, stroke_color):
         self.fill_color = fill_color
@@ -98,6 +101,6 @@ class SvgLabel(gtk.DrawingArea):
 
     def set_background(self, background_color):
         self.background_color = background_color
-        self.modify_bg(gtk.STATE_NORMAL,
-                gtk.gdk.color_parse(self.background_color))
+        self.modify_bg(Gtk.StateType.NORMAL,
+                Gdk.color_parse(self.background_color))
         self.queue_draw()

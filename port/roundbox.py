@@ -1,21 +1,23 @@
 import math
-import gtk
-from sugar.graphics import style
+
+from gi.repository import Gtk
+
+from sugar3.graphics import style
 
 
-class RoundBox(gtk.HBox):
+class RoundBox(Gtk.HBox):
     __gtype_name__ = 'RoundBox'
 
     _BORDER_DEFAULT = style.LINE_WIDTH
 
     def __init__(self, **kwargs):
-        gtk.HBox.__init__(self, **kwargs)
+        Gtk.HBox.__init__(self, **kwargs)
 
         self._radius = style.zoom(10)
         self.border = self._BORDER_DEFAULT
         self.border_color = style.COLOR_BLACK
         self.background_color = None
-        self.connect("expose_event", self.__expose_cb)
+        self.connect("draw", self.__draw_cb)
         self.connect("size-allocate", self.__size_allocate_cb)
         self.connect("add", self.__add_cb)
 
@@ -28,9 +30,7 @@ class RoundBox(gtk.HBox):
         self._width = allocation.width
         self._height = allocation.height
 
-    def __expose_cb(self, widget, event):
-        cr = widget.window.cairo_create()
-        #cr.save()
+    def __draw_cb(self, widget, cr):
         x = self._x + self._BORDER_DEFAULT / 2
         y = self._y + self._BORDER_DEFAULT / 2
         width = self._width - self._BORDER_DEFAULT
@@ -61,20 +61,20 @@ class RoundBox(gtk.HBox):
             
 if __name__ == '__main__':
 
-    win = gtk.Window()
-    win.connect('destroy', gtk.main_quit)
+    win = Gtk.Window()
+    win.connect('destroy', Gtk.main_quit)
     win.set_default_size(450, 550)
-    vbox = gtk.VBox()
+    vbox = Gtk.VBox()
 
     box1 = RoundBox()
     vbox.add(box1)
-    label1 = gtk.Label("Test 1")
+    label1 = Gtk.Label(label="Test 1")
     box1.add(label1)
 
     rbox = RoundBox()
     rbox.background_color = style.Color('#FF0000')
     vbox.add(rbox)
-    label2 = gtk.Label("Test 2")
+    label2 = Gtk.Label(label="Test 2")
     rbox.add(label2)
 
     bbox = RoundBox()
@@ -84,4 +84,4 @@ if __name__ == '__main__':
 
     win.add(vbox)    
     win.show_all()
-    gtk.main()
+    Gtk.main()

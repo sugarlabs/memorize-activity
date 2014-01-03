@@ -17,28 +17,29 @@
 
 from gettext import gettext as _
 
-import gtk
-import gobject
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+from gi.repository import Gtk
+from gi.repository import GObject
+
 import logging
 
-from sugar.graphics.toolbutton import ToolButton
-from sugar.graphics.toggletoolbutton import ToggleToolButton
-from sugar.graphics.alert import Alert
-from sugar.graphics.icon import Icon
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3.graphics.toggletoolbutton import ToggleToolButton
+from sugar3.graphics.alert import Alert
+from sugar3.graphics.icon import Icon
 
 
-class CreateToolbarBuilder(gobject.GObject):
+class CreateToolbarBuilder(GObject.GObject):
 
     __gtype_name__ = 'CreateToolbar'
 
     __gsignals__ = {
-        'create_new_game': (SIGNAL_RUN_FIRST, None, []),
-        'create_equal_pairs': (SIGNAL_RUN_FIRST, None, [TYPE_PYOBJECT]),
+        'create_new_game': (GObject.SignalFlags.RUN_FIRST, None, []),
+        'create_equal_pairs': (GObject.SignalFlags.RUN_FIRST,
+                               None, [GObject.TYPE_PYOBJECT]),
     }
 
     def __init__(self, activity):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.activity = activity
         self.toolbar = self.activity.get_toolbar_box().toolbar
 
@@ -60,7 +61,7 @@ class CreateToolbarBuilder(gobject.GObject):
         self.toolbar.show_all()
 
     def _add_widget(self, widget, expand=False):
-        tool_item = gtk.ToolItem()
+        tool_item = Gtk.ToolItem()
         tool_item.set_expand(expand)
         tool_item.add(widget)
         widget.show()
@@ -98,11 +99,11 @@ class CreateToolbarBuilder(gobject.GObject):
 
     def _emit_equal_pairs(self, widget):
         if self._equal_pairs.get_active():
-            self._equal_pairs.set_named_icon('pair-equals')
+            self._equal_pairs.set_icon_name('pair-equals')
             self._equal_pairs.set_tooltip(_('Match identical tiles'))
             self.activity.game.model.data['equal_pairs'] = '1'
         else:
-            self._equal_pairs.set_named_icon('pair-non-equals')
+            self._equal_pairs.set_icon_name('pair-non-equals')
             self._equal_pairs.set_tooltip(_('Match different tiles'))
             self.activity.game.model.data['equal_pairs'] = '0'
         self.emit('create_equal_pairs', self._equal_pairs.get_active())
@@ -111,11 +112,11 @@ class CreateToolbarBuilder(gobject.GObject):
 
     def _grouped_cb(self, widget):
         if self._grouped.get_active():
-            self._grouped.set_named_icon('grouped_game2')
+            self._grouped.set_icon_name('grouped_game2')
             self._grouped.set_tooltip(_('Grouped tiles game'))
             self.activity.game.model.data['divided'] = '1'
         else:
-            self._grouped.set_named_icon('grouped_game1')
+            self._grouped.set_icon_name('grouped_game1')
             self._grouped.set_tooltip(_('Mixed tiles game'))
             self.activity.game.model.data['divided'] = '0'
         logging.debug('createtoolbar._grouped_cb')

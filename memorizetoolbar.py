@@ -15,24 +15,23 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gobject
+import logging
 from os.path import join, dirname
 
-from gettext import gettext as _
-from sugar.graphics.toolbutton import ToolButton
-from sugar.graphics.toolcombobox import ToolComboBox
-from sugar.graphics.alert import Alert
-from sugar.graphics.icon import Icon
-from sugar.activity.widgets import RadioMenuButton
-from sugar.graphics.menuitem import MenuItem
+from gi.repository import GObject
 
-import logging
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+from gettext import gettext as _
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3.graphics.toolcombobox import ToolComboBox
+from sugar3.graphics.alert import Alert
+from sugar3.graphics.icon import Icon
+from sugar3.activity.widgets import RadioMenuButton
+from sugar3.graphics.menuitem import MenuItem
 
 _logger = logging.getLogger('memorize-activity')
 
 
-class MemorizeToolbarBuilder(gobject.GObject):
+class MemorizeToolbarBuilder(GObject.GObject):
 
     __gtype_name__ = 'MemoryToolbarBuilder'
 
@@ -46,11 +45,11 @@ class MemorizeToolbarBuilder(gobject.GObject):
                             ]
 
     __gsignals__ = {
-    'game_changed': (SIGNAL_RUN_FIRST, None, 5 * [TYPE_PYOBJECT])
+    'game_changed': (GObject.SignalFlags.RUN_FIRST, None, 5 * [GObject.TYPE_PYOBJECT])
     }
 
     def __init__(self, activity):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.activity = activity
         self.toolbar = self.activity.get_toolbar_box().toolbar
         self.jobject = None

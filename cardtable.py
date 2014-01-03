@@ -15,12 +15,15 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gtk
-import pango
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GObject
+from gi.repository import Pango
+
 import svgcard
 import os
 import math
-from gobject import SIGNAL_RUN_FIRST, TYPE_PYOBJECT
+
 
 import logging
 _logger = logging.getLogger('memorize-activity')
@@ -28,16 +31,18 @@ _logger = logging.getLogger('memorize-activity')
 import theme
 
 
-class CardTable(gtk.EventBox):
+class CardTable(Gtk.EventBox):
 
     __gsignals__ = {
-        'card-flipped': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
-        'card-overflipped': (SIGNAL_RUN_FIRST, None, [int]),
-        'card-highlighted': (SIGNAL_RUN_FIRST, None, [int, TYPE_PYOBJECT]),
+        'card-flipped': (GObject.SignalFlags.RUN_FIRST,
+                         None, [int, GObject.TYPE_PYOBJECT]),
+        'card-overflipped': (GObject.SignalFlags.RUN_FIRST, None, [int]),
+        'card-highlighted': (GObject.SignalFlags.RUN_FIRST,
+                             None, [int, GObject.TYPE_PYOBJECT]),
         }
 
     def __init__(self):
-        gtk.EventBox.__init__(self)
+        Gtk.EventBox.__init__(self)
         self.data = None
         self.cards_data = None
         self._workspace_size = 0
@@ -47,28 +52,43 @@ class CardTable(gtk.EventBox):
         self.connect('size-allocate', self._allocate_cb)
 
         # Set table settings
-        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('#000000'))
-        self.table = gtk.Table()
+        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
+        self.table = Gtk.Table()
         self.table.grab_focus()
-        self.table.set_flags(gtk.CAN_FOCUS)
-        self.table.set_flags(gtk.CAN_DEFAULT)
+        self.table.set_can_default(True)
         self.table.set_row_spacings(theme.CARD_PAD)
         self.table.set_col_spacings(theme.CARD_PAD)
         self.table.set_border_width(theme.CARD_PAD)
-        self.table.set_resize_mode(gtk.RESIZE_IMMEDIATE)
+        self.table.set_resize_mode(Gtk.ResizeMode.IMMEDIATE)
         self.set_property('child', self.table)
-        self.load_message = gtk.Label('Loading Game')
-        self.load_message.modify_fg(gtk.STATE_NORMAL,
-                                    gtk.gdk.color_parse('#ffffff'))
-        self.load_message.modify_font(pango.FontDescription('10'))
+        self.load_message = Gtk.Label(label='Loading Game')
+        self.load_message.modify_fg(Gtk.StateType.NORMAL,
+                                    Gdk.color_parse('#ffffff'))
+        self.load_message.modify_font(Pango.FontDescription('10'))
         self.load_message.show()
         self.first_load = True
         self.load_mode = False
         self.dict = None
         self.show_all()
 
+    def resize(self, size, change=True):
+        _logger.debug('set size request %dx%d' % (size, size))
+        self.set_size_request(size, size)
+        self._workspace_size = size
+        if self.data:
+            if change:
+                self.change_game(None, self.data, self.cards_data)
+            else:
+                self.load_game(None, self.data, self.cards_data)
+
     def _allocate_cb(self, widget, allocation):
         size = allocation.height
+        width = Gdk.Screen.width()
+        height = Gdk.Screen.height()
+        if width < height:
+            size = allocation.width
+        else:
+            size = allocation.height
 
         if size == 100:
             # skip first time sizing
@@ -77,13 +97,8 @@ class CardTable(gtk.EventBox):
         # do it once
         if self._workspace_size:
             return
+        self.resize(size, change=False)
 
-        _logger.debug('Use %s allocation' % str(self.allocation))
-
-        self.set_size_request(size, size)
-        self._workspace_size = size
-        if self.data:
-            self.load_game(None, self.data, self.cards_data)
 
     def load_game(self, widget, data, grid):
         self.data = data
@@ -146,7 +161,7 @@ class CardTable(gtk.EventBox):
             self.id2cd[identifier] = card
             self.cards[(x, y)] = card
             self.dict[identifier] = (x, y)
-            self.table.attach(card, x, x + 1, y, y + 1, gtk.SHRINK, gtk.SHRINK)
+            self.table.attach(card, x, x + 1, y, y + 1, Gtk.AttachOptions.SHRINK, Gtk.AttachOptions.SHRINK)
 
             x += 1
             if x == self.size:
@@ -184,31 +199,31 @@ class CardTable(gtk.EventBox):
         x = self.selected_card[0]
         y = self.selected_card[1]
 
-        if event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left):
+        if event.keyval in (Gdk.KEY_Left, Gdk.KEY_KP_Left):
             if (x - 1, y) in self.table_positions:
                 card = self.cards[x - 1, y]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
 
-        elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right):
+        elif event.keyval in (Gdk.KEY_Right, Gdk.KEY_KP_Right):
             if (x + 1, y) in self.table_positions:
                 card = self.cards[x + 1, y]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
 
-        elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up):
+        elif event.keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
             if (x, y - 1) in self.table_positions:
                 card = self.cards[x, y - 1]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
 
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.KP_Down):
+        elif event.keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
             if (x, y + 1) in self.table_positions:
                 card = self.cards[x, y + 1]
                 identifier = self.cd2id.get(card)
                 self.emit('card-highlighted', identifier, False)
 
-        elif event.keyval in (gtk.keysyms.space, gtk.keysyms.KP_Page_Down):
+        elif event.keyval in (Gdk.KEY_space, Gdk.KEY_KP_Page_Down):
             card = self.cards[x, y]
             self.card_flipped(card)
 
@@ -254,8 +269,8 @@ class CardTable(gtk.EventBox):
             self.set_property('child', self.table)
         self.load_mode = mode
         self.queue_draw()
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while Gtk.events_pending():
+            Gtk.main_iteration()
 
     def load_msg(self, widget, msg):
         if not self.load_mode:

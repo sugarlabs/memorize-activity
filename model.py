@@ -20,33 +20,33 @@ from os import environ, makedirs, chmod
 from os.path import join, basename, isdir, split, normpath, exists
 import logging
 import random
-import gobject
+from gi.repository import GObject
 import zipfile
 import tempfile
 
-from sugar.activity.activity import get_bundle_path, get_activity_root
+from sugar3.activity.activity import get_bundle_path, get_activity_root
 
 _logger = logging.getLogger('model')
 
 DEFAULT_FONT = 'Sans'
 
 
-class Pair(gobject.GObject):
+class Pair(GObject.GObject):
     __gproperties__ = {
-        'aimg': (str, None, None, None, gobject.PARAM_READWRITE),
-        'asnd': (str, None, None, None, gobject.PARAM_READWRITE),
-        'achar': (str, None, None, None, gobject.PARAM_READWRITE),
-        'bimg': (str, None, None, None, gobject.PARAM_READWRITE),
-        'bsnd': (str, None, None, None, gobject.PARAM_READWRITE),
-        'bchar': (str, None, None, None, gobject.PARAM_READWRITE),
-        'aspeak': (str, None, None, None, gobject.PARAM_READWRITE),
-        'bspeak': (str, None, None, None, gobject.PARAM_READWRITE),
-        'color': (gobject.TYPE_INT, 'Base', 'Base', 0, 10, 0, \
-                   gobject.PARAM_READWRITE)
+        'aimg': (str, None, None, None, GObject.PARAM_READWRITE),
+        'asnd': (str, None, None, None, GObject.PARAM_READWRITE),
+        'achar': (str, None, None, None, GObject.PARAM_READWRITE),
+        'bimg': (str, None, None, None, GObject.PARAM_READWRITE),
+        'bsnd': (str, None, None, None, GObject.PARAM_READWRITE),
+        'bchar': (str, None, None, None, GObject.PARAM_READWRITE),
+        'aspeak': (str, None, None, None, GObject.PARAM_READWRITE),
+        'bspeak': (str, None, None, None, GObject.PARAM_READWRITE),
+        'color': (GObject.TYPE_INT, 'Base', 'Base', 0, 10, 0, \
+                   GObject.PARAM_READWRITE)
     }
 
     def __init__(self):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self._properties = {'aimg': None, 'asnd': None, 'achar': None,
                             'bimg': None, 'bsnd': None, 'bchar': None,
                             'color': 100, 'aspeak': None, 'bspeak': None}

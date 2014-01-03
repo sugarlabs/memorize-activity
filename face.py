@@ -12,23 +12,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import gtk
+from gi.repository import Gtk
+from gi.repository import Gdk
 
 import logging
 _logger = logging.getLogger('memorize-activity')
 
-from sugar.graphics import style
+from sugar3.graphics import style
 
 import speak.espeak
 import speak.face
 import theme
 
 
-class Face(gtk.EventBox):
+class Face(Gtk.EventBox):
     def __init__(self):
-        gtk.EventBox.__init__(self)
+        Gtk.EventBox.__init__(self)
 
-        self.modify_bg(gtk.STATE_NORMAL, style.COLOR_BLACK.get_gdk_color())
+        self.modify_bg(Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
 
         self.face = speak.face.View(style.Color('#4b4c4e'))
         self.face.set_border_width(theme.SVG_PAD)
@@ -36,27 +37,28 @@ class Face(gtk.EventBox):
         self.show_all()
 
         self.set_app_paintable(True)
-        self.connect('expose-event', self._expose_cb)
+        self.connect('draw', self.__draw_cb)
         self.connect('unrealize', self._unrealize_cb)
 
     def _unrealize_cb(self, widget):
         self.face.shut_up()
 
-    def _expose_cb(self, widget, event):
-        card = self.parent.parent
+    def __draw_cb(self, widget, context):
+        card = self.get_parent().get_parent()
         pixbuf = card._read_icon_data('front')
-        self.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
+        Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
+        context.paint()
 
 
 def look_at():
     if not speak.espeak.supported:
         return
 
-    display = gtk.gdk.display_get_default()
+    display = Gdk.Display.get_default()
     screen_, x, y, modifiers_ = display.get_pointer()
 
     for i in _cache:
-        if i.parent:
+        if i.get_parent():
             i.face.look_at(x, y)
 
 
@@ -68,7 +70,7 @@ def acquire():
 
     for i in _cache:
         i.face.shut_up()
-        if not i.parent:
+        if not i.get_parent():
             face = i
 
     if not face:
