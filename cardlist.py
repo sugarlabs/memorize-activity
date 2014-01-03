@@ -179,7 +179,7 @@ class CardList(Gtk.EventBox):
     def clean_list(self, button=None, load=False):
         if button is not None:
             self.current_game_key = None
-        map(lambda x: self.tray.remove_item(x), self.pairs)
+        map(lambda x: self.vbox.remove(x), self.pairs)
         del self.pairs
         self.pairs = []
         if not load:
@@ -213,7 +213,7 @@ class CardList(Gtk.EventBox):
         self.model.mark_modified()
 
     def rem_pair(self, widget, event):
-        self.tray.remove_item(widget)
+        self.vbox.remove(widget)
         self.pairs.remove(widget)
         del widget
         self.model.mark_modified()
