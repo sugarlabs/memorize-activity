@@ -70,7 +70,7 @@ _MODE_CREATE = 2
 # to all the users.
 
 changed_strings = [_('Play'), _('Create'), _('Game name:'), _('Equal pairs'),
-        _('addition'), _('letters'), _('sounds')]
+                   _('addition'), _('letters'), _('sounds')]
 
 
 class MemorizeActivity(Activity):
@@ -89,7 +89,7 @@ class MemorizeActivity(Activity):
         toolbar_box.toolbar.insert(self.activity_button, -1)
 
         self._memorizeToolbarBuilder = \
-                memorizetoolbar.MemorizeToolbarBuilder(self)
+            memorizetoolbar.MemorizeToolbarBuilder(self)
 
         toolbar_box.toolbar.insert(Gtk.SeparatorToolItem(), -1)
 
@@ -115,23 +115,25 @@ class MemorizeActivity(Activity):
         self.cardlist = cardlist.CardList()
         self.createcardpanel = createcardpanel.CreateCardPanel()
         self.cardlist.connect('pair-selected',
-                self.createcardpanel.pair_selected)
-        self.cardlist.connect('update-create-toolbar',
-                self._createToolbarBuilder.update_create_toolbar)
+                              self.createcardpanel.pair_selected)
+        self.cardlist.connect(
+            'update-create-toolbar',
+            self._createToolbarBuilder.update_create_toolbar)
         self.createcardpanel.connect('add-pair',
-                self.cardlist.add_pair)
+                                     self.cardlist.add_pair)
         self.createcardpanel.connect('update-pair',
-                self.cardlist.update_selected)
+                                     self.cardlist.update_selected)
         self.createcardpanel.connect('change-font',
-                self.cardlist.change_font)
+                                     self.cardlist.change_font)
         self._createToolbarBuilder.connect('create_new_game',
-                self.cardlist.clean_list)
+                                           self.cardlist.clean_list)
         self._createToolbarBuilder.connect('create_new_game',
-                self.createcardpanel.clean)
-        self._createToolbarBuilder.connect('create_new_game',
-                self._memorizeToolbarBuilder.reset)
+                                           self.createcardpanel.clean)
+        self._createToolbarBuilder.connect(
+            'create_new_game',
+            self._memorizeToolbarBuilder.reset)
         self._createToolbarBuilder.connect('create_equal_pairs',
-                self.change_equal_pairs)
+                                           self.change_equal_pairs)
         self.game = game.MemorizeGame()
 
         self._edit_button.connect('toggled', self._change_mode_bt)
@@ -162,14 +164,14 @@ class MemorizeActivity(Activity):
         self.game.connect('load_game', self.table.load_game)
         self.game.connect('change_game', self.table.change_game)
         self.game.connect('load_game',
-                self._memorizeToolbarBuilder.update_toolbar)
+                          self._memorizeToolbarBuilder.update_toolbar)
         self.game.connect('change_game',
-                self._memorizeToolbarBuilder.update_toolbar)
+                          self._memorizeToolbarBuilder.update_toolbar)
         self.game.connect('change_game',
-                self.createcardpanel.update_font_combos)
+                          self.createcardpanel.update_font_combos)
 
         self._memorizeToolbarBuilder.connect('game_changed',
-                self.change_game)
+                                             self.change_game)
 
         self.portrait_mode = Gdk.Screen.width() < Gdk.Screen.height()
 
@@ -186,7 +188,7 @@ class MemorizeActivity(Activity):
 
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
         self.connect('motion_notify_event',
-                lambda widget, event: face.look_at())
+                     lambda widget, event: face.look_at())
 
         Gdk.Screen.get_default().connect('size-changed',
                                          self.__configure_cb)
@@ -217,7 +219,7 @@ class MemorizeActivity(Activity):
         elif not self._jobject.file_path:
             _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
             game_file = os.path.join(os.path.dirname(__file__), 'demos',
-                    'addition.zip')
+                                     'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
             _logger.debug('loading conventional')
             self.game.add_buddy(self.owner)
@@ -273,7 +275,7 @@ class MemorizeActivity(Activity):
         else:
             color = profile.get_color().to_string()
         self.change_game(None, file_path, 4, 'file',
-                              self.metadata['title'], color)
+                         self.metadata['title'], color)
 
     def write_file(self, file_path):
         logging.debug('WRITE_FILE is_demo %s', self.game.model.is_demo)
@@ -293,7 +295,7 @@ class MemorizeActivity(Activity):
         for pair in self.game.model.pairs:
             # aimg
             aimg = self.game.model.pairs[pair].get_property('aimg')
-            if aimg != None:
+            if aimg is not None:
                 if equal_pairs:
                     aimgfile = 'img' + str(pair) + '.jpg'
                 else:
@@ -303,7 +305,7 @@ class MemorizeActivity(Activity):
 
             # bimg
             bimg = self.game.model.pairs[pair].get_property('bimg')
-            if bimg != None:
+            if bimg is not None:
                 if equal_pairs:
                     bimgfile = 'img' + str(pair) + '.jpg'
                 else:
@@ -312,21 +314,21 @@ class MemorizeActivity(Activity):
                                os.path.join('images', bimgfile))
             # asnd
             asnd = self.game.model.pairs[pair].get_property('asnd')
-            if asnd != None:
+            if asnd is not None:
                 game_zip.write(os.path.join(temp_snd_folder, asnd),
-                                os.path.join('sounds', asnd))
+                               os.path.join('sounds', asnd))
 
             # bsnd
             bsnd = self.game.model.pairs[pair].get_property('bsnd')
-            if bsnd != None:
+            if bsnd is not None:
                 game_zip.write(os.path.join(temp_snd_folder, bsnd),
-                                os.path.join('sounds', bsnd))
+                               os.path.join('sounds', bsnd))
 
         self.game.model.game_path = self.game.model.temp_folder
         self.game.model.data['name'] = str(self.get_title())
         self.game.model.write()
         game_zip.write(os.path.join(self.game.model.temp_folder, 'game.xml'),
-                'game.xml')
+                       'game.xml')
         game_zip.close()
         self.metadata['mime_type'] = 'application/x-memorize-project'
 
@@ -345,7 +347,7 @@ class MemorizeActivity(Activity):
     def _change_mode(self, mode):
         logging.debug("Change mode %s" % mode)
         if mode == _MODE_CREATE:
-            if self.play_mode == True:
+            if self.play_mode:
 
                 self.box.remove(self.scoreboard)
                 self.box.remove(self.table)
@@ -354,7 +356,7 @@ class MemorizeActivity(Activity):
                 self.cardlist.load_game(self.game)
                 self.game.model.create_temp_directories()
                 self.createcardpanel.set_temp_folder(
-                        self.game.model.temp_folder)
+                    self.game.model.temp_folder)
             self.play_mode = False
         else:
             if self.game.model.modified:
@@ -362,10 +364,10 @@ class MemorizeActivity(Activity):
                 self.save()
                 self.game.reset_game()
                 self.table.change_game(None, self.game.model.data,
-                        self.game.model.grid)
+                                       self.game.model.grid)
                 self.game.model.modified = False
 
-            if self.play_mode == False:
+            if not self.play_mode:
                 self.box.remove(self.createcardpanel)
                 self.box.remove(self.cardlist)
 
@@ -393,7 +395,7 @@ class MemorizeActivity(Activity):
         self._sharing_setup()
 
         _logger.debug('This is my activity: making a tube...')
-        id_ = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
             SERVICE, {})
 
     def _sharing_setup(self):
@@ -405,8 +407,8 @@ class MemorizeActivity(Activity):
         self.tubes_chan = shared_activity.telepathy_tubes_chan
         self.text_chan = shared_activity.telepathy_text_chan
 
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal( \
-                'NewTube', self._new_tube_cb)
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal(
+            'NewTube', self._new_tube_cb)
 
         shared_activity.connect('buddy-joined', self._buddy_joined_cb)
         shared_activity.connect('buddy-left', self._buddy_left_cb)
@@ -443,16 +445,17 @@ class MemorizeActivity(Activity):
     def _new_tube_cb(self, identifier, initiator, tube_type, service,
                      params, state):
         _logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
-                     'params=%r state=%d', identifier, initiator, tube_type,
+                      'params=%r state=%d', identifier, initiator, tube_type,
                       service, params, state)
 
         if (tube_type == telepathy.TUBE_TYPE_DBUS and
-            service == SERVICE):
+                service == SERVICE):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube( \
-                        identifier)
+                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(
+                    identifier)
 
-            self.tube_conn = TubeConnection(self.conn,
+            self.tube_conn = TubeConnection(
+                self.conn,
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], identifier,
                 group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
 
@@ -471,8 +474,8 @@ class MemorizeActivity(Activity):
         else:
             handle = group.GetHandleOwners([cs_handle])[0]
             assert handle != 0
-        return self.pservice.get_buddy_by_telepathy_handle( \
-                self.tp_conn_name, self.tp_conn_path, handle)
+        return self.pservice.get_buddy_by_telepathy_handle(
+            self.tp_conn_name, self.tp_conn_path, handle)
 
     def _buddy_joined_cb(self, activity, buddy):
         if buddy != self.owner:
