@@ -82,36 +82,37 @@ class CardList(Gtk.EventBox):
         game_data = self.model.data
         self.clean_list(load=True)
         for key in game_pairs:
-            if game_pairs[key].props.aimg != None:
-                aimg = GdkPixbuf.Pixbuf.new_from_file( \
+            if game_pairs[key].props.aimg is not None:
+                aimg = GdkPixbuf.Pixbuf.new_from_file(
                     join(self.model.data['pathimg'],
                          game_pairs[key].props.aimg))
             else:
                 aimg = None
 
-            if game_pairs[key].props.bimg != None:
-                bimg = GdkPixbuf.Pixbuf.new_from_file( \
+            if game_pairs[key].props.bimg is not None:
+                bimg = GdkPixbuf.Pixbuf.new_from_file(
                     join(self.model.data['pathimg'],
                          game_pairs[key].props.bimg))
             else:
                 bimg = None
 
-            if game_pairs[key].props.asnd != None:
+            if game_pairs[key].props.asnd is not None:
                 asnd = join(self.model.data['pathsnd'],
                             game_pairs[key].props.asnd)
             else:
                 asnd = None
 
-            if game_pairs[key].props.bsnd != None:
+            if game_pairs[key].props.bsnd is not None:
                 bsnd = join(self.model.data['pathsnd'],
                             game_pairs[key].props.bsnd)
             else:
                 bsnd = None
 
-            self.add_pair(None, game_pairs[key].props.achar,
-                    game_pairs[key].props.bchar, aimg, bimg, asnd, bsnd,
-                    game_pairs[key].props.aspeak, game_pairs[key].props.bspeak,
-                    font_name1, font_name2, False, load=True)
+            self.add_pair(
+                None, game_pairs[key].props.achar,
+                game_pairs[key].props.bchar, aimg, bimg, asnd, bsnd,
+                game_pairs[key].props.aspeak, game_pairs[key].props.bspeak,
+                font_name1, font_name2, False, load=True)
         self.get_window().thaw_updates()
         self.emit('update-create-toolbar', self.model.data['name'],
                   self.model.data['equal_pairs'],
@@ -147,7 +148,7 @@ class CardList(Gtk.EventBox):
 
             # aimg
             aimg = self.pairs[pair].get_pixbuf(1)
-            if aimg != None:
+            if aimg is not None:
                 if equal_pairs:
                     aimgfile = 'img' + str(pair) + '.jpg'
                 else:
@@ -156,7 +157,7 @@ class CardList(Gtk.EventBox):
                 aimg.savev(join(temp_img_folder, aimgfile), 'jpeg', [], [])
             # bimg
             bimg = self.pairs[pair].get_pixbuf(2)
-            if bimg != None:
+            if bimg is not None:
                 if equal_pairs:
                     bimgfile = 'img' + str(pair) + '.jpg'
                 else:
@@ -167,19 +168,19 @@ class CardList(Gtk.EventBox):
             # asnd
             asnd = self.pairs[pair].get_sound(1)
             logging.debug('update_model asnd %s', asnd)
-            if asnd != None:
+            if asnd is not None:
                 pair_card.set_property('asnd', basename(asnd))
             # bsnd
             bsnd = self.pairs[pair].get_sound(2)
             logging.debug('update_model bsnd %s', bsnd)
-            if bsnd != None:
+            if bsnd is not None:
                 pair_card.set_property('bsnd', basename(bsnd))
 
             game_model.pairs[pair] = pair_card
         self.pair_list_modified = False
 
     def clean_list(self, button=None, load=False):
-        if button != None:
+        if button is not None:
             self.current_game_key = None
         map(lambda x: self.tray.remove_item(x), self.pairs)
         del self.pairs
@@ -189,9 +190,10 @@ class CardList(Gtk.EventBox):
             self.model.mark_modified()
 
     def add_pair(self, widget, achar, bchar, aimg, bimg, asnd, bsnd,
-            aspeak, bspeak, font_name1, font_name2, show=True, load=False):
+                 aspeak, bspeak, font_name1, font_name2, show=True,
+                 load=False):
         pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak,
-                font_name1, font_name2)
+                        font_name1, font_name2)
         self.vbox.pack_end(pair, False, True, 0)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
@@ -219,7 +221,7 @@ class CardList(Gtk.EventBox):
         del widget
         self.model.mark_modified()
         self.emit('pair-selected', False, None, None, None, None, None, None,
-                False, False)
+                  False, False)
 
     def set_selected(self, widget, event):
         if self.current_pair is not None:
@@ -228,17 +230,17 @@ class CardList(Gtk.EventBox):
         self.current_pair = widget
         widget.set_selected(True)
         self.emit('pair-selected', True,
-                self.current_pair.get_text(1),
-                self.current_pair.get_text(2),
-                self.current_pair.get_pixbuf(1),
-                self.current_pair.get_pixbuf(2),
-                self.current_pair.get_sound(1),
-                self.current_pair.get_sound(2),
-                self.current_pair.get_speak(1),
-                self.current_pair.get_speak(2))
+                  self.current_pair.get_text(1),
+                  self.current_pair.get_text(2),
+                  self.current_pair.get_pixbuf(1),
+                  self.current_pair.get_pixbuf(2),
+                  self.current_pair.get_sound(1),
+                  self.current_pair.get_sound(2),
+                  self.current_pair.get_speak(1),
+                  self.current_pair.get_speak(2))
 
     def update_selected(self, widget, newtext1, newtext2, aimg, bimg,
-            asnd, bsnd, aspeak, bspeak):
+                        asnd, bsnd, aspeak, bspeak):
         self.current_pair.change_text(newtext1, newtext2)
         self.current_pair.change_pixbuf(aimg, bimg)
         self.current_pair.change_sound(asnd, bsnd)
@@ -257,8 +259,8 @@ class CardPair(Gtk.EventBox):
     }
 
     def __init__(self, text1, text2=None, aimg=None, bimg=None,
-            asnd=None, bsnd=None, aspeak=None, bspeak=None,
-            font_name1=None, font_name2=None):
+                 asnd=None, bsnd=None, aspeak=None, bspeak=None,
+                 font_name1=None, font_name2=None):
         Gtk.EventBox.__init__(self)
         self.bg_color = '#000000'
 
@@ -271,44 +273,43 @@ class CardPair(Gtk.EventBox):
         row.props.border_width = 10
         row.props.spacing = 10
 
-        self.bcard1 = svgcard.SvgCard(-1,
-                {'front_text': {'card_text': text1,
+        self.bcard1 = svgcard.SvgCard(
+            -1, {'front_text': {'card_text': text1,
                                 'speak': aspeak,
                                 'text_color': '#ffffff'},
-                  'front': {'fill_color': '#4c4d4f',
-                            'stroke_color': '#ffffff',
-                            'opacity': '1'}},
-                  None, theme.PAIR_SIZE, 1, self.bg_color, font_name1)
+                 'front': {'fill_color': '#4c4d4f',
+                           'stroke_color': '#ffffff',
+                           'opacity': '1'}},
+            None, theme.PAIR_SIZE, 1, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_pixbuf(aimg)
         align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(self.bcard1)
         row.pack_start(align, True, True, 0)
 
-        self.bcard2 = svgcard.SvgCard(-1,
-                {'front_text': {'card_text': text2,
+        self.bcard2 = svgcard.SvgCard(
+            -1, {'front_text': {'card_text': text2,
                                 'speak': bspeak,
-                                 'text_color': '#ffffff'},
-                  'front': {'fill_color': '#4c4d4f',
-                            'stroke_color': '#ffffff',
-                            'opacity': '1'}},
-                  None, theme.PAIR_SIZE, 1, self.bg_color, font_name2)
+                                'text_color': '#ffffff'},
+                 'front': {'fill_color': '#4c4d4f',
+                           'stroke_color': '#ffffff',
+                           'opacity': '1'}},
+            None, theme.PAIR_SIZE, 1, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_pixbuf(bimg)
         align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(self.bcard2)
         row.pack_start(align, True, True, 0)
 
-        close_image = Icon(
-                icon_name='remove',
-                icon_size=Gtk.IconSize.LARGE_TOOLBAR)
+        close_image = Icon(icon_name='remove',
+                           icon_size=Gtk.IconSize.LARGE_TOOLBAR)
         align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(close_image)
         close_button = Gtk.ToolButton()
         close_button.set_icon_widget(align)
         close_button.connect('clicked', self.emit_close)
         close_button.set_size_request(style.STANDARD_ICON_SIZE,
-                style.STANDARD_ICON_SIZE)
+                                      style.STANDARD_ICON_SIZE)
         align = Gtk.Alignment.new(.5, 0, 0, 0)
         align.add(close_button)
         row.pack_start(align, False, False, 0)
