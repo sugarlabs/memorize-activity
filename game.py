@@ -37,23 +37,34 @@ class MemorizeGame(GObject.GObject):
     __gsignals__ = {
         'reset_scoreboard': (GObject.SignalFlags.RUN_FIRST, None, []),
         'reset_table': (GObject.SignalFlags.RUN_FIRST, None, []),
-        'load_mode': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
-        'load_game': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
-        'change_game': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
-        'change_game_signal': (GObject.SignalFlags.RUN_FIRST, None, 5 * [GObject.TYPE_PYOBJECT]),
-        'set-border': (GObject.SignalFlags.RUN_FIRST, None, 3 * [GObject.TYPE_PYOBJECT]),
+        'load_mode': (GObject.SignalFlags.RUN_FIRST, None,
+                      [GObject.TYPE_PYOBJECT]),
+        'load_game': (GObject.SignalFlags.RUN_FIRST, None,
+                      2 * [GObject.TYPE_PYOBJECT]),
+        'change_game': (GObject.SignalFlags.RUN_FIRST, None,
+                        2 * [GObject.TYPE_PYOBJECT]),
+        'change_game_signal': (GObject.SignalFlags.RUN_FIRST, None,
+                               5 * [GObject.TYPE_PYOBJECT]),
+        'set-border': (GObject.SignalFlags.RUN_FIRST, None,
+                       3 * [GObject.TYPE_PYOBJECT]),
         'flip-card': (GObject.SignalFlags.RUN_FIRST, None, [int, bool]),
         'flip-card-signal': (GObject.SignalFlags.RUN_FIRST, None, [int]),
         'cement-card': (GObject.SignalFlags.RUN_FIRST, None, [int]),
         'flop-card': (GObject.SignalFlags.RUN_FIRST, None, [int]),
-        'highlight-card': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
-        'add_buddy': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
-        'rem_buddy': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
-        'increase-score': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
-        'wait_mode_buddy': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
-        'msg_buddy': (GObject.SignalFlags.RUN_FIRST, None, 2 * [GObject.TYPE_PYOBJECT]),
-        'change-turn': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT]),
-        }
+        'highlight-card': (GObject.SignalFlags.RUN_FIRST, None,
+                           2 * [GObject.TYPE_PYOBJECT]),
+        'add_buddy': (GObject.SignalFlags.RUN_FIRST, None,
+                      2 * [GObject.TYPE_PYOBJECT]),
+        'rem_buddy': (GObject.SignalFlags.RUN_FIRST, None,
+                      [GObject.TYPE_PYOBJECT]),
+        'increase-score': (GObject.SignalFlags.RUN_FIRST, None,
+                           [GObject.TYPE_PYOBJECT]),
+        'wait_mode_buddy': (GObject.SignalFlags.RUN_FIRST, None,
+                            2 * [GObject.TYPE_PYOBJECT]),
+        'msg_buddy': (GObject.SignalFlags.RUN_FIRST, None,
+                      2 * [GObject.TYPE_PYOBJECT]),
+        'change-turn': (GObject.SignalFlags.RUN_FIRST, None,
+                        [GObject.TYPE_PYOBJECT]), }
 
     def __init__(self):
         GObject.GObject.__init__(self)
@@ -127,7 +138,7 @@ class MemorizeGame(GObject.GObject):
         self.emit('add_buddy', buddy, score)
         logging.debug(str(buddy))
 
-        if self.current_player == None:
+        if self.current_player is None:
             self.current_player = buddy
             self.change_turn()
 
@@ -154,7 +165,7 @@ class MemorizeGame(GObject.GObject):
     def change_turn(self):
         if len(self.players) <= 1:
             self.current_player = self.players[0]
-        if self.current_player == None:
+        if self.current_player is None:
             self.current_player = self.players[0]
         elif self.current_player == self.players[-1]:
             self.current_player = self.players[0]
@@ -201,7 +212,7 @@ class MemorizeGame(GObject.GObject):
                 self.emit('flip-card-signal', identifier)
 
         snd = self.model.grid[identifier].get('snd', None)
-        if snd != None:
+        if snd is not None:
             sound_file = join(self.model.data.get('pathsnd'), snd)
             self.audio.play(sound_file)
 
@@ -223,16 +234,16 @@ class MemorizeGame(GObject.GObject):
                 flip_card(full_animation=False)
 
                 stroke_color, fill_color = \
-                        self.current_player.props.color.split(',')
+                    self.current_player.props.color.split(',')
                 self.emit('set-border', identifier, stroke_color, fill_color)
                 self.emit('set-border', self.last_flipped,
                           stroke_color, fill_color)
 
                 self.increase_point(self.current_player)
                 self.model.grid[identifier]['state'] = \
-                        self.current_player.props.color
+                    self.current_player.props.color
                 self.model.grid[self.last_flipped]['state'] = \
-                        self.current_player.props.color
+                    self.current_player.props.color
                 self.flip_block = False
 
                 self.emit('cement-card', identifier)
@@ -245,8 +256,9 @@ class MemorizeGame(GObject.GObject):
                 self.model.grid[identifier]['state'] = '1'
                 self.set_sensitive(False)
                 self._flop_cards = (identifier, self.last_flipped)
-                self._flop_card_timeout = GObject.timeout_add(theme.FLOP_BACK_TIMEOUT,
-                        self.flop_card, identifier, self.last_flipped)
+                self._flop_card_timeout = GObject.timeout_add(
+                    theme.FLOP_BACK_TIMEOUT,
+                    self.flop_card, identifier, self.last_flipped)
             self.last_flipped = -1
 
     def flop_card(self, identifier, identifier2):
@@ -291,7 +303,7 @@ class MemorizeGame(GObject.GObject):
         return self.model.grid
 
     def collect_data(self):
-        for player, score  in self.players_score.items():
+        for player, score in self.players_score.items():
             index = self.players.index(player)
             score = self.players_score[player]
             self.model.data[str(index)] = str(score)
@@ -305,23 +317,23 @@ class MemorizeGame(GObject.GObject):
             if self.model.read(game_name) != 0:
                 logging.error(' Reading setup file %s', game_name)
                 return
-        if size == None:
+        if size is None:
             size = int(self.model.data['size'])
         self.model.def_grid(size)
 
-        if title != None:
+        if title is not None:
             self.model.data['title'] = title
-        if color != None:
+        if color is not None:
             self.model.data['color'] = color
         self.load_remote(self.model.grid, self.model.data, mode, False)
 
     def reset_game(self, size=None):
-        if size == None:
+        if size is None:
             size = int(self.model.data['size'])
         self.model.count = 0
         self.model.def_grid(size)
         self.load_remote(self.model.grid, self.model.data,
-                self.model.data['mode'], False)
+                         self.model.data['mode'], False)
 
     def set_load_mode(self, msg):
         self.emit('load_mode', msg)
@@ -342,7 +354,7 @@ class MemorizeGame(GObject.GObject):
 
     def get_players_data(self):
         data = []
-        for player, score  in self.players_score.items():
+        for player, score in self.players_score.items():
             data.append([player.props.key, player.props.nick,
                          player.props.color, score])
         return data
@@ -351,7 +363,7 @@ class MemorizeGame(GObject.GObject):
         self.waiting_players = wait_list
         for w in wait_list:
             for p in self.players:
-                if  w[0] == p.props.key:
+                if w[0] == p.props.key:
                     list.remove(w)
                     for i_ in range(w[3]):
                         self.increase_point(p)
