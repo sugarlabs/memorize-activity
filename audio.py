@@ -40,7 +40,7 @@ class Audio(object):
             _logger.debug('play audio %s' % filename)
             self._player.set_property('uri', 'file://' + filename)
             self._player.set_state(Gst.State.NULL)
-        elif self._playing == None:
+        elif self._playing is None:
             return
         else:
             _logger.debug('continue audio')
@@ -49,7 +49,7 @@ class Audio(object):
         self._playing = True
 
     def pause(self):
-        if self._playing != None:
+        if self._playing is not None:
             _logger.debug('pause audio')
             self._player.set_state(Gst.State.PAUSED)
             self._playing = False

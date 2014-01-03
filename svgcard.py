@@ -112,8 +112,8 @@ class SvgCard(Gtk.EventBox):
         context.paint()
 
         if self.show_jpeg:
-            Gdk.cairo_set_source_pixbuf(context, self.jpeg,
-                theme.SVG_PAD, theme.SVG_PAD)
+            Gdk.cairo_set_source_pixbuf(context, self.jpeg, theme.SVG_PAD,
+                                        theme.SVG_PAD)
             context.paint()
 
         if self.show_text:
@@ -122,7 +122,7 @@ class SvgCard(Gtk.EventBox):
 
             if not layout:
                 layout = self.text_layouts[self.flipped] = \
-                        self.create_text_layout(props['card_text'])
+                    self.create_text_layout(props['card_text'])
 
             width, height = layout.get_pixel_size()
             y = (self.size - height) / 2
@@ -139,13 +139,12 @@ class SvgCard(Gtk.EventBox):
             PangoCairo.show_layout(context, layout)
             context.fill()
 
-
         return False
 
     def _read_icon_data(self, view):
         icon_data = self.props[view]
         key = str(self.size) + icon_data.get('fill_color') + \
-                icon_data.get('stroke_color')
+            icon_data.get('stroke_color')
         if key in self.cache:
             return self.cache[key]
 
@@ -158,7 +157,7 @@ class SvgCard(Gtk.EventBox):
         data = re.sub('<!ENTITY fill_color .*>', entity, data)
 
         entity = '<!ENTITY stroke_color "%s">' % \
-                icon_data.get('stroke_color', '')
+            icon_data.get('stroke_color', '')
         data = re.sub('<!ENTITY stroke_color .*>', entity, data)
 
         entity = '<!ENTITY opacity "%s">' % icon_data.get('opacity', '')
@@ -179,11 +178,11 @@ class SvgCard(Gtk.EventBox):
             Gtk.main_iteration()
 
     def set_pixbuf(self, pixbuf):
-        if pixbuf == None:
+        if pixbuf is None:
             self.jpeg = None
             self.show_jpeg = False
         else:
-            if self.jpeg != None:
+            if self.jpeg is not None:
                 del self.jpeg
 
             self.jpeg = pixbuf
@@ -221,9 +220,9 @@ class SvgCard(Gtk.EventBox):
                 pixbuf_t = GdkPixbuf.Pixbuf.new_from_file(self.jpeg)
                 if pixbuf_t.get_width() != self.size - 22 \
                         or pixbuf_t.get_height() != self.size - 22:
-                    self.jpeg = pixbuf_t.scale_simple(self.size - 22,
-                                                      self.size - 22,
-                                                      GdkPixbuf.InterpType.BILINEAR)
+                    self.jpeg = pixbuf_t.scale_simple(
+                        self.size - 22, self.size - 22,
+                        GdkPixbuf.InterpType.BILINEAR)
                     del pixbuf_t
                 else:
                     self.jpeg = pixbuf_t
@@ -232,7 +231,7 @@ class SvgCard(Gtk.EventBox):
         if self.jpeg is not None:
             self.show_jpeg = True
         text = self.props.get('front_text', {}).get('card_text', '')
-        if text != None and len(text) > 0:
+        if text is not None and len(text) > 0:
             self.show_text = True
         else:
             self.show_text = False
@@ -243,7 +242,7 @@ class SvgCard(Gtk.EventBox):
                 if speaking_face:
                     self._switch_to_face(speaking_face)
                     speaking_face.face.status.voice = \
-                            speak.voice.by_name(self.get_speak())
+                        speak.voice.by_name(self.get_speak())
                     speaking_face.face.say(self.get_text())
 
         self.current_face = 'front'

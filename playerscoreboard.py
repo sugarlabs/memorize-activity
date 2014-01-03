@@ -65,13 +65,15 @@ class PlayerScoreboard(Gtk.EventBox):
 
         # Set buddy icon
         self.xo_buddy = join(dirname(__file__), 'images', 'stock-buddy.svg')
-        self.icon = svglabel.SvgLabel(self.xo_buddy, fill_color, stroke_color,
-                False, self.current_color, theme.BODY_WIDTH, theme.BODY_HEIGHT)
+        self.icon = svglabel.SvgLabel(
+            self.xo_buddy, fill_color, stroke_color,
+            False, self.current_color, theme.BODY_WIDTH, theme.BODY_HEIGHT)
 
         # Set waiting buddy icon
-        self.waiting_icon = svglabel.SvgLabel(self.xo_buddy, \
-                self.default_color, '#ffffff', False, self.current_color,
-                theme.BODY_WIDTH, theme.BODY_HEIGHT)
+        self.waiting_icon = svglabel.SvgLabel(
+            self.xo_buddy,
+            self.default_color, '#ffffff', False, self.current_color,
+            theme.BODY_WIDTH, theme.BODY_HEIGHT)
 
         # Set nick label
         self.nick = Gtk.Label(label=nick)
@@ -84,7 +86,8 @@ class PlayerScoreboard(Gtk.EventBox):
         self.msg.set_alignment(0, 0.5)
 
         self.add(self.table)
-        self.table.attach(self.icon, 0, 1, 0, 3, Gtk.AttachOptions.SHRINK, Gtk.AttachOptions.SHRINK)
+        self.table.attach(self.icon, 0, 1, 0, 3, Gtk.AttachOptions.SHRINK,
+                          Gtk.AttachOptions.SHRINK)
         self.table.attach(self.nick, 1, 2, 0, 1)
         self.table.attach(self.score_table, 1, 2, 1, 2)
 
@@ -94,9 +97,9 @@ class PlayerScoreboard(Gtk.EventBox):
 
     def _allocate_cb(self, widget, allocation):
         self._score_width = allocation.width - theme.BODY_WIDTH \
-                - theme.PAD * 2 - theme.PAD / 2
+            - theme.PAD * 2 - theme.PAD / 2
         self._score_cols = self._score_width / \
-                (theme.SCORE_SIZE + theme.PAD / 2)
+            (theme.SCORE_SIZE + theme.PAD / 2)
         self.change_game(self._game_size)
 
     def change_game(self, size):
@@ -106,8 +109,8 @@ class PlayerScoreboard(Gtk.EventBox):
 
         rows = int(math.ceil(float(size / 2) / self._score_cols))
         self.score_table.resize(rows, self._score_cols)
-        self.score_table.set_size_request(-1,
-                (theme.SCORE_SIZE + theme.PAD / 2) * (rows) - theme.PAD / 2)
+        self.score_table.set_size_request(
+            -1, (theme.SCORE_SIZE + theme.PAD / 2) * (rows) - theme.PAD / 2)
 
     def increase_score(self):
         if len(self.scores) == 0:
@@ -123,8 +126,10 @@ class PlayerScoreboard(Gtk.EventBox):
                           score_pixbuf_sel, score_pixbuf_unsel, self.status)
         self.scores.append(new_score)
         new_score.show()
-        self.score_table.attach(new_score, self.current_x, self.current_x + 1,
-                self.current_y, self.current_y + 1, Gtk.AttachOptions.SHRINK, Gtk.AttachOptions.SHRINK)
+        self.score_table.attach(
+            new_score, self.current_x, self.current_x + 1,
+            self.current_y, self.current_y + 1, Gtk.AttachOptions.SHRINK,
+            Gtk.AttachOptions.SHRINK)
         self.current_x += 1
         if self.current_x == self._score_cols:
             self.current_x = 0

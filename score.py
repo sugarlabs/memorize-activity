@@ -36,11 +36,11 @@ class Score(svglabel.SvgLabel):
         self.pixbuf_un = pixbuf
         self.pixbuf_sel = pixbuf_sel
         self.status = status
-        if self.pixbuf_un == None:
+        if self.pixbuf_un is None:
             self.pixbuf_un = svglabel.SvgLabel(filename, fill_color,
                                                stroke_color, False,
                                                self.default_color).get_pixbuf()
-        if self.pixbuf_sel == None:
+        if self.pixbuf_sel is None:
             label = svglabel.SvgLabel(filename, fill_color, stroke_color,
                                       False, self.selected_color)
             self.pixbuf_sel = label.get_pixbuf()
@@ -50,9 +50,10 @@ class Score(svglabel.SvgLabel):
         else:
             self.pixbuf = self.pixbuf_un
 
-        svglabel.SvgLabel.__init__(self, filename, fill_color, stroke_color,
-                self.pixbuf, self.default_color, theme.SCORE_SIZE,
-                theme.SCORE_SIZE)
+        svglabel.SvgLabel.__init__(
+            self, filename, fill_color, stroke_color,
+            self.pixbuf, self.default_color, theme.SCORE_SIZE,
+            theme.SCORE_SIZE)
         self.set_selected(status)
 
     def set_selected(self, status):

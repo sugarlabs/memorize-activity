@@ -70,7 +70,7 @@ class CreateToolbarBuilder(GObject.GObject):
 
     def _clear_game_bt(self, button):
         if self.activity.game.model.is_demo or \
-            len(self.activity.cardlist.pairs) == 0:
+                len(self.activity.cardlist.pairs) == 0:
             self.clear_game()
         else:
             alert = Alert()

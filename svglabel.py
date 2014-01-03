@@ -29,7 +29,7 @@ class SvgLabel(Gtk.DrawingArea):
     background_color = ''
 
     def __init__(self, filename, fill_color, stroke_color, pixbuf=False,
-            background_color='', request_x=45, request_y=45):
+                 background_color='', request_x=45, request_y=45):
         Gtk.DrawingArea.__init__(self)
 
         self.set_size_request(request_x, request_y)
@@ -42,7 +42,7 @@ class SvgLabel(Gtk.DrawingArea):
             self.pixbuf = pixbuf
         else:
             self.pixbuf = self._read_icon_data(self.filename, self.fill_color,
-                self.stroke_color)
+                                               self.stroke_color)
 
         self.connect('draw', self.__draw_cb)
 
@@ -71,13 +71,13 @@ class SvgLabel(Gtk.DrawingArea):
         self.fill_color = fill_color
         self.stroke_color = stroke_color
         self.pixmap = self._read_icon_data(self.filename, self.fill_color,
-                self.stroke_color)
+                                           self.stroke_color)
         self.queue_draw()
 
     def set_fill_color(self, fill_color):
         self.fill_color = fill_color
         self.pixmap = self._read_icon_data(self.filename, self.fill_color,
-                self.stroke_color)
+                                           self.stroke_color)
         self.queue_draw()
 
     def get_fill_color(self):
@@ -86,7 +86,7 @@ class SvgLabel(Gtk.DrawingArea):
     def set_stroke_color(self, stroke_color):
         self.stroke_color = stroke_color
         self.pixmap = self._read_icon_data(self.filename, self.fill_color,
-                self.stroke_color)
+                                           self.stroke_color)
         self.queue_draw()
 
     def get_stroke_color(self):
@@ -102,5 +102,5 @@ class SvgLabel(Gtk.DrawingArea):
     def set_background(self, background_color):
         self.background_color = background_color
         self.modify_bg(Gtk.StateType.NORMAL,
-                Gdk.color_parse(self.background_color))
+                       Gdk.color_parse(self.background_color))
         self.queue_draw()
