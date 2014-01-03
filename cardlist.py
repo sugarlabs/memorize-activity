@@ -60,13 +60,14 @@ class CardList(Gtk.EventBox):
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True, 0)
 
-        scroll = Gtk.ScrolledWindow()
-        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        scroll.add_with_viewport(self.vbox)
-        scroll.set_border_width(0)
-        scroll.get_child().modify_bg(Gtk.StateType.NORMAL,
-                                     Gdk.color_parse('#000000'))
-        self.add(scroll)
+        self._scroll = Gtk.ScrolledWindow()
+        self._scroll.set_policy(Gtk.PolicyType.AUTOMATIC,
+                                Gtk.PolicyType.AUTOMATIC)
+        self._scroll.add_with_viewport(self.vbox)
+        self._scroll.set_border_width(0)
+        self._scroll.get_child().modify_bg(Gtk.StateType.NORMAL,
+                                           Gdk.color_parse('#000000'))
+        self.add(self._scroll)
         self.show_all()
 
     def load_game(self, game):
@@ -198,6 +199,8 @@ class CardList(Gtk.EventBox):
         if not load:
             self.model.mark_modified()
             self.pair_list_modified = True
+            adj = self._scroll.get_vadjustment()
+            adj.set_value(adj.get_lower())
         if show:
             self.show_all()
 
