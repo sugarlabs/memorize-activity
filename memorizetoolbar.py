@@ -22,7 +22,6 @@ from gi.repository import GObject
 
 from gettext import gettext as _
 from sugar3.graphics.toolbutton import ToolButton
-from sugar3.graphics.toolcombobox import ToolComboBox
 from sugar3.graphics.alert import Alert
 from sugar3.graphics.icon import Icon
 from sugar3.activity.widgets import RadioMenuButton

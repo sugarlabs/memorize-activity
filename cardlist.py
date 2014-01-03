@@ -23,7 +23,6 @@ from gi.repository import GdkPixbuf
 import svgcard
 import logging
 from os.path import join, basename
-import shutil
 
 from model import Pair
 
@@ -79,7 +78,6 @@ class CardList(Gtk.EventBox):
         font_name1 = self.model.data['font_name1']
         font_name2 = self.model.data['font_name2']
         game_pairs = self.model.pairs
-        game_data = self.model.data
         self.clean_list(load=True)
         for key in game_pairs:
             if game_pairs[key].props.aimg is not None:
@@ -124,7 +122,6 @@ class CardList(Gtk.EventBox):
         equal_pairs = game_model.data['equal_pairs'] == '1'
         game_model.create_temp_directories()
         temp_img_folder = join(game_model.temp_folder, 'images')
-        temp_snd_folder = join(game_model.temp_folder, 'sounds')
 
         for pair in range(len(self.pairs)):
             pair_card = Pair()

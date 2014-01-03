@@ -163,7 +163,6 @@ class Model(object):
         self.data['pathsnd'] = join(self.data['path'], 'sounds')
 
         ''' extracts files in the zip file '''
-        game_name = basename(game_file)[:-4]
         zipFile = zipfile.ZipFile(game_file, "r")
         for each in zipFile.namelist():
             if not each.endswith('/'):
