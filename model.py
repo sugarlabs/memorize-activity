@@ -16,7 +16,7 @@
 #
 
 import os
-import libxml2
+from xml.etree.ElementTree import Element, SubElement, tostring, parse
 from os import environ, makedirs, chmod
 from os.path import join, basename, isdir, split, normpath, exists
 import logging
@@ -25,7 +25,7 @@ from gi.repository import GObject
 import zipfile
 import tempfile
 
-from sugar3.activity.activity import get_bundle_path, get_activity_root
+from sugar3.activity.activity import get_activity_root
 
 ART4APPS_IMAGE_PATH = ''
 try:
@@ -131,14 +131,6 @@ class Model(object):
         self.data['font_name1'] = DEFAULT_FONT
         self.data['font_name2'] = DEFAULT_FONT
 
-        try:
-            self.dtd = libxml2.parseDTD(None, join(get_bundle_path(),
-                                        'memorize.dtd'))
-        except libxml2.parserError, e:
-            _logger.error('Init: no memorize.dtd found ' + str(e))
-            self.dtd = None
-        self.ctxt = libxml2.newValidCtxt()
-
         self.pairs = {}
         self.grid = []
 
@@ -186,66 +178,56 @@ class Model(object):
         try:
             xml_file = join(environ['SUGAR_ACTIVITY_ROOT'],
                             self.data['path'], 'game.xml')
-            doc = libxml2.parseFile(xml_file)
-            if doc.validateDtd(self.ctxt, self.dtd):
+            doc = parse(xml_file)
+            if doc:
 
-                # get the requested nodes
-                xpa = doc.xpathNewContext()
-                res = xpa.xpathEval("//*")
+                memorize_elem = doc.getroot()
+                attributes = memorize_elem.attrib
+                if 'name' in attributes:
+                    self.data['name'] = attributes['name']
+                if 'scoresnd' in attributes:
+                    self.data['scoresnd'] = attributes['scoresnd']
+                if 'winsnd' in attributes:
+                    self.data['winsnd'] = attributes['winsnd']
+                if 'divided' in attributes:
+                    self.data['divided'] = attributes['divided']
+                if 'face' in attributes:
+                    self.data['face'] = attributes['face']
+                if 'face1' in attributes:
+                    self.data['face1'] = attributes['face1']
+                if 'face2' in attributes:
+                    self.data['face2'] = attributes['face2']
+                if 'align' in attributes:
+                    self.data['align'] = attributes['align']
+                if 'equal_pairs' in attributes:
+                    self.data['equal_pairs'] = attributes['equal_pairs']
+                if 'font_name1' in attributes:
+                    self.data['font_name1'] = attributes['font_name1']
+                if 'font_name2' in attributes:
+                    self.data['font_name2'] = attributes['font_name2']
+                if 'origin' in attributes:
+                    self.data['origin'] = attributes['origin']
+                    if self.data['origin'] == 'art4apps':
+                        self.data['pathimg'] = ART4APPS_IMAGE_PATH
 
-                # write their content to the data structure
                 idpair = 0
-                for elem in res:
-                    attributes = elem.get_properties()
+                for elem in memorize_elem.getchildren():
+                    attributes = elem.attrib
                     pair = Pair()
-                    if(elem.name == 'pair'):
-                        for attribute in attributes:
-                            if(attribute.name == 'text'):
-                                pass
-                            else:
-                                pair.set_property(attribute.name,
-                                                  attribute.content)
-                        self.pairs[str(idpair)] = pair
-                        idpair += 1
-                    elif(elem.name == 'memorize'):
-                        for attribute in attributes:
-                            if(attribute.name == 'text'):
-                                pass
-                            elif(attribute.name == 'name'):
-                                self.data['name'] = attribute.content
-                            elif(attribute.name == 'scoresnd'):
-                                self.data['scoresnd'] = attribute.content
-                            elif(attribute.name == 'winsnd'):
-                                self.data['winsnd'] = attribute.content
-                            elif(attribute.name == 'divided'):
-                                self.data['divided'] = attribute.content
-                            elif(attribute.name == 'face'):
-                                self.data['face'] = attribute.content
-                            elif(attribute.name == 'face1'):
-                                self.data['face1'] = attribute.content
-                            elif(attribute.name == 'face2'):
-                                self.data['face2'] = attribute.content
-                            elif(attribute.name == 'align'):
-                                self.data['align'] = attribute.content
-                            elif(attribute.name == 'equal_pairs'):
-                                self.data['equal_pairs'] = attribute.content
-                            elif(attribute.name == 'font_name1'):
-                                self.data['font_name1'] = attribute.content
-                            elif(attribute.name == 'font_name2'):
-                                self.data['font_name2'] = attribute.content
-                            elif(attribute.name == 'origin'):
-                                self.data['origin'] = attribute.content
-                                if self.data['origin'] == 'art4apps':
-                                    self.data['pathimg'] = ART4APPS_IMAGE_PATH
+                    for attribute in attributes.keys():
+                        if(attribute == 'text'):
+                            pass
+                        else:
+                            pair.set_property(attribute,
+                                              attributes[attribute])
+                    self.pairs[str(idpair)] = pair
+                    idpair += 1
 
-                xpa.xpathFreeContext()
             else:
                 _logger.error('Read: Error in validation of the file')
-                doc.freeDoc()
                 return 1
-            doc.freeDoc()
             return 0
-        except libxml2.parserError, e:
+        except Exception as e:
             _logger.error('Read: Error parsing file ' + str(e))
             return 2
 
@@ -284,70 +266,70 @@ class Model(object):
 
     def write(self):
         ''' writes the configuration to an xml file '''
-        doc = libxml2.newDoc("1.0")
-        root = doc.newChild(None, "memorize", None)
-
+        game_props = {}
         if(self.data.get('name', None) is not None):
-            root.setProp("name", self.data['name'])
+            game_props["name"] = self.data['name']
 
         if(self.data.get('divided', None) is not None):
-            root.setProp('divided', '1')
-            root.setProp('face1', '1')
-            root.setProp('face2', '2')
+            game_props['divided'] = '1'
+            game_props['face1'] = '1'
+            game_props['face2'] = '2'
         else:
-            root.setProp('divided', '0')
+            game_props['divided'] = '0'
 
         if 'origin' in self.data:
-            root.setProp('origin', self.data['origin'])
+            game_props['origin'] = self.data['origin']
 
         if(self.data.get('equal_pairs', None) is not None):
-            root.setProp('equal_pairs', self.data['equal_pairs'])
+            game_props['equal_pairs'] = self.data['equal_pairs']
         if(self.data.get('font_name1', None) is not None):
-            root.setProp('font_name1', self.data['font_name1'])
+            game_props['font_name1'] = self.data['font_name1']
         if(self.data.get('font_name2', None) is not None):
-            root.setProp('font_name2', self.data['font_name2'])
+            game_props['font_name2'] = self.data['font_name2']
         if(self.data.get('scoresnd', None) is not None):
-            root.setProp("scoresnd", self.data['scoresnd'])
+            game_props["scoresnd"] = self.data['scoresnd']
         if(self.data.get('winsnd', None) is not None):
-            root.setProp("winsnd", self.data['winsnd'])
+            game_props["winsnd"] = self.data['winsnd']
         if(self.data.get('divided', None) is not None):
-            root.setProp("divided", self.data['divided'])
+            game_props["divided"] = self.data['divided']
         if(self.data.get('face', None) is not None):
-            root.setProp("face", self.data['face'])
+            game_props["face"] = self.data['face']
         if(self.data.get('face1', None) is not None):
-            root.setProp("face1", self.data['face1'])
+            game_props["face1"] = self.data['face1']
         if(self.data.get('face2', None) is not None):
-            root.setProp("face2", self.data['face2'])
+            game_props["face2"] = self.data['face2']
         if(self.data.get('align', None) is not None):
-            root.setProp("align", self.data['align'])
+            game_props["align"] = self.data['align']
+
+        root = Element("memorize", game_props)
 
         for key in self.pairs:
-            elem = root.newChild(None, "pair", None)
+            pair_props = {}
             if self.pairs[key].props.aimg is not None:
-                elem.setProp("aimg", self.pairs[key].props.aimg)
+                pair_props["aimg"] = self.pairs[key].props.aimg
             if self.pairs[key].props.asnd is not None:
-                elem.setProp("asnd", self.pairs[key].props.asnd)
+                pair_props["asnd"] = self.pairs[key].props.asnd
             if self.pairs[key].props.achar is not None:
-                elem.setProp("achar", self.pairs[key].props.achar)
+                pair_props["achar"] = self.pairs[key].props.achar
             if self.pairs[key].props.bimg is not None:
-                elem.setProp("bimg", self.pairs[key].props.bimg)
+                pair_props["bimg"] = self.pairs[key].props.bimg
             if self.pairs[key].props.bsnd is not None:
-                elem.setProp("bsnd", self.pairs[key].props.bsnd)
+                pair_props["bsnd"] = self.pairs[key].props.bsnd
             if self.pairs[key].props.bchar is not None:
-                elem.setProp("bchar", self.pairs[key].props.bchar)
+                pair_props["bchar"] = self.pairs[key].props.bchar
             if self.pairs[key].props.aspeak is not None:
-                elem.setProp("aspeak", self.pairs[key].props.aspeak)
+                pair_props["aspeak"] = self.pairs[key].props.aspeak
             if self.pairs[key].props.bspeak is not None:
-                elem.setProp("bspeak", self.pairs[key].props.bspeak)
-            # elem.setProp("color", str(self.pairs[key].props.color))
-        logging.error(doc)
-        if doc.validateDtd(self.ctxt, self.dtd):
-            doc.saveFormatFile(join(self.game_path, 'game.xml'), 1)
-        else:
-            _logger.error('Write: Error in validation of the file')
-            doc.freeDoc()
+                pair_props["bspeak"] = self.pairs[key].props.bspeak
+            SubElement(root, 'pair', pair_props)
+
+        logging.error(tostring(root))
+
+        try:
+            with open(join(self.game_path, 'game.xml'), 'w') as xml_file:
+                xml_file.write(tostring(root))
+        except:
             return 2
-        doc.freeDoc()
         return 0
 
     def def_grid(self, size):
