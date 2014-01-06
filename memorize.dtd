@@ -13,6 +13,7 @@
   equal_pairs CDATA   #IMPLIED
   font_name1  CDATA   #IMPLIED
   font_name2  CDATA   #IMPLIED
+  origin  CDATA   #IMPLIED
 >
 
 <!ELEMENT pair (#PCDATA)* >

@@ -287,42 +287,50 @@ class MemorizeActivity(Activity):
         if self.cardlist.pair_list_modified:
             self.cardlist.update_model(self.game.model)
 
-        temp_img_folder = os.path.join(self.game.model.temp_folder, 'images')
-        temp_snd_folder = os.path.join(self.game.model.temp_folder, 'sounds')
+        temp_img_folder = self.game.model.data['pathimg']
+        temp_snd_folder = self.game.model.data['pathsnd']
         self.game.model.create_temp_directories()
         game_zip = zipfile.ZipFile(file_path, 'w')
         equal_pairs = self.game.model.data['equal_pairs'] == '1'
-        for pair in self.game.model.pairs:
-            # aimg
-            aimg = self.game.model.pairs[pair].get_property('aimg')
-            if aimg is not None:
-                if equal_pairs:
-                    aimgfile = 'img' + str(pair) + '.jpg'
-                else:
-                    aimgfile = 'aimg' + str(pair) + '.jpg'
-                game_zip.write(os.path.join(temp_img_folder, aimgfile),
-                               os.path.join('images', aimgfile))
+        save_image_and_sound = True
+        if 'origin' in self.game.model.data:
+            if self.game.model.data['origin'] == 'art4apps':
+                # we don't need save images and audio files
+                # for art4apps games
+                save_image_and_sound = False
 
-            # bimg
-            bimg = self.game.model.pairs[pair].get_property('bimg')
-            if bimg is not None:
-                if equal_pairs:
-                    bimgfile = 'img' + str(pair) + '.jpg'
-                else:
-                    bimgfile = 'bimg' + str(pair) + '.jpg'
-                game_zip.write(os.path.join(temp_img_folder, bimgfile),
-                               os.path.join('images', bimgfile))
-            # asnd
-            asnd = self.game.model.pairs[pair].get_property('asnd')
-            if asnd is not None:
-                game_zip.write(os.path.join(temp_snd_folder, asnd),
-                               os.path.join('sounds', asnd))
+        if save_image_and_sound:
+            for pair in self.game.model.pairs:
+                # aimg
+                aimg = self.game.model.pairs[pair].get_property('aimg')
+                if aimg is not None:
+                    if equal_pairs:
+                        aimgfile = 'img' + str(pair) + '.jpg'
+                    else:
+                        aimgfile = 'aimg' + str(pair) + '.jpg'
+                    game_zip.write(os.path.join(temp_img_folder, aimgfile),
+                                   os.path.join('images', aimgfile))
 
-            # bsnd
-            bsnd = self.game.model.pairs[pair].get_property('bsnd')
-            if bsnd is not None:
-                game_zip.write(os.path.join(temp_snd_folder, bsnd),
-                               os.path.join('sounds', bsnd))
+                # bimg
+                bimg = self.game.model.pairs[pair].get_property('bimg')
+                if bimg is not None:
+                    if equal_pairs:
+                        bimgfile = 'img' + str(pair) + '.jpg'
+                    else:
+                        bimgfile = 'bimg' + str(pair) + '.jpg'
+                    game_zip.write(os.path.join(temp_img_folder, bimgfile),
+                                   os.path.join('images', bimgfile))
+                # asnd
+                asnd = self.game.model.pairs[pair].get_property('asnd')
+                if asnd is not None:
+                    game_zip.write(os.path.join(temp_snd_folder, asnd),
+                                   os.path.join('sounds', asnd))
+
+                # bsnd
+                bsnd = self.game.model.pairs[pair].get_property('bsnd')
+                if bsnd is not None:
+                    game_zip.write(os.path.join(temp_snd_folder, bsnd),
+                                   os.path.join('sounds', bsnd))
 
         self.game.model.game_path = self.game.model.temp_folder
         self.game.model.data['name'] = str(self.get_title())

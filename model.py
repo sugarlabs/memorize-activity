@@ -15,6 +15,7 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import os
 import libxml2
 from os import environ, makedirs, chmod
 from os.path import join, basename, isdir, split, normpath, exists
@@ -25,6 +26,13 @@ import zipfile
 import tempfile
 
 from sugar3.activity.activity import get_bundle_path, get_activity_root
+
+ART4APPS_IMAGE_PATH = ''
+try:
+    import art4apps
+    ART4APPS_IMAGE_PATH = art4apps.IMAGES_PATH
+except ImportError:
+    pass
 
 _logger = logging.getLogger('model')
 
@@ -225,6 +233,11 @@ class Model(object):
                                 self.data['font_name1'] = attribute.content
                             elif(attribute.name == 'font_name2'):
                                 self.data['font_name2'] = attribute.content
+                            elif(attribute.name == 'origin'):
+                                self.data['origin'] = attribute.content
+                                if self.data['origin'] == 'art4apps':
+                                    self.data['pathimg'] = ART4APPS_IMAGE_PATH
+
                 xpa.xpathFreeContext()
             else:
                 _logger.error('Read: Error in validation of the file')
@@ -235,6 +248,39 @@ class Model(object):
         except libxml2.parserError, e:
             _logger.error('Read: Error parsing file ' + str(e))
             return 2
+
+    def read_art4apps(self, category, language, art4apps):
+        """
+        Create a game dinamically, based in the art4apps resources
+        """
+        self.modified = False
+        self.count = 0
+        self.data['game_file'] = '%s_%s' % (category, language)
+        self.data['origin'] = 'art4apps'
+        self.data['path'] = self.temp_folder
+        self.data['pathimg'] = ART4APPS_IMAGE_PATH
+
+        idpair = 0
+        self.pairs = {}
+        for word in art4apps.get_words_by_category(category):
+            image_filename = art4apps.get_image_filename(word)
+            if os.path.exists(image_filename):
+                pair = Pair()
+                label = word
+                if language != 'en':
+                    label = art4apps.get_translation(word, language)
+                pair.set_property('achar', label)
+                pair.set_property('bimg', basename(image_filename))
+
+                self.pairs[str(idpair)] = pair
+                idpair += 1
+        self.data['divided'] = '1'
+        self.data['face1'] = '1'
+        self.data['face2'] = '2'
+        self.data['equal_pairs'] = '0'
+        self.data['font_name1'] = 'Sans'
+        self.data['font_name2'] = 'Sans'
+        return 0
 
     def write(self):
         ''' writes the configuration to an xml file '''
@@ -250,6 +296,9 @@ class Model(object):
             root.setProp('face2', '2')
         else:
             root.setProp('divided', '0')
+
+        if 'origin' in self.data:
+            root.setProp('origin', self.data['origin'])
 
         if(self.data.get('equal_pairs', None) is not None):
             root.setProp('equal_pairs', self.data['equal_pairs'])
@@ -291,7 +340,7 @@ class Model(object):
             if self.pairs[key].props.bspeak is not None:
                 elem.setProp("bspeak", self.pairs[key].props.bspeak)
             # elem.setProp("color", str(self.pairs[key].props.color))
-
+        logging.error(doc)
         if doc.validateDtd(self.ctxt, self.dtd):
             doc.saveFormatFile(join(self.game_path, 'game.xml'), 1)
         else:

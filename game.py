@@ -317,6 +317,17 @@ class MemorizeGame(GObject.GObject):
             if self.model.read(game_name) != 0:
                 logging.error(' Reading setup file %s', game_name)
                 return
+        if mode == 'art4apps':
+            # NOTE: i am using the same variables from the signal
+            # to avoid addding more code
+            category = game_name
+            language = title
+            art4apps = color
+            color = None
+            title = None
+            self.model.is_demo = True
+            self.model.read_art4apps(category, language, art4apps)
+
         if size is None:
             size = int(self.model.data['size'])
         self.model.def_grid(size)
