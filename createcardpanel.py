@@ -397,6 +397,7 @@ class CardEditor(Gtk.EventBox):
 
     def set_pixbuf(self, pixbuf):
         self.card.set_pixbuf(pixbuf)
+        self.emit('has-picture', True)
 
     def _load_image(self, widget):
         def load(jobject):
