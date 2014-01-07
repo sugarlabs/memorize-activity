@@ -155,6 +155,10 @@ class CardTable(Gtk.EventBox):
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.connect('button-press-event',
                          self.flip_card_mouse, identifier)
+
+            self.set_events(Gdk.EventMask.TOUCH_MASK)
+            self.connect('event', self.__touch_event_cb, identifier)
+
             self.table_positions[(x, y)] = 1
             self.cd2id[card] = identifier
             self.id2cd[identifier] = card
@@ -187,6 +191,12 @@ class CardTable(Gtk.EventBox):
         x = (self._workspace_size + theme.CARD_PAD * (size_table - 1)) / \
             size_table - theme.CARD_PAD * 2
         return x
+
+    def __touch_event_cb(self, widget, event, identifier):
+        if event.type == Gdk.EventType.TOUCH_BEGIN:
+            position = self.dict[identifier]
+            card = self.cards[position]
+            self.card_flipped(card)
 
     def mouse_event(self, widget, event, coord):
         #self.table.grab_focus()
