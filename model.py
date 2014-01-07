@@ -28,9 +28,11 @@ import tempfile
 from sugar3.activity.activity import get_activity_root
 
 ART4APPS_IMAGE_PATH = ''
+ART4APPS_AUDIO_PATH = ''
 try:
     import art4apps
     ART4APPS_IMAGE_PATH = art4apps.IMAGES_PATH
+    ART4APPS_AUDIO_PATH = art4apps.AUDIO_PATH
 except ImportError:
     pass
 
@@ -241,6 +243,7 @@ class Model(object):
         self.data['origin'] = 'art4apps'
         self.data['path'] = self.temp_folder
         self.data['pathimg'] = ART4APPS_IMAGE_PATH
+        self.data['pathsnd'] = join(ART4APPS_AUDIO_PATH, language)
 
         idpair = 0
         self.pairs = {}
@@ -254,6 +257,11 @@ class Model(object):
                 pair.set_property('achar', label)
                 pair.set_property('bimg', basename(image_filename))
 
+                snd_filename = art4apps.get_audio_filename(word, language)
+                if snd_filename is not None:
+                    pair.set_property('asnd', basename(snd_filename))
+                else:
+                    pair.set_property('aspeak', "1")
                 self.pairs[str(idpair)] = pair
                 idpair += 1
         self.data['divided'] = '1'
