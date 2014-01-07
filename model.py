@@ -211,6 +211,12 @@ class Model(object):
                     self.data['origin'] = attributes['origin']
                     if self.data['origin'] == 'art4apps':
                         self.data['pathimg'] = ART4APPS_IMAGE_PATH
+                        if 'language' in attributes:
+                            language = attributes['language']
+                        else:
+                            language = 'en'
+                        self.data['pathsnd'] = join(ART4APPS_AUDIO_PATH,
+                                                    language)
 
                 idpair = 0
                 for elem in memorize_elem.getchildren():
@@ -241,6 +247,7 @@ class Model(object):
         self.count = 0
         self.data['game_file'] = '%s_%s' % (category, language)
         self.data['origin'] = 'art4apps'
+        self.data['language'] = language
         self.data['path'] = self.temp_folder
         self.data['pathimg'] = ART4APPS_IMAGE_PATH
         self.data['pathsnd'] = join(ART4APPS_AUDIO_PATH, language)
@@ -287,6 +294,8 @@ class Model(object):
 
         if 'origin' in self.data:
             game_props['origin'] = self.data['origin']
+        if 'language' in self.data:
+            game_props['language'] = self.data['language']
 
         if(self.data.get('equal_pairs', None) is not None):
             game_props['equal_pairs'] = self.data['equal_pairs']
