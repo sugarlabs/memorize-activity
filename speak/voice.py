@@ -69,12 +69,15 @@ expectedVoiceNames = [
 ]
 
 _allVoices = {}
+_allVoicesByLang = {}
 _defaultVoice = None
 
 class Voice:
-    def __init__(self, language, name):
+    def __init__(self, language, name, dialect=None):
         self.language = language
         self.name = name
+        if dialect is not None and dialect != 'none':
+            self.language = "%s-%s" % (self.language, dialect)
 
         friendlyname = name
         friendlyname = friendlyname.replace('-test','')
@@ -84,18 +87,35 @@ class Voice:
         friendlyname = friendlyname.capitalize()
         self.friendlyname = _(friendlyname)
 
+def _init_voice_cache():
+
+    for language, name, dialect in espeak.voices():
+        voice = Voice(language, name, dialect)
+        _allVoices[voice.friendlyname] = voice
+        _allVoicesByLang[voice.language] = voice
+
 def allVoices():
     if _allVoices:
         return _allVoices
 
-    for language, name in espeak.voices():
-        voice = Voice(language, name)
-        _allVoices[voice.friendlyname] = voice
+    _init_voice_cache()
 
     return _allVoices
 
 def by_name(name):
     return allVoices().get(name, defaultVoice())
+
+def allVoicesByLang():
+    if _allVoicesByLang:
+        return _allVoicesByLang
+
+    _init_voice_cache()
+
+    return _allVoicesByLang
+
+def by_lang(lang):
+    return allVoicesByLang().get(lang, defaultVoice())
+
 
 def defaultVoice():
     """Try to figure out the default voice, from the current locale ($LANG).

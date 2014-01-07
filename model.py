@@ -268,7 +268,15 @@ class Model(object):
                 if snd_filename is not None:
                     pair.set_property('asnd', basename(snd_filename))
                 else:
-                    pair.set_property('aspeak', "1")
+                    aspeak = language
+                    if language == 'en':
+                        aspeak = "en-us"
+                    elif language == 'es':
+                        aspeak = "es-la"
+                    elif language == 'fr':
+                        aspeak = "fr-fr"
+
+                    pair.set_property('aspeak', aspeak)
                 self.pairs[str(idpair)] = pair
                 idpair += 1
         self.data['divided'] = '1'

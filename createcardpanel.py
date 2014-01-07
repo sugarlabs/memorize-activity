@@ -377,7 +377,7 @@ class CardEditor(Gtk.EventBox):
         if self.usespeak is None:
             return None
         if self.usespeak.props.active:
-            return self.usespeak.palette.face.status.voice.friendlyname
+            return self.usespeak.palette.face.status.voice.language
 
     def set_speak(self, value):
         if self.usespeak is None:

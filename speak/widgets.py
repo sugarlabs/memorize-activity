@@ -12,8 +12,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import logging
-
 from sugar3.graphics.combobox import ComboBox
 
 import voice
@@ -42,7 +40,7 @@ class Voices(ComboBox):
     def resume(self, value):
         try:
             self.handler_block_by_func(self._changed_cb)
-            self.select(name=value)
+            self.select_by_lang(value)
             self.face.status.voice = self.props.value
         finally:
             self.handler_unblock_by_func(self._changed_cb)
@@ -59,6 +57,13 @@ class Voices(ComboBox):
 
         for i, item in enumerate(self.get_model()):
             if item[column] != value:
+                continue
+            self.set_active(i)
+            break
+
+    def select_by_lang(self, lang):
+        for i, item in enumerate(self.get_model()):
+            if item[0].language != lang:
                 continue
             self.set_active(i)
             break

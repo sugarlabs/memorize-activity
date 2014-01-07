@@ -242,7 +242,7 @@ class SvgCard(Gtk.EventBox):
                 if speaking_face:
                     self._switch_to_face(speaking_face)
                     speaking_face.face.status.voice = \
-                        speak.voice.by_name(self.get_speak())
+                        speak.voice.by_lang(self.get_speak())
                     speaking_face.face.say(self.get_text())
 
         self.current_face = 'front'
