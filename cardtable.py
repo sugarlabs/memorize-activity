@@ -206,7 +206,7 @@ class CardTable(Gtk.EventBox):
         self.selected_card = (coord[0], coord[1])
 
     def key_press_event(self, widget, event):
-        #self.table.grab_focus()
+        self.grab_focus()
         x = self.selected_card[0]
         y = self.selected_card[1]
 
