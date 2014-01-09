@@ -153,11 +153,9 @@ class CardTable(Gtk.EventBox):
                 identifier, props, jpg,
                 self.card_size, align, '#000000', font_name)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
-            card.connect('button-press-event',
-                         self.flip_card_mouse, identifier)
-
-            self.set_events(Gdk.EventMask.TOUCH_MASK)
-            self.connect('event', self.__touch_event_cb, identifier)
+            card.set_events(Gdk.EventMask.TOUCH_MASK |
+                            Gdk.EventMask.BUTTON_PRESS_MASK)
+            card.connect('event', self.__event_cb, [x, y])
 
             self.table_positions[(x, y)] = 1
             self.cd2id[card] = identifier
@@ -173,6 +171,7 @@ class CardTable(Gtk.EventBox):
                 x = 0
                 y += 1
             identifier += 1
+
         self.first_load = False
         if self.load_mode:
             self._set_load_mode(False)
@@ -192,10 +191,10 @@ class CardTable(Gtk.EventBox):
             size_table - theme.CARD_PAD * 2
         return x
 
-    def __touch_event_cb(self, widget, event, identifier):
-        if event.type == Gdk.EventType.TOUCH_BEGIN:
-            position = self.dict[identifier]
-            card = self.cards[position]
+    def __event_cb(self, widget, event, coord):
+        if event.type in (Gdk.EventType.TOUCH_BEGIN,
+                          Gdk.EventType.BUTTON_PRESS):
+            card = self.cards[coord[0], coord[1]]
             self.card_flipped(card)
 
     def mouse_event(self, widget, event, coord):
@@ -237,11 +236,6 @@ class CardTable(Gtk.EventBox):
         elif event.keyval in (Gdk.KEY_space, Gdk.KEY_KP_Page_Down):
             card = self.cards[x, y]
             self.card_flipped(card)
-
-    def flip_card_mouse(self, widget, event, identifier):
-        position = self.dict[identifier]
-        card = self.cards[position]
-        self.card_flipped(card)
 
     def card_flipped(self, card):
         identifer = self.cd2id[card]
