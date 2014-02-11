@@ -195,7 +195,7 @@ class CardList(Gtk.EventBox):
 
     def add_pair(self, widget, achar, bchar, aimg, bimg, asnd, bsnd,
                  aspeak, bspeak, font_name1, font_name2,
-                 aimg_name, bimage_name, show=True, load=False):
+                 aimg_name=None, bimage_name=None, show=True, load=False):
         pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak,
                         font_name1, font_name2, aimg_name, bimage_name)
         self.vbox.pack_end(pair, False, True, 0)
