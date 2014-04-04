@@ -335,11 +335,10 @@ class MemorizeGame(GObject.GObject):
             # to avoid addding more code
             category = game_name
             language = title
-            art4apps = color
             color = None
             title = None
             self.model.is_demo = True
-            self.model.read_art4apps(category, language, art4apps)
+            self.model.read_art4apps(category, language)
 
         if size is None:
             size = int(self.model.data['size'])

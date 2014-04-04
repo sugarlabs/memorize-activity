@@ -29,12 +29,17 @@ from sugar3.activity.activity import get_activity_root
 
 ART4APPS_IMAGE_PATH = ''
 ART4APPS_AUDIO_PATH = ''
+USE_ART4APPS = False
+art4apps_data = None
 try:
     import art4apps
+    USE_ART4APPS = True
     ART4APPS_IMAGE_PATH = art4apps.IMAGES_PATH
     ART4APPS_AUDIO_PATH = art4apps.AUDIO_PATH
+    art4apps_data = art4apps.Art4Apps()
 except ImportError:
     pass
+
 
 _logger = logging.getLogger('model')
 
@@ -239,10 +244,11 @@ class Model(object):
             _logger.error('Read: Error parsing file ' + str(e))
             return 2
 
-    def read_art4apps(self, category, language, art4apps):
+    def read_art4apps(self, category, language):
         """
         Create a game dinamically, based in the art4apps resources
         """
+
         self.modified = False
         self.count = 0
         self.data['game_file'] = '%s_%s' % (category, language)
@@ -254,17 +260,18 @@ class Model(object):
 
         idpair = 0
         self.pairs = {}
-        for word in art4apps.get_words_by_category(category):
-            image_filename = art4apps.get_image_filename(word)
+        for word in art4apps_data.get_words_by_category(category):
+            image_filename = art4apps_data.get_image_filename(word)
             if os.path.exists(image_filename):
                 pair = Pair()
                 label = word
                 if language != 'en':
-                    label = art4apps.get_translation(word, language)
+                    label = art4apps_data.get_translation(word, language)
                 pair.set_property('achar', label)
                 pair.set_property('bimg', basename(image_filename))
 
-                snd_filename = art4apps.get_audio_filename(word, language)
+                snd_filename = art4apps_data.get_audio_filename(word,
+                                                                language)
                 if snd_filename is not None:
                     pair.set_property('asnd', basename(snd_filename))
                 else:
