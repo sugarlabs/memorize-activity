@@ -166,7 +166,7 @@ class SvgCard(Gtk.EventBox):
         data = re.sub('size_card1', str(self.size), data)
         data = re.sub('size_card2', str(self.size - 6), data)
         data = re.sub('size_card3', str(self.size - 17), data)
-        pixbuf = Rsvg.Handle.new_from_data(data).get_pixbuf()
+        pixbuf = Rsvg.Handle.new_from_data(str(data)).get_pixbuf()
         self.cache[key] = pixbuf
         return pixbuf
 
