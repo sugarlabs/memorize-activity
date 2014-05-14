@@ -2,23 +2,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-05-14 04:23+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pbs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.7.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr ""
+msgstr "Mama'a"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -26,291 +27,294 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"¡kunji lania'at tamjeng sad-ia se manama'a kiñkie' kanaung! re se im "
+"li'iajaun jiuk manaju'u natsjau namjeng se mananú peuk vat'ei vumja'a ravu "
+"kad-at!"
 
 #: activity.py:71
 msgid "Play"
-msgstr ""
+msgstr "namjeng"
 
 #: activity.py:71
 msgid "Create"
-msgstr ""
+msgstr "matsjau"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr ""
+msgstr "Ngunjiu' ne namjeng:"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "livieily' skad-a vaka"
 
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "adición"
 
 #: activity.py:72
 msgid "letters"
-msgstr ""
+msgstr "kily'e"
 
 #: activity.py:72
 msgid "sounds"
-msgstr ""
+msgstr "vatei'"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Malejeiñ namjeng"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "namjeng"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr ""
+msgstr "Meje'euts nda viñkjiu maveily'"
 
 #: createcardpanel.py:85
 msgid "Add"
-msgstr ""
+msgstr "Meje'euts"
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "Matsjau makeje' viñkjiu maveily'"
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "Matsjau viñkjiu"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "Matsau' mapajau'"
 
 #: createcardpanel.py:330
 msgid "Text:"
-msgstr ""
+msgstr "kily'e me'ets:"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr ""
+msgstr "majusp kutaú"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "majusp vatei'"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Lan'eje' kily'e me'ets se manajá lutat pu nik'ix"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Makjaik re ngk'uix kale stiñkjia'"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Namjeng re rik'ix kanui vakjá"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Matseiñ' mi'ia pu rik'ix"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "¿Matseiñ' mi'ia pu ndi'en pu namjeng?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "Matseiñ'"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Kad-ep matseiñ'"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Vikjiaik rik'ix skad-a vakjá"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Namjeng re rik'ix skad-a mamuts'"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Makeje' ngutue'p kily'e"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Maveje'p namjeng..."
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "Adición"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "kily'e"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "vatei'"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Maveje'p namjeng se ma'u'up"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Mavaun' ngutue'p kily'e"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "Kue'e mapup namjeng"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "¿Majaiñ ne namjeng matsjau viñkjiu?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "majaiñ"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "kad-ep majaiñ"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "Vatajaich' namjeng"
 
 #: messenger.py:193
 msgid "done"
-msgstr ""
+msgstr "mateí"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "Portugués - Brasileño"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "Rumano"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Holandés"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "Latín"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonio"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "Galés"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruego"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "Ruso"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikáans"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "Finés"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "Predeterminada"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "Cantonés"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "Escocés"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "Griego"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnamita"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "nglés"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "Lancashire"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "italiano"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "Portugués"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "Susurro"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "Croata"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "man'eiñ"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "Polaco"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
