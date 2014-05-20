@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-04-28 06:58+0200\n"
+"PO-Revision-Date: 2014-05-20 18:52+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nah\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr ""
+msgstr "Tsontekontlalis"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -27,294 +27,293 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"!Nikan ti uelis ti mauiltis mauiltili tlen mits tsontekokoan! Sanke, tlen "
+"nejneuili, tlen ta ti uelis ti tlalis tlen ta ti majtok pan mo tsontekon."
 
 #: activity.py:71
-#, fuzzy
 msgid "Play"
 msgstr "Tlatsinkuis"
 
 #: activity.py:71
 msgid "Create"
-msgstr ""
+msgstr "Ti chiuas"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr ""
+msgstr "Tokan tlen ne mauitli:"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "Sanseme tlamanti"
 
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "motskiltili"
 
 #: activity.py:72
 msgid "letters"
-msgstr ""
+msgstr "tlajkuiloli"
 
 #: activity.py:72
 msgid "sounds"
-msgstr ""
+msgstr "kakistili"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Kualchichiuas mauiltili"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Mauiltis"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr ""
+msgstr "MotskiltiS se yankuik omensin"
 
 #: createcardpanel.py:85
-#, fuzzy
 msgid "Add"
-msgstr "Salo"
+msgstr "Motskiltis"
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "Yankuiltis tlajpejpenoli"
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "Yankuiltis"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "Axtiuitlachialtili:"
 
 #: createcardpanel.py:330
 msgid "Text:"
-msgstr ""
+msgstr "Tlajkuiloltlatoli:"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr ""
+msgstr "Tlatskiltis se ixnexkayotl"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "Tlatskilis se kakistli"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Tenkixtis tlajkuilojtlajtoli keman ti kilakatsos tlajkuiloli"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Sepanos amatsitsin amo san se"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Muiltili tlen nochimen amatsitsin"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Kixpouas nochi amatsistsin"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "¿Pojpouas nochi ajauil kotomen?"
 
 #: createtoolbar.py:78
-#, fuzzy
 msgid "Clear"
-msgstr "Pojpowas"
+msgstr "Pojpouas"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Amo ti pojpouas"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Sesentlalis amatsisin tlen nojkia"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Mauiltili tlen amatsitsin tlanechikoli"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Pejpenis tlen iuexka tlen tlajkuilol"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Mo peualtia mauiltili..."
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "Motskiltili"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "Tlajkuilol"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "Kakistili"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Peualtis mauiltilñi tlen ti kitas"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Patlas iuexka"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "Sempa ti peualtis mo mauiltili"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "¿Amo ti kajokuis mo maultili tlen ti chijki?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Ti sempanos"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Amo ti sempanos"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "Tlaseselia mauiltili"
 
 #: messenger.py:193
 msgid "done"
-msgstr ""
+msgstr "mo chijto"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "Portugués - Brasileño"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "Rumano"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Holandés"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "Latín"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonio"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "Galés"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruego"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "Ruso"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikáans"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "Finés"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "Predeterminada"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "Cantonés"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "Escocés"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "Griego"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnamita"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "Inglés"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "Lancashire"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "Portugués"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "Susurro"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "Croata"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "Polaco"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
