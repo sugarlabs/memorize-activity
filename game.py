@@ -135,6 +135,7 @@ class MemorizeGame(GObject.GObject):
     def add_buddy(self, buddy, score=0):
         _logger.debug('Buddy %r was added to game', buddy.props.nick)
         self.players.append(buddy)
+        self.players.sort(lambda a, b: cmp(a.props.nick, b.props.nick))
         self.players_score[buddy] = score
         self.emit('add_buddy', buddy, score)
         logging.debug(str(buddy))

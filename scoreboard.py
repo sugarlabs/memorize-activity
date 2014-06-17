@@ -59,7 +59,13 @@ class Scoreboard(Gtk.EventBox):
         player = PlayerScoreboard(nick, fill_color, stroke_color, score)
         player.show()
         self.players[buddy] = player
-        self.vbox.pack_start(player, False, False, 0)
+        # remove widgets and add sorted
+        for child in self.vbox.get_children():
+            self.vbox.remove(child)
+        for buddy in sorted(self.players.keys(), key=lambda buddy: buddy.props.nick):
+            p = self.players[buddy]
+            self.vbox.pack_start(p, False, False, 0)
+
         if score == -1:
             player.set_wait_mode(True)
         self.show_all()
