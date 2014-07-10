@@ -91,7 +91,7 @@ class Messenger(ExportedGObject):
     def load_game(self, bus_names, grid, data, current_player, path):
         self.ordered_bus_names = bus_names
         self.player_id = bus_names.index(self._tube.get_unique_name())
-        #self.game.load_waiting_list(list)
+        # self.game.load_waiting_list(list)
         self._change_game_receiver(data['mode'], grid, data, path)
 
         for i in range(len(self.game.players)):
@@ -206,7 +206,7 @@ class Messenger(ExportedGObject):
         # last chunk
         if part == numparts:
             self.f.close()
-            #file = self.files[filename]
+            # file = self.files[filename]
             # Saves the zip in datastore
             gameObject = datastore.create()
             gameObject.metadata['title'] = title
@@ -214,7 +214,7 @@ class Messenger(ExportedGObject):
             gameObject.metadata['icon-color'] = color
             gameObject.file_path = self.temp_file
             datastore.write(gameObject)
-            #gameObject.destroy()
+            # gameObject.destroy()
 
     # flip card methods
     def flip_sender(self, widget, id):

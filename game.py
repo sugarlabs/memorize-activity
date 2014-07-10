@@ -284,7 +284,7 @@ class MemorizeGame(GObject.GObject):
         self.emit('flop-card', identifier2)
         self.model.grid[identifier2]['state'] = '0'
 
-        #if self.model.data['divided'] == '1':
+        # if self.model.data['divided'] == '1':
         #    self.card_highlighted(widget, -1, False)
         self.set_sensitive(True)
         self.flip_block = False

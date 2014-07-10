@@ -53,7 +53,7 @@ class Scoreboard(Gtk.EventBox):
             self.players[buddy].change_game(len(grid))
 
     def add_buddy(self, widget, buddy, score):
-        ### FIXME: this breaks when the body is empty
+        # FIXME: this breaks when the body is empty
         nick = buddy.props.nick
         stroke_color, fill_color = buddy.props.color.split(',')
         player = PlayerScoreboard(nick, fill_color, stroke_color, score)
@@ -62,7 +62,8 @@ class Scoreboard(Gtk.EventBox):
         # remove widgets and add sorted
         for child in self.vbox.get_children():
             self.vbox.remove(child)
-        for buddy in sorted(self.players.keys(), key=lambda buddy: buddy.props.nick):
+        for buddy in sorted(self.players.keys(),
+                            key=lambda buddy: buddy.props.nick):
             p = self.players[buddy]
             self.vbox.pack_start(p, False, False, 0)
 

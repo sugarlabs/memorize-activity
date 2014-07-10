@@ -176,14 +176,12 @@ class CardTable(Gtk.EventBox):
         if self.load_mode:
             self._set_load_mode(False)
         self.show_all()
-        #gc.collect()
 
     def change_game(self, widget, data, grid):
         if not self.first_load:
             for card in self.cards.values():
                 self.table.remove(card)
                 del card
-        #gc.collect()
         self.load_game(None, data, grid)
 
     def get_card_size(self, size_table):
@@ -198,7 +196,6 @@ class CardTable(Gtk.EventBox):
             self.card_flipped(card)
 
     def mouse_event(self, widget, event, coord):
-        #self.table.grab_focus()
         card = self.cards[coord[0], coord[1]]
         identifier = self.cd2id.get(card)
         self.emit('card-highlighted', identifier, True)
