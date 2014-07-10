@@ -271,8 +271,6 @@ class CardTable(Gtk.EventBox):
             self.set_property('child', self.table)
         self.load_mode = mode
         self.queue_draw()
-        while Gtk.events_pending():
-            Gtk.main_iteration()
 
     def load_msg(self, widget, msg):
         if not self.load_mode:

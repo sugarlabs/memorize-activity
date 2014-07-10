@@ -164,8 +164,6 @@ class SvgCard(Gtk.EventBox):
         self.props['front'].update({'fill_color': style.Color(fill_color),
                                     'stroke_color': style.Color(stroke_color)})
         self.queue_draw()
-        while Gtk.events_pending():
-            Gtk.main_iteration()
 
     def set_pixbuf(self, pixbuf):
         if pixbuf is None:
@@ -180,8 +178,6 @@ class SvgCard(Gtk.EventBox):
             self.show_jpeg = True
 
         self.queue_draw()
-        while Gtk.events_pending():
-            Gtk.main_iteration()
 
     def get_pixbuf(self):
         return self.jpeg
@@ -238,9 +234,6 @@ class SvgCard(Gtk.EventBox):
         self.current_face = 'front'
         self.flipped = True
         self.queue_draw()
-
-        while Gtk.events_pending():
-            Gtk.main_iteration()
 
     def cement(self):
         if not self.get_speak():
