@@ -19,10 +19,7 @@
 #
 
 import logging
-from os.path import join, dirname
-import re
 
-from gi.repository import Rsvg
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -30,6 +27,7 @@ from gi.repository import Pango
 from gi.repository import PangoCairo
 
 from sugar3.util import LRU
+from sugar3.graphics import style
 
 import theme
 import face
@@ -38,25 +36,30 @@ import model
 
 _logger = logging.getLogger('memorize-activity')
 
+radio = style.zoom(60)
+
 
 class SvgCard(Gtk.EventBox):
-
-    border_svg = join(dirname(__file__), 'images', 'card.svg')
+    """
+    This class is named SvgCard for historica reasons only.
+    At the beginning a svg file was used to draw the card border.
+    Now was replaced by cairo, to make easier implement a flip animaton.
+    """
 
     # Default properties
     default_props = {}
-    default_props['back'] = {'fill_color': '#b2b3b7',
-                             'stroke_color': '#b2b3b7',
+    default_props['back'] = {'fill_color': style.Color('#b2b3b7'),
+                             'stroke_color': style.Color('#b2b3b7'),
                              'opacity': '1'}
-    default_props['back_h'] = {'fill_color': '#b2b3b7',
-                               'stroke_color': '#ffffff',
+    default_props['back_h'] = {'fill_color': style.Color('#b2b3b7'),
+                               'stroke_color': style.Color('#ffffff'),
                                'opacity': '1'}
-    default_props['back_text'] = {'text_color': '#c7c8cc'}
-    default_props['front'] = {'fill_color': '#4c4d4f',
-                              'stroke_color': '#ffffff',
+    default_props['back_text'] = {'text_color': style.Color('#c7c8cc')}
+    default_props['front'] = {'fill_color': style.Color('#4c4d4f'),
+                              'stroke_color': style.Color('#ffffff'),
                               'opacity': '1'}
-    default_props['front_h'] = {'fill_color': '#555555',
-                                'stroke_color': '#888888',
+    default_props['front_h'] = {'fill_color': style.Color('#555555'),
+                                'stroke_color': style.Color('#888888'),
                                 'opacity': '1'}
     default_props['front_text'] = {'text_color': '#ffffff'}
 
@@ -107,9 +110,22 @@ class SvgCard(Gtk.EventBox):
         self.show_all()
 
     def __draw_cb(self, widget, context):
-        pixbuf = self._read_icon_data(self.current_face)
-        Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
-        context.paint()
+        # draw the border
+        icon_data = self.props[self.current_face]
+        context.save()
+        if icon_data.get('opacity', '') == '1':
+            self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
+            if 'fill_color' in icon_data:
+                r, g, b, a = icon_data['fill_color'].get_rgba()
+                context.set_source_rgb(r, g, b)
+                context.fill_preserve()
+            if 'stroke_color' in icon_data:
+                r, g, b, a = icon_data['stroke_color'].get_rgba()
+                context.set_source_rgb(r, g, b)
+                context.set_line_width(6)
+                context.stroke()
+
+        context.restore()
 
         if self.show_jpeg:
             Gdk.cairo_set_source_pixbuf(context, self.jpeg, theme.SVG_PAD,
@@ -141,38 +157,12 @@ class SvgCard(Gtk.EventBox):
 
         return False
 
-    def _read_icon_data(self, view):
-        icon_data = self.props[view]
-        key = str(self.size) + icon_data.get('fill_color') + \
-            icon_data.get('stroke_color')
-        if key in self.cache:
-            return self.cache[key]
-
-        icon_file = open(self.border_svg, 'r')
-        data = icon_file.read()
-        icon_file.close()
-
-        # Replace borders parameters
-        entity = '<!ENTITY fill_color "%s">' % icon_data.get('fill_color', '')
-        data = re.sub('<!ENTITY fill_color .*>', entity, data)
-
-        entity = '<!ENTITY stroke_color "%s">' % \
-            icon_data.get('stroke_color', '')
-        data = re.sub('<!ENTITY stroke_color .*>', entity, data)
-
-        entity = '<!ENTITY opacity "%s">' % icon_data.get('opacity', '')
-        data = re.sub('<!ENTITY opacity .*>', entity, data)
-
-        data = re.sub('size_card1', str(self.size), data)
-        data = re.sub('size_card2', str(self.size - 6), data)
-        data = re.sub('size_card3', str(self.size - 17), data)
-        pixbuf = Rsvg.Handle.new_from_data(str(data)).get_pixbuf()
-        self.cache[key] = pixbuf
-        return pixbuf
-
     def set_border(self, stroke_color, fill_color):
-        self.props['front'].update({'fill_color': fill_color,
-                                    'stroke_color': stroke_color})
+        """
+        style_color, fill_color: str with format #RRGGBB
+        """
+        self.props['front'].update({'fill_color': style.Color(fill_color),
+                                    'stroke_color': style.Color(stroke_color)})
         self.queue_draw()
         while Gtk.events_pending():
             Gtk.main_iteration()
@@ -289,7 +279,7 @@ class SvgCard(Gtk.EventBox):
             fill_color = front_border.get('fill_color')
             front_text = self.default_propsfront_text
             stroke_color = front_text.get('front_border').get('stroke_color')
-            self.set_border(fill_color, stroke_color)
+            self.set_border(fill_color.get_html(), stroke_color.get_html())
             self.flop()
 
     def create_text_layout(self, text):
@@ -354,6 +344,17 @@ class SvgCard(Gtk.EventBox):
 
     def get_speak(self):
         return self.props['front_text'].get('speak')
+
+    def draw_round_rect(self, context, x, y, w, h, r):
+        context.move_to(x + r, y)
+        context.line_to(x + w - r, y)
+        context.curve_to(x + w, y, x + w, y, x + w, y + r)
+        context.line_to(x + w, y + h - r)
+        context.curve_to(x + w, y + h, x + w, y + h, x + w - r, y + h)
+        context.line_to(x + r, y + h)
+        context.curve_to(x, y + h, x, y + h, x, y + h - r)
+        context.line_to(x, y + r)
+        context.curve_to(x, y, x, y, x + r, y)
 
 
 def PIXELS_PANGO(x):

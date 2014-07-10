@@ -284,9 +284,9 @@ class CardPair(Gtk.EventBox):
         self.bcard1 = svgcard.SvgCard(
             -1, {'front_text': {'card_text': text1,
                                 'speak': aspeak,
-                                'text_color': '#ffffff'},
-                 'front': {'fill_color': '#4c4d4f',
-                           'stroke_color': '#ffffff',
+                                'text_color': style.Color('#ffffff')},
+                 'front': {'fill_color': style.Color('#4c4d4f'),
+                           'stroke_color': style.Color('#ffffff'),
                            'opacity': '1'}},
             None, theme.PAIR_SIZE, 1, self.bg_color, font_name1)
         self.bcard1.flip()
@@ -298,9 +298,9 @@ class CardPair(Gtk.EventBox):
         self.bcard2 = svgcard.SvgCard(
             -1, {'front_text': {'card_text': text2,
                                 'speak': bspeak,
-                                'text_color': '#ffffff'},
-                 'front': {'fill_color': '#4c4d4f',
-                           'stroke_color': '#ffffff',
+                                'text_color': style.Color('#ffffff')},
+                 'front': {'fill_color': style.Color('#4c4d4f'),
+                           'stroke_color': style.Color('#ffffff'),
                            'opacity': '1'}},
             None, theme.PAIR_SIZE, 1, self.bg_color, font_name2)
         self.bcard2.flip()

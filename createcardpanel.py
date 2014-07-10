@@ -299,9 +299,9 @@ class CardEditor(Gtk.EventBox):
 
         self.card = svgcard.SvgCard(
             -1, {'front_text': {'card_text': '',
-                                'text_color': '#ffffff'},
-                 'front_border': {'fill_color': '#4c4d4f',
-                                  'stroke_color': '#ffffff',
+                                'text_color': style.Color('#ffffff')},
+                 'front_border': {'fill_color': style.Color('#4c4d4f'),
+                                  'stroke_color': style.Color('#ffffff'),
                                   'opacity': '1'}},
             None, theme.PAIR_SIZE, 1, '#c0c0c0')
         self.card.flip()
