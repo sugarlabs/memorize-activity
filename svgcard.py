@@ -187,7 +187,10 @@ class SvgCard(Gtk.EventBox):
         self.props['front'].update({'fill_color': style.Color(fill_color),
                                     'stroke_color': style.Color(stroke_color)})
         self._cached_surface[True] = None
-        self.queue_draw()
+        if not self.is_flipped():
+            self.flip(full_animation=True)
+        else:
+            self.queue_draw()
 
     def set_pixbuf(self, pixbuf):
         self.jpeg = pixbuf
