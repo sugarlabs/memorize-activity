@@ -266,7 +266,6 @@ class SvgCard(Gtk.EventBox):
             self._finish_flip()
 
     def _animate_flip(self):
-        logging.error('_animate_flip')
         if self._animation_step < self._animation_steps - 1:
             self.queue_draw()
             GObject.timeout_add(100, self._animate_flip)
@@ -286,6 +285,20 @@ class SvgCard(Gtk.EventBox):
         self._switch_to_face(self.draw)
 
     def flop(self):
+        self._animation_step = 0
+        self._on_animation = True
+        self._animate_flop()
+
+    def _animate_flop(self):
+        if self._animation_step < self._animation_steps - 1:
+            self.queue_draw()
+            GObject.timeout_add(100, self._animate_flop)
+        else:
+            self._finish_flop()
+        return False
+
+    def _finish_flop(self):
+        self._on_animation = False
         self.current_face = 'back'
         if len(self.props['back_text'].get('card_text', '')) > 0:
             self.show_text = True
