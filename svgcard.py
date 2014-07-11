@@ -67,7 +67,6 @@ class SvgCard(Gtk.EventBox):
         self.flipped_once = False
         self.id = identifier
         self.jpeg = jpeg
-        self.show_jpeg = False
         self.show_text = False
         self.size = size
         # animation data
@@ -160,7 +159,7 @@ class SvgCard(Gtk.EventBox):
         cache_context.stroke()
         cache_context.restore()
 
-        if self.show_jpeg:
+        if self.jpeg is not None and flipped:
             Gdk.cairo_set_source_pixbuf(cache_context, self.jpeg,
                                         theme.SVG_PAD, theme.SVG_PAD)
             cache_context.paint()
@@ -195,16 +194,7 @@ class SvgCard(Gtk.EventBox):
         self.queue_draw()
 
     def set_pixbuf(self, pixbuf):
-        if pixbuf is None:
-            self.jpeg = None
-            self.show_jpeg = False
-        else:
-            if self.jpeg is not None:
-                del self.jpeg
-
-            self.jpeg = pixbuf
-            del pixbuf
-            self.show_jpeg = True
+        self.jpeg = pixbuf
         self._cached_surface[True] = None
         self.queue_draw()
 
@@ -234,8 +224,6 @@ class SvgCard(Gtk.EventBox):
                     self.jpeg = pixbuf_t
             self.flipped_once = True
 
-        if self.jpeg is not None:
-            self.show_jpeg = True
         text = self.props.get('front_text', {}).get('card_text', '')
         if text is not None and len(text) > 0:
             self.show_text = True
@@ -295,7 +283,6 @@ class SvgCard(Gtk.EventBox):
         else:
             self.show_text = False
         self.flipped = False
-        self.show_jpeg = False
 
         if self.id != -1 and self.get_speak():
             self._switch_to_face(self.draw)
