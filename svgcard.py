@@ -63,8 +63,6 @@ class SvgCard(Gtk.EventBox):
                                 'opacity': '1'}
     default_props['front_text'] = {'text_color': '#ffffff'}
 
-    cache = {}
-
     def __init__(self, identifier, pprops, jpeg, size,
                  align, bg_color='#000000', font_name=model.DEFAULT_FONT):
         Gtk.EventBox.__init__(self)
