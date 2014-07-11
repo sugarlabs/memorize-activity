@@ -300,7 +300,7 @@ class CardEditor(Gtk.EventBox):
         self.card = svgcard.SvgCard(
             -1, {'front_text': {'card_text': '',
                                 'text_color': style.Color('#ffffff')}},
-            None, theme.PAIR_SIZE, 1, '#c0c0c0')
+            None, theme.PAIR_SIZE, '#c0c0c0')
         self.card.flip()
         card_align = Gtk.Alignment.new(.5, .5, 0, 0)
         card_align.add(self.card)

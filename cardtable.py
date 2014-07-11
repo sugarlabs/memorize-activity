@@ -148,10 +148,9 @@ class CardTable(Gtk.EventBox):
                 props['back_text'] = {'card_text': text2}
                 font_name = font_name2
 
-            align = self.data.get('align', '1')
             card = svgcard.SvgCard(
                 identifier, props, jpg,
-                self.card_size, align, '#000000', font_name)
+                self.card_size, '#000000', font_name)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.set_events(Gdk.EventMask.TOUCH_MASK |
                             Gdk.EventMask.BUTTON_PRESS_MASK)

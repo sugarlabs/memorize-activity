@@ -59,7 +59,7 @@ class SvgCard(Gtk.EventBox):
     default_props['front_text'] = {'text_color': '#ffffff'}
 
     def __init__(self, identifier, pprops, jpeg, size,
-                 align, bg_color='#000000', font_name=model.DEFAULT_FONT):
+                 bg_color='#000000', font_name=model.DEFAULT_FONT):
         Gtk.EventBox.__init__(self)
 
         self.bg_color = bg_color
@@ -76,7 +76,6 @@ class SvgCard(Gtk.EventBox):
         self._on_animation = False
         self._animation_step = 0
 
-        self.align = align
         self.text_layouts = [None, None]
         self.font_name = font_name
         self._highlighted = False
@@ -178,12 +177,6 @@ class SvgCard(Gtk.EventBox):
 
             width, height = layout.get_pixel_size()
             y = (self.size - height) / 2
-            if flipped:
-                if self.align == '2':  # top
-                    y = 0
-                elif self.align == '3':  # bottom
-                    y = self.size - height
-
             x = (self.size - width) / 2
             cache_context.set_source_rgb(1, 1, 1)
             cache_context.translate(x, y)
