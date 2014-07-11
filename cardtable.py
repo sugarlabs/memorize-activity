@@ -70,10 +70,10 @@ class CardTable(Gtk.EventBox):
         self.dict = None
         self.show_all()
 
-    def resize(self, size, change=True):
-        _logger.debug('set size request %dx%d' % (size, size))
-        self.set_size_request(size, size)
-        self._workspace_size = size
+    def resize(self, width, height, change=True):
+        _logger.debug('set size request %dx%d' % (width, height))
+        self.set_size_request(width, height)
+        self._workspace_size = min(width, height)
         if self.data:
             if change:
                 self.change_game(None, self.data, self.cards_data)
@@ -84,11 +84,7 @@ class CardTable(Gtk.EventBox):
         size = allocation.height
         width = Gdk.Screen.width()
         height = Gdk.Screen.height()
-        if width < height:
-            size = allocation.width
-        else:
-            size = allocation.height
-
+        size = min(width, height)
         if size == 100:
             # skip first time sizing
             return
@@ -96,7 +92,7 @@ class CardTable(Gtk.EventBox):
         # do it once
         if self._workspace_size:
             return
-        self.resize(size, change=False)
+        self.resize(width, height, change=False)
 
     def load_game(self, widget, data, grid):
         self.data = data

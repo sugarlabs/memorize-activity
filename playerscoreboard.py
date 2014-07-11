@@ -18,10 +18,10 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 
-import svglabel
+from sugar3.graphics.icon import Icon
+from sugar3.graphics import style
+
 import logging
-from os.path import join, dirname
-from score import Score
 import math
 
 import theme
@@ -34,9 +34,9 @@ class PlayerScoreboard(Gtk.EventBox):
     def __init__(self, nick, fill_color, stroke_color, score=0):
         Gtk.EventBox.__init__(self)
 
-        self.default_color = '#4c4d4f'
+        self.default_color = '#666666'
         self.selected_color = '#818286'
-        self.current_color = '#4c4d4f'
+        self.current_color = '#666666'
         self.status = False
         self._score_width = 0
         self._score_cols = 0
@@ -50,9 +50,9 @@ class PlayerScoreboard(Gtk.EventBox):
         self.table = Gtk.Table(2, 2, False)
         self.modify_bg(Gtk.StateType.NORMAL,
                        Gdk.color_parse(self.current_color))
-        self.table.set_row_spacings(theme.PAD / 2)
-        self.table.set_col_spacings(theme.PAD / 2)
-        self.table.set_border_width(theme.PAD)
+        self.table.set_row_spacings(0)
+        self.table.set_col_spacings(0)
+        self.table.set_border_width(theme.PAD / 2)
 
         # Score table
         self.score_table = Gtk.Table()
@@ -64,16 +64,10 @@ class PlayerScoreboard(Gtk.EventBox):
         self.current_y = 0
 
         # Set buddy icon
-        self.xo_buddy = join(dirname(__file__), 'images', 'stock-buddy.svg')
-        self.icon = svglabel.SvgLabel(
-            self.xo_buddy, fill_color, stroke_color,
-            False, self.current_color, theme.BODY_WIDTH, theme.BODY_HEIGHT)
-
-        # Set waiting buddy icon
-        self.waiting_icon = svglabel.SvgLabel(
-            self.xo_buddy,
-            self.default_color, '#ffffff', False, self.current_color,
-            theme.BODY_WIDTH, theme.BODY_HEIGHT)
+        self.icon = Icon(icon_name='computer-xo',
+                         pixel_size=style.STANDARD_ICON_SIZE)
+        self.icon.set_fill_color(fill_color)
+        self.icon.set_stroke_color(stroke_color)
 
         # Set nick label
         self.nick = Gtk.Label(label=nick)
@@ -113,17 +107,11 @@ class PlayerScoreboard(Gtk.EventBox):
             -1, (theme.SCORE_SIZE + theme.PAD / 2) * (rows) - theme.PAD / 2)
 
     def increase_score(self):
-        if len(self.scores) == 0:
-            # Cache the score icon
-            score_label = Score(self.fill_color, self.stroke_color)
-            score_pixbuf_unsel = score_label.get_pixbuf()
-            score_pixbuf_sel = score_label.get_pixbuf_sel()
-        else:
-            score_pixbuf_unsel = None
-            score_pixbuf_sel = None
+        new_score = Icon(icon_name='score',
+                         pixel_size=style.SMALL_ICON_SIZE)
+        new_score.set_fill_color(self.fill_color)
+        new_score.set_stroke_color(self.stroke_color)
 
-        new_score = Score(self.fill_color, self.stroke_color,
-                          score_pixbuf_sel, score_pixbuf_unsel, self.status)
         self.scores.append(new_score)
         new_score.show()
         self.score_table.attach(
@@ -160,14 +148,11 @@ class PlayerScoreboard(Gtk.EventBox):
 
     def set_wait_mode(self, status):
         if status:
-            self.table.remove(self.icon)
-            self.table.attach(self.waiting_icon, 0, 1, 0, 2)
+            self.icon.set_fill_color('#ffffff')
             if len(self.scores) == 0:
                 self.table.attach(self.msg, 1, 2, 1, 2)
         else:
-            self.table.remove(self.waiting_icon)
-            self.table.attach(self.icon, 0, 1, 0, 2)
-            self.table.remove(self.msg)
+            self.icon.set_fill_color(self.fill_color)
             if len(self.scores) == 0:
                 self.table.remove(self.msg)
         self.queue_draw()

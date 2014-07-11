@@ -35,7 +35,7 @@ class Scoreboard(Gtk.EventBox):
         self.vbox = Gtk.VBox(False)
 
         fill_box = Gtk.EventBox()
-        fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#4c4d4f'))
+        fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#666666'))
         fill_box.show()
         self.vbox.pack_end(fill_box, True, True, 0)
 

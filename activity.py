@@ -80,8 +80,6 @@ class MemorizeActivity(Activity):
 
         self.play_mode = None
 
-        self._calculate_sizes()
-
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
 
@@ -173,12 +171,15 @@ class MemorizeActivity(Activity):
         self._memorizeToolbarBuilder.connect('game_changed',
                                              self.change_game)
 
-        self.portrait_mode = Gdk.Screen.width() < Gdk.Screen.height()
-
-        self.box = Gtk.HBox(orientation=Gtk.Orientation.HORIZONTAL,
+        self.box = Gtk.HBox(orientation=Gtk.Orientation.VERTICAL,
                             homogeneous=False)
-        self.box.pack_start(self.table, False, False, 0)
-        self.box.pack_start(self.scoreboard, True, True, 0)
+
+        width = Gdk.Screen.width()
+        height = Gdk.Screen.height() - style.GRID_CELL_SIZE
+        self.table.resize(width, height - style.GRID_CELL_SIZE)
+        self.scoreboard.set_size_request(-1, style.GRID_CELL_SIZE)
+        self.box.pack_start(self.table, True, True, 0)
+        self.box.pack_start(self.scoreboard, False, False, 0)
         self.set_canvas(self.box)
 
         # connect to the in/out events of the memorize activity
@@ -227,36 +228,13 @@ class MemorizeActivity(Activity):
             self.game.add_buddy(self.owner)
         self.show_all()
 
-    def _calculate_sizes(self):
-        width = Gdk.Screen.width()
-        height = Gdk.Screen.height()
-        if width < height:
-            self.table_size = (width, width)
-            self.score_size = (width, height - width - style.GRID_CELL_SIZE)
-        else:
-            self.table_size = (height - style.GRID_CELL_SIZE,
-                               height - style.GRID_CELL_SIZE)
-            self.score_size = (width - self.table_size[0],
-                               height - style.GRID_CELL_SIZE)
-
     def __configure_cb(self, event):
         ''' Screen size has changed '''
         width = Gdk.Screen.width()
         height = Gdk.Screen.height() - style.GRID_CELL_SIZE
         self.box.set_size_request(width, height)
-        self._calculate_sizes()
-
-        portrait_mode = width < height
-        if portrait_mode != self.portrait_mode:
-            self.table.resize(self.table_size[0])
-            if portrait_mode:
-                self.box.set_orientation(Gtk.Orientation.VERTICAL)
-            else:
-                self.box.set_orientation(Gtk.Orientation.HORIZONTAL)
-            self.portrait_mode = portrait_mode
-            self.scoreboard.set_size_request(self.score_size[0],
-                                             self.score_size[1])
-
+        self.scoreboard.set_size_request(-1, style.GRID_CELL_SIZE)
+        self.table.resize(width, height - style.GRID_CELL_SIZE)
         self.show_all()
 
     def _change_mode_bt(self, button):
@@ -380,9 +358,8 @@ class MemorizeActivity(Activity):
                 self.box.remove(self.cardlist)
 
             if self.play_mode in (False, None):
-                self.box.pack_start(self.table, False, False, 0)
-                self.box.pack_start(self.scoreboard, True, True, 0)
-                self._calculate_sizes()
+                self.box.pack_start(self.table, True, True, 0)
+                self.box.pack_start(self.scoreboard, False, False, 0)
             self.play_mode = True
         self._memorizeToolbarBuilder.update_controls(mode == _MODE_PLAY)
         self._createToolbarBuilder.update_controls(mode == _MODE_CREATE)
