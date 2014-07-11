@@ -49,12 +49,10 @@ class SvgCard(Gtk.EventBox):
     # Default properties
     default_props = {}
     default_props['back'] = {'fill_color': style.Color('#b2b3b7'),
-                             'stroke_color': style.Color('#b2b3b7'),
-                             'opacity': '1'}
+                             'stroke_color': style.Color('#b2b3b7')}
     default_props['back_text'] = {'text_color': style.Color('#c7c8cc')}
     default_props['front'] = {'fill_color': style.Color('#4c4d4f'),
-                              'stroke_color': style.Color('#ffffff'),
-                              'opacity': '1'}
+                              'stroke_color': style.Color('#ffffff')}
     default_props['front_text'] = {'text_color': '#ffffff'}
 
     def __init__(self, identifier, pprops, jpeg, size,
@@ -105,18 +103,16 @@ class SvgCard(Gtk.EventBox):
         # draw the border
         icon_data = self.props[self.current_face]
         context.save()
-        if icon_data.get('opacity', '') == '1':
-            self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
-            if 'fill_color' in icon_data:
-                r, g, b, a = icon_data['fill_color'].get_rgba()
-                context.set_source_rgb(r, g, b)
-                context.fill_preserve()
-            if 'stroke_color' in icon_data:
-                r, g, b, a = icon_data['stroke_color'].get_rgba()
-                context.set_source_rgb(r, g, b)
-                context.set_line_width(6)
-                context.stroke()
-
+        self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
+        if 'fill_color' in icon_data:
+            r, g, b, a = icon_data['fill_color'].get_rgba()
+            context.set_source_rgb(r, g, b)
+            context.fill_preserve()
+        if 'stroke_color' in icon_data:
+            r, g, b, a = icon_data['stroke_color'].get_rgba()
+            context.set_source_rgb(r, g, b)
+            context.set_line_width(6)
+            context.stroke()
         context.restore()
 
         if self.show_jpeg:

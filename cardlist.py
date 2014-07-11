@@ -286,8 +286,7 @@ class CardPair(Gtk.EventBox):
                                 'speak': aspeak,
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color('#4c4d4f'),
-                           'stroke_color': style.Color('#ffffff'),
-                           'opacity': '1'}},
+                           'stroke_color': style.Color('#ffffff')}},
             None, theme.PAIR_SIZE, 1, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_pixbuf(aimg)
@@ -300,8 +299,7 @@ class CardPair(Gtk.EventBox):
                                 'speak': bspeak,
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color('#4c4d4f'),
-                           'stroke_color': style.Color('#ffffff'),
-                           'opacity': '1'}},
+                           'stroke_color': style.Color('#ffffff')}},
             None, theme.PAIR_SIZE, 1, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_pixbuf(bimg)
