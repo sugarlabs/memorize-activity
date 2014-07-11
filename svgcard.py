@@ -268,11 +268,6 @@ class SvgCard(Gtk.EventBox):
 
     def reset(self):
         if self.flipped:
-            front_border = self.default_props.get('front_border')
-            fill_color = front_border.get('fill_color')
-            front_text = self.default_propsfront_text
-            stroke_color = front_text.get('front_border').get('stroke_color')
-            self.set_border(fill_color.get_html(), stroke_color.get_html())
             self.flop()
 
     def create_text_layout(self, text):
