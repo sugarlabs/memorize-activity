@@ -19,6 +19,7 @@
 #
 
 import logging
+import cairo
 
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -37,6 +38,7 @@ import model
 _logger = logging.getLogger('memorize-activity')
 
 radio = style.zoom(60)
+BORDER_WIDTH = style.zoom(12)
 
 
 class SvgCard(Gtk.EventBox):
@@ -88,6 +90,8 @@ class SvgCard(Gtk.EventBox):
             self.show_text = True
         self.current_face = 'back'
 
+        self._cached_surface = {True: None, False: None}
+
         self.draw = Gtk.DrawingArea()
         self.draw.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
         self.draw.set_events(Gdk.EventMask.ALL_EVENTS_MASK)
@@ -100,50 +104,65 @@ class SvgCard(Gtk.EventBox):
         self.show_all()
 
     def __draw_cb(self, widget, context):
-        # draw the border
-        icon_data = self.props[self.current_face]
-        context.save()
-        self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
-        if 'fill_color' in icon_data:
-            r, g, b, a = icon_data['fill_color'].get_rgba()
-            context.set_source_rgb(r, g, b)
-            context.fill_preserve()
-        if 'stroke_color' in icon_data:
-            r, g, b, a = icon_data['stroke_color'].get_rgba()
-            context.set_source_rgb(r, g, b)
-            context.set_line_width(6)
-            context.stroke()
-        context.restore()
+        if self._cached_surface[self.flipped]:
+            context.set_source_surface(self._cached_surface[self.flipped])
+            context.paint()
+        else:
+            self._cached_surface[self.flipped] = \
+                context.get_target().create_similar(cairo.CONTENT_COLOR_ALPHA,
+                                                    self.size, self.size)
+            cache_context = cairo.Context(self._cached_surface[self.flipped])
 
-        if self.show_jpeg:
-            Gdk.cairo_set_source_pixbuf(context, self.jpeg, theme.SVG_PAD,
-                                        theme.SVG_PAD)
+            icon_data = self.props[self.current_face]
+
+            cache_context.save()
+            self.draw_round_rect(cache_context, 0, 0, self.size, self.size,
+                                 radio)
+            r, g, b, a = icon_data['fill_color'].get_rgba()
+            cache_context.set_source_rgb(r, g, b)
+            cache_context.fill_preserve()
+
+            r, g, b, a = icon_data['stroke_color'].get_rgba()
+            cache_context.set_source_rgb(r, g, b)
+            cache_context.set_line_width(BORDER_WIDTH)
+            cache_context.stroke()
+            cache_context.restore()
+
+            if self.show_jpeg:
+                Gdk.cairo_set_source_pixbuf(cache_context, self.jpeg,
+                                            theme.SVG_PAD, theme.SVG_PAD)
+                cache_context.paint()
+
+            if self.show_text:
+                cache_context.save()
+                props = self.props[self.flipped and 'front_text' or
+                                   'back_text']
+                layout = self.text_layouts[self.flipped]
+
+                if not layout:
+                    layout = self.text_layouts[self.flipped] = \
+                        self.create_text_layout(props['card_text'])
+
+                width, height = layout.get_pixel_size()
+                y = (self.size - height) / 2
+                if self.flipped:
+                    if self.align == '2':  # top
+                        y = 0
+                    elif self.align == '3':  # bottom
+                        y = self.size - height
+
+                x = (self.size - width) / 2
+                cache_context.set_source_rgb(1, 1, 1)
+                cache_context.translate(x, y)
+                PangoCairo.update_layout(cache_context, layout)
+                PangoCairo.show_layout(cache_context, layout)
+                cache_context.fill()
+                cache_context.restore()
+
+            # paint the cached surface over the widget
+            context.set_source_surface(self._cached_surface[self.flipped])
             context.paint()
 
-        if self.show_text:
-            context.save()
-            props = self.props[self.flipped and 'front_text' or 'back_text']
-            layout = self.text_layouts[self.flipped]
-
-            if not layout:
-                layout = self.text_layouts[self.flipped] = \
-                    self.create_text_layout(props['card_text'])
-
-            width, height = layout.get_pixel_size()
-            y = (self.size - height) / 2
-            if self.flipped:
-                if self.align == '2':  # top
-                    y = 0
-                elif self.align == '3':  # bottom
-                    y = self.size - height
-
-            x = (self.size - width) / 2
-            context.set_source_rgb(1, 1, 1)
-            context.translate(x, y)
-            PangoCairo.update_layout(context, layout)
-            PangoCairo.show_layout(context, layout)
-            context.fill()
-            context.restore()
         if self._highlighted:
             self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
             context.set_source_rgb(1., 1., 1.)
@@ -158,6 +177,7 @@ class SvgCard(Gtk.EventBox):
         """
         self.props['front'].update({'fill_color': style.Color(fill_color),
                                     'stroke_color': style.Color(stroke_color)})
+        self._cached_surface[True] = None
         self.queue_draw()
 
     def set_pixbuf(self, pixbuf):
@@ -171,7 +191,7 @@ class SvgCard(Gtk.EventBox):
             self.jpeg = pixbuf
             del pixbuf
             self.show_jpeg = True
-
+        self._cached_surface[True] = None
         self.queue_draw()
 
     def get_pixbuf(self):
@@ -266,7 +286,7 @@ class SvgCard(Gtk.EventBox):
         for size in range(80, 66, -8) + range(66, 44, -6) + \
                 range(44, 24, -4) + range(24, 15, -2) + range(15, 7, -1):
 
-            card_size = self.size - theme.SVG_PAD * 2
+            card_size = self.size - BORDER_WIDTH * 2
             layout = self.create_pango_layout(text)
             layout.set_width(PIXELS_PANGO(card_size))
             layout.set_wrap(Pango.WrapMode.WORD)
@@ -296,6 +316,7 @@ class SvgCard(Gtk.EventBox):
             del _text_layout_cache[key]
 
         self.font_name = font_name
+        self._cached_surface[True] = None
         self.queue_draw()
 
     def set_background(self, color):
@@ -308,6 +329,7 @@ class SvgCard(Gtk.EventBox):
         self.props['front_text']['card_text'] = newtext
         if len(newtext) > 0:
             self.show_text = True
+        self._cached_surface[True] = None
         self.queue_draw()
 
     def get_text(self):
