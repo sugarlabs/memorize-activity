@@ -50,8 +50,10 @@ class CardTable(Gtk.EventBox):
         self.set_size_request(100, 100)
         self.connect('size-allocate', self._allocate_cb)
 
+        self._background_color = '#EEEEEE'
         # Set table settings
-        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
+        self.modify_bg(Gtk.StateType.NORMAL,
+                       Gdk.color_parse(self._background_color))
         self.table = Gtk.Table()
         self.table.grab_focus()
         self.table.set_can_default(True)
@@ -59,6 +61,7 @@ class CardTable(Gtk.EventBox):
         self.table.set_col_spacings(theme.CARD_PAD)
         self.table.set_border_width(theme.CARD_PAD)
         self.table.set_resize_mode(Gtk.ResizeMode.IMMEDIATE)
+        self.table.set_halign(Gtk.Align.CENTER)
         self.set_property('child', self.table)
         self.load_message = Gtk.Label(label='Loading Game')
         self.load_message.modify_fg(Gtk.StateType.NORMAL,
@@ -146,7 +149,7 @@ class CardTable(Gtk.EventBox):
 
             card = svgcard.SvgCard(
                 identifier, props, jpg,
-                self.card_size, '#000000', font_name)
+                self.card_size, self._background_color, font_name)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.set_events(Gdk.EventMask.TOUCH_MASK |
                             Gdk.EventMask.BUTTON_PRESS_MASK)

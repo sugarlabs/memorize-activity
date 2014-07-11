@@ -51,7 +51,7 @@ class SvgCard(Gtk.EventBox):
 
     # Default properties
     default_props = {}
-    default_props['back'] = {'fill_color': style.Color('#b2b3b7'),
+    default_props['back'] = {'fill_color': style.Color('#666666'),
                              'stroke_color': style.Color('#b2b3b7')}
     default_props['back_text'] = {'text_color': style.Color('#c7c8cc')}
     default_props['front'] = {'fill_color': style.Color('#4c4d4f'),
