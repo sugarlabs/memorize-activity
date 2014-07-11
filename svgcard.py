@@ -95,7 +95,6 @@ class SvgCard(Gtk.EventBox):
 
         if len(self.props['back_text'].get('card_text', '')) > 0:
             self.show_text = True
-        self.current_face = 'back'
 
         self._cached_surface = {True: None, False: None}
 
@@ -275,7 +274,6 @@ class SvgCard(Gtk.EventBox):
 
     def _finish_flip(self):
         self._on_animation = False
-        self.current_face = 'front'
         self.flipped = True
         self.queue_draw()
 
@@ -299,7 +297,6 @@ class SvgCard(Gtk.EventBox):
 
     def _finish_flop(self):
         self._on_animation = False
-        self.current_face = 'back'
         if len(self.props['back_text'].get('card_text', '')) > 0:
             self.show_text = True
         else:
