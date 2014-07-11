@@ -439,6 +439,8 @@ class Model(object):
     def create_temp_directories(self):
         temp_img_folder = join(self.temp_folder, 'images')
         temp_snd_folder = join(self.temp_folder, 'sounds')
+        self.data['pathimg'] = temp_img_folder
+        self.data['pathsnd'] = temp_snd_folder
 
         if not exists(temp_img_folder):
             makedirs(temp_img_folder)

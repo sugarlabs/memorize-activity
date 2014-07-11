@@ -383,9 +383,12 @@ class CardPair(Gtk.EventBox):
 
     def get_image_name(self, card):
         if card == 1:
-            return self.aimg_name
+            name = self.aimg_name
         else:
-            return self.bimg_name
+            name = self.bimg_name
+        if name is None:
+            name = 'img%d' % card
+        return name
 
     def get_sound(self, card):
         if card == 1:
