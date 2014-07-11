@@ -51,16 +51,10 @@ class SvgCard(Gtk.EventBox):
     default_props['back'] = {'fill_color': style.Color('#b2b3b7'),
                              'stroke_color': style.Color('#b2b3b7'),
                              'opacity': '1'}
-    default_props['back_h'] = {'fill_color': style.Color('#b2b3b7'),
-                               'stroke_color': style.Color('#ffffff'),
-                               'opacity': '1'}
     default_props['back_text'] = {'text_color': style.Color('#c7c8cc')}
     default_props['front'] = {'fill_color': style.Color('#4c4d4f'),
                               'stroke_color': style.Color('#ffffff'),
                               'opacity': '1'}
-    default_props['front_h'] = {'fill_color': style.Color('#555555'),
-                                'stroke_color': style.Color('#888888'),
-                                'opacity': '1'}
     default_props['front_text'] = {'text_color': '#ffffff'}
 
     def __init__(self, identifier, pprops, jpeg, size,
@@ -78,13 +72,13 @@ class SvgCard(Gtk.EventBox):
         self.align = align
         self.text_layouts = [None, None]
         self.font_name = font_name
+        self._highlighted = False
 
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(bg_color))
         self.set_size_request(size, size)
 
         # Views properties
-        views = ['back', 'back_h', 'back_text', 'front',
-                 'front_h', 'front_text']
+        views = ['back', 'back_text', 'front', 'front_text']
         self.pprops = pprops
         self.props = {}
         for view in views:
@@ -131,6 +125,7 @@ class SvgCard(Gtk.EventBox):
             context.paint()
 
         if self.show_text:
+            context.save()
             props = self.props[self.flipped and 'front_text' or 'back_text']
             layout = self.text_layouts[self.flipped]
 
@@ -152,6 +147,12 @@ class SvgCard(Gtk.EventBox):
             PangoCairo.update_layout(context, layout)
             PangoCairo.show_layout(context, layout)
             context.fill()
+            context.restore()
+        if self._highlighted:
+            self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
+            context.set_source_rgb(1., 1., 1.)
+            context.set_line_width(6)
+            context.stroke()
 
         return False
 
@@ -181,18 +182,9 @@ class SvgCard(Gtk.EventBox):
         return self.jpeg
 
     def set_highlight(self, status, mouse=False):
-        if self.flipped:
-            if mouse:
-                return
-            if status:
-                self.current_face = 'front_h'
-            else:
-                self.current_face = 'front'
-        else:
-            if status:
-                self.current_face = 'back_h'
-            else:
-                self.current_face = 'back'
+        if self.flipped and mouse:
+            return
+        self._highlighted = status
         self.queue_draw()
 
     def flip(self, full_animation=False):
