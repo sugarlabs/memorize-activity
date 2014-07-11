@@ -37,17 +37,10 @@ class Face(Gtk.EventBox):
         self.show_all()
 
         self.set_app_paintable(True)
-        self.connect('draw', self.__draw_cb)
         self.connect('unrealize', self._unrealize_cb)
 
     def _unrealize_cb(self, widget):
         self.face.shut_up()
-
-    def __draw_cb(self, widget, context):
-        card = self.get_parent().get_parent()
-        pixbuf = card._read_icon_data('front')
-        Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
-        context.paint()
 
 
 def look_at():
