@@ -67,7 +67,6 @@ class SvgCard(Gtk.EventBox):
         self.flipped_once = False
         self.id = identifier
         self.jpeg = jpeg
-        self.show_text = False
         self.size = size
         # animation data
         self._steps_scales = [0.66, 0.33, 0.1, 0.33, 0.66]
@@ -90,9 +89,6 @@ class SvgCard(Gtk.EventBox):
             self.props[view] = {}
             self.props[view].update(self.default_props[view])
             self.props[view].update(pprops.get(view, {}))
-
-        if len(self.props['back_text'].get('card_text', '')) > 0:
-            self.show_text = True
 
         self._cached_surface = {True: None, False: None}
 
@@ -164,15 +160,15 @@ class SvgCard(Gtk.EventBox):
                                         theme.SVG_PAD, theme.SVG_PAD)
             cache_context.paint()
 
-        if self.show_text:
+        text_props = self.props[flipped and 'front_text' or 'back_text']
+
+        if text_props['card_text']:
             cache_context.save()
-            props = self.props[flipped and 'front_text' or
-                               'back_text']
             layout = self.text_layouts[flipped]
 
             if not layout:
                 layout = self.text_layouts[flipped] = \
-                    self.create_text_layout(props['card_text'])
+                    self.create_text_layout(text_props['card_text'])
 
             width, height = layout.get_pixel_size()
             y = (self.size - height) / 2
@@ -224,12 +220,6 @@ class SvgCard(Gtk.EventBox):
                     self.jpeg = pixbuf_t
             self.flipped_once = True
 
-        text = self.props.get('front_text', {}).get('card_text', '')
-        if text is not None and len(text) > 0:
-            self.show_text = True
-        else:
-            self.show_text = False
-
         if full_animation:
             if self.id != -1 and self.get_speak():
                 speaking_face = face.acquire()
@@ -278,10 +268,6 @@ class SvgCard(Gtk.EventBox):
 
     def _finish_flop(self):
         self._on_animation = False
-        if len(self.props['back_text'].get('card_text', '')) > 0:
-            self.show_text = True
-        else:
-            self.show_text = False
         self.flipped = False
 
         if self.id != -1 and self.get_speak():
@@ -356,8 +342,6 @@ class SvgCard(Gtk.EventBox):
     def change_text(self, newtext):
         self.text_layouts[self.flipped] = None
         self.props['front_text']['card_text'] = newtext
-        if len(newtext) > 0:
-            self.show_text = True
         self._cached_surface[True] = None
         self.queue_draw()
 
