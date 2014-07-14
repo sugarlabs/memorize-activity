@@ -132,9 +132,9 @@ class PlayerScoreboard(Gtk.EventBox):
             self.current_color = self.default_color
         self.modify_bg(Gtk.StateType.NORMAL,
                        Gdk.color_parse(self.current_color))
-        self.icon.set_background(self.current_color)
+        self.icon.set_fill_color(self.fill_color)
         for score in self.scores:
-            score.set_selected(sel)
+            score.set_fill_color(self.fill_color)
         self.queue_draw()
 
     def reset(self):
