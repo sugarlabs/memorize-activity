@@ -31,7 +31,7 @@ from sugar3.graphics import style
 from sugar3.graphics.icon import Icon
 
 _logger = logging.getLogger('memorize-activity')
-PAIR_SIZE = Gdk.Screen.width() / 5
+PAIR_SIZE = min(Gdk.Screen.width() / 7, Gdk.Screen.height() / 5)
 
 
 class CardList(Gtk.EventBox):
@@ -52,17 +52,17 @@ class CardList(Gtk.EventBox):
         self.pair_list_modified = False
         self.game_loaded = False
 
-        self.vbox = Gtk.VBox(False)
+        self.hbox = Gtk.HBox(False)
 
         fill_box = Gtk.Label()
         fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
         fill_box.show()
-        self.vbox.pack_end(fill_box, True, True, 0)
+        self.hbox.pack_end(fill_box, True, True, 0)
 
         self._scroll = Gtk.ScrolledWindow()
         self._scroll.set_policy(Gtk.PolicyType.AUTOMATIC,
                                 Gtk.PolicyType.AUTOMATIC)
-        self._scroll.add_with_viewport(self.vbox)
+        self._scroll.add_with_viewport(self.hbox)
         self._scroll.set_border_width(0)
         self._scroll.get_child().modify_bg(Gtk.StateType.NORMAL,
                                            Gdk.color_parse('#000000'))
@@ -185,7 +185,7 @@ class CardList(Gtk.EventBox):
     def clean_list(self, button=None, load=False):
         if button is not None:
             self.current_game_key = None
-        map(lambda x: self.vbox.remove(x), self.pairs)
+        map(lambda x: self.hbox.remove(x), self.pairs)
         del self.pairs
         self.pairs = []
         if not load:
@@ -197,7 +197,7 @@ class CardList(Gtk.EventBox):
                  aimg_name=None, bimage_name=None, show=True, load=False):
         pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak,
                         font_name1, font_name2, aimg_name, bimage_name)
-        self.vbox.pack_end(pair, False, True, 0)
+        self.hbox.pack_end(pair, False, True, 0)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
         pair.connect('pair-closed', self.rem_pair)
@@ -219,7 +219,7 @@ class CardList(Gtk.EventBox):
         self.model.mark_modified()
 
     def rem_pair(self, widget, event):
-        self.vbox.remove(widget)
+        self.hbox.remove(widget)
         self.pairs.remove(widget)
         del widget
         self.model.mark_modified()
@@ -276,7 +276,7 @@ class CardPair(Gtk.EventBox):
 
         self.current_game_key = None
 
-        row = Gtk.HBox()
+        row = Gtk.VBox()
         row.props.border_width = 10
         row.props.spacing = 10
 
@@ -305,7 +305,7 @@ class CardPair(Gtk.EventBox):
         align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(self.bcard2)
         row.pack_start(align, True, True, 0)
-
+        """
         close_image = Icon(icon_name='remove',
                            icon_size=Gtk.IconSize.LARGE_TOOLBAR)
         align = Gtk.Alignment.new(.5, .5, 0, 0)
@@ -318,7 +318,7 @@ class CardPair(Gtk.EventBox):
         align = Gtk.Alignment.new(.5, 0, 0, 0)
         align.add(close_button)
         row.pack_start(align, False, False, 0)
-
+        """
         self.connect('button-press-event', self.emit_selected)
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.bg_color))
         self.add(row)

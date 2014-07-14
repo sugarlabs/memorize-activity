@@ -43,7 +43,7 @@ import speak.widgets
 import speak.face
 
 _logger = logging.getLogger('memorize-activity')
-PAIR_SIZE = Gdk.Screen.width() / 5
+PAIR_SIZE = min(Gdk.Screen.width() / 5, Gdk.Screen.height() / 3)
 
 
 class CreateCardPanel(Gtk.EventBox):
@@ -58,7 +58,7 @@ class CreateCardPanel(Gtk.EventBox):
 
     def __init__(self):
         def make_label(icon_name, label):
-            label_box = Gtk.HBox()
+            label_box = Gtk.VBox()
             icon = Icon(icon_name=icon_name,
                         icon_size=Gtk.IconSize.LARGE_TOOLBAR)
             label_box.pack_start(icon, False, False, 0)
@@ -78,8 +78,9 @@ class CreateCardPanel(Gtk.EventBox):
 
         # save buttons
 
-        buttons_bar = Gtk.HBox()
+        buttons_bar = Gtk.VBox()
         buttons_bar.props.border_width = 10
+        buttons_bar.set_valign(Gtk.Align.CENTER)
 
         self._addbutton = ToolButton(tooltip=_('Add as new pair'),
                                      sensitive=False)
@@ -88,12 +89,19 @@ class CreateCardPanel(Gtk.EventBox):
         self._addbutton.connect('clicked', self.emit_add_pair)
         buttons_bar.pack_start(self._addbutton, False, False, 0)
 
-        self._updatebutton = ToolButton(tooltip=_('Update selected pair'),
+        self._updatebutton = ToolButton(tooltip=_('Update seleted pair'),
                                         sensitive=False)
         self._updatebutton.set_icon_widget(
             make_label('pair-update', ' ' + _('Update')))
         self._updatebutton.connect('clicked', self.emit_update_pair)
         buttons_bar.pack_start(self._updatebutton, False, False, 0)
+
+        self._removebutton = ToolButton(tooltip=_('Remove seleted pair'),
+                                        sensitive=False)
+        self._removebutton.set_icon_widget(
+            make_label('remove', ' ' + _('Remove')))
+        # self._removebutton.connect('clicked', self.emit_update_pair)
+        buttons_bar.pack_start(self._removebutton, False, False, 0)
 
         # Set card editors
 
@@ -112,11 +120,14 @@ class CreateCardPanel(Gtk.EventBox):
         # edit panel
 
         self.card_box = Gtk.HBox()
+        self.card_box.set_homogeneous(True)
+        self.cardeditor1.set_halign(Gtk.Align.CENTER)
+        self.cardeditor2.set_halign(Gtk.Align.CENTER)
         self.card_box.pack_start(self.cardeditor1, True, True, 0)
         self.card_box.pack_start(self.cardeditor2, True, True, 0)
 
-        box = Gtk.VBox()
-        box.pack_start(self.card_box, False, False, 0)
+        box = Gtk.HBox()
+        box.pack_start(self.card_box, True, True, 0)
         box.pack_start(buttons_bar, False, False, 0)
         self.add(box)
 
@@ -290,13 +301,10 @@ class CardEditor(Gtk.EventBox):
         self.editor_index = editor_index
         self.temp_folder = None
 
-        box = Gtk.VBox()
-        box.props.spacing = style.DEFAULT_SPACING
-        box.props.border_width = style.DEFAULT_SPACING
-
-        self.previewlabel = Gtk.Label(label=_('Preview:'))
-        self.previewlabel.set_alignment(0, 1)
-        box.pack_start(self.previewlabel, False, False, 0)
+        box = Gtk.Grid()
+        box.set_column_spacing(style.DEFAULT_SPACING)
+        box.set_row_spacing(style.DEFAULT_SPACING)
+        box.props.margin = style.DEFAULT_SPACING
 
         self.card = svgcard.SvgCard(
             -1, {'front_text': {'card_text': '',
@@ -305,17 +313,15 @@ class CardEditor(Gtk.EventBox):
         self.card.flip()
         card_align = Gtk.Alignment.new(.5, .5, 0, 0)
         card_align.add(self.card)
-        box.pack_start(card_align, False, False, 0)
-
-        textlabel = Gtk.Label(label=_('Text:'))
-        textlabel.set_alignment(0, 1)
-        box.pack_start(textlabel, False, False, 0)
+        box.attach(card_align, 0, 0, 1, 1)
 
         self.textentry = Gtk.Entry()
         self.textentry.connect('changed', self.update_text)
-        box.pack_start(self.textentry, False, False, 0)
+        self.textentry.set_valign(Gtk.Align.START)
+        box.attach(self.textentry, 0, 1, 1, 1)
 
-        toolbar = Gtk.HBox()
+        toolbar = Gtk.VBox()
+        toolbar.set_valign(Gtk.Align.CENTER)
 
         browsepicture = ToolButton(icon_name='import_picture',
                                    tooltip=_('Insert picture'))
@@ -340,7 +346,7 @@ class CardEditor(Gtk.EventBox):
         toolbar.add(self.fontbutton)
         self.id_font_changed = self.fontbutton.connect(
             'changed', self.__font_changed_cb)
-        box.pack_start(toolbar, True, True, 0)
+        box.attach(toolbar, 1, 0, 1, 2)
 
         self.add(box)
 
