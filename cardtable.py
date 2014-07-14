@@ -50,7 +50,7 @@ class CardTable(Gtk.EventBox):
         self.set_size_request(100, 100)
         self.connect('size-allocate', self._allocate_cb)
 
-        self._background_color = '#EEEEEE'
+        self._background_color = '#BBBBBB'
         # Set table settings
         self.modify_bg(Gtk.StateType.NORMAL,
                        Gdk.color_parse(self._background_color))

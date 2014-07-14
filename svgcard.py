@@ -52,10 +52,10 @@ class SvgCard(Gtk.EventBox):
     # Default properties
     default_props = {}
     default_props['back'] = {'fill_color': style.Color('#666666'),
-                             'stroke_color': style.Color('#b2b3b7')}
+                             'stroke_color': style.Color('#666666')}
     default_props['back_text'] = {'text_color': style.Color('#c7c8cc')}
     default_props['front'] = {'fill_color': style.Color('#4c4d4f'),
-                              'stroke_color': style.Color('#ffffff')}
+                              'stroke_color': style.Color('#111111')}
     default_props['front_text'] = {'text_color': '#ffffff'}
 
     def __init__(self, identifier, pprops, jpeg, size,
@@ -126,7 +126,7 @@ class SvgCard(Gtk.EventBox):
         if highlighted:
             self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
             context.set_source_rgb(1., 1., 1.)
-            context.set_line_width(6)
+            context.set_line_width(BORDER_WIDTH)
             context.stroke()
 
         return False
