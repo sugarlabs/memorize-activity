@@ -18,6 +18,7 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 
@@ -37,12 +38,12 @@ from sugar3.graphics.toolcombobox import ToolComboBox
 from fontcombobox import FontButton
 from port import chooser
 
-import theme
 import speak.espeak
 import speak.widgets
 import speak.face
 
 _logger = logging.getLogger('memorize-activity')
+PAIR_SIZE = Gdk.Screen.width() / 5
 
 
 class CreateCardPanel(Gtk.EventBox):
@@ -290,8 +291,8 @@ class CardEditor(Gtk.EventBox):
         self.temp_folder = None
 
         box = Gtk.VBox()
-        box.props.spacing = theme.PAD
-        box.props.border_width = theme.PAD
+        box.props.spacing = style.DEFAULT_SPACING
+        box.props.border_width = style.DEFAULT_SPACING
 
         self.previewlabel = Gtk.Label(label=_('Preview:'))
         self.previewlabel.set_alignment(0, 1)
@@ -300,7 +301,7 @@ class CardEditor(Gtk.EventBox):
         self.card = svgcard.SvgCard(
             -1, {'front_text': {'card_text': '',
                                 'text_color': style.Color('#ffffff')}},
-            None, theme.PAIR_SIZE, '#c0c0c0')
+            None, PAIR_SIZE, '#c0c0c0')
         self.card.flip()
         card_align = Gtk.Alignment.new(.5, .5, 0, 0)
         card_align.add(self.card)
@@ -403,8 +404,8 @@ class CardEditor(Gtk.EventBox):
             self.set_speak(None)
 
             pixbuf_t = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                index, theme.PAIR_SIZE - theme.PAD * 2,
-                theme.PAIR_SIZE - theme.PAD * 2)
+                index, PAIR_SIZE - style.DEFAULT_SPACING * 2,
+                PAIR_SIZE - style.DEFAULT_SPACING * 2)
             size = max(pixbuf_t.get_width(), pixbuf_t.get_height())
             pixbuf_z = GdkPixbuf.Pixbuf.new_from_file_at_size(
                 'images/white.png', size, size)

@@ -20,6 +20,8 @@ from gi.repository import Gdk
 from gi.repository import GObject
 from gi.repository import Pango
 
+from sugar3.graphics import style
+
 import svgcard
 import os
 import math
@@ -28,7 +30,7 @@ import math
 import logging
 _logger = logging.getLogger('memorize-activity')
 
-import theme
+CARD_PAD = style.zoom(6)
 
 
 class CardTable(Gtk.EventBox):
@@ -56,9 +58,9 @@ class CardTable(Gtk.EventBox):
         self.table = Gtk.Table()
         self.table.grab_focus()
         self.table.set_can_default(True)
-        self.table.set_row_spacings(theme.CARD_PAD)
-        self.table.set_col_spacings(theme.CARD_PAD)
-        self.table.set_border_width(theme.CARD_PAD)
+        self.table.set_row_spacings(CARD_PAD)
+        self.table.set_col_spacings(CARD_PAD)
+        self.table.set_border_width(CARD_PAD)
         self.table.set_resize_mode(Gtk.ResizeMode.IMMEDIATE)
         self.table.set_halign(Gtk.Align.CENTER)
         self.set_property('child', self.table)
@@ -182,8 +184,8 @@ class CardTable(Gtk.EventBox):
         self.load_game(None, data, grid)
 
     def get_card_size(self, size_table):
-        x = (self._workspace_size + theme.CARD_PAD * (size_table - 1)) / \
-            size_table - theme.CARD_PAD * 2
+        x = (self._workspace_size + CARD_PAD * (size_table - 1)) / \
+            size_table - CARD_PAD * 2
         return x
 
     def __event_cb(self, widget, event, coord):

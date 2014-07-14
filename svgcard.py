@@ -31,7 +31,6 @@ from gi.repository import PangoCairo
 from sugar3.util import LRU
 from sugar3.graphics import style
 
-import theme
 import face
 import speak.voice
 import model
@@ -156,8 +155,9 @@ class SvgCard(Gtk.EventBox):
         cache_context.restore()
 
         if self.jpeg is not None and flipped:
-            Gdk.cairo_set_source_pixbuf(cache_context, self.jpeg,
-                                        theme.SVG_PAD, theme.SVG_PAD)
+            Gdk.cairo_set_source_pixbuf(
+                cache_context, self.jpeg,
+                style.DEFAULT_SPACING, style.DEFAULT_SPACING)
             cache_context.paint()
 
         text_props = self.props[flipped and 'front_text' or 'back_text']

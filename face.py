@@ -22,7 +22,6 @@ from sugar3.graphics import style
 
 import speak.espeak
 import speak.face
-import theme
 
 
 class Face(Gtk.EventBox):
@@ -32,7 +31,7 @@ class Face(Gtk.EventBox):
         self.modify_bg(Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
 
         self.face = speak.face.View(style.Color('#4b4c4e'))
-        self.face.set_border_width(theme.SVG_PAD)
+        self.face.set_border_width(style.DEFAULT_SPACING)
         self.add(self.face)
         self.show_all()
 

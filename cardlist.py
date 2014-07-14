@@ -30,9 +30,8 @@ from model import Pair
 from sugar3.graphics import style
 from sugar3.graphics.icon import Icon
 
-import theme
-
 _logger = logging.getLogger('memorize-activity')
+PAIR_SIZE = Gdk.Screen.width() / 5
 
 
 class CardList(Gtk.EventBox):
@@ -287,7 +286,7 @@ class CardPair(Gtk.EventBox):
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color('#4c4d4f'),
                            'stroke_color': style.Color('#ffffff')}},
-            None, theme.PAIR_SIZE, self.bg_color, font_name1)
+            None, PAIR_SIZE, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_pixbuf(aimg)
         align = Gtk.Alignment.new(.5, .5, 0, 0)
@@ -300,7 +299,7 @@ class CardPair(Gtk.EventBox):
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color('#4c4d4f'),
                            'stroke_color': style.Color('#ffffff')}},
-            None, theme.PAIR_SIZE, self.bg_color, font_name2)
+            None, PAIR_SIZE, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_pixbuf(bimg)
         align = Gtk.Alignment.new(.5, .5, 0, 0)

@@ -23,13 +23,14 @@ from gettext import gettext as _
 
 from model import Model
 from audio import Audio
-import theme
 
 _logger = logging.getLogger('memorize-activity')
 
 SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
 PATH = '/org/laptop/Memorize'
+
+FLOP_BACK_TIMEOUT = 2000
 
 
 class MemorizeGame(GObject.GObject):
@@ -262,7 +263,7 @@ class MemorizeGame(GObject.GObject):
                 self.set_sensitive(False)
                 self._flop_cards = (identifier, self.last_flipped)
                 self._flop_card_timeout = GObject.timeout_add(
-                    theme.FLOP_BACK_TIMEOUT,
+                    FLOP_BACK_TIMEOUT,
                     self.flop_card, identifier, self.last_flipped)
             self.last_flipped = -1
 
