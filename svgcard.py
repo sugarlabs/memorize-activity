@@ -285,7 +285,7 @@ class SvgCard(Gtk.EventBox):
         widget.set_size_request(self.size, self.size)
 
     def is_flipped(self):
-        return self.flipped
+        return self.flipped or self._on_animation
 
     def get_id(self):
         return self.id

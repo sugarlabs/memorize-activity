@@ -176,10 +176,6 @@ class MemorizeGame(GObject.GObject):
             self.current_player = self.players[next_player]
         self.update_turn()
 
-    def card_overflipped(self, widget, identifier):
-        if self._flop_cards and identifier in self._flop_cards:
-            self.card_flipped(widget, identifier)
-
     def card_flipped(self, widget, identifier, signal=False):
         self.model.count = self.model.count + 1
         if self._flop_cards:
