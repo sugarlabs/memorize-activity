@@ -28,24 +28,12 @@ _logger = logging.getLogger('memorize-activity')
 class Scoreboard(Gtk.EventBox):
     def __init__(self):
         Gtk.EventBox.__init__(self)
-
+        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#666666'))
         self.players = {}
         self.current_buddy = None
-
         self.vbox = Gtk.VBox(False)
-
-        fill_box = Gtk.EventBox()
-        fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#666666'))
-        fill_box.show()
-        self.vbox.pack_end(fill_box, True, True, 0)
-
-        scroll = Gtk.ScrolledWindow()
-        scroll.props.shadow_type = Gtk.ShadowType.NONE
-        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        scroll.add_with_viewport(self.vbox)
-        scroll.set_border_width(0)
-        scroll.get_child().set_property('shadow-type', Gtk.ShadowType.NONE)
-        self.add(scroll)
+        self.vbox.set_valign(Gtk.Align.CENTER)
+        self.add(self.vbox)
         self.show_all()
 
     def change_game(self, widget, data, grid):
