@@ -211,17 +211,13 @@ class MemorizeGame(GObject.GObject):
                 self.emit('flip-card-signal', identifier)
 
         snd = self.model.grid[identifier].get('snd', None)
-        audio_playing = False
         if snd is not None:
             sound_file = join(self.model.data.get('pathsnd'), snd)
 
             if self._audio_play_finished_id != 0:
                 self.audio.disconnect(self._audio_play_finished_id)
 
-            self._audio_play_finished_id = self.audio.connect(
-                'play_finished', self.__play_finished_cb)
             self.audio.play(sound_file)
-            audio_playing = True
 
         # First card case
         if self.last_flipped == -1:
@@ -229,8 +225,7 @@ class MemorizeGame(GObject.GObject):
 
             self.last_flipped = identifier
             self.model.grid[identifier]['state'] = '1'
-            if not audio_playing:
-                self.flip_block = False
+            self.flip_block = False
 
         # Second card case
         else:
@@ -269,9 +264,6 @@ class MemorizeGame(GObject.GObject):
                     FLOP_BACK_TIMEOUT,
                     self.flop_card, identifier, self.last_flipped)
             self.last_flipped = -1
-
-    def __play_finished_cb(self, audio):
-        self.flip_block = False
 
     def flop_card(self, identifier, identifier2):
         self._flop_card_timeout = -1
