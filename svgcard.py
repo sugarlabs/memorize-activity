@@ -218,15 +218,9 @@ class SvgCard(Gtk.EventBox):
 
         if not self.flipped_once:
             if self.jpeg is not None:
-                pixbuf_t = GdkPixbuf.Pixbuf.new_from_file(self.jpeg)
-                if pixbuf_t.get_width() != self.size - 22 \
-                        or pixbuf_t.get_height() != self.size - 22:
-                    self.jpeg = pixbuf_t.scale_simple(
-                        self.size - 22, self.size - 22,
-                        GdkPixbuf.InterpType.BILINEAR)
-                    del pixbuf_t
-                else:
-                    self.jpeg = pixbuf_t
+                image_size = self.size - style.DEFAULT_SPACING * 2
+                self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                    self.jpeg, image_size, image_size)
             self.flipped_once = True
 
         if full_animation:
