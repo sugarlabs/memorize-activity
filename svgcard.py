@@ -37,7 +37,6 @@ import model
 
 _logger = logging.getLogger('memorize-activity')
 
-radio = style.zoom(60)
 BORDER_WIDTH = style.zoom(10)
 
 
@@ -123,6 +122,7 @@ class SvgCard(Gtk.EventBox):
         context.paint()
 
         if highlighted:
+            radio = self.size / 3
             self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
             context.set_source_rgb(1., 1., 1.)
             context.set_line_width(BORDER_WIDTH)
@@ -142,6 +142,7 @@ class SvgCard(Gtk.EventBox):
             icon_data = self.props['back']
 
         cache_context.save()
+        radio = self.size / 3
         self.draw_round_rect(cache_context, 0, 0, self.size, self.size,
                              radio)
         r, g, b, a = icon_data['fill_color'].get_rgba()
