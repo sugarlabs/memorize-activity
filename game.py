@@ -239,6 +239,9 @@ class MemorizeGame(GObject.GObject):
             pair_key_2 = self.model.grid[identifier]['pairkey']
 
             if pair_key_1 == pair_key_2:
+                if not signal:
+                    self.emit('flip-card-signal', identifier)
+
                 stroke_color, fill_color = \
                     self.current_player.props.color.split(',')
                 self.emit('set-border', identifier, stroke_color, fill_color)
