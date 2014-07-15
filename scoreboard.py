@@ -31,9 +31,10 @@ class Scoreboard(Gtk.EventBox):
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#666666'))
         self.players = {}
         self.current_buddy = None
-        self.vbox = Gtk.VBox(False)
-        self.vbox.set_valign(Gtk.Align.CENTER)
-        self.add(self.vbox)
+        self.hbox = Gtk.HBox(False)
+        self.hbox.set_homogeneous(True)
+        self.hbox.set_valign(Gtk.Align.CENTER)
+        self.add(self.hbox)
         self.show_all()
 
     def change_game(self, widget, data, grid):
@@ -48,19 +49,19 @@ class Scoreboard(Gtk.EventBox):
         player.show()
         self.players[buddy] = player
         # remove widgets and add sorted
-        for child in self.vbox.get_children():
-            self.vbox.remove(child)
+        for child in self.hbox.get_children():
+            self.hbox.remove(child)
         for buddy in sorted(self.players.keys(),
                             key=lambda buddy: buddy.props.nick):
             p = self.players[buddy]
-            self.vbox.pack_start(p, False, False, 0)
+            self.hbox.pack_start(p, True, True, 0)
 
         if score == -1:
             player.set_wait_mode(True)
         self.show_all()
 
     def rem_buddy(self, widget, buddy):
-        self.vbox.remove(self.players[buddy])
+        self.hbox.remove(self.players[buddy])
         del self.players[buddy]  # fix for self.players[id]
 
     def set_selected(self, widget, buddy):
