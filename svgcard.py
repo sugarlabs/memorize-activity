@@ -155,15 +155,14 @@ class SvgCard(Gtk.EventBox):
         cache_context.stroke()
         cache_context.restore()
 
+        text_props = self.props[flipped and 'front_text' or 'back_text']
         if self.jpeg is not None and flipped:
             Gdk.cairo_set_source_pixbuf(
                 cache_context, self.jpeg,
                 style.DEFAULT_SPACING, style.DEFAULT_SPACING)
             cache_context.paint()
 
-        text_props = self.props[flipped and 'front_text' or 'back_text']
-
-        if text_props['card_text']:
+        elif text_props['card_text']:
             cache_context.save()
             layout = self.text_layouts[flipped]
 
@@ -188,6 +187,12 @@ class SvgCard(Gtk.EventBox):
         self.props['front'].update({'fill_color': style.Color(fill_color),
                                     'stroke_color': style.Color(stroke_color)})
         self._cached_surface[True] = None
+
+        if self.get_speak():
+            # If we displayed the robot face, displayed the text
+            self.jpeg = None
+            self.props['front_text']['speak'] = False
+
         if not self.is_flipped():
             self.flip(full_animation=True)
         else:
@@ -228,7 +233,9 @@ class SvgCard(Gtk.EventBox):
             if self.id != -1 and self.get_speak():
                 speaking_face = face.acquire()
                 if speaking_face:
-                    self._switch_to_face(speaking_face)
+                    image_size = self.size - style.DEFAULT_SPACING * 2
+                    self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                        'icons/speak.svg', image_size, image_size)
                     speaking_face.face.status.voice = \
                         speak.voice.by_lang(self.get_speak())
                     speaking_face.face.say(self.get_text())
@@ -255,7 +262,6 @@ class SvgCard(Gtk.EventBox):
     def cement(self):
         if not self.get_speak():
             return
-        self._switch_to_face(self.draw)
 
     def flop(self):
         self._animation_step = 0
@@ -273,17 +279,7 @@ class SvgCard(Gtk.EventBox):
     def _finish_flop(self):
         self._on_animation = False
         self.flipped = False
-
-        if self.id != -1 and self.get_speak():
-            self._switch_to_face(self.draw)
-
         self.queue_draw()
-
-    def _switch_to_face(self, widget):
-        for i in self.workspace.get_children():
-            self.workspace.remove(i)
-        self.workspace.add(widget)
-        widget.set_size_request(self.size, self.size)
 
     def is_flipped(self):
         return self.flipped or self._on_animation
