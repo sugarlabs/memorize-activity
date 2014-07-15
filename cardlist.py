@@ -28,7 +28,6 @@ from os.path import join, basename
 from model import Pair
 
 from sugar3.graphics import style
-from sugar3.graphics.icon import Icon
 
 _logger = logging.getLogger('memorize-activity')
 PAIR_SIZE = min(Gdk.Screen.width() / 7, Gdk.Screen.height() / 5)
@@ -200,7 +199,6 @@ class CardList(Gtk.EventBox):
         self.hbox.pack_end(pair, False, True, 0)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
-        pair.connect('pair-closed', self.rem_pair)
         if not load:
             self.model.mark_modified()
             self.pair_list_modified = True
@@ -218,10 +216,10 @@ class CardList(Gtk.EventBox):
             self.model.data['font_name2'] = font_name
         self.model.mark_modified()
 
-    def rem_pair(self, widget, event):
-        self.hbox.remove(widget)
-        self.pairs.remove(widget)
-        del widget
+    def rem_current_pair(self, widget):
+        self.hbox.remove(self.current_pair)
+        self.pairs.remove(self.current_pair)
+        self.current_pair = None
         self.model.mark_modified()
         self.emit('pair-selected', False, None, None, None, None, None, None,
                   False, False)
@@ -257,8 +255,6 @@ class CardPair(Gtk.EventBox):
     __gsignals__ = {
         'pair-selected': (GObject.SignalFlags.RUN_FIRST,
                           None, [GObject.TYPE_PYOBJECT]),
-        'pair-closed': (GObject.SignalFlags.RUN_FIRST,
-                        None, [GObject.TYPE_PYOBJECT]),
     }
 
     def __init__(self, text1, text2=None, aimg=None, bimg=None,
@@ -305,20 +301,6 @@ class CardPair(Gtk.EventBox):
         align = Gtk.Alignment.new(.5, .5, 0, 0)
         align.add(self.bcard2)
         row.pack_start(align, True, True, 0)
-        """
-        close_image = Icon(icon_name='remove',
-                           icon_size=Gtk.IconSize.LARGE_TOOLBAR)
-        align = Gtk.Alignment.new(.5, .5, 0, 0)
-        align.add(close_image)
-        close_button = Gtk.ToolButton()
-        close_button.set_icon_widget(align)
-        close_button.connect('clicked', self.emit_close)
-        close_button.set_size_request(style.STANDARD_ICON_SIZE,
-                                      style.STANDARD_ICON_SIZE)
-        align = Gtk.Alignment.new(.5, 0, 0, 0)
-        align.add(close_button)
-        row.pack_start(align, False, False, 0)
-        """
         self.connect('button-press-event', self.emit_selected)
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.bg_color))
         self.add(row)
@@ -326,9 +308,6 @@ class CardPair(Gtk.EventBox):
 
     def emit_selected(self, widget, event):
         self.emit('pair-selected', self)
-
-    def emit_close(self, widget):
-        self.emit('pair-closed', self)
 
     def set_selected(self, status):
         if not status:

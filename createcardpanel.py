@@ -54,6 +54,8 @@ class CreateCardPanel(Gtk.EventBox):
                         8 * [GObject.TYPE_PYOBJECT]),
         'change-font': (GObject.SignalFlags.RUN_FIRST, None,
                         2 * [GObject.TYPE_PYOBJECT]),
+        'pair-closed': (GObject.SignalFlags.RUN_FIRST,
+                        None, []),
     }
 
     def __init__(self):
@@ -100,7 +102,7 @@ class CreateCardPanel(Gtk.EventBox):
                                         sensitive=False)
         self._removebutton.set_icon_widget(
             make_label('remove', ' ' + _('Remove')))
-        # self._removebutton.connect('clicked', self.emit_update_pair)
+        self._removebutton.connect('clicked', self.emit_close)
         buttons_bar.pack_start(self._removebutton, False, False, 0)
 
         # Set card editors
@@ -141,6 +143,9 @@ class CreateCardPanel(Gtk.EventBox):
         if 'font_name2' in data:
             self.cardeditor2.set_font_name(data['font_name2'])
             self.cardeditor2.card.change_font(data['font_name2'])
+
+    def emit_close(self, widget):
+        self.emit('pair-closed')
 
     def emit_add_pair(self, widget):
         self._addbutton.set_sensitive(False)
@@ -204,6 +209,7 @@ class CreateCardPanel(Gtk.EventBox):
             self._addbutton.set_sensitive(True)
         self._updatebutton.set_sensitive(selected)
         self._updatebutton_sensitive = selected
+        self._removebutton.set_sensitive(selected)
 
     def change_equal_pairs(self, widget, state):
         self.equal_pairs = state

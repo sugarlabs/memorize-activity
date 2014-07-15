@@ -123,6 +123,9 @@ class MemorizeActivity(Activity):
                                      self.cardlist.update_selected)
         self.createcardpanel.connect('change-font',
                                      self.cardlist.change_font)
+        self.createcardpanel.connect('pair-closed',
+                                     self.cardlist.rem_current_pair)
+
         self._createToolbarBuilder.connect('create_new_game',
                                            self.cardlist.clean_list)
         self._createToolbarBuilder.connect('create_new_game',
