@@ -124,10 +124,13 @@ class CardTable(Gtk.EventBox):
         if data['divided'] == '1':
             text1 = str(self.data.get('face1', ''))
             text2 = str(self.data.get('face2', ''))
+            background_color1 = style.Color('#4b4d4a')
+            background_color2 = style.Color('#636564')
         else:
             text1 = str(self.data.get('face', ''))
             text2 = str(self.data.get('face', ''))
-
+            background_color1 = style.Color('#4b4d4a')
+            background_color2 = style.Color('#4b4d4a')
         x = 0
         y = 0
         identifier = 0
@@ -144,9 +147,13 @@ class CardTable(Gtk.EventBox):
             if card['ab'] == 'a':
                 props['back_text'] = {'card_text': text1}
                 font_name = font_name1
+                props['back'] = {'fill_color': background_color1,
+                                 'stroke_color': background_color1}
             elif card['ab'] == 'b':
                 props['back_text'] = {'card_text': text2}
                 font_name = font_name2
+                props['back'] = {'fill_color': background_color2,
+                                 'stroke_color': background_color2}
 
             card = svgcard.SvgCard(
                 identifier, props, jpg,
