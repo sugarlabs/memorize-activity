@@ -26,9 +26,7 @@ import svgcard
 import os
 import math
 
-
 import logging
-_logger = logging.getLogger('memorize-activity')
 
 CARD_PAD = style.zoom(6)
 
@@ -75,7 +73,7 @@ class CardTable(Gtk.EventBox):
         self.show_all()
 
     def resize(self, width, height, change=True):
-        _logger.debug('set size request %dx%d' % (width, height))
+        logging.debug('set size request %dx%d' % (width, height))
         self.set_size_request(width, height)
         self._workspace_size = min(width, height)
         if self.data:

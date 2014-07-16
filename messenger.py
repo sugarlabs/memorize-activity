@@ -15,9 +15,6 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import logging
-_logger = logging.getLogger('memorize-activity')
-
 import tempfile
 from os import environ, chmod
 from os.path import join, getsize, dirname, basename

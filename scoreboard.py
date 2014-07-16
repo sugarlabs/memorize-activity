@@ -15,14 +15,10 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import logging
-
 from gi.repository import Gtk
 from gi.repository import Gdk
 
 from playerscoreboard import PlayerScoreboard
-
-_logger = logging.getLogger('memorize-activity')
 
 
 class Scoreboard(Gtk.EventBox):

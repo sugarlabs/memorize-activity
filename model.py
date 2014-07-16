@@ -41,8 +41,6 @@ except ImportError:
     pass
 
 
-_logger = logging.getLogger('model')
-
 DEFAULT_FONT = 'Sans'
 
 
@@ -128,7 +126,7 @@ class Model(object):
         if isdir(game_path):
             self.game_path = game_path
         else:
-            _logger.error('Game_path not found in %s' % game_path)
+            logging.error('Game_path not found in %s' % game_path)
             return
 
         self.data['face'] = ''
@@ -237,11 +235,11 @@ class Model(object):
                     idpair += 1
 
             else:
-                _logger.error('Read: Error in validation of the file')
+                logging.error('Read: Error in validation of the file')
                 return 1
             return 0
         except Exception as e:
-            _logger.error('Read: Error parsing file ' + str(e))
+            logging.error('Read: Error parsing file ' + str(e))
             return 2
 
     def read_art4apps(self, category, language):
@@ -370,7 +368,7 @@ class Model(object):
         place
         '''
         psize = (size * size / 2)
-        _logger.debug('Size requested: %d', psize)
+        logging.debug('Size requested: %d', psize)
         self.grid = []
         temp1 = []
         temp2 = []
@@ -416,7 +414,7 @@ class Model(object):
 
         numpairs = len(self.pairs)
         if numpairs < psize:
-            _logger.debug('Defgrid: Not enough pairs, requested=%s had=%s'
+            logging.debug('Defgrid: Not enough pairs, requested=%s had=%s'
                           % (psize, numpairs))
         self.data['size'] = str(size)
 
@@ -428,9 +426,9 @@ class Model(object):
             temp1.extend(temp2)
             random.shuffle(temp1)
         self.grid = temp1
-        _logger.debug('Defgrid: grid( size=%s ): %s'
+        logging.debug('Defgrid: grid( size=%s ): %s'
                       % (self.data['size'], self.grid))
-        _logger.debug('Defgrid: data: %s', self.data)
+        logging.debug('Defgrid: data: %s', self.data)
 
     def set_data_grid(self, data, grid):
         self.data = data

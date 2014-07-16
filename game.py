@@ -24,8 +24,6 @@ from gettext import gettext as _
 from model import Model
 from audio import Audio
 
-_logger = logging.getLogger('memorize-activity')
-
 SERVICE = 'org.laptop.Memorize'
 IFACE = SERVICE
 PATH = '/org/laptop/Memorize'
@@ -134,7 +132,7 @@ class MemorizeGame(GObject.GObject):
             self.model.is_demo = (mode == 'demo')
 
     def add_buddy(self, buddy, score=0):
-        _logger.debug('Buddy %r was added to game', buddy.props.nick)
+        logging.debug('Buddy %r was added to game', buddy.props.nick)
         self.players.append(buddy)
         self.players.sort(lambda a, b: cmp(a.props.nick, b.props.nick))
         self.players_score[buddy] = score
@@ -146,7 +144,7 @@ class MemorizeGame(GObject.GObject):
             self.change_turn()
 
     def rem_buddy(self, buddy):
-        _logger.debug('Buddy %r was removed from game', buddy.props.nick)
+        logging.debug('Buddy %r was removed from game', buddy.props.nick)
         if self.current_player == buddy and len(self.players) >= 2:
             if self.last_flipped != -1:
                 self.emit('flop-card', self.last_flipped)

@@ -16,7 +16,6 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 
 import logging
-_logger = logging.getLogger('memorize-activity')
 
 from sugar3.graphics import style
 
@@ -68,7 +67,7 @@ def acquire():
     if not face:
         face = Face()
         _cache.append(face)
-        _logger.debug('face._cache size %s' % len(_cache))
+        logging.debug('face._cache size %s' % len(_cache))
 
     return face
 

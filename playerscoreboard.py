@@ -24,8 +24,6 @@ from sugar3.graphics import style
 import logging
 import math
 
-_logger = logging.getLogger('memorize-activity')
-
 
 class PlayerScoreboard(Gtk.EventBox):
 

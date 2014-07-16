@@ -31,9 +31,6 @@ from sugar3.graphics.menuitem import MenuItem
 from model import USE_ART4APPS, art4apps_data
 
 
-_logger = logging.getLogger('memorize-activity')
-
-
 class MemorizeToolbarBuilder(GObject.GObject):
 
     __gtype_name__ = 'MemoryToolbarBuilder'

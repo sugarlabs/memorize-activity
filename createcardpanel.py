@@ -42,7 +42,6 @@ import speak.espeak
 import speak.widgets
 import speak.face
 
-_logger = logging.getLogger('memorize-activity')
 PAIR_SIZE = min(Gdk.Screen.width() / 4, Gdk.Screen.height() / 3)
 
 
@@ -428,7 +427,7 @@ class CardEditor(Gtk.EventBox):
                                pixbuf_t.get_height(), 0, 0, 1, 1,
                                GdkPixbuf.InterpType.BILINEAR, 255)
             self.card.set_pixbuf(pixbuf_z)
-            _logger.debug('Picture Loaded: ' + index)
+            logging.debug('Picture Loaded: ' + index)
             self.emit('has-picture', True)
             del pixbuf_t
             del pixbuf_z
@@ -451,7 +450,7 @@ class CardEditor(Gtk.EventBox):
                                             style.XLARGE_ICON_SIZE, 0)
             self.card.set_pixbuf(pixbuf_t)
             self.emit('has-sound', True)
-            _logger.debug('Audio Loaded: ' + dst)
+            logging.debug('Audio Loaded: ' + dst)
 
         chooser.pick(parent=self.get_toplevel(),
                      what=chooser.AUDIO,

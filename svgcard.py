@@ -35,8 +35,6 @@ import face
 import speak.voice
 import model
 
-_logger = logging.getLogger('memorize-activity')
-
 BORDER_WIDTH = style.zoom(10)
 
 

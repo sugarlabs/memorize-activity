@@ -20,7 +20,6 @@ import locale
 locale.setlocale(locale.LC_NUMERIC, 'C')
 
 import logging
-_logger = logging.getLogger('memorize-activity')
 
 from gettext import gettext as _
 import os
@@ -220,11 +219,11 @@ class MemorizeActivity(Activity):
                 # We've already joined
                 self._joined_cb(self)
         elif not self._jobject.file_path:
-            _logger.debug('buddy joined - __init__: %s', self.owner.props.nick)
+            logging.debug('buddy joined - __init__: %s', self.owner.props.nick)
             game_file = os.path.join(os.path.dirname(__file__), 'demos',
                                      'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
-            _logger.debug('loading conventional')
+            logging.debug('loading conventional')
             self.game.add_buddy(self.owner)
         else:
             self.game.add_buddy(self.owner)
@@ -368,7 +367,7 @@ class MemorizeActivity(Activity):
 
     def change_game(self, widget, game_name, size, mode,
                     title=None, color=None):
-        _logger.debug('Change game %s', game_name)
+        logging.debug('Change game %s', game_name)
         self.game.change_game(widget, game_name, size, mode, title, color)
         self.cardlist.game_loaded = False
 
@@ -377,17 +376,17 @@ class MemorizeActivity(Activity):
         self.createcardpanel.change_equal_pairs(widget, state)
 
     def _shared_cb(self, activity):
-        _logger.debug('My activity was shared')
+        logging.debug('My activity was shared')
         self.initiating = True
         self._sharing_setup()
 
-        _logger.debug('This is my activity: making a tube...')
+        logging.debug('This is my activity: making a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
             SERVICE, {})
 
     def _sharing_setup(self):
         if self.get_shared_activity() is None:
-            _logger.error('Failed to share or join activity')
+            logging.error('Failed to share or join activity')
             return
         shared_activity = self.get_shared_activity()
         self.conn = shared_activity.telepathy_conn
@@ -405,17 +404,17 @@ class MemorizeActivity(Activity):
             self._new_tube_cb(*tube_info)
 
     def _list_tubes_error_cb(self, e):
-        _logger.error('ListTubes() failed: %s', e)
+        logging.error('ListTubes() failed: %s', e)
 
     def _joined_cb(self, activity):
         if not self.get_shared_activity():
             return
 
-        _logger.debug('Joined an existing shared activity')
+        logging.debug('Joined an existing shared activity')
 
         for buddy in self.get_shared_activity().get_joined_buddies():
             if buddy != self.owner:
-                _logger.debug("buddy joined - _joined_cb: %s  "
+                logging.debug("buddy joined - _joined_cb: %s  "
                               "(get buddies and add them to my list)",
                               buddy.props.nick)
                 self.game.add_buddy(buddy)
@@ -424,14 +423,14 @@ class MemorizeActivity(Activity):
         self.initiating = False
         self._sharing_setup()
 
-        _logger.debug('This is not my activity: waiting for a tube...')
+        logging.debug('This is not my activity: waiting for a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self._list_tubes_reply_cb,
             error_handler=self._list_tubes_error_cb)
 
     def _new_tube_cb(self, identifier, initiator, tube_type, service,
                      params, state):
-        _logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
+        logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
                       'params=%r state=%d', identifier, initiator, tube_type,
                       service, params, state)
 
@@ -467,18 +466,18 @@ class MemorizeActivity(Activity):
     def _buddy_joined_cb(self, activity, buddy):
         if buddy != self.owner:
             if buddy.props.nick == '':
-                _logger.debug("buddy joined: empty nick=%s. Will not add.",
+                logging.debug("buddy joined: empty nick=%s. Will not add.",
                               buddy.props.nick)
             else:
-                _logger.debug("buddy joined: %s", buddy.props.nick)
+                logging.debug("buddy joined: %s", buddy.props.nick)
                 self.game.add_buddy(buddy)
 
     def _buddy_left_cb(self, activity, buddy):
         if buddy.props.nick == '':
-            _logger.debug("buddy joined: empty nick=%s. Will not remove",
+            logging.debug("buddy joined: empty nick=%s. Will not remove",
                           buddy.props.nick)
         else:
-            _logger.debug("buddy left: %s", buddy.props.nick)
+            logging.debug("buddy left: %s", buddy.props.nick)
             self.game.rem_buddy(buddy)
 
     def _focus_in(self, event, data=None):

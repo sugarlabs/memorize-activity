@@ -30,7 +30,6 @@ from model import Pair
 from sugar3.graphics import style
 from sugar3 import profile
 
-_logger = logging.getLogger('memorize-activity')
 PAIR_SIZE = min(Gdk.Screen.width() / 7, Gdk.Screen.height() / 5)
 user_color = profile.get_color()
 

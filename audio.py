@@ -21,8 +21,6 @@ from gi.repository import GObject
 
 import logging
 
-_logger = logging.getLogger('memorize-activity')
-
 Gst.init([])
 
 
@@ -44,20 +42,20 @@ class Audio(GObject.GObject):
 
     def play(self, filename=None):
         if filename:
-            _logger.debug('play audio %s' % filename)
+            logging.debug('play audio %s' % filename)
             self._player.set_state(Gst.State.NULL)
             self._player.set_property('uri', 'file://' + filename)
         elif self._playing is None:
             return
         else:
-            _logger.debug('continue audio')
+            logging.debug('continue audio')
 
         self._player.set_state(Gst.State.PLAYING)
         self._playing = True
 
     def pause(self):
         if self._playing is not None:
-            _logger.debug('pause audio')
+            logging.debug('pause audio')
             self._player.set_state(Gst.State.PAUSED)
             self._playing = False
 
@@ -70,5 +68,5 @@ class Audio(GObject.GObject):
         if message_type in (Gst.MessageType.EOS, Gst.MessageType.ERROR):
             self._player.set_state(Gst.State.NULL)
             self._playing = None
-            _logger.debug('audio stoped with type %d' % message_type)
+            logging.debug('audio stoped with type %d' % message_type)
             self.emit('play_finished')
