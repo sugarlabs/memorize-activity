@@ -66,6 +66,7 @@ class CardList(Gtk.EventBox):
         self._scroll.get_child().modify_bg(Gtk.StateType.NORMAL,
                                            Gdk.color_parse('#000000'))
         self.add(self._scroll)
+        self.set_size_request(-1, PAIR_SIZE * 2 + style.DEFAULT_SPACING * 4)
         self.show_all()
 
     def load_game(self, game):
@@ -262,7 +263,7 @@ class CardPair(Gtk.EventBox):
                  font_name1=None, font_name2=None,
                  aimg_name=None, bimg_name=None):
         Gtk.EventBox.__init__(self)
-        self.bg_color = '#000000'
+        self.bg_color = '#d7d7d7'
 
         self.asnd = asnd
         self.bsnd = bsnd
@@ -273,8 +274,8 @@ class CardPair(Gtk.EventBox):
         self.current_game_key = None
 
         row = Gtk.VBox()
-        row.props.border_width = 10
-        row.props.spacing = 10
+        row.props.margin_left = style.DEFAULT_SPACING
+        row.props.margin_right = style.DEFAULT_SPACING
 
         self.bcard1 = svgcard.SvgCard(
             -1, {'front_text': {'card_text': text1,
@@ -285,9 +286,8 @@ class CardPair(Gtk.EventBox):
             None, PAIR_SIZE, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_pixbuf(aimg)
-        align = Gtk.Alignment.new(.5, .5, 0, 0)
-        align.add(self.bcard1)
-        row.pack_start(align, True, True, 0)
+        self.bcard1.set_valign(Gtk.Align.CENTER)
+        row.pack_start(self.bcard1, True, True, 0)
 
         self.bcard2 = svgcard.SvgCard(
             -1, {'front_text': {'card_text': text2,
@@ -298,9 +298,8 @@ class CardPair(Gtk.EventBox):
             None, PAIR_SIZE, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_pixbuf(bimg)
-        align = Gtk.Alignment.new(.5, .5, 0, 0)
-        align.add(self.bcard2)
-        row.pack_start(align, True, True, 0)
+        self.bcard2.set_valign(Gtk.Align.CENTER)
+        row.pack_start(self.bcard2, True, True, 0)
         self.connect('button-press-event', self.emit_selected)
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.bg_color))
         self.add(row)
@@ -311,7 +310,7 @@ class CardPair(Gtk.EventBox):
 
     def set_selected(self, status):
         if not status:
-            self.bg_color = '#000000'
+            self.bg_color = '#d7d7d7'
         else:
             self.bg_color = '#b2b3b7'
 

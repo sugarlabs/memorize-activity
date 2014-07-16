@@ -43,7 +43,7 @@ import speak.widgets
 import speak.face
 
 _logger = logging.getLogger('memorize-activity')
-PAIR_SIZE = min(Gdk.Screen.width() / 5, Gdk.Screen.height() / 3)
+PAIR_SIZE = min(Gdk.Screen.width() / 4, Gdk.Screen.height() / 3)
 
 
 class CreateCardPanel(Gtk.EventBox):
@@ -83,6 +83,7 @@ class CreateCardPanel(Gtk.EventBox):
         buttons_bar = Gtk.VBox()
         buttons_bar.props.border_width = 10
         buttons_bar.set_valign(Gtk.Align.CENTER)
+        buttons_bar.set_halign(Gtk.Align.CENTER)
 
         self._addbutton = ToolButton(tooltip=_('Add as new pair'),
                                      sensitive=False)
@@ -124,13 +125,15 @@ class CreateCardPanel(Gtk.EventBox):
         self.card_box = Gtk.HBox()
         self.card_box.set_homogeneous(True)
         self.cardeditor1.set_halign(Gtk.Align.CENTER)
+        self.cardeditor1.set_valign(Gtk.Align.CENTER)
         self.cardeditor2.set_halign(Gtk.Align.CENTER)
+        self.cardeditor2.set_valign(Gtk.Align.CENTER)
         self.card_box.pack_start(self.cardeditor1, True, True, 0)
         self.card_box.pack_start(self.cardeditor2, True, True, 0)
 
         box = Gtk.HBox()
         box.pack_start(self.card_box, True, True, 0)
-        box.pack_start(buttons_bar, False, False, 0)
+        box.pack_start(buttons_bar, True, True, 0)
         self.add(box)
 
         self.show_all()

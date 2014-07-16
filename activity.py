@@ -339,8 +339,8 @@ class MemorizeActivity(Activity):
 
                 self.box.remove(self.scoreboard)
                 self.box.remove(self.table)
-                self.box.pack_start(self.createcardpanel, False, False, 0)
-                self.box.pack_start(self.cardlist, True, True, 0)
+                self.box.pack_start(self.createcardpanel, True, True, 0)
+                self.box.pack_start(self.cardlist, False, False, 0)
                 self.cardlist.load_game(self.game)
                 self.game.model.create_temp_directories()
                 self.createcardpanel.set_temp_folder(
