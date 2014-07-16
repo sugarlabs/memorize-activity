@@ -28,9 +28,11 @@ from os.path import join, basename
 from model import Pair
 
 from sugar3.graphics import style
+from sugar3 import profile
 
 _logger = logging.getLogger('memorize-activity')
 PAIR_SIZE = min(Gdk.Screen.width() / 7, Gdk.Screen.height() / 5)
+user_color = profile.get_color()
 
 
 class CardList(Gtk.EventBox):
@@ -264,6 +266,8 @@ class CardPair(Gtk.EventBox):
                  aimg_name=None, bimg_name=None):
         Gtk.EventBox.__init__(self)
         self.bg_color = '#d7d7d7'
+        self._stroke_color = '#ffffff'
+        self._fill_color = '#4c4d4f'
 
         self.asnd = asnd
         self.bsnd = bsnd
@@ -281,8 +285,8 @@ class CardPair(Gtk.EventBox):
             -1, {'front_text': {'card_text': text1,
                                 'speak': aspeak,
                                 'text_color': style.Color('#ffffff')},
-                 'front': {'fill_color': style.Color('#4c4d4f'),
-                           'stroke_color': style.Color('#ffffff')}},
+                 'front': {'fill_color': style.Color(self._fill_color),
+                           'stroke_color': style.Color(self._stroke_color)}},
             None, PAIR_SIZE, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_pixbuf(aimg)
@@ -293,8 +297,8 @@ class CardPair(Gtk.EventBox):
             -1, {'front_text': {'card_text': text2,
                                 'speak': bspeak,
                                 'text_color': style.Color('#ffffff')},
-                 'front': {'fill_color': style.Color('#4c4d4f'),
-                           'stroke_color': style.Color('#ffffff')}},
+                 'front': {'fill_color': style.Color(self._fill_color),
+                           'stroke_color': style.Color(self._stroke_color)}},
             None, PAIR_SIZE, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_pixbuf(bimg)
@@ -310,13 +314,14 @@ class CardPair(Gtk.EventBox):
 
     def set_selected(self, status):
         if not status:
-            self.bg_color = '#d7d7d7'
+            stroke_color = self._stroke_color
+            fill_color = self._fill_color
         else:
-            self.bg_color = '#b2b3b7'
+            stroke_color = user_color.get_stroke_color()
+            fill_color = user_color.get_fill_color()
 
-        self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self.bg_color))
-        self.bcard1.set_background(self.bg_color)
-        self.bcard2.set_background(self.bg_color)
+        self.bcard1.set_border(stroke_color, fill_color)
+        self.bcard2.set_border(stroke_color, fill_color)
 
     def change_pixbuf(self, aimg, bimg):
         self.bcard1.set_pixbuf(aimg)

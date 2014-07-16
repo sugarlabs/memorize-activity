@@ -180,7 +180,7 @@ class SvgCard(Gtk.EventBox):
             cache_context.fill()
             cache_context.restore()
 
-    def set_border(self, stroke_color, fill_color):
+    def set_border(self, stroke_color, fill_color, full_animation=False):
         """
         style_color, fill_color: str with format #RRGGBB
         """
@@ -188,13 +188,14 @@ class SvgCard(Gtk.EventBox):
                                     'stroke_color': style.Color(stroke_color)})
         self._cached_surface[True] = None
 
-        if self.get_speak():
-            # If we displayed the robot face, displayed the text
-            self.jpeg = None
-            self.props['front_text']['speak'] = False
+        if full_animation:
+            if self.get_speak():
+                # If we displayed the robot face, displayed the text
+                self.jpeg = None
+                self.props['front_text']['speak'] = False
 
         if not self.is_flipped():
-            self.flip(full_animation=True)
+            self.flip(full_animation)
         else:
             self.queue_draw()
 

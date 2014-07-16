@@ -246,7 +246,8 @@ class CardTable(Gtk.EventBox):
             self.emit('card-flipped', identifer, False)
 
     def set_border(self, widget, identifer, stroke_color, fill_color):
-        self.id2cd[identifer].set_border(stroke_color, fill_color)
+        self.id2cd[identifer].set_border(stroke_color, fill_color,
+                                         full_animation=True)
 
     def flop_card(self, widget, identifer):
         self.id2cd.get(identifer).flop()
