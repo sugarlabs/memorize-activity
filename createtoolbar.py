@@ -101,26 +101,32 @@ class CreateToolbarBuilder(GObject.GObject):
         if self._equal_pairs.get_active():
             self._equal_pairs.set_icon_name('pair-equals')
             self._equal_pairs.set_tooltip(_('Match identical tiles'))
-            self.activity.game.model.data['equal_pairs'] = '1'
+            equal_pairs = '1'
         else:
             self._equal_pairs.set_icon_name('pair-non-equals')
             self._equal_pairs.set_tooltip(_('Match different tiles'))
-            self.activity.game.model.data['equal_pairs'] = '0'
+            equal_pairs = '0'
         self.emit('create_equal_pairs', self._equal_pairs.get_active())
         logging.debug('createtoolbar._emit_equal_pairs')
-        self.activity.game.model.mark_modified()
+
+        if self.activity.game.model.data['equal_pairs'] != equal_pairs:
+            self.activity.game.model.data['equal_pairs'] = equal_pairs
+            self.activity.game.model.mark_modified()
 
     def _grouped_cb(self, widget):
         if self._grouped.get_active():
             self._grouped.set_icon_name('grouped_game2')
             self._grouped.set_tooltip(_('Grouped tiles game'))
-            self.activity.game.model.data['divided'] = '1'
+            divided = '1'
         else:
             self._grouped.set_icon_name('grouped_game1')
             self._grouped.set_tooltip(_('Mixed tiles game'))
-            self.activity.game.model.data['divided'] = '0'
+            divided = '0'
         logging.debug('createtoolbar._grouped_cb')
-        self.activity.game.model.mark_modified()
+
+        if self.activity.game.model.data['divided'] != divided:
+            self.activity.game.model.data['divided'] = divided
+            self.activity.game.model.mark_modified()
 
     def update_create_toolbar(self, widget, game_name, equal_pairs, grouped):
         self._equal_pairs.set_active(equal_pairs == '1')
