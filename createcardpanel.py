@@ -57,7 +57,7 @@ class CreateCardPanel(Gtk.EventBox):
                         None, []),
     }
 
-    def __init__(self):
+    def __init__(self, game):
         def make_label(icon_name, label):
             label_box = Gtk.VBox()
             icon = Icon(icon_name=icon_name,
@@ -71,7 +71,7 @@ class CreateCardPanel(Gtk.EventBox):
             return label_box
 
         Gtk.EventBox.__init__(self)
-
+        self._game = game
         self.equal_pairs = False
         self._updatebutton_sensitive = False
         self._card1_has_sound = False
@@ -107,8 +107,8 @@ class CreateCardPanel(Gtk.EventBox):
 
         # Set card editors
 
-        self.cardeditor1 = CardEditor(1)
-        self.cardeditor2 = CardEditor(2)
+        self.cardeditor1 = CardEditor(self._game, 1)
+        self.cardeditor2 = CardEditor(self._game, 2)
         self.clean(None)
         self.cardeditor1.connect('has-text', self.receive_text_signals)
         self.cardeditor2.connect('has-text', self.receive_text_signals)
@@ -302,9 +302,9 @@ class CardEditor(Gtk.EventBox):
                         [GObject.TYPE_PYOBJECT]),
     }
 
-    def __init__(self, editor_index):
+    def __init__(self, game, editor_index):
         Gtk.EventBox.__init__(self)
-
+        self._game = game
         self.snd = None
         self.editor_index = editor_index
         self.temp_folder = None
@@ -413,12 +413,15 @@ class CardEditor(Gtk.EventBox):
 
     def _load_image(self, widget):
         def load(jobject):
-            index = jobject.file_path
-            dst = join(self.temp_folder, 'images', basename(index))
-            shutil.copy(index, dst)
+            origin_path = jobject.file_path
+            self._game.model.mark_modified()
+            self._game.model.create_temp_directories()
+            destination_path = join(self._game.model.data['pathimg'],
+                                    basename(origin_path))
+            shutil.copy(origin_path, destination_path)
             self.set_speak(None)
-            self.card.set_image_path(dst)
-            logging.debug('Picture Loaded: ' + dst)
+            self.card.set_image_path(destination_path)
+            logging.debug('Picture Loaded: %s', destination_path)
             self.emit('has-picture', True)
 
         chooser.pick(parent=self.get_toplevel(),
@@ -427,18 +430,25 @@ class CardEditor(Gtk.EventBox):
 
     def _load_audio(self, widget):
         def load(jobject):
-            index = jobject.file_path
-
+            origin_path = jobject.file_path
             self.set_speak(None)
+            self._game.model.mark_modified()
+            self._game.model.create_temp_directories()
+            destination_path = join(self._game.model.data['pathsnd'],
+                                    basename(origin_path))
+            shutil.copy(origin_path, destination_path)
+            self.set_snd(destination_path)
+            logging.debug('Audio Loaded: %s', destination_path)
 
-            dst = join(self.temp_folder, 'sounds', basename(index))
-            shutil.copy(index, dst)
-            self.set_snd(dst)
+            # add a icon too
             sound_icon_path = join(activity.get_bundle_path(),
                                    'icons/sound.svg')
-            self.card.set_image_path(sound_icon_path)
+            destination_path = join(self._game.model.data['pathimg'],
+                                    'sound.svg')
+            shutil.copy(sound_icon_path, destination_path)
+
+            self.card.set_image_path(destination_path)
             self.emit('has-sound', True)
-            logging.debug('Audio Loaded: ' + dst)
 
         chooser.pick(parent=self.get_toplevel(),
                      what=chooser.AUDIO,

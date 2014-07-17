@@ -106,11 +106,12 @@ class MemorizeActivity(Activity):
 
         toolbar_box.toolbar.insert(StopButton(self), -1)
 
+        self.game = game.MemorizeGame()
         # Play game mode
         self.table = cardtable.CardTable()
         self.scoreboard = scoreboard.Scoreboard()
         self.cardlist = cardlist.CardList()
-        self.createcardpanel = createcardpanel.CreateCardPanel()
+        self.createcardpanel = createcardpanel.CreateCardPanel(self.game)
         self.cardlist.connect('pair-selected',
                               self.createcardpanel.pair_selected)
         self.cardlist.connect(
@@ -134,7 +135,6 @@ class MemorizeActivity(Activity):
             self._memorizeToolbarBuilder.reset)
         self._createToolbarBuilder.connect('create_equal_pairs',
                                            self.change_equal_pairs)
-        self.game = game.MemorizeGame()
 
         self._edit_button.connect('toggled', self._change_mode_bt)
 
