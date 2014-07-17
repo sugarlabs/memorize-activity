@@ -135,9 +135,9 @@ class CardTable(Gtk.EventBox):
 
         for card in self.cards_data:
             if card.get('img', None):
-                jpg = os.path.join(self.data['pathimg'], card['img'])
+                image_path = os.path.join(self.data['pathimg'], card['img'])
             else:
-                jpg = None
+                image_path = None
             props = {}
             props['front_text'] = {'card_text': card.get('char', ''),
                                    'speak': card.get('speak')}
@@ -154,7 +154,7 @@ class CardTable(Gtk.EventBox):
                                  'stroke_color': background_color2}
 
             card = svgcard.SvgCard(
-                identifier, props, jpg,
+                identifier, props, image_path,
                 self.card_size, self._background_color, font_name)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.set_events(Gdk.EventMask.TOUCH_MASK |

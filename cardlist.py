@@ -15,11 +15,11 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 import os
+import shutil
 
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
-from gi.repository import GdkPixbuf
 
 import svgcard
 import logging
@@ -82,18 +82,16 @@ class CardList(Gtk.EventBox):
         self.clean_list(load=True)
         for key in game_pairs:
             if game_pairs[key].props.aimg is not None:
-                aimg = GdkPixbuf.Pixbuf.new_from_file(
-                    join(self.model.data['pathimg'],
-                         game_pairs[key].props.aimg))
+                aimg_path = join(self.model.data['pathimg'],
+                                 game_pairs[key].props.aimg)
             else:
-                aimg = None
+                aimg_path = None
 
             if game_pairs[key].props.bimg is not None:
-                bimg = GdkPixbuf.Pixbuf.new_from_file(
-                    join(self.model.data['pathimg'],
-                         game_pairs[key].props.bimg))
+                bimg_path = join(self.model.data['pathimg'],
+                                 game_pairs[key].props.bimg)
             else:
-                bimg = None
+                bimg_path = None
 
             if game_pairs[key].props.asnd is not None:
                 asnd = join(self.model.data['pathsnd'],
@@ -109,11 +107,9 @@ class CardList(Gtk.EventBox):
 
             self.add_pair(
                 None, game_pairs[key].props.achar,
-                game_pairs[key].props.bchar, aimg, bimg, asnd, bsnd,
+                game_pairs[key].props.bchar, aimg_path, bimg_path, asnd, bsnd,
                 game_pairs[key].props.aspeak, game_pairs[key].props.bspeak,
-                font_name1, font_name2,
-                game_pairs[key].props.aimg, game_pairs[key].props.bimg,
-                False, load=True)
+                font_name1, font_name2, False, load=True)
         self.get_window().thaw_updates()
         self.emit('update-create-toolbar', self.model.data['name'],
                   self.model.data['equal_pairs'],
@@ -122,7 +118,6 @@ class CardList(Gtk.EventBox):
 
     def update_model(self, game_model):
         game_model.pairs = {}
-        equal_pairs = game_model.data['equal_pairs'] == '1'
         game_model.create_temp_directories()
         temp_img_folder = game_model.data['pathimg']
 
@@ -147,27 +142,29 @@ class CardList(Gtk.EventBox):
             pair_card.set_property('bspeak', bspeak)
 
             # aimg
-            aimg = self.pairs[pair].get_pixbuf(1)
+            aimg = self.pairs[pair].get_image_path(1)
             if aimg is not None:
-                aimgfile = self.pairs[pair].get_image_name(1)
-                if not os.path.exists(join(temp_img_folder, aimgfile)):
-                    if equal_pairs:
-                        aimgfile = 'img' + str(pair) + '.jpg'
-                    else:
-                        aimgfile = 'aimg' + str(pair) + '.jpg'
-                    aimg.savev(join(temp_img_folder, aimgfile), 'jpeg', [], [])
-                pair_card.set_property('aimg', aimgfile)
+                aimgfile = self.pairs[pair].get_image_path(1)
+                pair_card.set_property('aimg', basename(aimgfile))
+                if not os.path.exists(aimgfile):
+                    destination_path = join(temp_img_folder,
+                                            basename(aimgfile))
+                    if not os.path.exists(destination_path):
+                        GObject.idle_add(shutil.copyfile, aimgfile,
+                                         destination_path)
+                        logging.error('copy img to %s', destination_path)
             # bimg
-            bimg = self.pairs[pair].get_pixbuf(2)
+            bimg = self.pairs[pair].get_image_path(2)
             if bimg is not None:
-                bimgfile = self.pairs[pair].get_image_name(2)
-                if not os.path.exists(join(temp_img_folder, bimgfile)):
-                    if equal_pairs:
-                        bimgfile = 'img' + str(pair) + '.jpg'
-                    else:
-                        bimgfile = 'bimg' + str(pair) + '.jpg'
-                    bimg.savev(join(temp_img_folder, bimgfile), 'jpeg', [], [])
-                pair_card.set_property('bimg', bimgfile)
+                bimgfile = self.pairs[pair].get_image_path(2)
+                pair_card.set_property('bimg', basename(bimgfile))
+                if not os.path.exists(bimgfile):
+                    destination_path = join(temp_img_folder,
+                                            basename(bimgfile))
+                    if not os.path.exists(destination_path):
+                        GObject.idle_add(shutil.copyfile, bimgfile,
+                                         destination_path)
+                        logging.error('copy img to %s', destination_path)
 
             # asnd
             asnd = self.pairs[pair].get_sound(1)
@@ -193,11 +190,11 @@ class CardList(Gtk.EventBox):
             self.pair_list_modified = True
             self.model.mark_modified()
 
-    def add_pair(self, widget, achar, bchar, aimg, bimg, asnd, bsnd,
+    def add_pair(self, widget, achar, bchar, aimg_path, bimg_path, asnd, bsnd,
                  aspeak, bspeak, font_name1, font_name2,
-                 aimg_name=None, bimage_name=None, show=True, load=False):
-        pair = CardPair(achar, bchar, aimg, bimg, asnd, bsnd, aspeak, bspeak,
-                        font_name1, font_name2, aimg_name, bimage_name)
+                 show=True, load=False):
+        pair = CardPair(achar, bchar, aimg_path, bimg_path, asnd, bsnd,
+                        aspeak, bspeak, font_name1, font_name2)
         self.hbox.pack_end(pair, False, True, 0)
         self.pairs.append(pair)
         pair.connect('pair-selected', self.set_selected)
@@ -235,17 +232,17 @@ class CardList(Gtk.EventBox):
         self.emit('pair-selected', True,
                   self.current_pair.get_text(1),
                   self.current_pair.get_text(2),
-                  self.current_pair.get_pixbuf(1),
-                  self.current_pair.get_pixbuf(2),
+                  self.current_pair.get_image_path(1),
+                  self.current_pair.get_image_path(2),
                   self.current_pair.get_sound(1),
                   self.current_pair.get_sound(2),
                   self.current_pair.get_speak(1),
                   self.current_pair.get_speak(2))
 
-    def update_selected(self, widget, newtext1, newtext2, aimg, bimg,
+    def update_selected(self, widget, newtext1, newtext2, aimg_path, bimg_path,
                         asnd, bsnd, aspeak, bspeak):
         self.current_pair.change_text(newtext1, newtext2)
-        self.current_pair.change_pixbuf(aimg, bimg)
+        self.current_pair.change_image_path(aimg_path, bimg_path)
         self.current_pair.change_sound(asnd, bsnd)
         self.current_pair.change_speak(aspeak, bspeak)
         self.model.mark_modified()
@@ -259,10 +256,9 @@ class CardPair(Gtk.EventBox):
                           None, [GObject.TYPE_PYOBJECT]),
     }
 
-    def __init__(self, text1, text2=None, aimg=None, bimg=None,
+    def __init__(self, text1, text2=None, aimg_path=None, bimg_path=None,
                  asnd=None, bsnd=None, aspeak=None, bspeak=None,
-                 font_name1=None, font_name2=None,
-                 aimg_name=None, bimg_name=None):
+                 font_name1=None, font_name2=None):
         Gtk.EventBox.__init__(self)
         self.bg_color = '#d7d7d7'
         self._stroke_color = '#ffffff'
@@ -270,9 +266,6 @@ class CardPair(Gtk.EventBox):
 
         self.asnd = asnd
         self.bsnd = bsnd
-
-        self.aimg_name = aimg_name
-        self.bimg_name = bimg_name
 
         self.current_game_key = None
 
@@ -286,9 +279,8 @@ class CardPair(Gtk.EventBox):
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color(self._fill_color),
                            'stroke_color': style.Color(self._stroke_color)}},
-            None, PAIR_SIZE, self.bg_color, font_name1)
+            aimg_path, PAIR_SIZE, self.bg_color, font_name1)
         self.bcard1.flip()
-        self.bcard1.set_pixbuf(aimg)
         self.bcard1.set_valign(Gtk.Align.CENTER)
         row.pack_start(self.bcard1, True, True, 0)
 
@@ -298,9 +290,8 @@ class CardPair(Gtk.EventBox):
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color(self._fill_color),
                            'stroke_color': style.Color(self._stroke_color)}},
-            None, PAIR_SIZE, self.bg_color, font_name2)
+            bimg_path, PAIR_SIZE, self.bg_color, font_name2)
         self.bcard2.flip()
-        self.bcard2.set_pixbuf(bimg)
         self.bcard2.set_valign(Gtk.Align.CENTER)
         row.pack_start(self.bcard2, True, True, 0)
         self.connect('button-press-event', self.emit_selected)
@@ -322,9 +313,9 @@ class CardPair(Gtk.EventBox):
         self.bcard1.set_border(stroke_color, fill_color)
         self.bcard2.set_border(stroke_color, fill_color)
 
-    def change_pixbuf(self, aimg, bimg):
-        self.bcard1.set_pixbuf(aimg)
-        self.bcard2.set_pixbuf(bimg)
+    def change_image_path(self, aimage_path, bimage_path):
+        self.bcard1.set_image_path(aimage_path)
+        self.bcard2.set_image_path(bimage_path)
 
     def change_text(self, text1, text2):
         self.bcard1.change_text(text1)
@@ -356,20 +347,11 @@ class CardPair(Gtk.EventBox):
         else:
             return self.bcard2.get_speak()
 
-    def get_pixbuf(self, card):
+    def get_image_path(self, card):
         if card == 1:
-            return self.bcard1.get_pixbuf()
+            return self.bcard1.get_image_path()
         else:
-            return self.bcard2.get_pixbuf()
-
-    def get_image_name(self, card):
-        if card == 1:
-            name = self.aimg_name
-        else:
-            name = self.bimg_name
-        if name is None:
-            name = 'img%d' % card
-        return name
+            return self.bcard2.get_image_path()
 
     def get_sound(self, card):
         if card == 1:

@@ -54,15 +54,15 @@ class SvgCard(Gtk.EventBox):
                               'stroke_color': style.Color('#111111')}
     default_props['front_text'] = {'text_color': '#ffffff'}
 
-    def __init__(self, identifier, pprops, jpeg, size,
+    def __init__(self, identifier, pprops, image_path, size,
                  bg_color='#000000', font_name=model.DEFAULT_FONT):
         Gtk.EventBox.__init__(self)
-
+        logging.error('SvgCard image_path %s', image_path)
         self.bg_color = bg_color
         self.flipped = False
-        self.flipped_once = False
         self.id = identifier
-        self.jpeg = jpeg
+        self._image_path = image_path
+        self.jpeg = None
         self.size = size
         # animation data
         self._steps_scales = [0.66, 0.33, 0.1, 0.33, 0.66]
@@ -154,6 +154,12 @@ class SvgCard(Gtk.EventBox):
         cache_context.restore()
 
         text_props = self.props[flipped and 'front_text' or 'back_text']
+        if self._image_path is not None:
+            if self.jpeg is None:
+                image_size = self.size - style.DEFAULT_SPACING * 2
+                self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                    self._image_path, image_size, image_size)
+
         if self.jpeg is not None and flipped:
             Gdk.cairo_set_source_pixbuf(
                 cache_context, self.jpeg,
@@ -197,13 +203,20 @@ class SvgCard(Gtk.EventBox):
         else:
             self.queue_draw()
 
-    def set_pixbuf(self, pixbuf):
-        self.jpeg = pixbuf
+    def set_image_path(self, image_path):
+        self._image_path = image_path
+        if self._image_path is not None:
+            if self.jpeg is None:
+                image_size = self.size - style.DEFAULT_SPACING * 2
+                self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                    self._image_path, image_size, image_size)
+        else:
+            self.jpeg = None
         self._cached_surface[True] = None
         self.queue_draw()
 
-    def get_pixbuf(self):
-        return self.jpeg
+    def get_image_path(self):
+        return self._image_path
 
     def set_highlight(self, status, mouse=False):
         if self.flipped and mouse:
@@ -215,12 +228,11 @@ class SvgCard(Gtk.EventBox):
         if self.flipped:
             return
 
-        if not self.flipped_once:
+        if self.jpeg is None:
             if self.jpeg is not None:
                 image_size = self.size - style.DEFAULT_SPACING * 2
                 self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                    self.jpeg, image_size, image_size)
-            self.flipped_once = True
+                    self._image_path, image_size, image_size)
 
         if full_animation:
             if self.id != -1 and self.get_speak():

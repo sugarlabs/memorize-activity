@@ -20,7 +20,6 @@
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GObject
-from gi.repository import GdkPixbuf
 
 from os.path import join, basename
 
@@ -29,6 +28,7 @@ from gettext import gettext as _
 import svgcard
 import logging
 
+from sugar3.activity import activity
 from sugar3.graphics import style
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.graphics.icon import Icon
@@ -154,8 +154,8 @@ class CreateCardPanel(Gtk.EventBox):
         if self.equal_pairs:
             self.emit('add-pair', self.cardeditor1.get_text(),
                       self.cardeditor1.get_text(),
-                      self.cardeditor1.get_pixbuf(),
-                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor1.get_image_path(),
+                      self.cardeditor1.get_image_path(),
                       self.cardeditor1.get_snd(),
                       self.cardeditor1.get_snd(),
                       self.cardeditor1.get_speak(),
@@ -165,8 +165,8 @@ class CreateCardPanel(Gtk.EventBox):
         else:
             self.emit('add-pair', self.cardeditor1.get_text(),
                       self.cardeditor2.get_text(),
-                      self.cardeditor1.get_pixbuf(),
-                      self.cardeditor2.get_pixbuf(),
+                      self.cardeditor1.get_image_path(),
+                      self.cardeditor2.get_image_path(),
                       self.cardeditor1.get_snd(),
                       self.cardeditor2.get_snd(),
                       self.cardeditor1.get_speak(),
@@ -180,8 +180,8 @@ class CreateCardPanel(Gtk.EventBox):
         if self.equal_pairs:
             self.emit('update-pair', self.cardeditor1.get_text(),
                       self.cardeditor1.get_text(),
-                      self.cardeditor1.get_pixbuf(),
-                      self.cardeditor1.get_pixbuf(),
+                      self.cardeditor1.get_image_path(),
+                      self.cardeditor1.get_image_path(),
                       self.cardeditor1.get_snd(),
                       self.cardeditor1.get_snd(),
                       self.cardeditor1.get_speak(),
@@ -189,21 +189,21 @@ class CreateCardPanel(Gtk.EventBox):
         else:
             self.emit('update-pair', self.cardeditor1.get_text(),
                       self.cardeditor2.get_text(),
-                      self.cardeditor1.get_pixbuf(),
-                      self.cardeditor2.get_pixbuf(),
+                      self.cardeditor1.get_image_path(),
+                      self.cardeditor2.get_image_path(),
                       self.cardeditor1.get_snd(),
                       self.cardeditor2.get_snd(),
                       self.cardeditor1.get_speak(),
                       self.cardeditor2.get_speak())
         self.clean(None)
 
-    def pair_selected(self, widget, selected, newtext1, newtext2, aimg, bimg,
-                      asnd, bsnd, aspeak, bspeak):
+    def pair_selected(self, widget, selected, newtext1, newtext2,
+                      aimage_path, bimage_path, asnd, bsnd, aspeak, bspeak):
         if selected:
             self.cardeditor1.set_text(newtext1)
             self.cardeditor2.set_text(newtext2)
-            self.cardeditor1.set_pixbuf(aimg)
-            self.cardeditor2.set_pixbuf(bimg)
+            self.cardeditor1.set_image_path(aimage_path)
+            self.cardeditor2.set_image_path(bimage_path)
             self.cardeditor1.set_snd(asnd)
             self.cardeditor2.set_snd(bsnd)
             self.cardeditor1.set_speak(aspeak)
@@ -404,33 +404,22 @@ class CardEditor(Gtk.EventBox):
                 self.usespeak.handler_unblock_by_func(self._usespeak_cb)
             self.usespeak.palette.voices.resume(value)
 
-    def get_pixbuf(self):
-        return self.card.get_pixbuf()
+    def get_image_path(self):
+        return self.card.get_image_path()
 
-    def set_pixbuf(self, pixbuf):
-        self.card.set_pixbuf(pixbuf)
+    def set_image_path(self, image_path):
+        self.card.set_image_path(image_path)
         self.emit('has-picture', True)
 
     def _load_image(self, widget):
         def load(jobject):
             index = jobject.file_path
-
+            dst = join(self.temp_folder, 'images', basename(index))
+            shutil.copy(index, dst)
             self.set_speak(None)
-
-            pixbuf_t = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                index, PAIR_SIZE - style.DEFAULT_SPACING * 2,
-                PAIR_SIZE - style.DEFAULT_SPACING * 2)
-            size = max(pixbuf_t.get_width(), pixbuf_t.get_height())
-            pixbuf_z = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                'images/white.png', size, size)
-            pixbuf_t.composite(pixbuf_z, 0, 0, pixbuf_t.get_width(),
-                               pixbuf_t.get_height(), 0, 0, 1, 1,
-                               GdkPixbuf.InterpType.BILINEAR, 255)
-            self.card.set_pixbuf(pixbuf_z)
-            logging.debug('Picture Loaded: ' + index)
+            self.card.set_image_path(dst)
+            logging.debug('Picture Loaded: ' + dst)
             self.emit('has-picture', True)
-            del pixbuf_t
-            del pixbuf_z
 
         chooser.pick(parent=self.get_toplevel(),
                      what=chooser.IMAGE,
@@ -445,10 +434,9 @@ class CardEditor(Gtk.EventBox):
             dst = join(self.temp_folder, 'sounds', basename(index))
             shutil.copy(index, dst)
             self.set_snd(dst)
-            icon_theme = Gtk.IconTheme.get_default()
-            pixbuf_t = icon_theme.load_icon("audio-x-generic",
-                                            style.XLARGE_ICON_SIZE, 0)
-            self.card.set_pixbuf(pixbuf_t)
+            sound_icon_path = join(activity.get_bundle_path(),
+                                   'icons/sound.svg')
+            self.card.set_image_path(sound_icon_path)
             self.emit('has-sound', True)
             logging.debug('Audio Loaded: ' + dst)
 
@@ -464,7 +452,6 @@ class CardEditor(Gtk.EventBox):
             return
 
         self.snd = None
-        self.card.set_pixbuf(None)
         self.emit('has-sound', False)
         self.emit('has-picture', False)
 
@@ -481,7 +468,7 @@ class CardEditor(Gtk.EventBox):
 
     def clean(self):
         self.textentry.set_text('')
-        self.card.set_pixbuf(None)
+        self.card.set_image_path(None)
         self.snd = None
         self.emit('has-text', False)
         self.emit('has-picture', False)
