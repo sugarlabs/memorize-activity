@@ -205,13 +205,7 @@ class SvgCard(Gtk.EventBox):
 
     def set_image_path(self, image_path):
         self._image_path = image_path
-        if self._image_path is not None:
-            if self.jpeg is None:
-                image_size = self.size - style.DEFAULT_SPACING * 2
-                self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                    self._image_path, image_size, image_size)
-        else:
-            self.jpeg = None
+        self.jpeg = None
         self._cached_surface[True] = None
         self.queue_draw()
 
