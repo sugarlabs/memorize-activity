@@ -296,14 +296,16 @@ class MemorizeActivity(Activity):
                 # asnd
                 asnd = self.game.model.pairs[pair].get_property('asnd')
                 if asnd is not None:
-                    game_zip.write(os.path.join(temp_snd_folder, asnd),
-                                   os.path.join('sounds', asnd))
+                    if os.path.exists(os.path.join(temp_snd_folder, asnd)):
+                        game_zip.write(os.path.join(temp_snd_folder, asnd),
+                                       os.path.join('sounds', asnd))
 
                 # bsnd
                 bsnd = self.game.model.pairs[pair].get_property('bsnd')
                 if bsnd is not None:
-                    game_zip.write(os.path.join(temp_snd_folder, bsnd),
-                                   os.path.join('sounds', bsnd))
+                    if os.path.exists(os.path.join(temp_snd_folder, bsnd)):
+                        game_zip.write(os.path.join(temp_snd_folder, bsnd),
+                                       os.path.join('sounds', bsnd))
 
         self.game.model.game_path = self.game.model.temp_folder
         self.game.model.data['name'] = str(self.get_title())

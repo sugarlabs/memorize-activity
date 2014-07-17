@@ -14,8 +14,6 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-import os
-import shutil
 
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -118,8 +116,6 @@ class CardList(Gtk.EventBox):
 
     def update_model(self, game_model):
         game_model.pairs = {}
-        game_model.create_temp_directories()
-        temp_img_folder = game_model.data['pathimg']
 
         for pair in range(len(self.pairs)):
             pair_card = Pair()
@@ -146,26 +142,11 @@ class CardList(Gtk.EventBox):
             if aimg is not None:
                 aimgfile = self.pairs[pair].get_image_path(1)
                 pair_card.set_property('aimg', basename(aimgfile))
-                if not os.path.exists(aimgfile):
-                    destination_path = join(temp_img_folder,
-                                            basename(aimgfile))
-                    if not os.path.exists(destination_path):
-                        GObject.idle_add(shutil.copyfile, aimgfile,
-                                         destination_path)
-                        logging.error('copy img to %s', destination_path)
             # bimg
             bimg = self.pairs[pair].get_image_path(2)
             if bimg is not None:
                 bimgfile = self.pairs[pair].get_image_path(2)
                 pair_card.set_property('bimg', basename(bimgfile))
-                if not os.path.exists(bimgfile):
-                    destination_path = join(temp_img_folder,
-                                            basename(bimgfile))
-                    if not os.path.exists(destination_path):
-                        GObject.idle_add(shutil.copyfile, bimgfile,
-                                         destination_path)
-                        logging.error('copy img to %s', destination_path)
-
             # asnd
             asnd = self.pairs[pair].get_sound(1)
             logging.debug('update_model asnd %s', asnd)

@@ -16,6 +16,7 @@
 #
 
 import os
+import shutil
 from xml.etree.ElementTree import Element, SubElement, tostring, parse
 from os import environ, makedirs, chmod
 from os.path import join, basename, isdir, split, normpath, exists
@@ -435,8 +436,48 @@ class Model(object):
         self.grid = grid
 
     def create_temp_directories(self):
+        logging.error('creating temp directories model: %s', self.data)
         temp_img_folder = join(self.temp_folder, 'images')
         temp_snd_folder = join(self.temp_folder, 'sounds')
+
+        if 'origin' in self.data and self.data['origin'] == 'art4apps':
+
+            if not self.modified:
+                # if was not modified, don't change the temp directtories
+                return
+            else:
+                # we need copy the files used in the game to the new path
+                if not exists(temp_img_folder):
+                    makedirs(temp_img_folder)
+                if not exists(temp_snd_folder):
+                    makedirs(temp_snd_folder)
+                for key in self.pairs.keys():
+                    # all the images exist, but not all the sounds
+                    for img in (self.pairs[key].props.aimg,
+                                self.pairs[key].props.bimg):
+                        if img is not None:
+                            origin_path = join(ART4APPS_IMAGE_PATH, img)
+                            destination_path = join(temp_img_folder, img)
+                            if not os.path.exists(destination_path):
+                                shutil.copyfile(origin_path, destination_path)
+                            logging.error('copy %s to %s', origin_path,
+                                          destination_path)
+
+                    for snd in (self.pairs[key].props.asnd,
+                                self.pairs[key].props.bsnd):
+                        if snd is not None:
+                            origin_path = join(ART4APPS_AUDIO_PATH,
+                                               self.data['language'], snd)
+                            destination_path = join(temp_snd_folder, snd)
+                            if os.path.exists(origin_path) and \
+                                    not os.path.exists(destination_path):
+                                shutil.copyfile(origin_path, destination_path)
+                            logging.error('copy %s to %s', origin_path,
+                                          destination_path)
+                # Don't look for the images in the art4apps directory
+                # after this
+                self.data['origin'] = ''
+
         self.data['pathimg'] = temp_img_folder
         self.data['pathsnd'] = temp_snd_folder
 
