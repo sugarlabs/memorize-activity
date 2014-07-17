@@ -53,7 +53,7 @@ class CardList(Gtk.EventBox):
         self.hbox = Gtk.HBox(False)
 
         fill_box = Gtk.Label()
-        fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
+        fill_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#d7d7d7'))
         fill_box.show()
         self.hbox.pack_end(fill_box, True, True, 0)
 
@@ -63,7 +63,7 @@ class CardList(Gtk.EventBox):
         self._scroll.add_with_viewport(self.hbox)
         self._scroll.set_border_width(0)
         self._scroll.get_child().modify_bg(Gtk.StateType.NORMAL,
-                                           Gdk.color_parse('#000000'))
+                                           Gdk.color_parse('#d7d7d7'))
         self.add(self._scroll)
         self.set_size_request(-1, PAIR_SIZE * 2 + style.DEFAULT_SPACING * 4)
         self.show_all()
