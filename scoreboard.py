@@ -25,6 +25,8 @@ class Scoreboard(Gtk.EventBox):
     def __init__(self):
         Gtk.EventBox.__init__(self)
         self.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#666666'))
+        self.connect('size-allocate', self._allocate_cb)
+        self._width = self.get_allocation().width
         self.players = {}
         self.current_buddy = None
         self.hbox = Gtk.HBox(False)
@@ -32,6 +34,12 @@ class Scoreboard(Gtk.EventBox):
         self.hbox.set_valign(Gtk.Align.CENTER)
         self.add(self.hbox)
         self.show_all()
+
+    def _allocate_cb(self, widget, allocation):
+        # check if the width changes (when the screen rotates
+        if allocation.width != self._width:
+            self._width = allocation.width
+            self.reset(widget)
 
     def change_game(self, widget, data, grid):
         for buddy in self.players.keys():
