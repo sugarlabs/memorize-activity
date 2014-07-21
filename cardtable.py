@@ -61,6 +61,7 @@ class CardTable(Gtk.EventBox):
         self.table.set_border_width(CARD_PAD)
         self.table.set_resize_mode(Gtk.ResizeMode.IMMEDIATE)
         self.table.set_halign(Gtk.Align.CENTER)
+        self.table.set_valign(Gtk.Align.CENTER)
         self.set_property('child', self.table)
         self.load_message = Gtk.Label(label='Loading Game')
         self.load_message.modify_fg(Gtk.StateType.NORMAL,
