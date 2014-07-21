@@ -136,8 +136,6 @@ class Messenger(ExportedGObject):
             game_file = data['game_file']
             category = game_file[:game_file.find('_')]
             language = data['language']
-            color = None
-            title = None
             self.game.model.is_demo = True
             self.game.model.read_art4apps(category, language)
 

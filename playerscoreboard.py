@@ -21,7 +21,6 @@ from gi.repository import Gdk
 from sugar3.graphics.icon import Icon
 from sugar3.graphics import style
 
-import logging
 import math
 
 
