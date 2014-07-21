@@ -141,6 +141,7 @@ class MemorizeActivity(Activity):
         self.connect('key-press-event', self.table.key_press_event)
         self.table.connect('card-flipped', self.game.card_flipped)
         self.table.connect('card-highlighted', self.game.card_highlighted)
+        self.table.connect('resize-table', self.__resize_table_cb)
 
         self.game.connect('set-border', self.table.set_border)
         self.game.connect('flop-card', self.table.flop_card)
@@ -237,6 +238,11 @@ class MemorizeActivity(Activity):
         self.scoreboard.set_size_request(-1, style.GRID_CELL_SIZE)
         self.table.resize(width, height - style.GRID_CELL_SIZE)
         self.show_all()
+
+    def __resize_table_cb(self, widget):
+        # need reset the game
+        # because we reload the cards in the table
+        self.game.last_flipped = -1
 
     def _change_mode_bt(self, button):
         if button.get_active():
