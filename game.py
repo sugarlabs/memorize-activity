@@ -177,9 +177,6 @@ class MemorizeGame(GObject.GObject):
 
     def card_flipped(self, widget, identifier, signal=False):
         self.model.count = self.model.count + 1
-        if self._flop_cards:
-            GObject.source_remove(self._flop_card_timeout)
-            self.flop_card(self._flop_cards[0], self._flop_cards[1])
 
         # Check if is my turn
         if (not self.sentitive and not signal) or \
