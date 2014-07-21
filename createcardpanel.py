@@ -78,32 +78,39 @@ class CreateCardPanel(Gtk.EventBox):
         self._card2_has_sound = False
 
         # save buttons
+        self._portrait = Gdk.Screen.width() < Gdk.Screen.height()
 
-        buttons_bar = Gtk.VBox()
-        buttons_bar.props.border_width = 10
-        buttons_bar.set_valign(Gtk.Align.CENTER)
-        buttons_bar.set_halign(Gtk.Align.CENTER)
+        if self._portrait:
+            buttons_bar_orientation = Gtk.Orientation.HORIZONTAL
+        else:
+            buttons_bar_orientation = Gtk.Orientation.VERTICAL
+
+        self._buttons_bar = Gtk.Box(orientation=buttons_bar_orientation)
+
+        self._buttons_bar.props.border_width = 10
+        self._buttons_bar.set_valign(Gtk.Align.CENTER)
+        self._buttons_bar.set_halign(Gtk.Align.CENTER)
 
         self._addbutton = ToolButton(tooltip=_('Add as new pair'),
                                      sensitive=False)
         self._addbutton.set_icon_widget(
             make_label('pair-add', ' ' + _('Add')))
         self._addbutton.connect('clicked', self.emit_add_pair)
-        buttons_bar.pack_start(self._addbutton, False, False, 0)
+        self._buttons_bar.pack_start(self._addbutton, False, False, 0)
 
         self._updatebutton = ToolButton(tooltip=_('Update seleted pair'),
                                         sensitive=False)
         self._updatebutton.set_icon_widget(
             make_label('pair-update', ' ' + _('Update')))
         self._updatebutton.connect('clicked', self.emit_update_pair)
-        buttons_bar.pack_start(self._updatebutton, False, False, 0)
+        self._buttons_bar.pack_start(self._updatebutton, False, False, 0)
 
         self._removebutton = ToolButton(tooltip=_('Remove seleted pair'),
                                         sensitive=False)
         self._removebutton.set_icon_widget(
             make_label('remove', ' ' + _('Remove')))
         self._removebutton.connect('clicked', self.emit_close)
-        buttons_bar.pack_start(self._removebutton, False, False, 0)
+        self._buttons_bar.pack_start(self._removebutton, False, False, 0)
 
         # Set card editors
 
@@ -130,12 +137,32 @@ class CreateCardPanel(Gtk.EventBox):
         self.card_box.pack_start(self.cardeditor1, True, True, 0)
         self.card_box.pack_start(self.cardeditor2, True, True, 0)
 
-        box = Gtk.HBox()
-        box.pack_start(self.card_box, True, True, 0)
-        box.pack_start(buttons_bar, True, True, 0)
-        self.add(box)
+        if self._portrait:
+            main_box_orientation = Gtk.Orientation.VERTICAL
+        else:
+            main_box_orientation = Gtk.Orientation.HORIZONTAL
+        self._main_box = Gtk.Box(orientation=main_box_orientation)
+        self._main_box.pack_start(self.card_box, True, True, 0)
+        self._main_box.pack_start(self._buttons_bar, True, True, 0)
+        self.add(self._main_box)
+        self.connect('size-allocate', self._allocate_cb)
 
         self.show_all()
+
+    def _allocate_cb(self, widget, allocation):
+        GObject.idle_add(self.update_orientation)
+
+    def update_orientation(self):
+        logging.error('width %s height %s', Gdk.Screen.width(),
+                      Gdk.Screen.height())
+        self._portrait = Gdk.Screen.width() < Gdk.Screen.height()
+        logging.error('cretecardpanel allocate portrait %s', self._portrait)
+        if self._portrait:
+            self._buttons_bar.props.orientation = Gtk.Orientation.HORIZONTAL
+            self._main_box.props.orientation = Gtk.Orientation.VERTICAL
+        else:
+            self._buttons_bar.props.orientation = Gtk.Orientation.VERTICAL
+            self._main_box.props.orientation = Gtk.Orientation.HORIZONTAL
 
     def update_font_combos(self, widget, data, grid):
         logging.error('update font %s', data)

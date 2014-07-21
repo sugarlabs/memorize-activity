@@ -340,6 +340,7 @@ class MemorizeActivity(Activity):
 
                 self.box.remove(self.scoreboard)
                 self.box.remove(self.table)
+                self.createcardpanel.update_orientation()
                 self.box.pack_start(self.createcardpanel, True, True, 0)
                 self.box.pack_start(self.cardlist, False, False, 0)
                 self.cardlist.load_game(self.game)
