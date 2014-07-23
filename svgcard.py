@@ -99,6 +99,13 @@ class SvgCard(Gtk.EventBox):
         self.add(self.workspace)
         self.show_all()
 
+    def resize(self, new_size):
+        self.size = new_size
+        self.set_size_request(self.size, self.size)
+        self._cached_surface = {True: None, False: None}
+        self.jpeg = None
+        self.text_layouts = [None, None]
+
     def __draw_cb(self, widget, context):
         flipped = self.flipped
         highlighted = self._highlighted

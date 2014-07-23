@@ -37,9 +37,7 @@ class CardTable(Gtk.EventBox):
         'card-flipped': (GObject.SignalFlags.RUN_FIRST,
                          None, [int, GObject.TYPE_PYOBJECT]),
         'card-highlighted': (GObject.SignalFlags.RUN_FIRST,
-                             None, [int, GObject.TYPE_PYOBJECT]),
-        'resize-table': (GObject.SignalFlags.RUN_FIRST,
-                         None, []), }
+                             None, [int, GObject.TYPE_PYOBJECT]), }
 
     def __init__(self):
         Gtk.EventBox.__init__(self)
@@ -80,11 +78,9 @@ class CardTable(Gtk.EventBox):
         self.set_size_request(width, height)
         self._workspace_size = min(width, height)
         if self.data:
-            if change:
-                self.change_game(None, self.data, self.cards_data)
-            else:
-                self.load_game(None, self.data, self.cards_data)
-        self.emit('resize-table')
+            self.card_size = self.get_card_size(self.size)
+            for child in self.table.get_children():
+                child.resize(self.card_size)
 
     def _allocate_cb(self, widget, allocation):
         size = allocation.height
