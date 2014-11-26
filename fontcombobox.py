@@ -40,8 +40,6 @@ class FontButton(ToolButton):
     }
 
     def __init__(self):
-        Gtk.ComboBox.__init__(self)
-
         ToolButton.__init__(self, icon_name='font-text',
                             tooltip=_('Select font'))
         self.connect('clicked', self.__font_selection_cb)
