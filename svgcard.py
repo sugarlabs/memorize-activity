@@ -55,7 +55,8 @@ class SvgCard(Gtk.EventBox):
     default_props['front_text'] = {'text_color': '#ffffff'}
 
     def __init__(self, identifier, pprops, image_path, size,
-                 bg_color='#000000', font_name=model.DEFAULT_FONT):
+                 bg_color='#000000', font_name=model.DEFAULT_FONT,
+                 show_robot=True):
         Gtk.EventBox.__init__(self)
         logging.error('SvgCard image_path %s', image_path)
         self.bg_color = bg_color
@@ -69,6 +70,7 @@ class SvgCard(Gtk.EventBox):
         self._animation_steps = len(self._steps_scales)
         self._on_animation = False
         self._animation_step = 0
+        self.show_robot = show_robot
 
         self.text_layouts = [None, None]
         self.font_name = font_name
@@ -240,8 +242,9 @@ class SvgCard(Gtk.EventBox):
                 speaking_face = face.acquire()
                 if speaking_face:
                     image_size = self.size - style.DEFAULT_SPACING * 2
-                    self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                        'icons/speak.svg', image_size, image_size)
+                    if self.show_robot:
+                        self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                            'icons/speak.svg', image_size, image_size)
                     speaking_face.face.status.voice = \
                         speak.voice.by_lang(self.get_speak())
                     speaking_face.face.say(self.get_text())

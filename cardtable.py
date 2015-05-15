@@ -133,6 +133,10 @@ class CardTable(Gtk.EventBox):
         y = 0
         identifier = 0
 
+        # Don't wnt show robot face for art4apps games
+        # even when paly the voice with tts
+        show_robot = self.data['origin'] != 'art4apps'
+
         for card in self.cards_data:
             if card.get('img', None):
                 image_path = os.path.join(self.data['pathimg'], card['img'])
@@ -155,7 +159,7 @@ class CardTable(Gtk.EventBox):
 
             card = svgcard.SvgCard(
                 identifier, props, image_path,
-                self.card_size, self._background_color, font_name)
+                self.card_size, self._background_color, font_name, show_robot)
             card.connect('enter-notify-event', self.mouse_event, [x, y])
             card.set_events(Gdk.EventMask.TOUCH_MASK |
                             Gdk.EventMask.BUTTON_PRESS_MASK)
