@@ -279,7 +279,7 @@ class Model(object):
                         aspeak = "en-us"
                     elif language == 'es':
                         aspeak = "es-la"
-                    elif language == 'fr':
+                    elif language in ['fr', 'ht']:
                         aspeak = "fr-fr"
 
                     pair.set_property('aspeak', aspeak)
