@@ -133,9 +133,12 @@ class CardTable(Gtk.EventBox):
         y = 0
         identifier = 0
 
-        # Don't wnt show robot face for art4apps games
-        # even when paly the voice with tts
-        show_robot = self.data['origin'] != 'art4apps'
+        # Don't want show robot face for art4apps games
+        # even when playing a voice with text to speech (tts)
+        try:
+            show_robot = self.data['origin'] != 'art4apps'
+        except:
+            show_robot = True
 
         for card in self.cards_data:
             if card.get('img', None):
