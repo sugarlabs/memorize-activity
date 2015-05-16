@@ -58,7 +58,7 @@ class SvgCard(Gtk.EventBox):
                  bg_color='#000000', font_name=model.DEFAULT_FONT,
                  show_robot=True):
         Gtk.EventBox.__init__(self)
-        logging.error('SvgCard image_path %s', image_path)
+        logging.debug('SvgCard image_path %s', image_path)
         self.bg_color = bg_color
         self.flipped = False
         self.id = identifier
