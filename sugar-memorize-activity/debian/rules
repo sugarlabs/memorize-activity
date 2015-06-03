@@ -32,6 +32,8 @@ DEB_UPSTREAM_PACKAGE = Memorize
 DEB_UPSTREAM_URL = http://download.sugarlabs.org/sources/honey/Memorize/$(DEB_UPSTREAM_PACKAGE)
 DEB_UPSTREAM_TARBALL_EXTENSION = tar.bz2
 
+# Exclude updated mime database files
+DEB_DH_ALWAYS_EXCLUDE=usr/share/mime
 # Suppress unneeded auto-resolved build-dependency on python-dev
 CDBS_BUILD_DEPENDS_class_python-sugar_python = python
 
