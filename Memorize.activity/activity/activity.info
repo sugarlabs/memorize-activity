@@ -10,3 +10,31 @@ license = GPLv2+
 summary = Here you can play games that challenge your memory! But, more importantly, you can create your own game to test the memory of others!
 max_participants = 2
 repository = https://github.com/godiard/memorize-activity.git
+
+# Added fields
+activity_type = gtk3
+homepage = http://wiki.sugarlabs.org/go/Activities/Memorize
+long_description: Sugar Learning Platform - memorize activity
+ Sugar Learning Platform promotes collaborative learning through Sugar
+ Activities that encourage critical thinking, the heart of a quality
+ education.  Designed from the ground up especially for children, Sugar
+ offers an alternative to traditional “office-desktop” software.
+ .
+ Learner applications in Sugar are called Activities.  They are software
+ packages that automatically save your work - producing specific
+ instances of the Activity that can be resumed at a later time.  Many
+ Activities support learner collaboration, where multiple learners may
+ be invited to join a collective Activity session.
+ .
+ Memorize is a game where the user discover pairs of matching tiles.
+ The pairs can consist of any multimedia object. While there are predefined
+ games to play, Memorize allows create new games. Sugar collaboration
+ allows play to two users through a network.
+
+sources_url = http://download.sugarlabs.org/sources/honey/Memorize/
+sources_format = tar.bz2
+
+
+[Maintainer]
+name = Gonzalo Odiard
+email = godiard@gmail.com
