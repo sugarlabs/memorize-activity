@@ -45,4 +45,3 @@ CDBS_DEPENDS_$(pkg) = python, python-sugar3, python-gi, python-cairo
 CDBS_DEPENDS_$(pkg) +=, gir1.2-glib-2.0, gir1.2-gtk-3.0, gir1.2-pango-1.0, gir1.2-gdkpixbuf-2.0
 CDBS_DEPENDS_$(pkg) +=, python-telepathy
 CDBS_DEPENDS_$(pkg) +=, gst-plugins-espeak
-CDBS_RECOMMENDS_$(pkg) +=, sugar-$(DEB_SUGAR_PRIMARY_BRANCH)-icon-theme | sugar-icon-theme

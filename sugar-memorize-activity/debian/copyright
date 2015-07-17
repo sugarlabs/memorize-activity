@@ -6,34 +6,34 @@ Source: http://download.sugarlabs.org/sources/honey/Memorize/
 Files: speak/face.py
 Copyright: (C) 2008  Joshua Minor
            (C) 2007  Arjun Sarwal - arjun@laptop.org
-License: GPLv2+
+License: GPL-2
 
 Files: setup.py
 Copyright: (C) 2006, Red Hat, Inc.
-License: GPLv2+
+License: GPL-2
 
 Files: speak/mouth.py
 Copyright: (C) 2008  Joshua Minor
            (C) 2007  Arjun Sarwal - arjun@laptop.org
-License: GPLv2+
+License: GPL-2
 
 Files: speak/voice.py
 Copyright: (C) 2008  Joshua Minor
            (C) 2007  Arjun Sarwal - arjun@laptop.org
-License: GPLv2+
+License: GPL-2
 
 Files: fontcombobox.py
 Copyright: (C) 2012 Gonzalo Odiard <gonzalo@laptop.org>
-License: GPLv2+
+License: GPL-2
 
 Files: speak/eye.py
 Copyright: (C) 2008  Joshua Minor
            (C) 2007  Arjun Sarwal - arjun@laptop.org
-License: GPLv2+
+License: GPL-2
 
 Files: *
 Copyright: Gonzalo Odiard
-License: GPLv2+
+License: GPL-2
  
  Copyright (C) 2015 Gonzalo Odiard
  

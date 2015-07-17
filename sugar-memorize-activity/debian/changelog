@@ -1,5 +1,5 @@
-sugar-memorize-activity (51-0godiard1) UNRELEASED; urgency=low
+sugar-memorize-activity (51-1~godiard1) UNRELEASED; urgency=low
 
   * Initial version for Debian.
 
- -- Debian Sugar Team <pkg-sugar-devel@lists.alioth.debian.org>  Wed, 03 Jun 2015 17:11:12 -0300
+ -- Debian Sugar Team <pkg-sugar-devel@lists.alioth.debian.org>  Fri, 17 Jul 2015 08:13:57 -0300
