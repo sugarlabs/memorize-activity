@@ -7,195 +7,255 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2011-11-26 08:55+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2015-12-01 20:17+0000\n"
+"Last-Translator: Roger <contacto@somosazucar.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: quz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1449001064.000000\n"
 
+# MEMORIZAR.- Hapeqllay (quechua apurimeño de Gutierrez,) v. Psic. Umapi hap'iy (AMLQ)
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr ""
+msgstr "Yuyarayay"
 
+# ¡Aquí puedes jugar juegos que desafían tu memoria! Pero, más lo importante, es que puedes crear tu propio juego para poner a prueba la memoria de los demás!
+# 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"¡Yuyayniyki kallpachanapaqqa kaypim imaymana pukllanakunata pukllawaq! Qam "
+"kikiykipas ima pukllanatapas kamawaqtaqmi wak masiykikunap yuyaynin "
+"yanaykunapaq."
 
+# Jugar
 #: activity.py:71
 msgid "Play"
-msgstr ""
+msgstr "Pukllay"
 
+# Crear
 #: activity.py:71
 msgid "Create"
-msgstr ""
+msgstr "Kamay"
 
+# Nombre del juego:
+# 
 #: activity.py:71
 msgid "Game name:"
-msgstr ""
+msgstr "Pukllanap sutin:"
 
+# masa (MINEDU) = par
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "Kasqanpura masakuna"
 
+# adición
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "yapay"
 
+# letras
 #: activity.py:72
 msgid "letters"
-msgstr ""
+msgstr "qillqakuna"
 
-# "Sonidos"
+# SONIDO = chanra (en Bolivia cf. Teófilo Layme y Cuzco AMLQ)
 #: activity.py:72
-#, fuzzy
 msgid "sounds"
-msgstr "Uyarina"
+msgstr "chanrakuna"
 
+# Editar juego
+# 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Pukllanata allinchay"
 
+# Jugar
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Pukllay"
 
+# Añadir un nuevo par
+# 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr ""
+msgstr "Musuq masata yapay"
 
 #  "Añadir"
 #: createcardpanel.py:85
 msgid "Add"
 msgstr "Yapay"
 
+# Actualizar par seleccionado
+# 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "Akllasqa masata kunanchay"
 
+# Actualizar
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "Kunanchay"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "Ñawpaq qhawanaraq:"
 
 #  "Texto:"
 #: createcardpanel.py:330
 msgid "Text:"
-msgstr "Qillqa:"
+msgstr "Qillqasqa:"
 
+# Insertar imagen
+# 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr ""
+msgstr "Wankitawan churaykuy"
 
+# Insertar sonido
+# 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "Chanratawan churaykuy"
 
+# Pronunciar texto mientras voltea la carta
+# 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Kartata t'ikraspa qillqasqata t'uqyachiy"
 
+# Igualar fichas diferentes
+# 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Wak phichakunata kuskachay"
 
+# Juego de fichas mixtas
+# 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Imaymana phichakuna"
 
+# Limpiar todas las fichas
+# 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Llapan phichakunata phicharquy"
 
+# ¿Limpiar todas las piezas del juego?
+# 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "¿Pukllanapiqa llapan phichakunachu phicharquna?"
 
 #  "Limpiar"
 #: createtoolbar.py:78
 msgid "Clear"
 msgstr "Pichay"
 
+# No Limpiar
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Ama pichaychu"
 
+# Iguala fichas idénticas
+# 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Kasqanpura phichakunata kasqanchay"
 
+# Juego de fichas agrupadas
+# 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Huk qutuchasqa phichakuna"
 
+# LAYA 1. f. Calidad, especie, clase. Esto es de la misma laya, o de otra laya. U. m. en sent. despect. (castellano antiguo, palabra presente en el quechua de Apurímac y Bolivia)
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Qillqalayata akllay"
 
+# Cargando juego...
+# 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Pukllanaqa hunt'achkanmi..."
 
+# Adición
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "Yapay"
 
+# Letras
+# 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "Qillqakuna"
 
 # "Sonidos"
 #: memorizetoolbar.py:45
-#, fuzzy
 msgid "Sounds"
-msgstr "Uyarina"
+msgstr "Chanrakuna"
 
+# Cargar juegos de demostración
+# 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Rikuchiypaq pukllanakunata hunt'achiy"
 
+# Cambiar tamaño
+# 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Sayayninta t'ikray"
 
+# Reiniciar Juego
+# 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "Pukllanata wakmanta qallariy"
 
+# ¿Descartar tu juego modificado?
+# 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Hukniraqchasqa pukllanaykita wikch'uy"
 
+# Descartar
+# 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Wikch'urquy"
 
+# No descartar
+# 
+# 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Ama wikch'uychu"
 
+# Recibiendo juego
+# 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "Pukllanata chaskichkan..."
 
 #  "hecho"
 #: messenger.py:193
 msgid "done"
-msgstr "Ruwasqaña"
+msgstr "Rurasqaña"
 
 #  "Brasil"
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr "Portugues simi"
+msgstr "Brasil Portugués simi"
 
 #  "Sueco"
 #: speak/voice.py:37
@@ -205,7 +265,7 @@ msgstr "Sueco simi"
 #  "Islandés"
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr "Islandes simi"
+msgstr "Islandés simi"
 
 #  "Rumano"
 #: speak/voice.py:39
@@ -215,7 +275,7 @@ msgstr "Rumano simi"
 #  "Swahili"
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr "Suajli simi"
+msgstr "Swahili simi"
 
 #  "Hindi"
 #: speak/voice.py:41
@@ -225,17 +285,17 @@ msgstr "Hindi simi"
 #  "Holandés"
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr "Holandes simi"
+msgstr "Holandés simi"
 
 #  "Latín"
 #: speak/voice.py:43
 msgid "Latin"
-msgstr "Latino simi"
+msgstr "Latín simi"
 
 #  "Húngaro"
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr "Hüngaro simi"
+msgstr "Húngaro simi"
 
 #  "Macedonio"
 #: speak/voice.py:45
@@ -244,14 +304,13 @@ msgstr "Macedonio simi"
 
 #  "Galés"
 #: speak/voice.py:46
-#, fuzzy
 msgid "Welsh"
-msgstr "Galës simi"
+msgstr "Galés simi"
 
 #  "Francés"
 #: speak/voice.py:47
 msgid "French"
-msgstr "Frances simi"
+msgstr "Francés simi"
 
 #  "Noruego"
 #: speak/voice.py:48
@@ -266,17 +325,17 @@ msgstr "Ruso simi"
 #  "Afrikáans"
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr "Africaans simi"
+msgstr "Afrikáans simi"
 
 #  "Finés"
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr "Finlandes simi"
+msgstr "Finlandés simi"
 
 #  "Predeterminada"
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr "kikinqasqha"
+msgstr "Kasqanmantapacha kikin"
 
 #  "Cantonés"
 #: speak/voice.py:53
@@ -301,18 +360,17 @@ msgstr "Vietnamita simi"
 #  "Inglés"
 #: speak/voice.py:57
 msgid "English"
-msgstr "Inglish simi"
+msgstr "Inglés simi"
 
 #  "Lancashire"
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr "Lancshiri simi"
+msgstr "Lancashire simi"
 
 #  "Italiano"
 #: speak/voice.py:59
-#, fuzzy
 msgid "Italian"
-msgstr "Itslisno simi"
+msgstr "Italiano simi"
 
 #  "Portugués"
 #: speak/voice.py:60
@@ -322,12 +380,12 @@ msgstr "Portugués Simi"
 #  "Alemán"
 #: speak/voice.py:61
 msgid "German"
-msgstr "Aleman simi"
+msgstr "Alemán simi"
 
 #  "Susurro"
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr "waylluquq"
+msgstr "Ch'iwiwiwiy"
 
 #  "Croata"
 #: speak/voice.py:63
@@ -337,7 +395,7 @@ msgstr "Croata simi"
 #  "Checo"
 #: speak/voice.py:64
 msgid "Czech"
-msgstr "Cueco simi"
+msgstr "Checo simi"
 
 #  "Eslovaco"
 #: speak/voice.py:65
@@ -351,9 +409,8 @@ msgstr "Castilla simi"
 
 #  "Polaco"
 #: speak/voice.py:67
-#, fuzzy
 msgid "Polish"
-msgstr "Poalco simi"
+msgstr "Polaco simi"
 
 #  "Esperanto"
 #: speak/voice.py:68

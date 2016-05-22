@@ -35,18 +35,20 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2009-12-21 23:02-0400\n"
-"Last-Translator: Chris Leonard <cjl@laptop.org>\n"
+"PO-Revision-Date: 2016-02-06 23:18+0000\n"
+"Last-Translator: ursus <sugar.libfrid@antichef.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.2.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1454800726.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr ""
+msgstr "Memória"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -54,6 +56,9 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Itt olyan játékokkal tudsz játszani, amelyekkel próbára teheted a memóriád! "
+"De ami ennél is fontosabb, hogy elkészítheted a saját játékod, hogy mások "
+"memóriáját teszteld!"
 
 #: activity.py:71
 msgid "Play"
@@ -65,35 +70,35 @@ msgstr "Létrehozás"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr ""
+msgstr "A játék neve:"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "Egyenlő párok"
 
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "összeadás"
 
 #: activity.py:72
 msgid "letters"
-msgstr ""
+msgstr "betűk"
 
 #: activity.py:72
 msgid "sounds"
-msgstr ""
+msgstr "hangok"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Játék szerkesztése"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Játék indítása"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr ""
+msgstr "Hozzáadás új párként"
 
 #: createcardpanel.py:85
 msgid "Add"
@@ -101,15 +106,15 @@ msgstr "Bővítés"
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "Kiválasztott pár frissítése"
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "Frissítés"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "Előnézet:"
 
 #: createcardpanel.py:330
 msgid "Text:"
@@ -117,228 +122,228 @@ msgstr "Szöveg:"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr ""
+msgstr "Kép beszúrása"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "Hang beszúrása"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Szöveg felolvasása a kártya fordításakor"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Különböző kártyák párosítása"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Kevert kártyás játék"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Minden kártya törlése"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Kitörlöd az összes kártyát a játékból?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "Törlés"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Ne töröld"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Egyforma kártyák párosítása"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Csoportosított kártyás játék"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Válassz betűtípust"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Játék betöltése…"
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "Összeadás"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "Betűk"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "Hangok"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Demó játékok betöltése"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Méret módosítása"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "Játék újraindítása"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Elveted a módosított játékod?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Elvetés"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Megtartás"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "Játék fogadása"
 
 #: messenger.py:193
 msgid "done"
-msgstr ""
+msgstr "kész"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "Brazília"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "Svéd"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "Izlandi"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "Román"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "Szuahéli"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Holland"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "Magyar"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedón"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "Velszi"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "Francia"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvég"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "Orosz"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "Finn"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "Alapértelmezett"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "Kantoni"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "Skót"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "Görög"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnám"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "Angol"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "Lancashire"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "Olasz"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "Portugál"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "Német"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "Suttogás"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "Horvát"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "Cseh"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "Szlovák"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "Spanyol"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "Lengyel"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "Eszperantó"

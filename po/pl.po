@@ -31,8 +31,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-10-13 00:25+0200\n"
-"Last-Translator: Kamila <kamilafilipowska@yahoo.com>\n"
+"PO-Revision-Date: 2015-02-19 20:30+0000\n"
+"Last-Translator: Tymon <dwgipk@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1424377849.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -52,6 +53,8 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Tutaj możesz zagrać w gry, które sprawdzą twoją pamięć! Może, co ważniejsze, "
+"masz możliwość utworzenia własnej gry, która sprawdzi pamięć innych!"
 
 #: activity.py:71
 msgid "Play"
@@ -159,7 +162,7 @@ msgstr "Gra w pogrupowane płytki"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Wybierz czcionkę"
 
 #: game.py:94
 msgid "Loading game..."
@@ -183,7 +186,7 @@ msgstr "Załaduj gry w wersji demo"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Zmień rozmiar"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"

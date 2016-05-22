@@ -31,15 +31,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-02-08 10:06+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2016-02-06 15:37+0000\n"
+"Last-Translator: Carlo <cfalciola@yahoo.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1454773077.000000\n"
 
 # Il nome indentifica il gioco ... il termine memorizza non rende l'idea anche se letteralmente sarebbe corretto.
 # Preferisco lasciare Memorize
@@ -53,6 +54,8 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Ora puoi giocare avvalendoti della tua memoria! Ma, cosa più importante, "
+"potrai creare i tuoi giochi per provare la memoria dei tuoi amici!"
 
 #: activity.py:71
 msgid "Play"
@@ -84,11 +87,11 @@ msgstr "suoni"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Modifica il gioco"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Gioca"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
@@ -128,19 +131,19 @@ msgstr "Leggi il testo girando la carta"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Trova la corrispondenza fra le pedine"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Gioco con pedine mescolate"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Cancella tutte le pedine"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Cancella tutte le pedine dalla partita?"
 
 #: createtoolbar.py:78
 #, fuzzy
@@ -149,19 +152,19 @@ msgstr "Pulisci"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Non pulire"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Trova le pedine uguali"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Partita con pedine raggruppate"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Seleziona font"
 
 #: game.py:94
 msgid "Loading game..."
@@ -185,7 +188,7 @@ msgstr "Carica partite dimostrative"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Cambia dimensione"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
@@ -193,15 +196,15 @@ msgstr "Ricomincia partita"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Elimina la tua partita personalizzata?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Elimina"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Non eliminare"
 
 #: messenger.py:192
 msgid "Receiving game"
