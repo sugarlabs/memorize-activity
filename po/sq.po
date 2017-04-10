@@ -43,15 +43,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2010-02-16 07:17+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2016-10-22 16:52+0000\n"
+"Last-Translator: Besnik_b <besnik@programeshqip.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1477155129.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -63,6 +64,9 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Këtu mund të luani lojëra që vënë në provë kujtesën tuaj! Por, më e "
+"rëndësishmja, mund të krijoni lojën tuaj për të vënë në provë kujtesën e të "
+"tjerëve!"
 
 #: activity.py:71
 msgid "Play"
@@ -73,36 +77,32 @@ msgid "Create"
 msgstr "Krijo"
 
 #: activity.py:71
-#, fuzzy
 msgid "Game name:"
-msgstr "Emri i lojës"
+msgstr "Emër loje:"
 
 #: activity.py:71
 msgid "Equal pairs"
 msgstr "Palë të barabarta"
 
 #: activity.py:72
-#, fuzzy
 msgid "addition"
-msgstr "shto"
+msgstr "shtim"
 
 #: activity.py:72
-#, fuzzy
 msgid "letters"
-msgstr "letra"
+msgstr "shkronja"
 
 #: activity.py:72
-#, fuzzy
 msgid "sounds"
 msgstr "tinguj"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Përpunoni lojën"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Luajeni lojën"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
@@ -110,19 +110,19 @@ msgstr "Shto si palë të re"
 
 #: createcardpanel.py:85
 msgid "Add"
-msgstr ""
+msgstr "Shtoje"
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "Përditëso dyshen e përzgjedhur"
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "Përditësoje"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "Paraparje:"
 
 #: createcardpanel.py:330
 msgid "Text:"
@@ -130,78 +130,75 @@ msgstr "Tekst:"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr ""
+msgstr "Futni figurë"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "Futni tingull"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Shqipto tekst gjatë rrotullimit të kuadratit"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Përputhni kuadrate të ndryshëm"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Lojë me kuadrate të përzierë"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Pastroji tërë kuadratet"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Të pastrohen krejt kuadratet prej lojës?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "pastroje"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Mos e pastro"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Përputhni kuadrate identikë"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Lojë grupimi kuadratesh"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Përzgjidhni lloj shkronjash"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Po ngarkohet loja…"
 
 #: memorizetoolbar.py:43
-#, fuzzy
 msgid "Addition"
-msgstr "shto"
+msgstr "Shtim"
 
 #: memorizetoolbar.py:44
-#, fuzzy
 msgid "Letters"
-msgstr "letra"
+msgstr "Shkronja"
 
 #: memorizetoolbar.py:45
-#, fuzzy
 msgid "Sounds"
-msgstr "tinguj"
+msgstr "Tinguj"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Ngarko lojëra demo"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Ndryshoni madhësinë"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
@@ -209,15 +206,15 @@ msgstr "Rifillo lojën"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Të hidhet tej loja juaj e modifikuar?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Hidhe tej"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Mos e hidh tej"
 
 #: messenger.py:192
 msgid "Receiving game"
@@ -229,135 +226,135 @@ msgstr "e kryer"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "Braziliane"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "Suedeze"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandeze"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "Rumune"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "Suahili"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "Indiane"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Holandeze"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "Latine"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "Hungareze"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Maqedone"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "Uellsiane"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "Frënge"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvegjeze"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "Ruse"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandeze"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "Parazgjedhje"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "Kantoneze"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "Skoceze"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "Greke"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnameze"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "Angleze"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "Lanlashajër"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "Italiane"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "Portugeze"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "Gjermane"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "Pëshpërimë"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "Kroate"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "Çeke"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "Slovake"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "Spanjolle"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "Polake"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
 
 #~ msgid "New game"
 #~ msgstr "Lojë të re"
