@@ -61,7 +61,7 @@ class CreateCardPanel(Gtk.EventBox):
         def make_label(icon_name, label):
             label_box = Gtk.VBox()
             icon = Icon(icon_name=icon_name,
-                        icon_size=Gtk.IconSize.LARGE_TOOLBAR)
+                        pixel_size=style.LARGE_ICON_SIZE)
             label_box.pack_start(icon, False, False, 0)
             label = Gtk.Label(label=label)
             label.modify_fg(Gtk.StateType.NORMAL,
