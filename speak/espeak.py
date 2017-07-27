@@ -16,12 +16,14 @@ import gi
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst
 from gi.repository import GObject
-import subprocess
 
 import logging
 logger = logging.getLogger('speak')
 
-supported = True
+PITCH_MAX = 200
+RATE_MAX = 200
+PITCH_DEFAULT = PITCH_MAX/2
+RATE_DEFAULT = RATE_MAX/2
 
 class BaseAudioGrab(GObject.GObject):
     __gsignals__ = {
@@ -65,19 +67,34 @@ class BaseAudioGrab(GObject.GObject):
             self.emit("new-buffer", buf)
         return False
 
-# load proper espeak plugin
-try:
-    from gi.repository import Gst
-    Gst.init([])
-    Gst.ElementFactory.make('espeak', None)
-    from espeak_gst import AudioGrabGst as AudioGrab
-    from espeak_gst import *
-    logger.info('use gst-plugins-espeak')
-except Exception, e:
-    logger.info('disable gst-plugins-espeak: %s' % e)
-    if subprocess.call('which espeak', shell=True) == 0:
-        from espeak_cmd import AudioGrabCmd as AudioGrab
-        from espeak_cmd import *
-    else:
-        logger.info('disable espeak_cmd')
-        supported = False
+
+class AudioGrab(BaseAudioGrab):
+    def speak(self, status, text):
+        self.make_pipeline('espeak name=espeak ! autoaudiosink')
+        src = self.pipeline.get_by_name('espeak')
+
+        pitch = int(status.pitch) - 100
+        rate = int(status.rate) - 100
+
+        logger.debug('pitch=%d rate=%d voice=%s text=%s' % (pitch, rate,
+                status.voice.name, text))
+
+        src.props.text = text
+        src.props.pitch = pitch
+        src.props.rate = rate
+        src.props.voice = status.voice.name
+
+        self.restart_sound_device()
+
+
+def voices():
+    out = []
+
+    for i in Gst.ElementFactory.make('espeak', None).props.voices:
+        name, language, dialect = i
+        if name in ('en-rhotic','english_rp','english_wmids'):
+            # these voices don't produce sound
+            continue
+        out.append((language, name, dialect))
+
+    return out

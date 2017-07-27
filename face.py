@@ -42,9 +42,6 @@ class Face(Gtk.EventBox):
 
 
 def look_at():
-    if not speak.espeak.supported:
-        return
-
     display = Gdk.Display.get_default()
     screen_, x, y, modifiers_ = display.get_pointer()
 
@@ -54,9 +51,6 @@ def look_at():
 
 
 def acquire():
-    if not speak.espeak.supported:
-        return None
-
     face = None
 
     for i in _cache:
