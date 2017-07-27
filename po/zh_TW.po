@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: Memorize\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-03-22 17:23+0200\n"
+"PO-Revision-Date: 2017-03-25 12:25+0000\n"
 "Last-Translator: Yuan <yuanchao@gmail.com>\n"
 "Language-Team: Yuan CHAO <yuanchao@gmail.com>\n"
 "Language: zh_TW\n"
@@ -39,7 +39,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1490444759.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -50,15 +51,15 @@ msgstr "記憶遊戲"
 msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
-msgstr ""
+msgstr "這個遊戲用來挑戰你的記憶力！但更重要的，你也可以設計你自己的遊戲來挑戰其他人！"
 
 #: activity.py:71
 msgid "Play"
-msgstr "遊玩"
+msgstr "開始遊戲"
 
 #: activity.py:71
 msgid "Create"
-msgstr "開始新遊戲"
+msgstr "建立新遊戲"
 
 #: activity.py:71
 msgid "Game name:"
@@ -158,7 +159,7 @@ msgstr "歸類牌遊戲"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "選擇字型"
 
 #: game.py:94
 msgid "Loading game..."
@@ -182,7 +183,7 @@ msgstr "載入範例遊戲"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "改變文字大小"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"

@@ -30,23 +30,25 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2017-04-23 20:23+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1492979010.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr ""
+msgstr "שינון"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -54,291 +56,293 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"כאן ניתן לשחק משחקים שמאתגרים את הזיכרון! אבל, יתרה מכך, ניתן ליצור משחק "
+"משלך כדי לבחון זיכרון של אחרים!"
 
 #: activity.py:71
 msgid "Play"
-msgstr ""
+msgstr "משחק"
 
 #: activity.py:71
 msgid "Create"
-msgstr ""
+msgstr "יצירה"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr ""
+msgstr "שם המשחק:"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "צמדים שווים"
 
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "תוספת"
 
 #: activity.py:72
 msgid "letters"
-msgstr ""
+msgstr "אותיות"
 
 #: activity.py:72
 msgid "sounds"
-msgstr ""
+msgstr "צלילים"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "עריכת משחק"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "לשחק במשחק"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr ""
+msgstr "הוספה כצמד חדש"
 
 #: createcardpanel.py:85
 msgid "Add"
-msgstr ""
+msgstr "הוספה"
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "עדכון הצמד הנבחר"
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "עדכון"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "תצוגה מקדימה:"
 
 #: createcardpanel.py:330
 msgid "Text:"
-msgstr ""
+msgstr "טקסט:"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr ""
+msgstr "הוספת תמונה"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "הוספת צליל"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "הקראת טקסט במהלך היפוך האריח"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "התאמת אריחים שונים"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "משחק אריחים מעורבבים"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "פינוי כל האריחים"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "לפנות את כל האריחים מהמשחק?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "לפנות"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "לא לפנות"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "התאמת אריחים זהים"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "משחק אריחים מקובצים"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "בחירת גופן"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "המשחק נטען…"
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "תוספת"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "אותיות"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "צלילים"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "טעינת משחקי הדגמה"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "החלפת גודל"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "התחלת המשחק מחדש"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "להתעלם מהמשחק ששינית?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "להתעלם"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "לא להתעלם"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "מתקבל משחק"
 
 #: messenger.py:193
 msgid "done"
-msgstr ""
+msgstr "סיום"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "ברזיל"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "שבדית"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "איסלנדית"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "רומנית"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "סווהילי"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "הינדי"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "הולנדית"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "לטינית"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "הונגרית"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "מקדונית"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "וולשית"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "צרפתית"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "נורבגית"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "רוסית"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "אפריקאנס"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "פינית"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "בררת מחדל"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "קנטונית"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "סקוטית"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "יוונית"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "וייטנאמית"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "אנגלית"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "לנקשייר"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "איטלקית"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "פורטוגלית"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "גרמנית"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "לחישות"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "קרואטית"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "צ׳כית"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "סלובקית"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "ספרדית"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "פולנית"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "אספרנטו"

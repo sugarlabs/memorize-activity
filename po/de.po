@@ -55,15 +55,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2012-02-15 17:37+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2017-02-21 22:08+0000\n"
+"Last-Translator: Markus <m.slg@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1487714887.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -75,6 +76,9 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Hier findest Du Spiele, die ein gutes Gedächtnis verlangen! Aber, viel "
+"wichtiger ist, dass Du auch eigene Spiele entwerfen und damit das Gedächtnis "
+"Deiner Freunde testen kannst."
 
 #: activity.py:71
 msgid "Play"
@@ -86,24 +90,24 @@ msgstr "Erstellen"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr "Spielname:"
+msgstr "Name des Spiels:"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr "Gleiches Paar"
+msgstr "Gleiche Paare"
 
 # Ich denke "Addieren" trifft es besser. Das Spiel ist wirklich: 3+3 = 6...
 #: activity.py:72
 msgid "addition"
-msgstr "addieren"
+msgstr "Addieren"
 
 #: activity.py:72
 msgid "letters"
-msgstr "buchstaben"
+msgstr "Buchstaben"
 
 #: activity.py:72
 msgid "sounds"
-msgstr "klänge"
+msgstr "Klänge"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
@@ -155,43 +159,43 @@ msgstr "Den Text beim Karten umdrehen aussprechen"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Finde passende Kacheln"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Spiel mit gemischten Kacheln"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Alle Kacheln entfernen"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Alle Kacheln aus dem Spiel entfernen?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "Entfernen"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Nicht entfernen"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Finde identische Kacheln"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Kachel-Gruppen Spiel"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Schriftart auswählen"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr "Spiel laden..."
+msgstr "Spiel wird geladen..."
 
 # Ich denke "Addieren" trifft es besser. Das Spiel ist wirklich: 3+3 = 6...
 #: memorizetoolbar.py:43
@@ -212,7 +216,7 @@ msgstr "Demo-Spiele laden"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Größe ändern"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
@@ -220,15 +224,15 @@ msgstr "Spiel neu starten"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Dein geändertes Spiel verwerfen?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Verwerfen"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Nicht verwerfen"
 
 #: messenger.py:192
 msgid "Receiving game"
@@ -288,7 +292,7 @@ msgstr "Französisch"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr "Neu-Norwegisch"
+msgstr "Norwegisch"
 
 #: speak/voice.py:49
 msgid "Russian"
@@ -316,7 +320,7 @@ msgstr "Schottisch"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr "Neugriechisch"
+msgstr "Griechisch"
 
 #: speak/voice.py:56
 msgid "Vietnam"

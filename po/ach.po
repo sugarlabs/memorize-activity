@@ -2,50 +2,25 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2016-05-28 01:51+0000\n"
-"Last-Translator: mimibg <emilymariebg@amschool.org>\n"
+"PO-Revision-Date: 2017-03-31 08:28+0000\n"
+"Last-Translator: denish <mofistone@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ko\n"
+"Language: ach\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1464400318.000000\n"
+"X-POOTLE-MTIME: 1490948937.000000\n"
 
 #. TRANS: "name" option from activity.info file
-#, fuzzy
 msgid "Memorize"
-msgstr "외우다"
+msgstr "Poyo iwi kenikeni"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -53,292 +28,293 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Kan iromo tuku ame twero yelo jami ame ipoyo! Ento, apire tek makato, iromo "
+"yiko tukuni keni me temo ngec ajo mukene!"
 
 #: activity.py:71
 msgid "Play"
-msgstr ""
+msgstr "Tuki"
 
 #: activity.py:71
 msgid "Create"
-msgstr "만들기"
+msgstr "Yiki"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr "게임 이름"
+msgstr "Nying tuku"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "Aryo maromroma"
 
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "Lamed"
 
 #: activity.py:72
 msgid "letters"
-msgstr ""
+msgstr "Nukuca"
 
 #: activity.py:72
 msgid "sounds"
-msgstr "소리"
+msgstr "Dwone"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Yub gem"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Tuk gem"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr ""
+msgstr "Med calo en manyen maromrom"
 
 #: createcardpanel.py:85
 msgid "Add"
-msgstr "추가"
+msgstr "Med"
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "Mii ngec manyen pi gin aryo maromrom magiyero"
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "Mii ngec manyen"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "Nen wiewie:"
 
 #: createcardpanel.py:330
 msgid "Text:"
-msgstr ""
+msgstr "Nyig coc:"
 
 #: createcardpanel.py:342
-#, fuzzy
 msgid "Insert picture"
-msgstr "사진 삽입"
+msgstr "Rid cal kano"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "Rid dwon kano"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Lok ginacoa ikare me iyiko tail"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Nonoto tail mapapat"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Rurubu oko tuku me tail"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Rurucu oko tail ducu"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Rurucu oko tail ducu ituku?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "Rurucu"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Pe kong iruci"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Kub matangula macal ki lawote mangeyo yot odoco"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Tuku me matangula matye kacel"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Yer kit cajji"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Tye kapango tuku..."
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "Lamed"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "Nukuta"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "Dwone"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Pang tuku demo mapol"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Lok Cajji"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "Cak tuku nitit"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Wek tukuni ame iyiko ayika?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Wek woko"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Pe iwek"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "Gamo tuku"
 
 #: messenger.py:193
 msgid "done"
-msgstr ""
+msgstr "otum"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "Brazil"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "Me Sweden"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "Me Iceland"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "Me Romance"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "Leb Oyindi"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Dutch"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "Hungarian"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonian"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "Welsh"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "French"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "Me Norwey"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "Me Russia"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "Me Apirika"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "Me Finland"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "Ma iyero"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "Me Cantonia"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "Me Scotland"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "Me Greece"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnam"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "Leb munu"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "Lancashire"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "Jo me Itally"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "Portugal"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "German"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "Mung"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "Leb jo Croatia"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "Czech"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "Slovak"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "Me Spain"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "Me Poland"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"

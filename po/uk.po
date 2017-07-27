@@ -22,23 +22,26 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2017-04-17 15:09+0000\n"
+"Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.6.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1492441741.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr ""
+msgstr "Запам’ятовування"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -46,291 +49,294 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
+"Тут ви можете погратися у ігри, у яких вам доведеться напружити вашу пам’"
+"ять! Втім, що є ще важливішим, ви можете створити власну гру, у якій "
+"доведеться напружити пам’ять іншим!"
 
 #: activity.py:71
 msgid "Play"
-msgstr ""
+msgstr "Грати"
 
 #: activity.py:71
 msgid "Create"
-msgstr ""
+msgstr "Створити"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr ""
+msgstr "Назва гри:"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "Рівноцінні пари"
 
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "додавання"
 
 #: activity.py:72
 msgid "letters"
-msgstr ""
+msgstr "літер"
 
 #: activity.py:72
 msgid "sounds"
-msgstr ""
+msgstr "звуки"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr ""
+msgstr "Редагувати гру"
 
 #: activity.py:272
 msgid "Play game"
-msgstr ""
+msgstr "Грати у гру"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr ""
+msgstr "Додати нову пару"
 
 #: createcardpanel.py:85
 msgid "Add"
-msgstr ""
+msgstr "Додати"
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr ""
+msgstr "Оновити позначену пару"
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr ""
+msgstr "Оновити"
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr ""
+msgstr "Перегляд:"
 
 #: createcardpanel.py:330
 msgid "Text:"
-msgstr ""
+msgstr "Текст:"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr ""
+msgstr "Вставити зображення"
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr ""
+msgstr "Вставити звук"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr ""
+msgstr "Вимовляти текст під час перевертання плитки"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "Встановлення відповідності різних плиток"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "Гра із перемішаними плитками"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr ""
+msgstr "Вилучити усі плитки"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "Вилучити усі плитки з поля гри?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "Вилучити"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr ""
+msgstr "Не вилучати"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "Встановлення відповідності ідентичних плиток"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "Гра із групуванням плиток"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr ""
+msgstr "Виберіть шрифт"
 
 #: game.py:94
 msgid "Loading game..."
-msgstr ""
+msgstr "Завантаження гри…"
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "Додавання"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "Літери"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "Звуки"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr ""
+msgstr "Завантажити демонстраційні ігри"
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr ""
+msgstr "Змінити розмір"
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr ""
+msgstr "Перезапустити гру"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "Відкинути ваші зміни до гри?"
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr ""
+msgstr "Відкинути"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr ""
+msgstr "Не відкидати"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "Отримуємо гру"
 
 #: messenger.py:193
 msgid "done"
-msgstr ""
+msgstr "виконано"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "бразильська"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "шведська"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "ісландська"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "румунська"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "суахілі"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "хінді"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "голландська"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "латинська"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "угорська"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "македонська"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "валлійська"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "французька"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "норвезька"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "російська"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "африкаанс"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "фінська"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "типова"
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "кантонська"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "шотландська"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "грецька"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "в’єтнамська"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "англійська"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "ланкаширська"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "італійська"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "португальська"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "німецька"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "шепіт"
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "хорватська"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "чеська"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "словацька"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "іспанська"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "польська"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "есперанто"
