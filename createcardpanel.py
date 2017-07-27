@@ -153,10 +153,7 @@ class CreateCardPanel(Gtk.EventBox):
         GObject.idle_add(self.update_orientation)
 
     def update_orientation(self):
-        logging.error('width %s height %s', Gdk.Screen.width(),
-                      Gdk.Screen.height())
         self._portrait = Gdk.Screen.width() < Gdk.Screen.height()
-        logging.error('cretecardpanel allocate portrait %s', self._portrait)
         if self._portrait:
             self._buttons_bar.props.orientation = Gtk.Orientation.HORIZONTAL
             self._main_box.props.orientation = Gtk.Orientation.VERTICAL
@@ -165,7 +162,6 @@ class CreateCardPanel(Gtk.EventBox):
             self._main_box.props.orientation = Gtk.Orientation.HORIZONTAL
 
     def update_font_combos(self, widget, data, grid):
-        logging.error('update font %s', data)
         if 'font_name1' in data:
             self.cardeditor1.set_font_name(data['font_name1'])
             self.cardeditor1.card.change_font(data['font_name1'])
@@ -387,7 +383,6 @@ class CardEditor(Gtk.EventBox):
 
     def __font_changed_cb(self, widget):
         font = widget.get_font_name()
-        logging.error('Selected font %s', font)
         if font:
             self.card.change_font(font)
             self.emit('change-font', font)

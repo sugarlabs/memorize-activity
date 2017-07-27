@@ -283,14 +283,12 @@ class MemorizeActivity(Activity):
             for pair in self.game.model.pairs:
                 # aimg
                 aimg = self.game.model.pairs[pair].get_property('aimg')
-                logging.error('saving image a %s', aimg)
                 if aimg is not None:
                     game_zip.write(os.path.join(temp_img_folder, aimg),
                                    os.path.join('images', aimg))
 
                 # bimg
                 bimg = self.game.model.pairs[pair].get_property('bimg')
-                logging.error('saving image b %s', bimg)
                 if bimg is not None:
                     game_zip.write(os.path.join(temp_img_folder, bimg),
                                    os.path.join('images', bimg))

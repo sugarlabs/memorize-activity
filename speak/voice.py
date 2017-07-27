@@ -149,6 +149,5 @@ def defaultVoice():
         if voiceMetric > bestMetric:
             best = voice
 
-    print "Best voice for LANG %s seems to be %s %s" % (lang, best.language, best.friendlyname)
     _defaultVoice =  best
     return best

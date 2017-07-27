@@ -354,8 +354,6 @@ class Model(object):
                 pair_props["bspeak"] = self.pairs[key].props.bspeak
             SubElement(root, 'pair', pair_props)
 
-        logging.error(tostring(root))
-
         try:
             with open(join(self.game_path, 'game.xml'), 'w') as xml_file:
                 xml_file.write(tostring(root))
@@ -436,7 +434,6 @@ class Model(object):
         self.grid = grid
 
     def create_temp_directories(self):
-        logging.error('creating temp directories model: %s', self.data)
         temp_img_folder = join(self.temp_folder, 'images')
         temp_snd_folder = join(self.temp_folder, 'sounds')
 
