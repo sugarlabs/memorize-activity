@@ -22,7 +22,6 @@ from gettext import gettext as _
 
 from gi.repository import GObject
 from gi.repository import Gio
-from gi.repository import Gtk
 
 from sugar3.graphics.menuitem import MenuItem
 from sugar3.graphics.toolbutton import ToolButton

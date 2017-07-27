@@ -25,8 +25,6 @@ import math
 
 import cairo
 from gi.repository import Gtk
-from gi.repository import Gdk
-from gi.repository import GObject
 
 
 class Eye(Gtk.DrawingArea):
