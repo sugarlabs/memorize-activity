@@ -98,14 +98,14 @@ class CreateCardPanel(Gtk.EventBox):
         self._addbutton.connect('clicked', self.emit_add_pair)
         self._buttons_bar.pack_start(self._addbutton, False, False, 0)
 
-        self._updatebutton = ToolButton(tooltip=_('Update seleted pair'),
+        self._updatebutton = ToolButton(tooltip=_('Update selected pair'),
                                         sensitive=False)
         self._updatebutton.set_icon_widget(
             make_label('pair-update', ' ' + _('Update')))
         self._updatebutton.connect('clicked', self.emit_update_pair)
         self._buttons_bar.pack_start(self._updatebutton, False, False, 0)
 
-        self._removebutton = ToolButton(tooltip=_('Remove seleted pair'),
+        self._removebutton = ToolButton(tooltip=_('Remove selected pair'),
                                         sensitive=False)
         self._removebutton.set_icon_widget(
             make_label('remove', ' ' + _('Remove')))
