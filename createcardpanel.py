@@ -289,18 +289,18 @@ class CreateCardPanel(Gtk.EventBox):
 
     def _update_buttom_status(self):
         if not self.equal_pairs:
-            if (self._card1_has_text or self._card1_has_picture
-                or self._card1_has_sound) and (self._card2_has_text
-                                               or self._card2_has_picture
-                                               or self._card2_has_sound):
+            if (self._card1_has_text or self._card1_has_picture or
+                self._card1_has_sound) and (self._card2_has_text or
+                                            self._card2_has_picture or
+                                            self._card2_has_sound):
                 self._addbutton.set_sensitive(True)
                 self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:
                 self._addbutton.set_sensitive(False)
                 self._updatebutton.set_sensitive(False)
         else:
-            if (self._card1_has_text or self._card1_has_picture
-                    or self._card1_has_sound):
+            if (self._card1_has_text or self._card1_has_picture or
+                    self._card1_has_sound):
                 self._addbutton.set_sensitive(True)
                 self._updatebutton.set_sensitive(self._updatebutton_sensitive)
             else:

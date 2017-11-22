@@ -99,8 +99,9 @@ class PlayerScoreboard(Gtk.EventBox):
         rows = int(math.ceil(float(size / 2) / self._score_cols))
         self.score_table.resize(rows, self._score_cols)
         self.score_table.set_size_request(
-            -1, (style.SMALL_ICON_SIZE + style.DEFAULT_SPACING / 2) * (rows)
-            - style.DEFAULT_SPACING / 2)
+            -1,
+            (style.SMALL_ICON_SIZE + style.DEFAULT_SPACING / 2) * rows -
+            style.DEFAULT_SPACING / 2)
 
     def increase_score(self):
         new_score = Icon(icon_name='score',

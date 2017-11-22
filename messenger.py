@@ -195,8 +195,8 @@ class Messenger(ExportedGObject):
         self.f.write(bytes)
 
         percentage = int(float(part) / float(numparts) * 100.0)
-        self.game.set_load_mode(_('Receiving game') + ': '
-                                + str(percentage) + '% ' + _('done') + '.')
+        self.game.set_load_mode(_('Receiving game') + ': ' +
+                                str(percentage) + '% ' + _('done') + '.')
 
         # last chunk
         if part == numparts:
