@@ -1,3 +1,8 @@
+53
+
+* Port to espeak-ng (James Cameron)
+* Updated translations (Chris Leonard et al)
+
 34
 
 * Skip full flipping animation if second speaking card is correct
