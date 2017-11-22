@@ -2,26 +2,26 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2017-11-12 20:24+0000\n"
-"Last-Translator: Moo <hazap@hotmail.com>\n"
+"PO-Revision-Date: 2017-08-18 00:25+0000\n"
+"Last-Translator: MartínOesterreich <martin.otte80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: lt\n"
+"Language: gug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1510518270.000000\n"
+"X-POOTLE-MTIME: 1503015937.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
-msgstr "Įsiminti"
+msgstr "memorizar "
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -29,294 +29,293 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
-"Čia galite žaisti žaidimus, kurie meta iššūkį jūsų atminčiai! O, "
-"svarbiausia, gali sukurti savo asmeninį žaidimą ir išbandyti kitų žmonių "
-"atmintį!"
+"ápe oikatu kuera ñembosarái juego kuera hina desafían nde mandu'a ! katu , "
+"má kuera lo tekotevẽ , ha'e hina oikatu kuera japo nde propio juego opyta po "
 
 #: activity.py:71
 msgid "Play"
-msgstr "Žaisti"
+msgstr "ñembosarai"
 
 #: activity.py:71
 msgid "Create"
-msgstr "Sukurti"
+msgstr "japo"
 
 #: activity.py:71
 msgid "Game name:"
-msgstr "Žaidimo pavadinimas:"
+msgstr "tera ñemboharai rehegua"
 
 #: activity.py:71
 msgid "Equal pairs"
-msgstr ""
+msgstr "mokõi kuera iguale kuera "
 
 #: activity.py:72
 msgid "addition"
-msgstr ""
+msgstr "adición"
 
 #: activity.py:72
 msgid "letters"
-msgstr "raidės"
+msgstr "tai kuera"
 
 #: activity.py:72
 msgid "sounds"
-msgstr "garsai"
+msgstr "pu kuera"
 
 #: activity.py:96 activity.py:276
 msgid "Edit game"
-msgstr "Taisyti žaidimą"
+msgstr "editar juego "
 
 #: activity.py:272
 msgid "Play game"
-msgstr "Žaisti žaidimą"
+msgstr "ñemboharai"
 
 #: createcardpanel.py:82
 msgid "Add as new pair"
-msgstr "Pridėti kaip naują porą"
+msgstr "mbojo'a peteĩ pyahu mokõi "
 
 #: createcardpanel.py:85
 msgid "Add"
-msgstr "Pridėti"
+msgstr "mbojo'a "
 
 #: createcardpanel.py:90
 msgid "Update selected pair"
-msgstr "Atnaujinti pažymėtą porą"
+msgstr "actualizar mokõi seleccionado "
 
 #: createcardpanel.py:93
 msgid "Update"
-msgstr "Atnaujinti"
+msgstr "actualizar "
 
 #: createcardpanel.py:314
 msgid "Preview:"
-msgstr "Peržiūra:"
+msgstr " techa previa: "
 
 #: createcardpanel.py:330
 msgid "Text:"
-msgstr "Tekstas:"
+msgstr "moñe,erã"
 
 #: createcardpanel.py:342
 msgid "Insert picture"
-msgstr "Įterpti paveikslėlį"
+msgstr "insertar ta'anga "
 
 #: createcardpanel.py:347
 msgid "Insert sound"
-msgstr "Įterpti garsą"
+msgstr "emoinge ta'anga"
 
 #: createcardpanel.py:504
 msgid "Pronounce text during tile flip"
-msgstr "Apverčiant plytelę, ištarti tekstą"
+msgstr "ere mombe'urã embojere'aja pe kuatia ñe'ẽ"
 
 #: createtoolbar.py:46 createtoolbar.py:106
 msgid "Match different tiles"
-msgstr ""
+msgstr "embojoja  kuatia'i ojohegua'y"
 
 #: createtoolbar.py:51 createtoolbar.py:119
 msgid "Mixed tiles game"
-msgstr ""
+msgstr "juego kuatia'i mohendáva kuera mba'e jopara kuera "
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr "Išvalyti visas plyteles"
+msgstr "mopotĩ toda kuera kuatia'i mohendáva kuera "
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr ""
+msgstr "¿mopotĩ toda kuera akytã kuera juegogua ? "
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr "Išvalyti"
+msgstr "mopotĩ"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr "Neišvalyti"
+msgstr "ani emopotĩ"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
-msgstr ""
+msgstr "embojoja kuatia'i ndojuavýiva"
 
 #: createtoolbar.py:115
 msgid "Grouped tiles game"
-msgstr ""
+msgstr "mbosarai pe kuatia'i ñembyatyre"
 
 #: fontcombobox.py:42
 msgid "Select font"
-msgstr "Pasirinkite šriftą"
+msgstr "seleccionar fuente "
 
 #: game.py:94
 msgid "Loading game..."
-msgstr "Įkeliamas žaidimas..."
+msgstr "cargando juego. . . "
 
 #: memorizetoolbar.py:43
 msgid "Addition"
-msgstr ""
+msgstr "ñemboheta"
 
 #: memorizetoolbar.py:44
 msgid "Letters"
-msgstr ""
+msgstr "tai kuera"
 
 #: memorizetoolbar.py:45
 msgid "Sounds"
-msgstr ""
+msgstr "pu kuera"
 
 #: memorizetoolbar.py:60
 msgid "Load demo games"
-msgstr "Įkelti demonstracinius žaidimus"
+msgstr "hupi juego kuera jehechauka mba'e "
 
 #: memorizetoolbar.py:72
 msgid "Change size"
-msgstr "Keisti dydį"
+msgstr "moambue jakatuha "
 
 #: memorizetoolbar.py:86
 msgid "Restart Game"
-msgstr "Pradėti žaidimą iš naujo"
+msgstr "ñepyru jey ñemboharai"
 
 #: memorizetoolbar.py:111
 msgid "Discard your modified game?"
-msgstr ""
+msgstr "¿mboyke nde juego ñemoambueva/papyre ? "
 
 #: memorizetoolbar.py:113
 msgid "Discard"
-msgstr "Atmesti"
+msgstr "mboyke"
 
 #: memorizetoolbar.py:115
 msgid "Do not discard"
-msgstr "Neatmesti"
+msgstr "ani ñemboyke"
 
 #: messenger.py:192
 msgid "Receiving game"
-msgstr ""
+msgstr "recibiendo juego "
 
 #: messenger.py:193
 msgid "done"
-msgstr "atlikta"
+msgstr "oikova"
 
 #: speak/voice.py:36
 msgid "Brazil"
-msgstr ""
+msgstr "Portugués - Brasileño"
 
 #: speak/voice.py:37
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco"
 
 #: speak/voice.py:38
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés"
 
 #: speak/voice.py:39
 msgid "Romanian"
-msgstr ""
+msgstr "Rumano"
 
 #: speak/voice.py:40
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili"
 
 #: speak/voice.py:41
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: speak/voice.py:42
 msgid "Dutch"
-msgstr ""
+msgstr "Holandés"
 
 #: speak/voice.py:43
 msgid "Latin"
-msgstr ""
+msgstr "Latín"
 
 #: speak/voice.py:44
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #: speak/voice.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonio"
 
 #: speak/voice.py:46
 msgid "Welsh"
-msgstr ""
+msgstr "Galés"
 
 #: speak/voice.py:47
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #: speak/voice.py:48
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruego"
 
 #: speak/voice.py:49
 msgid "Russian"
-msgstr ""
+msgstr "Ruso"
 
 #: speak/voice.py:50
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikáans"
 
 #: speak/voice.py:51
 msgid "Finnish"
-msgstr ""
+msgstr "Finés"
 
 #: speak/voice.py:52 speak/voice.py:125
 msgid "Default"
-msgstr ""
+msgstr "predeterminada "
 
 #: speak/voice.py:53
 msgid "Cantonese"
-msgstr ""
+msgstr "Cantonés"
 
 #: speak/voice.py:54
 msgid "Scottish"
-msgstr ""
+msgstr "Escocés"
 
 #: speak/voice.py:55
 msgid "Greek"
-msgstr ""
+msgstr "Griego"
 
 #: speak/voice.py:56
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnamita"
 
 #: speak/voice.py:57
 msgid "English"
-msgstr ""
+msgstr "Inglés"
 
 #: speak/voice.py:58
 msgid "Lancashire"
-msgstr ""
+msgstr "Lancashire"
 
 #: speak/voice.py:59
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: speak/voice.py:60
 msgid "Portugal"
-msgstr ""
+msgstr "Portugués"
 
 #: speak/voice.py:61
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #: speak/voice.py:62
 msgid "Whisper"
-msgstr ""
+msgstr "susurro "
 
 #: speak/voice.py:63
 msgid "Croatian"
-msgstr ""
+msgstr "Croata"
 
 #: speak/voice.py:64
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #: speak/voice.py:65
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco"
 
 #: speak/voice.py:66
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: speak/voice.py:67
 msgid "Polish"
-msgstr ""
+msgstr "Polaco"
 
 #: speak/voice.py:68
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
