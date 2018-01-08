@@ -44,8 +44,10 @@ How to develop?
 * main program is `activity.py`,
 * directory `demos` contains predefined games, as ZIP bundles of XML, with document type definition `memorize.dtd`,
 
-Opprtunities?
-=============
+Opportunities?
+==============
+
+See _Issues_ in the repository.
 
 Several long term bugs have yet to be resolved;
 
