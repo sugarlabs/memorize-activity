@@ -1,3 +1,5 @@
+# Copyright (C) 2009, Aleksey Lim
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
@@ -20,24 +22,20 @@ from gi.repository import GObject
 import logging
 logger = logging.getLogger('speak')
 
+PITCH_MIN = 0
 PITCH_MAX = 200
+RATE_MIN = 0
 RATE_MAX = 200
-PITCH_DEFAULT = PITCH_MAX/2
-RATE_DEFAULT = RATE_MAX/2
+
 
 class BaseAudioGrab(GObject.GObject):
-    __gsignals__ = {
-        'new-buffer': (GObject.SignalFlags.RUN_FIRST, None, [GObject.TYPE_PYOBJECT])
-    }
+    __gsignals__ = {}
 
     def __init__(self):
         GObject.GObject.__init__(self)
         self.pipeline = None
-        self.quiet = True
 
     def restart_sound_device(self):
-        self.quiet = False
-
         self.pipeline.set_state(Gst.State.NULL)
         self.pipeline.set_state(Gst.State.PLAYING)
 
@@ -46,43 +44,36 @@ class BaseAudioGrab(GObject.GObject):
             return
 
         self.pipeline.set_state(Gst.State.NULL)
-        # Shut theirs mouths down
-        self._new_buffer('')
 
-        self.quiet = True
+        self.pipeline = None
 
-    def make_pipeline(self, cmd):
+    def make_pipeline(self):
         if self.pipeline is not None:
             self.stop_sound_device()
             del self.pipeline
 
-        # build a pipeline that reads the given file
-        # and sends it to both the real audio output
-        # and a fake one that we use to draw from
+        # build a pipeline that makes speech
+        # and sends it to only the audio output
+        cmd = 'espeak name=espeak ! autoaudiosink'
         self.pipeline = Gst.parse_launch(cmd)
-
-    def _new_buffer(self, buf):
-        if not self.quiet:
-            # pass captured audio to anyone who is interested
-            self.emit("new-buffer", buf)
-        return False
 
 
 class AudioGrab(BaseAudioGrab):
     def speak(self, status, text):
-        self.make_pipeline('espeak name=espeak ! autoaudiosink')
+        self.make_pipeline()
         src = self.pipeline.get_by_name('espeak')
 
         pitch = int(status.pitch) - 100
         rate = int(status.rate) - 100
 
         logger.debug('pitch=%d rate=%d voice=%s text=%s' % (pitch, rate,
-                status.voice.name, text))
+                                                            status.voice.name,
+                                                            text))
 
-        src.props.text = text
         src.props.pitch = pitch
         src.props.rate = rate
         src.props.voice = status.voice.name
+        src.props.text = text
 
         self.restart_sound_device()
 
@@ -90,9 +81,9 @@ class AudioGrab(BaseAudioGrab):
 def voices():
     out = []
 
-    for i in Gst.ElementFactory.make('espeak', None).props.voices:
+    for i in Gst.ElementFactory.make('espeak', 'espeak').props.voices:
         name, language, dialect = i
-        if name in ('en-rhotic','english_rp','english_wmids'):
+        if name in ('en-rhotic', 'english_rp', 'english_wmids'):
             # these voices don't produce sound
             continue
         out.append((language, name, dialect))

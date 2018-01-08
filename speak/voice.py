@@ -7,12 +7,12 @@
 #
 # Parts of Speak.activity are based on code from Measure.activity
 # Copyright (C) 2007  Arjun Sarwal - arjun@laptop.org
-# 
+#
 #     Speak.activity is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
 #     the Free Software Foundation, either version 3 of the License, or
 #     (at your option) any later version.
-# 
+#
 #     Speak.activity is distributed in the hope that it will be useful,
 #     but WITHOUT ANY WARRANTY; without even the implied warranty of
 #     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -25,16 +25,16 @@ import re
 import os
 from gettext import gettext as _
 
+import espeak
 import logging
 logger = logging.getLogger('speak')
 
-import espeak
-
-# Lets trick gettext into generating entries for the voice names we expect espeak to have
-# If espeak actually has new or different names then they won't get translated, but they
-# should still show up in the interface.
+# Lets trick gettext into generating entries for the voice names we
+# expect espeak to have. If espeak actually has new or different names
+# then they won't get translated, but they should still show up in the
+# interface.
 expectedVoiceNames = [
-    _("Brazil"),
+    _("Portuguese (Brazil)"),
     _("Swedish"),
     _("Icelandic"),
     _("Romanian"),
@@ -54,11 +54,11 @@ expectedVoiceNames = [
     _("Cantonese"),
     _("Scottish"),
     _("Greek"),
-    _("Vietnam"),
+    _("Vietnamese"),
     _("English"),
     _("Lancashire"),
     _("Italian"),
-    _("Portugal"),
+    _("Portuguese"),
     _("German"),
     _("Whisper"),
     _("Croatian"),
@@ -73,6 +73,7 @@ _allVoices = {}
 _allVoicesByLang = {}
 _defaultVoice = None
 
+
 class Voice:
     def __init__(self, language, name, dialect=None):
         self.language = language
@@ -81,19 +82,39 @@ class Voice:
             self.language = "%s-%s" % (self.language, dialect)
 
         friendlyname = name
-        friendlyname = friendlyname.replace('-test','')
-        friendlyname = friendlyname.replace('_test','')
-        friendlyname = friendlyname.replace('en-','')
-        friendlyname = friendlyname.replace('english-wisper','whisper')
-        friendlyname = friendlyname.capitalize()
-        self.friendlyname = _(friendlyname)
+        friendlyname = friendlyname.replace('-test', '')
+        friendlyname = friendlyname.replace('_test', '')
+        friendlyname = friendlyname.replace('en-', '')
+        friendlyname = friendlyname.replace('english-wisper', 'whisper')
+        friendlyname = friendlyname.replace('english-us', 'us')
+
+        friendlynameRP = name  # friendlyname for RP
+        friendlynameRP = friendlynameRP.replace('english_rp', 'rp')
+        friendlynameRP = friendlynameRP.replace('english_wmids', 'wmids')
+
+        parts = re.split('[ _-]', friendlyname)
+        self.short_name = _(parts[0].capitalize())
+        self.friendlyname = ' '.join([self.short_name] + parts[1:])
+
+        if friendlynameRP == 'rp':
+                self.friendlyname = 'English (Received Pronunciation)'
+
+        if friendlyname == 'us':
+                self.friendlyname = 'English (USA)'
+
+        if friendlynameRP == 'wmids':
+                self.friendlyname = 'English (West Midlands)'
+
+    def __cmp__(self, other):
+        return cmp(self.friendlyname, other.friendlyname if other else '')
+
 
 def _init_voice_cache():
-
     for language, name, dialect in espeak.voices():
         voice = Voice(language, name, dialect)
         _allVoices[voice.friendlyname] = voice
         _allVoicesByLang[voice.language] = voice
+
 
 def allVoices():
     if _allVoices:
@@ -103,8 +124,10 @@ def allVoices():
 
     return _allVoices
 
+
 def by_name(name):
     return allVoices().get(name, defaultVoice())
+
 
 def allVoicesByLang():
     if _allVoicesByLang:
@@ -113,6 +136,7 @@ def allVoicesByLang():
     _init_voice_cache()
 
     return _allVoicesByLang
+
 
 def by_lang(lang):
     return allVoicesByLang().get(lang, defaultVoice())
@@ -129,11 +153,11 @@ def defaultVoice():
 
     voices = allVoices()
 
-    def fit(a,b):
+    def fit(a, b):
         "Compare two language ids to see if they are similar."
         as_ = re.split(r'[^a-z]+', a.lower())
         bs = re.split(r'[^a-z]+', b.lower())
-        for count in range(0, min(len(as_),len(bs))):
+        for count in range(0, min(len(as_), len(bs))):
             if as_[count] != bs[count]:
                 count -= 1
                 break
@@ -149,9 +173,17 @@ def defaultVoice():
         best = voices[_("Default")]  # espeak 1.48
     for voice in voices.values():
         voiceMetric = fit(voice.language, lang)
-        bestMetric  = fit(best.language, lang)
+        bestMetric = fit(best.language, lang)
+        if lang == 'en_AU.UTF-8':
+            if voice.friendlyname == 'English (Received Pronunciation)':
+                best = voice
+                break
+        if lang[0:2] == 'es':
+            if voice.friendlyname == _('Spanish'):
+                best = voice
+                break
         if voiceMetric > bestMetric:
             best = voice
 
-    _defaultVoice =  best
+    _defaultVoice = best
     return best

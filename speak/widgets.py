@@ -16,6 +16,7 @@ from sugar3.graphics.combobox import ComboBox
 
 import voice
 
+
 class Voices(ComboBox):
     def __init__(self, face, **kwargs):
         ComboBox.__init__(self, **kwargs)
