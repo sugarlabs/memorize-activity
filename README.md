@@ -43,3 +43,15 @@ How to develop?
 
 * main program is `activity.py`,
 * directory `demos` contains predefined games, as ZIP bundles of XML, with document type definition `memorize.dtd`,
+
+Opprtunities?
+=============
+
+Several long term bugs have yet to be resolved;
+
+* [Save the game state](https://bugs.sugarlabs.org/ticket/4373),
+* [Arabic text is smaller](https://bugs.sugarlabs.org/ticket/1881),
+* [Discard does not discard game](https://bugs.sugarlabs.org/ticket/3154),
+* [Forgets game size in journal](https://bugs.sugarlabs.org/ticket/3754),
+* [Cannot restart shared activity](https://bugs.sugarlabs.org/ticket/4453),
+* [Collaboration broken with more than two users](https://bugs.sugarlabs.org/ticket/4719).
