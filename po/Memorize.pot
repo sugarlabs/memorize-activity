@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-27 15:03+1000\n"
+"POT-Creation-Date: 2018-01-08 16:28+1100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,39 +27,39 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:73
+#: activity.py:74
 msgid "Play"
 msgstr ""
 
-#: activity.py:73
+#: activity.py:74
 msgid "Create"
 msgstr ""
 
-#: activity.py:73
+#: activity.py:74
 msgid "Game name:"
 msgstr ""
 
-#: activity.py:73
+#: activity.py:74
 msgid "Equal pairs"
 msgstr ""
 
-#: activity.py:74
+#: activity.py:75
 msgid "addition"
 msgstr ""
 
-#: activity.py:74
+#: activity.py:75
 msgid "letters"
 msgstr ""
 
-#: activity.py:74
+#: activity.py:75
 msgid "sounds"
 msgstr ""
 
-#: activity.py:96 activity.py:251
+#: activity.py:97 activity.py:252
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:247
+#: activity.py:248
 msgid "Play game"
 msgstr ""
 
@@ -87,15 +87,15 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: createcardpanel.py:362
+#: createcardpanel.py:358
 msgid "Insert picture"
 msgstr ""
 
-#: createcardpanel.py:366
+#: createcardpanel.py:362
 msgid "Insert sound"
 msgstr ""
 
-#: createcardpanel.py:520
+#: createcardpanel.py:512
 msgid "Pronounce text during tile flip"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Grouped tiles game"
 msgstr ""
 
-#: fontcombobox.py:44
+#: fontcombobox.py:43
 msgid "Select font"
 msgstr ""
 
@@ -183,134 +183,134 @@ msgstr ""
 msgid "done"
 msgstr ""
 
-#: speak/voice.py:36
+#: speak/voice.py:37
 msgid "Brazil"
 msgstr ""
 
-#: speak/voice.py:37
+#: speak/voice.py:38
 msgid "Swedish"
 msgstr ""
 
-#: speak/voice.py:38
+#: speak/voice.py:39
 msgid "Icelandic"
 msgstr ""
 
-#: speak/voice.py:39
+#: speak/voice.py:40
 msgid "Romanian"
 msgstr ""
 
-#: speak/voice.py:40
+#: speak/voice.py:41
 msgid "Swahili"
 msgstr ""
 
-#: speak/voice.py:41
+#: speak/voice.py:42
 msgid "Hindi"
 msgstr ""
 
-#: speak/voice.py:42
+#: speak/voice.py:43
 msgid "Dutch"
 msgstr ""
 
-#: speak/voice.py:43
+#: speak/voice.py:44
 msgid "Latin"
 msgstr ""
 
-#: speak/voice.py:44
+#: speak/voice.py:45
 msgid "Hungarian"
 msgstr ""
 
-#: speak/voice.py:45
+#: speak/voice.py:46
 msgid "Macedonian"
 msgstr ""
 
-#: speak/voice.py:46
+#: speak/voice.py:47
 msgid "Welsh"
 msgstr ""
 
-#: speak/voice.py:47
+#: speak/voice.py:48
 msgid "French"
 msgstr ""
 
-#: speak/voice.py:48
+#: speak/voice.py:49
 msgid "Norwegian"
 msgstr ""
 
-#: speak/voice.py:49
+#: speak/voice.py:50
 msgid "Russian"
 msgstr ""
 
-#: speak/voice.py:50
+#: speak/voice.py:51
 msgid "Afrikaans"
 msgstr ""
 
-#: speak/voice.py:51
+#: speak/voice.py:52
 msgid "Finnish"
 msgstr ""
 
-#: speak/voice.py:52 speak/voice.py:145
+#: speak/voice.py:53 speak/voice.py:149
 msgid "Default"
 msgstr ""
 
-#: speak/voice.py:53
+#: speak/voice.py:54
 msgid "Cantonese"
 msgstr ""
 
-#: speak/voice.py:54
+#: speak/voice.py:55
 msgid "Scottish"
 msgstr ""
 
-#: speak/voice.py:55
+#: speak/voice.py:56
 msgid "Greek"
 msgstr ""
 
-#: speak/voice.py:56
+#: speak/voice.py:57
 msgid "Vietnam"
 msgstr ""
 
-#: speak/voice.py:57
+#: speak/voice.py:58 speak/voice.py:147
 msgid "English"
 msgstr ""
 
-#: speak/voice.py:58
+#: speak/voice.py:59
 msgid "Lancashire"
 msgstr ""
 
-#: speak/voice.py:59
+#: speak/voice.py:60
 msgid "Italian"
 msgstr ""
 
-#: speak/voice.py:60
+#: speak/voice.py:61
 msgid "Portugal"
 msgstr ""
 
-#: speak/voice.py:61
+#: speak/voice.py:62
 msgid "German"
 msgstr ""
 
-#: speak/voice.py:62
+#: speak/voice.py:63
 msgid "Whisper"
 msgstr ""
 
-#: speak/voice.py:63
+#: speak/voice.py:64
 msgid "Croatian"
 msgstr ""
 
-#: speak/voice.py:64
+#: speak/voice.py:65
 msgid "Czech"
 msgstr ""
 
-#: speak/voice.py:65
+#: speak/voice.py:66
 msgid "Slovak"
 msgstr ""
 
-#: speak/voice.py:66
+#: speak/voice.py:67
 msgid "Spanish"
 msgstr ""
 
-#: speak/voice.py:67
+#: speak/voice.py:68
 msgid "Polish"
 msgstr ""
 
-#: speak/voice.py:68
+#: speak/voice.py:69
 msgid "Esperanto"
 msgstr ""
