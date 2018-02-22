@@ -122,6 +122,12 @@ def allVoices():
 
     _init_voice_cache()
 
+    if 'English' not in _allVoices:
+        _allVoices['English'] = _allVoices['English (America)']
+
+    if 'Spanish' not in _allVoices:
+        _allVoices['Spanish'] = _allVoices['Spanish (Latin America)']
+
     return _allVoices
 
 
@@ -144,7 +150,7 @@ def by_lang(lang):
 
 def defaultVoice():
     """Try to figure out the default voice, from the current locale ($LANG).
-       Fall back to espeak's voice called Default."""
+    """
 
     global _defaultVoice
 
@@ -167,10 +173,18 @@ def defaultVoice():
     except:
         lang = ""
 
-    try:
-        best = voices[_("English")]  # espeak-ng 1.49.1
-    except:
-        best = voices[_("Default")]  # espeak 1.48
+    voice_names = [
+        "English (America)",  # espeak-ng 1.49.2
+        "English",  # espeak-ng 1.49.1
+        "Default",  # espeak 1.48
+        ]
+
+    best = None
+    for voice_name in voice_names:
+        if voice_name in voices:
+            best = voices[voice_name]
+            break
+
     for voice in voices.values():
         voiceMetric = fit(voice.language, lang)
         bestMetric = fit(best.language, lang)
@@ -179,7 +193,7 @@ def defaultVoice():
                 best = voice
                 break
         if lang[0:2] == 'es':
-            if voice.friendlyname == _('Spanish'):
+            if voice.friendlyname in ['Spanish', 'Spanish (Latin America)']:
                 best = voice
                 break
         if voiceMetric > bestMetric:
