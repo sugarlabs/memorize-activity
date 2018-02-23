@@ -182,8 +182,6 @@ class MemorizeActivity(Activity):
         height = Gdk.Screen.height() - style.GRID_CELL_SIZE
         self.table.resize(width, height - style.GRID_CELL_SIZE)
         self.scoreboard.set_size_request(-1, style.GRID_CELL_SIZE)
-        self.box.pack_start(self.table, True, True, 0)
-        self.box.pack_start(self.scoreboard, False, False, 0)
         self.set_canvas(self.box)
 
         # connect to the in/out events of the memorize activity
