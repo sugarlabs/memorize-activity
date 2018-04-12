@@ -16,9 +16,6 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import locale
-locale.setlocale(locale.LC_NUMERIC, 'C')
-
 import logging
 
 from gettext import gettext as _
