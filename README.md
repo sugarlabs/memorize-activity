@@ -34,7 +34,7 @@ On Fedora systems;
 dnf install sugar-memorize
 ```
 
-Memorize depends on Python, GTK+ 3, GStreamer, [GStreamer espeak plugin](https://github.com/sugarlabs/gst-plugins-espeak), and the Sugar Toolkit.
+Memorize depends on Python, the Sugar Toolkit, and PyGObject bindings for GTK+ 3, GStreamer, and the [GStreamer espeak plugin](https://github.com/sugarlabs/gst-plugins-espeak).
 
 Memorize is started by [Sugar](https://github.com/sugarlabs/sugar).
 
