@@ -6,10 +6,11 @@ Memorize is about finding matching pairs.  A pair can be images, sounds and text
 How to use?
 ===========
 
-Memorize is part of the Sugar desktop.  Please refer to;
+Memorize is not part of the Sugar desktop, but can be added.  Please refer to;
 
 * [How to Get Sugar on sugarlabs.org](https://sugarlabs.org/),
 * [How to use Sugar](https://help.sugarlabs.org/),
+* [Download Memorize using Browse](https://activities.sugarlabs.org/), search for `Memorize`, then download, and;
 * [How to use Memorize](https://help.sugarlabs.org/en/memorize.html)
 
 How to upgrade?
