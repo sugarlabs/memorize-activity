@@ -1,5 +1,5 @@
 # Copyright (C) 2012 Gonzalo Odiard <gonzalo@laptop.org>
-# Based in code form Flavio Danesse <fdanesse@activitycentral.com>
+# Based in code from Flavio Danesse <fdanesse@activitycentral.com>
 # and Ariel Calzada <ariel.calzada@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -12,9 +12,9 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import os
 import shutil
