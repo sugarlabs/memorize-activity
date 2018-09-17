@@ -19,7 +19,7 @@ from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import Gtk
 
-import svgcard
+from card import Card
 import logging
 from os.path import join, basename
 
@@ -254,7 +254,7 @@ class CardPair(Gtk.EventBox):
         row.props.margin_left = style.DEFAULT_SPACING
         row.props.margin_right = style.DEFAULT_SPACING
 
-        self.bcard1 = svgcard.SvgCard(
+        self.bcard1 = Card(
             -1, {'front_text': {'card_text': text1,
                                 'speak': aspeak,
                                 'text_color': style.Color('#ffffff')},
@@ -265,7 +265,7 @@ class CardPair(Gtk.EventBox):
         self.bcard1.set_valign(Gtk.Align.CENTER)
         row.pack_start(self.bcard1, True, True, 0)
 
-        self.bcard2 = svgcard.SvgCard(
+        self.bcard2 = Card(
             -1, {'front_text': {'card_text': text2,
                                 'speak': bspeak,
                                 'text_color': style.Color('#ffffff')},

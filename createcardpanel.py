@@ -26,7 +26,7 @@ from os.path import join, basename
 
 import shutil
 from gettext import gettext as _
-import svgcard
+from card import Card
 import logging
 
 from sugar3.activity import activity
@@ -338,7 +338,7 @@ class CardEditor(Gtk.EventBox):
         box.set_row_spacing(style.DEFAULT_SPACING)
         box.props.margin = style.DEFAULT_SPACING
 
-        self.card = svgcard.SvgCard(
+        self.card = Card(
             -1, {'front_text': {'card_text': '',
                                 'text_color': style.Color('#ffffff')}},
             None, PAIR_SIZE, '#c0c0c0')

@@ -22,7 +22,7 @@ from gi.repository import Pango
 
 from sugar3.graphics import style
 
-import svgcard
+from card import Card
 import os
 import math
 
@@ -160,7 +160,7 @@ class CardTable(Gtk.EventBox):
                 props['back'] = {'fill_color': background_color2,
                                  'stroke_color': background_color2}
 
-            card = svgcard.SvgCard(
+            card = Card(
                 identifier, props, image_path,
                 self.card_size, self._background_color, font_name, show_robot)
             card.connect('enter-notify-event', self.mouse_event, [x, y])

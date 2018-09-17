@@ -38,12 +38,7 @@ import model
 BORDER_WIDTH = style.zoom(10)
 
 
-class SvgCard(Gtk.EventBox):
-    """
-    This class is named SvgCard for historica reasons only.
-    At the beginning a svg file was used to draw the card border.
-    Now was replaced by cairo, to make easier implement a flip animaton.
-    """
+class Card(Gtk.EventBox):
 
     # Default properties
     default_props = {}
@@ -58,7 +53,7 @@ class SvgCard(Gtk.EventBox):
                  bg_color='#000000', font_name=model.DEFAULT_FONT,
                  show_robot=True):
         Gtk.EventBox.__init__(self)
-        logging.debug('SvgCard image_path %s', image_path)
+        logging.debug('Card image_path %s', image_path)
         self.bg_color = bg_color
         self.flipped = False
         self.id = identifier
