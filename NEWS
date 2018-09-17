@@ -1,3 +1,16 @@
+55
+
+* Fix GtkBox warnings (Yash Agrawal),
+* Do not set locale to C (James Cameron),
+* Document the PyGObject binding dependencies (James Cameron),
+* Change import order (James Cameron),
+* Port from GObject to GLib (James Cameron),
+* Rename SvgCard to Card (James Cameron),
+* Fix license address (James Cameron),
+* Add missing copyright (James Cameron),
+* New translations for pt_BR (Paulo Francisco),
+* Regenerate POT file (James Cameron),
+
 54
 
 * Fix fail to start when used with espeak-ng 1.49.2 (James Cameron),
