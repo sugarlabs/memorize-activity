@@ -21,10 +21,10 @@
 import logging
 import cairo
 
-from gi.repository import Gtk
+from gi.repository import GLib
 from gi.repository import Gdk
-from gi.repository import GObject
 from gi.repository import GdkPixbuf
+from gi.repository import Gtk
 from gi.repository import Pango
 from gi.repository import PangoCairo
 
@@ -258,7 +258,7 @@ class SvgCard(Gtk.EventBox):
     def _animate_flip(self):
         if self._animation_step < self._animation_steps - 1:
             self.queue_draw()
-            GObject.timeout_add(100, self._animate_flip)
+            GLib.timeout_add(100, self._animate_flip)
         else:
             self._finish_flip()
         return False
@@ -280,7 +280,7 @@ class SvgCard(Gtk.EventBox):
     def _animate_flop(self):
         if self._animation_step < self._animation_steps - 1:
             self.queue_draw()
-            GObject.timeout_add(100, self._animate_flop)
+            GLib.timeout_add(100, self._animate_flop)
         else:
             self._finish_flop()
         return False

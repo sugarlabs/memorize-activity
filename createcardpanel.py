@@ -17,9 +17,10 @@
 #    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gi.repository import Gtk
-from gi.repository import Gdk
+from gi.repository import GLib
 from gi.repository import GObject
+from gi.repository import Gdk
+from gi.repository import Gtk
 
 from os.path import join, basename
 
@@ -150,7 +151,7 @@ class CreateCardPanel(Gtk.EventBox):
         self.show_all()
 
     def _allocate_cb(self, widget, allocation):
-        GObject.idle_add(self.update_orientation)
+        GLib.idle_add(self.update_orientation)
 
     def update_orientation(self):
         self._portrait = Gdk.Screen.width() < Gdk.Screen.height()

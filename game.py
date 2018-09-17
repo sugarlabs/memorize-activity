@@ -16,6 +16,7 @@
 #
 
 import logging
+from gi.repository import GLib
 from gi.repository import GObject
 from os.path import join
 
@@ -255,7 +256,7 @@ class MemorizeGame(GObject.GObject):
                 self.model.grid[identifier]['state'] = '1'
                 self.set_sensitive(False)
                 self._flop_cards = (identifier, self.last_flipped)
-                self._flop_card_timeout = GObject.timeout_add(
+                self._flop_card_timeout = GLib.timeout_add(
                     FLOP_BACK_TIMEOUT,
                     self.flop_card, identifier, self.last_flipped)
             self.last_flipped = -1
