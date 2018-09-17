@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-15 00:31-0400\n"
-"PO-Revision-Date: 2014-12-21 15:19+0000\n"
-"Last-Translator: joaoeliakin <joaoeliakin@gmail.com>\n"
+"PO-Revision-Date: 2018-09-05 18:51+0000\n"
+"Last-Translator: Paulo Francisco <slomp@ufrgs.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1419175186.000000\n"
+"X-POOTLE-MTIME: 1536173506.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Memorize"
@@ -28,8 +28,8 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
-"Aqui você pode desafiar a sua memória! Mas, acima de tudo, você pode criar "
-"seu próprio jogo para testar a memória dos seus amigos!"
+"Aqui você tem jogos que desafiam a sua memória! Mas, acima de tudo, você "
+"pode criar seu próprio jogo para testar a memória dos seus amigos!"
 
 #: activity.py:71
 msgid "Play"
@@ -53,7 +53,7 @@ msgstr "adição"
 
 #: activity.py:72
 msgid "letters"
-msgstr "Letras"
+msgstr "letras"
 
 #: activity.py:72
 msgid "sounds"
@@ -113,19 +113,19 @@ msgstr "Jogo de cartas mistas"
 
 #: createtoolbar.py:56
 msgid "Clear all tiles"
-msgstr "Desvirar todas as cartas"
+msgstr "Limpar todas as cartas"
 
 #: createtoolbar.py:76
 msgid "Clear all the tiles from the game?"
-msgstr "Desvirar todas as cartas do jogo?"
+msgstr "Limpar todas as cartas do jogo?"
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr "Desvirar"
+msgstr "Limpar"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
-msgstr "Não desvirar"
+msgstr "Não limpar"
 
 #: createtoolbar.py:102
 msgid "Match identical tiles"
