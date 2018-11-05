@@ -11,3 +11,4 @@ max_participants = 2
 repository = https://github.com/sugarlabs/memorize-activity.git
 tags = Maths;Language;Game
 url = https://help.sugarlabs.org/memorize.html
+screenshots = https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-1.PNG https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-2.PNG https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-3.PNG
