@@ -11,4 +11,8 @@ max_participants = 2
 repository = https://github.com/sugarlabs/memorize-activity.git
 tags = Maths;Language;Game
 url = https://help.sugarlabs.org/memorize.html
-screenshots = https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-1.PNG https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-2.PNG https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-3.PNG
+metadata_license = CC0-1.0
+description:
+    <p>Here you can play games that challenge your memory!</p>
+    <p>But, more importantly, you can create your own game to test the memory of others!</p>
+screenshots = https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-1.png https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-2.png https://github.com/sugarlabs/memorize-activity/tree/master/screenshots/memorize-3.png
