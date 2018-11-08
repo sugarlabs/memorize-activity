@@ -11,6 +11,7 @@ max_participants = 2
 repository = https://github.com/sugarlabs/memorize-activity.git
 tags = Maths;Language;Game
 url = https://help.sugarlabs.org/memorize.html
+metadata_license = CC0-1.0
 description:
     <p>In this activity you have to find matching pairs and remember each of the blocks' value to do it faster.</p>
     <p>You can even change the numbers to images, films or sounds.</p>
