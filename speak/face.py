@@ -26,8 +26,8 @@ import logging
 import json
 
 import sugar3.graphics.style as style
+import sugar3.speech as Speech
 
-import espeak
 import eye
 import mouth
 import voice
@@ -41,9 +41,10 @@ FACE_PAD = style.GRID_CELL_SIZE
 
 class Status:
     def __init__(self):
+        self.speech= Speech.SpeechManager()
         self.voice = voice.defaultVoice()
-        self.pitch = espeak.PITCH_MAX / 2
-        self.rate = espeak.RATE_MAX / 2
+        self.pitch = self.speech.MAX_PITCH
+        self.rate = self.speech.MAX_RATE
 
         self.eyes = [eye.Eye] * 2
         self.mouth = mouth.Mouth
@@ -88,12 +89,11 @@ class View(Gtk.EventBox):
     def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
         Gtk.EventBox.__init__(self)
 
+        self.speech= Speech.SpeechManager()
         self.status = Status()
         self.fill_color = fill_color
 
         self.connect('size-allocate', self._size_allocate_cb)
-
-        self._audio = espeak.AudioGrab()
 
         # make an empty box for some eyes
         self._eyes = None
@@ -152,20 +152,20 @@ class View(Gtk.EventBox):
             self._eyebox.pack_start(the, True, True, FACE_PAD)
             the.show()
 
-        self._mouth = status.mouth(self._audio, self.fill_color)
+        self._mouth = status.mouth(self.speech, self.fill_color)
         self._mouth.show()
         self._mouthbox.add(self._mouth)
 
     def say(self, something):
-        self._audio.speak(self._peding or self.status, something)
+        self.speech.say_text(self._peding or self.status, something)
 
     def say_notification(self, something):
         status = (self._peding or self.status).clone()
         status.voice = voice.defaultVoice()
-        self._audio.speak(status, something)
+        self.speech.say_text(status, something)
 
     def shut_up(self):
-        self._audio.stop_sound_device()
+        self.speech.stop()
 
     def _size_allocate_cb(self, widget, allocation):
         self._mouthbox.set_size_request(-1, int(allocation.height / 2.5))

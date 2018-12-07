@@ -21,7 +21,6 @@ import logging
 
 from sugar3.graphics import style
 
-import speak.espeak
 import speak.face
 
 
