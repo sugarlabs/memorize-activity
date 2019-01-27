@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-18 07:31+1000\n"
+"POT-Creation-Date: 2019-01-27 11:49+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,39 +27,48 @@ msgid ""
 "you can create your own game to test the memory of others!"
 msgstr ""
 
-#: activity.py:70
+#: activity/activity.info:4
+msgid ""
+"Memorize is about finding matching pairs. A pair can be images, sounds and "
+"text and this could be extended to animations or movie snippets as well. "
+"Which pairs match is up to the creator of the game. Memorize is more than a "
+"predefined game you can play, it allows you to create new games yourself as "
+"well."
+msgstr ""
+
+#: activity.py:71
 msgid "Play"
 msgstr ""
 
-#: activity.py:70
+#: activity.py:71
 msgid "Create"
 msgstr ""
 
-#: activity.py:70
+#: activity.py:71
 msgid "Game name:"
 msgstr ""
 
-#: activity.py:70
+#: activity.py:71
 msgid "Equal pairs"
 msgstr ""
 
-#: activity.py:71
+#: activity.py:72
 msgid "addition"
 msgstr ""
 
-#: activity.py:71
+#: activity.py:72
 msgid "letters"
 msgstr ""
 
-#: activity.py:71
+#: activity.py:72
 msgid "sounds"
 msgstr ""
 
-#: activity.py:93 activity.py:246
+#: activity.py:94 activity.py:247
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:242
+#: activity.py:243
 msgid "Play game"
 msgstr ""
 

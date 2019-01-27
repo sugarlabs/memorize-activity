@@ -59,8 +59,8 @@ msgid ""
 "Here you can play games that challenge your memory! But, more importantly, "
 "you can create your own game to test the memory of others!"
 msgstr ""
-"Ici vous pouvez jouer à des jeux pour mettre votre mémoire à l'épreuve !\n"
-"Mais, plus important, vous pouvez créer votre propre jeu pour tester la\n"
+"Ici vous pouvez jouer à des jeux pour mettre votre mémoire à l'épreuve !"
+"Mais, plus important, vous pouvez créer votre propre jeu pour tester la"
 "mémoire des autres !"
 
 #: activity.py:71
