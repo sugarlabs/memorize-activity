@@ -419,10 +419,14 @@ class Model(object):
         if self.data['divided'] == '1':
             random.shuffle(temp1)
             random.shuffle(temp2)
+            if size == 5:
+                temp1.append({})
             temp1.extend(temp2)
         else:
             temp1.extend(temp2)
             random.shuffle(temp1)
+            if size == 5:
+                temp1.insert(12, {})
         self.grid = temp1
         logging.debug('Defgrid: grid( size=%s ): %s'
                       % (self.data['size'], self.grid))
