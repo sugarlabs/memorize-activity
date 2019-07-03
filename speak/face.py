@@ -26,8 +26,8 @@ import logging
 import json
 
 import sugar3.graphics.style as style
+from sugar3.speech import SpeechManager
 
-import espeak
 import eye
 import mouth
 import voice
@@ -40,10 +40,12 @@ FACE_PAD = style.GRID_CELL_SIZE
 
 
 class Status:
-    def __init__(self):
+
+    def __init__(self, speech):
+        self.speech = speech
         self.voice = voice.defaultVoice()
-        self.pitch = espeak.PITCH_MAX / 2
-        self.rate = espeak.RATE_MAX / 2
+        self.pitch = self.speech.get_pitch()
+        self.rate = self.speech.get_rate()
 
         self.eyes = [eye.Eye] * 2
         self.mouth = mouth.Mouth
@@ -74,8 +76,8 @@ class Status:
 
         return self
 
-    def clone(self):
-        new = Status()
+    def clone(self, speech):
+        new = Status(speech)
         new.voice = self.voice
         new.pitch = self.pitch
         new.rate = self.rate
@@ -88,12 +90,11 @@ class View(Gtk.EventBox):
     def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
         Gtk.EventBox.__init__(self)
 
-        self.status = Status()
+        self.speech = SpeechManager()
+        self.status = Status(self.speech)
         self.fill_color = fill_color
 
         self.connect('size-allocate', self._size_allocate_cb)
-
-        self._audio = espeak.AudioGrab()
 
         # make an empty box for some eyes
         self._eyes = None
@@ -152,20 +153,41 @@ class View(Gtk.EventBox):
             self._eyebox.pack_start(the, True, True, FACE_PAD)
             the.show()
 
-        self._mouth = status.mouth(self._audio, self.fill_color)
+        self._mouth = status.mouth(self.speech, self.fill_color)
         self._mouth.show()
         self._mouthbox.add(self._mouth)
 
     def say(self, something):
-        self._audio.speak(self._peding or self.status, something)
+        if self._peding is None:
+            pitch = int(self.status.pitch)
+            rate = int(self.status.rate)
+            voice_name = self.status.voice.name
+        else:
+            pitch = int(self._peding.pitch)
+            rate = int(self._peding.rate)
+            voice_name = self._peding.voice.name
+        all_voices = self.speech.get_all_voices()
+        lang_code = None
+        for lang, name in all_voices.items():
+            if name == voice_name:
+                lang_code = lang
+        self.speech.say_text(something, pitch, rate, lang_code)
 
     def say_notification(self, something):
-        status = (self._peding or self.status).clone()
+        status = (self._peding or self.status).clone(self.speech)
         status.voice = voice.defaultVoice()
-        self._audio.speak(status, something)
+        pitch = int(status.pitch)
+        rate = int(status.rate)
+        voice_name = status.voice.name
+        all_voices = self.speech.get_all_voices()
+        lang_code = None
+        for lang, name in all_voices.items():
+            if name == voice_name:
+                lang_code = lang
+        self.speech.say_text(something, pitch, rate, lang_code)
 
     def shut_up(self):
-        self._audio.stop_sound_device()
+        self.speech.stop()
 
     def _size_allocate_cb(self, widget, allocation):
         self._mouthbox.set_size_request(-1, int(allocation.height / 2.5))
