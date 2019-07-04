@@ -119,7 +119,7 @@ class MemorizeGame(GObject.GObject):
         self.model.data['running'] = 'False'
 
         for card in self.model.grid:
-            try:
+            if len(card) > 0:
                 if card['state'] == '1':
                     self.emit('flip-card', self.model.grid.index(card), False)
                     self.last_flipped = self.model.grid.index(card)
@@ -128,7 +128,7 @@ class MemorizeGame(GObject.GObject):
                     self.emit('flip-card', self.model.grid.index(card), False)
                     self.emit('set-border', self.model.grid.index(card),
                               stroke_color, fill_color)
-            except KeyError:
+            else:
                 continue
         logging.debug('load_remote set is_demo mode %s', mode)
         if mode != 'reset':
