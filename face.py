@@ -25,12 +25,12 @@ import speak.face
 
 
 class Face(Gtk.EventBox):
-    def __init__(self):
+    def __init__(self, speech):
         Gtk.EventBox.__init__(self)
 
         self.modify_bg(Gtk.StateType.NORMAL, style.COLOR_BLACK.get_gdk_color())
 
-        self.face = speak.face.View(style.Color('#4b4c4e'))
+        self.face = speak.face.View(speech, style.Color('#4b4c4e'))
         self.face.set_border_width(style.DEFAULT_SPACING)
         self.add(self.face)
         self.show_all()
@@ -51,7 +51,7 @@ def look_at():
             i.face.look_at(x, y)
 
 
-def acquire():
+def acquire(speech):
     face = None
 
     for i in _cache:
@@ -60,7 +60,7 @@ def acquire():
             face = i
 
     if not face:
-        face = Face()
+        face = Face(speech)
         _cache.append(face)
         logging.debug('face._cache size %s' % len(_cache))
 

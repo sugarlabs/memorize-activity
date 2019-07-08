@@ -55,7 +55,7 @@ class CreateCardPanel(Gtk.EventBox):
                         None, []),
     }
 
-    def __init__(self, game):
+    def __init__(self, game, speech):
         def make_label(icon_name, label):
             label_box = Gtk.VBox()
             icon = Icon(icon_name=icon_name,
@@ -112,8 +112,8 @@ class CreateCardPanel(Gtk.EventBox):
 
         # Set card editors
 
-        self.cardeditor1 = CardEditor(self._game, 1)
-        self.cardeditor2 = CardEditor(self._game, 2)
+        self.cardeditor1 = CardEditor(self._game, 1, speech)
+        self.cardeditor2 = CardEditor(self._game, 2, speech)
         self.clean(None)
         self.cardeditor1.connect('has-text', self.receive_text_signals)
         self.cardeditor2.connect('has-text', self.receive_text_signals)
@@ -323,7 +323,7 @@ class CardEditor(Gtk.EventBox):
                         [GObject.TYPE_PYOBJECT]),
     }
 
-    def __init__(self, game, editor_index):
+    def __init__(self, game, editor_index, speech):
         Gtk.EventBox.__init__(self)
         self._game = game
         self.snd = None
@@ -338,7 +338,7 @@ class CardEditor(Gtk.EventBox):
         self.card = Card(
             -1, {'front_text': {'card_text': '',
                                 'text_color': style.Color('#ffffff')}},
-            None, PAIR_SIZE, '#c0c0c0')
+            None, PAIR_SIZE, speech, '#c0c0c0')
         self.card.flip()
         card_align = Gtk.Alignment.new(.5, .5, 0, 0)
         card_align.add(self.card)
@@ -364,7 +364,7 @@ class CardEditor(Gtk.EventBox):
         browsesound.connect('clicked', self._load_audio)
 
         self.usespeak = ToggleToolButton(icon_name='speak')
-        self.usespeak.set_palette(SpeakPalette(self))
+        self.usespeak.set_palette(SpeakPalette(self, speech))
         toolbar.add(self.usespeak)
         self.usespeak.connect('toggled', self._usespeak_cb)
 
@@ -506,10 +506,10 @@ class CardEditor(Gtk.EventBox):
 
 
 class SpeakPalette(Palette):
-    def __init__(self, editor):
+    def __init__(self, editor, speech):
         Palette.__init__(self, _('Pronounce text during tile flip'))
 
-        self.face = speak.face.View()
+        self.face = speak.face.View(speech)
 
         toolbar = Gtk.HBox()
         toolbar.modify_bg(Gtk.StateType.NORMAL,
@@ -520,7 +520,7 @@ class SpeakPalette(Palette):
                               self.face.say(editor.get_text()))
         toolbar.pack_start(usespeak_play, False, False, 0)
 
-        self.voices = speak.widgets.Voices(self.face)
+        self.voices = speak.widgets.Voices(self.face, speech)
         toolbar.pack_start(ToolComboBox(self.voices), True, True, 0)
 
         toolbar.show_all()

@@ -26,7 +26,6 @@ import logging
 import json
 
 import sugar3.graphics.style as style
-from sugar3.speech import SpeechManager
 
 import eye
 import mouth
@@ -43,7 +42,7 @@ class Status:
 
     def __init__(self, speech):
         self.speech = speech
-        self.voice = voice.defaultVoice()
+        self.voice = voice.defaultVoice(speech)
         self.pitch = self.speech.get_pitch()
         self.rate = self.speech.get_rate()
 
@@ -87,10 +86,10 @@ class Status:
 
 
 class View(Gtk.EventBox):
-    def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
+    def __init__(self, speech, fill_color=style.COLOR_BUTTON_GREY):
         Gtk.EventBox.__init__(self)
 
-        self.speech = SpeechManager()
+        self.speech = speech
         self.status = Status(self.speech)
         self.fill_color = fill_color
 
@@ -175,7 +174,7 @@ class View(Gtk.EventBox):
 
     def say_notification(self, something):
         status = (self._peding or self.status).clone(self.speech)
-        status.voice = voice.defaultVoice()
+        status.voice = voice.defaultVoice(self.speech)
         pitch = int(status.pitch)
         rate = int(status.rate)
         voice_name = status.voice.name
