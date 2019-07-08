@@ -169,7 +169,7 @@ class CardTable(Gtk.EventBox):
                 card.connect('event', self.__event_cb, [x, y])
             else:
                 card = Gtk.EventBox()
-                card.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse('#000000'))
+                card.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self._background_color))
                 card.set_size_request(self.card_size, self.card_size)
 
             self.table_positions[(x, y)] = 1
