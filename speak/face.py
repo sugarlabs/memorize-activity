@@ -113,15 +113,15 @@ class View(Gtk.EventBox):
         self.modify_bg(Gtk.StateType.NORMAL, self.fill_color.get_gdk_color())
         self.add(self._box)
 
-        self._peding = None
+        self._pending = None
         self.connect('map', self.__map_cb)
 
         self.update()
 
     def __map_cb(self, widget):
-        if self._peding:
-            self.update(self._peding)
-            self._peding = None
+        if self._pending:
+            self.update(self._pending)
+            self._pending = None
 
     def look_ahead(self):
         pass
@@ -134,7 +134,7 @@ class View(Gtk.EventBox):
             status = self.status
         else:
             if not self.get_mapped():
-                self._peding = status
+                self._pending = status
                 return
             self.status = status
 
@@ -157,14 +157,14 @@ class View(Gtk.EventBox):
         self._mouthbox.add(self._mouth)
 
     def say(self, something):
-        if self._peding is None:
+        if self._pending is None:
             pitch = int(self.status.pitch)
             rate = int(self.status.rate)
             voice_name = self.status.voice.name
         else:
-            pitch = int(self._peding.pitch)
-            rate = int(self._peding.rate)
-            voice_name = self._peding.voice.name
+            pitch = int(self._pending.pitch)
+            rate = int(self._pending.rate)
+            voice_name = self._pending.voice.name
         all_voices = self.speech.get_all_voices()
         lang_code = None
         for lang, name in all_voices.items():
@@ -173,7 +173,7 @@ class View(Gtk.EventBox):
         self.speech.say_text(something, pitch, rate, lang_code)
 
     def say_notification(self, something):
-        status = (self._peding or self.status).clone(self.speech)
+        status = (self._pending or self.status).clone(self.speech)
         status.voice = voice.defaultVoice(self.speech)
         pitch = int(status.pitch)
         rate = int(status.rate)
