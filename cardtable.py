@@ -140,32 +140,37 @@ class CardTable(Gtk.EventBox):
             show_robot = True
 
         for card in self.cards_data:
-            if card.get('img', None):
-                image_path = os.path.join(self.data['pathimg'], card['img'])
+            if card:
+                if card.get('img', None):
+                    image_path = os.path.join(self.data['pathimg'], card['img'])
+                else:
+                    image_path = None
+                props = {}
+                props['front_text'] = {'card_text': card.get('char', ''),
+                                    'speak': card.get('speak')}
+
+                if card['ab'] == 'a':
+                    props['back_text'] = {'card_text': text1}
+                    font_name = font_name1
+                    props['back'] = {'fill_color': background_color1,
+                                    'stroke_color': background_color1}
+                elif card['ab'] == 'b':
+                    props['back_text'] = {'card_text': text2}
+                    font_name = font_name2
+                    props['back'] = {'fill_color': background_color2,
+                                    'stroke_color': background_color2}
+
+                card = Card(
+                    identifier, props, image_path,
+                    self.card_size, self._background_color, font_name, show_robot)
+                card.connect('enter-notify-event', self.mouse_event, [x, y])
+                card.set_events(Gdk.EventMask.TOUCH_MASK |
+                                Gdk.EventMask.BUTTON_PRESS_MASK)
+                card.connect('event', self.__event_cb, [x, y])
             else:
-                image_path = None
-            props = {}
-            props['front_text'] = {'card_text': card.get('char', ''),
-                                   'speak': card.get('speak')}
-
-            if card['ab'] == 'a':
-                props['back_text'] = {'card_text': text1}
-                font_name = font_name1
-                props['back'] = {'fill_color': background_color1,
-                                 'stroke_color': background_color1}
-            elif card['ab'] == 'b':
-                props['back_text'] = {'card_text': text2}
-                font_name = font_name2
-                props['back'] = {'fill_color': background_color2,
-                                 'stroke_color': background_color2}
-
-            card = Card(
-                identifier, props, image_path,
-                self.card_size, self._background_color, font_name, show_robot)
-            card.connect('enter-notify-event', self.mouse_event, [x, y])
-            card.set_events(Gdk.EventMask.TOUCH_MASK |
-                            Gdk.EventMask.BUTTON_PRESS_MASK)
-            card.connect('event', self.__event_cb, [x, y])
+                card = Gtk.EventBox()
+                card.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self._background_color))
+                card.set_size_request(self.card_size, self.card_size)
 
             self.table_positions[(x, y)] = 1
             self.cd2id[card] = identifier
@@ -220,25 +225,29 @@ class CardTable(Gtk.EventBox):
             if (x - 1, y) in self.table_positions:
                 card = self.cards[x - 1, y]
                 identifier = self.cd2id.get(card)
-                self.emit('card-highlighted', identifier, False)
+                if not (self.size == 5 and identifier == 12):
+                    self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (Gdk.KEY_Right, Gdk.KEY_KP_Right):
             if (x + 1, y) in self.table_positions:
                 card = self.cards[x + 1, y]
                 identifier = self.cd2id.get(card)
-                self.emit('card-highlighted', identifier, False)
+                if not (self.size == 5 and identifier == 12):
+                    self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (Gdk.KEY_Up, Gdk.KEY_KP_Up):
             if (x, y - 1) in self.table_positions:
                 card = self.cards[x, y - 1]
                 identifier = self.cd2id.get(card)
-                self.emit('card-highlighted', identifier, False)
+                if not (self.size == 5 and identifier == 12):
+                    self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (Gdk.KEY_Down, Gdk.KEY_KP_Down):
             if (x, y + 1) in self.table_positions:
                 card = self.cards[x, y + 1]
                 identifier = self.cd2id.get(card)
-                self.emit('card-highlighted', identifier, False)
+                if not (self.size == 5 and identifier == 12):
+                    self.emit('card-highlighted', identifier, False)
 
         elif event.keyval in (Gdk.KEY_space, Gdk.KEY_KP_Page_Down):
             card = self.cards[x, y]
