@@ -18,19 +18,19 @@ import voice
 
 
 class Voices(ComboBox):
-    def __init__(self, face, speech, **kwargs):
+    def __init__(self, face, **kwargs):
         ComboBox.__init__(self, **kwargs)
 
         self.face = face
 
-        voices = voice.allVoices(speech)
+        voices = voice.allVoices()
         voicenames = voices.keys()
         voicenames.sort()
 
         for name in voicenames:
             self.append_item(voices[name], name)
 
-        self.select(voice.defaultVoice(speech))
+        self.select(voice.defaultVoice())
 
         self.connect('changed', self._changed_cb)
 

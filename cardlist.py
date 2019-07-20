@@ -40,7 +40,7 @@ class CardList(Gtk.EventBox):
                                   None, 3 * [GObject.TYPE_PYOBJECT]),
     }
 
-    def __init__(self, speech):
+    def __init__(self):
         Gtk.EventBox.__init__(self)
         self.pairs = []
         self.current_pair = None
@@ -48,7 +48,6 @@ class CardList(Gtk.EventBox):
         self.model = None
         self.pair_list_modified = False
         self.game_loaded = False
-        self.speech = speech
 
         self.hbox = Gtk.HBox(False)
 
@@ -174,7 +173,7 @@ class CardList(Gtk.EventBox):
     def add_pair(self, widget, achar, bchar, aimg_path, bimg_path, asnd, bsnd,
                  aspeak, bspeak, font_name1, font_name2,
                  show=True, load=False):
-        pair = CardPair(achar, self.speech, bchar, aimg_path, bimg_path, asnd, bsnd,
+        pair = CardPair(achar, bchar, aimg_path, bimg_path, asnd, bsnd,
                         aspeak, bspeak, font_name1, font_name2)
         self.hbox.pack_end(pair, False, True, 0)
         self.pairs.append(pair)
@@ -237,7 +236,7 @@ class CardPair(Gtk.EventBox):
                           None, [GObject.TYPE_PYOBJECT]),
     }
 
-    def __init__(self, text1, speech, text2=None, aimg_path=None, bimg_path=None,
+    def __init__(self, text1, text2=None, aimg_path=None, bimg_path=None,
                  asnd=None, bsnd=None, aspeak=None, bspeak=None,
                  font_name1=None, font_name2=None):
         Gtk.EventBox.__init__(self)
@@ -260,7 +259,7 @@ class CardPair(Gtk.EventBox):
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color(self._fill_color),
                            'stroke_color': style.Color(self._stroke_color)}},
-            aimg_path, PAIR_SIZE, speech, self.bg_color, font_name1)
+            aimg_path, PAIR_SIZE, self.bg_color, font_name1)
         self.bcard1.flip()
         self.bcard1.set_valign(Gtk.Align.CENTER)
         row.pack_start(self.bcard1, True, True, 0)
@@ -271,7 +270,7 @@ class CardPair(Gtk.EventBox):
                                 'text_color': style.Color('#ffffff')},
                  'front': {'fill_color': style.Color(self._fill_color),
                            'stroke_color': style.Color(self._stroke_color)}},
-            bimg_path, PAIR_SIZE, speech, self.bg_color, font_name2)
+            bimg_path, PAIR_SIZE, self.bg_color, font_name2)
         self.bcard2.flip()
         self.bcard2.set_valign(Gtk.Align.CENTER)
         row.pack_start(self.bcard2, True, True, 0)

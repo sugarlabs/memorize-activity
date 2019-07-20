@@ -48,7 +48,7 @@ class Card(Gtk.EventBox):
                               'stroke_color': style.Color('#111111')}
     default_props['front_text'] = {'text_color': '#ffffff'}
 
-    def __init__(self, identifier, pprops, image_path, size, speech,
+    def __init__(self, identifier, pprops, image_path, size,
                  bg_color='#000000', font_name=model.DEFAULT_FONT,
                  show_robot=True):
         Gtk.EventBox.__init__(self)
@@ -59,7 +59,6 @@ class Card(Gtk.EventBox):
         self._image_path = image_path
         self.jpeg = None
         self.size = size
-        self.speech = speech
         # animation data
         self._steps_scales = [0.66, 0.33, 0.1, 0.33, 0.66]
         self._animation_steps = len(self._steps_scales)
@@ -234,14 +233,14 @@ class Card(Gtk.EventBox):
 
         if full_animation:
             if self.id != -1 and self.get_speak():
-                speaking_face = face.acquire(self.speech)
+                speaking_face = face.acquire()
                 if speaking_face:
                     image_size = self.size - style.DEFAULT_SPACING * 2
                     if self.show_robot:
                         self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
                             'icons/speak.svg', image_size, image_size)
                     speaking_face.face.status.voice = \
-                        speak.voice.by_lang(self.get_speak(), self.speech)
+                        speak.voice.by_lang(self.get_speak())
                     speaking_face.face.say(self.get_text())
 
             self._animation_step = 0

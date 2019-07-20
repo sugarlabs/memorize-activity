@@ -38,12 +38,11 @@ class CardTable(Gtk.EventBox):
         'card-highlighted': (GObject.SignalFlags.RUN_FIRST,
                              None, [int, GObject.TYPE_PYOBJECT]), }
 
-    def __init__(self, speech):
+    def __init__(self):
         Gtk.EventBox.__init__(self)
         self.data = None
         self.cards_data = None
         self._workspace_size = 0
-        self.speech = speech
 
         # set request size to 100x100 to skip first time sizing in _allocate_cb
         self.set_size_request(100, 100)

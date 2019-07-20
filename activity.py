@@ -45,7 +45,6 @@ from sugar3.presence import presenceservice
 from sugar3.presence.tubeconn import TubeConnection
 from sugar3.graphics import style
 from sugar3 import profile
-from sugar3.speech import SpeechManager
 
 import cardtable
 import scoreboard
@@ -107,14 +106,12 @@ class MemorizeActivity(Activity):
 
         toolbar_box.toolbar.insert(StopButton(self), -1)
 
-        self.speech = SpeechManager()
-
         self.game = game.MemorizeGame()
         # Play game mode
-        self.table = cardtable.CardTable(self.speech)
+        self.table = cardtable.CardTable()
         self.scoreboard = scoreboard.Scoreboard()
-        self.cardlist = cardlist.CardList(self.speech)
-        self.createcardpanel = createcardpanel.CreateCardPanel(self.game, self.speech)
+        self.cardlist = cardlist.CardList()
+        self.createcardpanel = createcardpanel.CreateCardPanel(self.game)
         self.cardlist.connect('pair-selected',
                               self.createcardpanel.pair_selected)
         self.cardlist.connect(

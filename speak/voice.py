@@ -25,6 +25,8 @@ import re
 import os
 from gettext import gettext as _
 
+from sugar3.speech import SpeechManager
+
 import logging
 logger = logging.getLogger('speak')
 
@@ -108,13 +110,14 @@ class Voice:
         return cmp(self.friendlyname, other.friendlyname if other else '')
 
 
-def _init_voice_cache(speech):
+def _init_voice_cache():
+    speech = SpeechManager()
     all_voices = speech.get_all_voices()
-    out = []  # Voices that produce sound only
+    out = [] # Voices that produce sound only
 
     for lang_code, name in all_voices.items():
         if(name in ('en-rhotic', 'english_rp', 'english_wmids')):
-            # these noices do not produce sound
+            #these noices do not produce sound
             continue
 
         if('_' in lang_code):
@@ -131,11 +134,11 @@ def _init_voice_cache(speech):
         _allVoicesByLang[voice.language] = voice
 
 
-def allVoices(speech):
+def allVoices():
     if _allVoices:
         return _allVoices
 
-    _init_voice_cache(speech)
+    _init_voice_cache()
 
     if 'English' not in _allVoices:
         _allVoices['English'] = _allVoices['English (America)']
@@ -146,24 +149,24 @@ def allVoices(speech):
     return _allVoices
 
 
-def by_name(name, speech):
-    return allVoices(speech).get(name, defaultVoice(speech))
+def by_name(name):
+    return allVoices().get(name, defaultVoice())
 
 
-def allVoicesByLang(speech):
+def allVoicesByLang():
     if _allVoicesByLang:
         return _allVoicesByLang
 
-    _init_voice_cache(speech)
+    _init_voice_cache()
 
     return _allVoicesByLang
 
 
-def by_lang(lang, speech):
-    return allVoicesByLang(speech).get(lang, defaultVoice(speech))
+def by_lang(lang):
+    return allVoicesByLang().get(lang, defaultVoice())
 
 
-def defaultVoice(speech):
+def defaultVoice():
     """Try to figure out the default voice, from the current locale ($LANG).
     """
 
@@ -172,7 +175,7 @@ def defaultVoice(speech):
     if _defaultVoice:
         return _defaultVoice
 
-    voices = allVoices(speech)
+    voices = allVoices()
 
     def fit(a, b):
         "Compare two language ids to see if they are similar."
@@ -192,7 +195,7 @@ def defaultVoice(speech):
         "English (America)",  # espeak-ng 1.49.2
         "English",  # espeak-ng 1.49.1
         "Default",  # espeak 1.48
-    ]
+        ]
 
     best = None
     for voice_name in voice_names:
