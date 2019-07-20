@@ -25,7 +25,7 @@ import re
 import os
 from gettext import gettext as _
 
-from sugar3.speech import SpeechManager
+import speechmanager
 
 import logging
 logger = logging.getLogger('speak')
@@ -111,7 +111,7 @@ class Voice:
 
 
 def _init_voice_cache():
-    speech = SpeechManager()
+    speech = speechmanager.get_speechmanager()
     all_voices = speech.get_all_voices()
     out = [] # Voices that produce sound only
 

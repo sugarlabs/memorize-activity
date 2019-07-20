@@ -26,11 +26,11 @@ import logging
 import json
 
 import sugar3.graphics.style as style
-from sugar3.speech import SpeechManager
 
 import eye
 import mouth
 import voice
+import speechmanager
 
 from gi.repository import Gtk
 
@@ -90,7 +90,7 @@ class View(Gtk.EventBox):
     def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
         Gtk.EventBox.__init__(self)
 
-        self.speech = SpeechManager()
+        self.speech = speechmanager.get_speechmanager()
         self.status = Status(self.speech)
         self.fill_color = fill_color
 
