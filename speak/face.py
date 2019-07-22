@@ -43,8 +43,6 @@ class Status:
     def __init__(self):
         self.speech = speech.get_speech_manager()
         self.voice = voice.defaultVoice()
-        self.pitch = self.speech.get_pitch()
-        self.rate = self.speech.get_rate()
 
         self.eyes = [eye.Eye] * 2
         self.mouth = mouth.Mouth
@@ -56,8 +54,6 @@ class Status:
         return json.dumps({
             'voice': {'language': self.voice.language,
                       'name': self.voice.name},
-            'pitch': self.pitch,
-            'rate': self.rate,
             'eyes': [eyes[i] for i in self.eyes],
             'mouth': mouths[self.mouth]})
 
@@ -68,8 +64,6 @@ class Status:
         data = json.loads(buf)
         self.voice = voice.Voice(data['voice']['language'],
                                  data['voice']['name'])
-        self.pitch = data['pitch']
-        self.rate = data['rate']
         self.eyes = [eyes[i] for i in data['eyes']]
         self.mouth = mouths[data['mouth']]
 
@@ -78,8 +72,6 @@ class Status:
     def clone(self, speech):
         new = Status(speech)
         new.voice = self.voice
-        new.pitch = self.pitch
-        new.rate = self.rate
         new.eyes = self.eyes
         new.mouth = self.mouth
         return new
@@ -158,32 +150,26 @@ class View(Gtk.EventBox):
 
     def say(self, something):
         if self._pending is None:
-            pitch = int(self.status.pitch)
-            rate = int(self.status.rate)
             voice_name = self.status.voice.name
         else:
-            pitch = int(self._pending.pitch)
-            rate = int(self._pending.rate)
             voice_name = self._pending.voice.name
         all_voices = self.speech.get_all_voices()
         lang_code = None
         for lang, name in all_voices.items():
             if name == voice_name:
                 lang_code = lang
-        self.speech.say_text(something, pitch, rate, lang_code)
+        self.speech.say_text(something, pitch=None, rate=None, lang_code)
 
     def say_notification(self, something):
         status = (self._peding or self.status).clone(self.speech)
         status.voice = voice.defaultVoice()
-        pitch = int(status.pitch)
-        rate = int(status.rate)
         voice_name = status.voice.name
         all_voices = self.speech.get_all_voices()
         lang_code = None
         for lang, name in all_voices.items():
             if name == voice_name:
                 lang_code = lang
-        self.speech.say_text(something, pitch, rate, lang_code)
+        self.speech.say_text(something, pitch.None, rate.None, lang_code)
 
     def shut_up(self):
         self.speech.stop()
