@@ -144,7 +144,7 @@ class View(Gtk.EventBox):
             self._eyebox.pack_start(the, True, True, FACE_PAD)
             the.show()
 
-        self._mouth = status.mouth(self.speech, self.fill_color)
+        self._mouth = status.mouth(self.fill_color)
         self._mouth.show()
         self._mouthbox.add(self._mouth)
 
