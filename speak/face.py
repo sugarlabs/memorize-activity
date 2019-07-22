@@ -161,7 +161,7 @@ class View(Gtk.EventBox):
         self.speech.say_text(something, pitch=None, rate=None, lang_code)
 
     def say_notification(self, something):
-        status = (self._peding or self.status).clone(self.speech)
+        status = (self._pending or self.status).clone(self.speech)
         status.voice = voice.defaultVoice()
         voice_name = status.voice.name
         all_voices = self.speech.get_all_voices()
