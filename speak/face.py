@@ -27,10 +27,10 @@ import json
 
 import sugar3.graphics.style as style
 
+import speech
 import eye
 import mouth
 import voice
-import speechmanager
 
 from gi.repository import Gtk
 
@@ -40,9 +40,8 @@ FACE_PAD = style.GRID_CELL_SIZE
 
 
 class Status:
-
-    def __init__(self, speech):
-        self.speech = speech
+    def __init__(self):
+        self.speech = speech.get_speech_manager()
         self.voice = voice.defaultVoice()
         self.pitch = self.speech.get_pitch()
         self.rate = self.speech.get_rate()
@@ -90,8 +89,8 @@ class View(Gtk.EventBox):
     def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
         Gtk.EventBox.__init__(self)
 
-        self.speech = speechmanager.get_speechmanager()
-        self.status = Status(self.speech)
+        self.speech = speech.get_speech_manager()
+        self.status = Status()
         self.fill_color = fill_color
 
         self.connect('size-allocate', self._size_allocate_cb)
