@@ -158,7 +158,8 @@ class View(Gtk.EventBox):
         for lang, name in all_voices.items():
             if name == voice_name:
                 lang_code = lang
-        self.speech.say_text(something, pitch=None, rate=None, lang_code=lang_code)
+        self.speech.say_text(something, pitch=None,
+                             rate=None, lang_code=lang_code)
 
     def say_notification(self, something):
         status = (self._pending or self.status).clone()
@@ -169,7 +170,8 @@ class View(Gtk.EventBox):
         for lang, name in all_voices.items():
             if name == voice_name:
                 lang_code = lang
-        self.speech.say_text(something, pitch=None, rate=None, lang_code=lang_code)
+        self.speech.say_text(something, pitch=None,
+                             rate=None, lang_code=lang_code)
 
     def shut_up(self):
         self.speech.stop()

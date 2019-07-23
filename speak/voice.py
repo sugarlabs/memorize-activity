@@ -113,11 +113,11 @@ class Voice:
 def _init_voice_cache():
     speech_manager = speech.get_speech_manager()
     all_voices = speech_manager.get_all_voices()
-    out = [] # Voices that produce sound only
+    out = []  # Voices that produce sound only
 
     for lang_code, name in all_voices.items():
         if(name in ('en-rhotic', 'english_rp', 'english_wmids')):
-            #these noices do not produce sound
+            # these noices do not produce sound
             continue
 
         if('_' in lang_code):
@@ -195,7 +195,7 @@ def defaultVoice():
         "English (America)",  # espeak-ng 1.49.2
         "English",  # espeak-ng 1.49.1
         "Default",  # espeak 1.48
-        ]
+    ]
 
     best = None
     for voice_name in voice_names:
