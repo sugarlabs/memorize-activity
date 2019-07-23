@@ -169,7 +169,7 @@ class View(Gtk.EventBox):
         for lang, name in all_voices.items():
             if name == voice_name:
                 lang_code = lang
-        self.speech.say_text(something, pitch.None, rate.None, lang_code)
+        self.speech.say_text(something, pitch=None, rate=None, lang_code)
 
     def shut_up(self):
         self.speech.stop()
