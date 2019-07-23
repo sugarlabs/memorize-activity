@@ -69,8 +69,8 @@ class Status:
 
         return self
 
-    def clone(self, speech):
-        new = Status(speech)
+    def clone(self):
+        new = Status()
         new.voice = self.voice
         new.eyes = self.eyes
         new.mouth = self.mouth
@@ -158,10 +158,10 @@ class View(Gtk.EventBox):
         for lang, name in all_voices.items():
             if name == voice_name:
                 lang_code = lang
-        self.speech.say_text(something, pitch=None, rate=None, lang_code)
+        self.speech.say_text(something, pitch=None, rate=None, lang_code=lang_code)
 
     def say_notification(self, something):
-        status = (self._pending or self.status).clone(self.speech)
+        status = (self._pending or self.status).clone()
         status.voice = voice.defaultVoice()
         voice_name = status.voice.name
         all_voices = self.speech.get_all_voices()
@@ -169,7 +169,7 @@ class View(Gtk.EventBox):
         for lang, name in all_voices.items():
             if name == voice_name:
                 lang_code = lang
-        self.speech.say_text(something, pitch=None, rate=None, lang_code)
+        self.speech.say_text(something, pitch=None, rate=None, lang_code=lang_code)
 
     def shut_up(self):
         self.speech.stop()

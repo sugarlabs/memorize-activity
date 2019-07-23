@@ -25,7 +25,7 @@ import re
 import os
 from gettext import gettext as _
 
-import speechmanager
+import speech
 
 import logging
 logger = logging.getLogger('speak')
@@ -111,8 +111,8 @@ class Voice:
 
 
 def _init_voice_cache():
-    speech = speechmanager.get_speechmanager()
-    all_voices = speech.get_all_voices()
+    speech_manager = speech.get_speech_manager()
+    all_voices = speech_manager.get_all_voices()
     out = [] # Voices that produce sound only
 
     for lang_code, name in all_voices.items():
