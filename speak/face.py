@@ -154,18 +154,16 @@ class View(Gtk.EventBox):
         else:
             voice_name = self._pending.voice.name
         all_voices = self.speech.get_all_voices()
-        lang_code = None
-        for lang, name in all_voices.items():
-            if name == voice_name:
-                lang_code = lang
-        self.speech.say_text(something, pitch=None,
-                             rate=None, lang_code=lang_code)
+        self.say_text(something, voice_name, all_voices)
 
     def say_notification(self, something):
         status = (self._pending or self.status).clone()
         status.voice = voice.defaultVoice()
         voice_name = status.voice.name
         all_voices = self.speech.get_all_voices()
+        self.say_text(something, voice_name, all_voices)
+
+    def say_text(self, something, voice_name, all_voices):
         lang_code = None
         for lang, name in all_voices.items():
             if name == voice_name:
