@@ -116,11 +116,11 @@ def _init_voice_cache():
     out = []  # Voices that produce sound only
 
     for lang_code, name in all_voices.items():
-        if(name in ('en-rhotic', 'english_rp', 'english_wmids')):
-            # these noices do not produce sound
+        if name in ('en-rhotic', 'english_rp', 'english_wmids'):
+            # these voices do not produce sound
             continue
 
-        if('_' in lang_code):
+        if '_' in lang_code:
             language = lang_code.split('_')[0]
             dialect = lang_code.split('_')[1]
         else:
