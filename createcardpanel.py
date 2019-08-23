@@ -37,7 +37,6 @@ from sugar3.graphics.toolcombobox import ToolComboBox
 from fontcombobox import FontButton
 from port import chooser
 
-import speak.espeak
 import speak.widgets
 import speak.face
 

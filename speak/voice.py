@@ -25,7 +25,8 @@ import re
 import os
 from gettext import gettext as _
 
-import espeak
+import speech
+
 import logging
 logger = logging.getLogger('speak')
 
@@ -110,7 +111,24 @@ class Voice:
 
 
 def _init_voice_cache():
-    for language, name, dialect in espeak.voices():
+    speech_manager = speech.get_speech_manager()
+    all_voices = speech_manager.get_all_voices()
+    out = []  # Voices that produce sound only
+
+    for lang_code, name in all_voices.items():
+        if name in ('en-rhotic', 'english_rp', 'english_wmids'):
+            # these voices do not produce sound
+            continue
+
+        if '_' in lang_code:
+            language = lang_code.split('_')[0]
+            dialect = lang_code.split('_')[1]
+        else:
+            language = lang_code
+            dialect = 'none'
+        out.append((language, name, dialect))
+
+    for language, name, dialect in out:
         voice = Voice(language, name, dialect)
         _allVoices[voice.friendlyname] = voice
         _allVoicesByLang[voice.language] = voice
@@ -177,7 +195,7 @@ def defaultVoice():
         "English (America)",  # espeak-ng 1.49.2
         "English",  # espeak-ng 1.49.1
         "Default",  # espeak 1.48
-        ]
+    ]
 
     best = None
     for voice_name in voice_names:

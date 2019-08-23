@@ -29,7 +29,7 @@ from gi.repository import Gtk
 
 
 class Mouth(Gtk.DrawingArea):
-    def __init__(self, audio, fill_color):
+    def __init__(self, fill_color):
 
         Gtk.DrawingArea.__init__(self)
 

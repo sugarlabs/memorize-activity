@@ -27,7 +27,7 @@ import json
 
 import sugar3.graphics.style as style
 
-import espeak
+import speech
 import eye
 import mouth
 import voice
@@ -41,9 +41,8 @@ FACE_PAD = style.GRID_CELL_SIZE
 
 class Status:
     def __init__(self):
+        self.speech = speech.get_speech_manager()
         self.voice = voice.defaultVoice()
-        self.pitch = espeak.PITCH_MAX / 2
-        self.rate = espeak.RATE_MAX / 2
 
         self.eyes = [eye.Eye] * 2
         self.mouth = mouth.Mouth
@@ -55,8 +54,6 @@ class Status:
         return json.dumps({
             'voice': {'language': self.voice.language,
                       'name': self.voice.name},
-            'pitch': self.pitch,
-            'rate': self.rate,
             'eyes': [eyes[i] for i in self.eyes],
             'mouth': mouths[self.mouth]})
 
@@ -67,8 +64,6 @@ class Status:
         data = json.loads(buf)
         self.voice = voice.Voice(data['voice']['language'],
                                  data['voice']['name'])
-        self.pitch = data['pitch']
-        self.rate = data['rate']
         self.eyes = [eyes[i] for i in data['eyes']]
         self.mouth = mouths[data['mouth']]
 
@@ -77,8 +72,6 @@ class Status:
     def clone(self):
         new = Status()
         new.voice = self.voice
-        new.pitch = self.pitch
-        new.rate = self.rate
         new.eyes = self.eyes
         new.mouth = self.mouth
         return new
@@ -88,12 +81,11 @@ class View(Gtk.EventBox):
     def __init__(self, fill_color=style.COLOR_BUTTON_GREY):
         Gtk.EventBox.__init__(self)
 
+        self.speech = speech.get_speech_manager()
         self.status = Status()
         self.fill_color = fill_color
 
         self.connect('size-allocate', self._size_allocate_cb)
-
-        self._audio = espeak.AudioGrab()
 
         # make an empty box for some eyes
         self._eyes = None
@@ -113,15 +105,15 @@ class View(Gtk.EventBox):
         self.modify_bg(Gtk.StateType.NORMAL, self.fill_color.get_gdk_color())
         self.add(self._box)
 
-        self._peding = None
+        self._pending = None
         self.connect('map', self.__map_cb)
 
         self.update()
 
     def __map_cb(self, widget):
-        if self._peding:
-            self.update(self._peding)
-            self._peding = None
+        if self._pending:
+            self.update(self._pending)
+            self._pending = None
 
     def look_ahead(self):
         pass
@@ -134,7 +126,7 @@ class View(Gtk.EventBox):
             status = self.status
         else:
             if not self.get_mapped():
-                self._peding = status
+                self._pending = status
                 return
             self.status = status
 
@@ -152,20 +144,35 @@ class View(Gtk.EventBox):
             self._eyebox.pack_start(the, True, True, FACE_PAD)
             the.show()
 
-        self._mouth = status.mouth(self._audio, self.fill_color)
+        self._mouth = status.mouth(self.fill_color)
         self._mouth.show()
         self._mouthbox.add(self._mouth)
 
     def say(self, something):
-        self._audio.speak(self._peding or self.status, something)
+        if self._pending is None:
+            voice_name = self.status.voice.name
+        else:
+            voice_name = self._pending.voice.name
+        all_voices = self.speech.get_all_voices()
+        self.say_text(something, voice_name, all_voices)
 
     def say_notification(self, something):
-        status = (self._peding or self.status).clone()
+        status = (self._pending or self.status).clone()
         status.voice = voice.defaultVoice()
-        self._audio.speak(status, something)
+        voice_name = status.voice.name
+        all_voices = self.speech.get_all_voices()
+        self.say_text(something, voice_name, all_voices)
+
+    def say_text(self, something, voice_name, all_voices):
+        lang_code = None
+        for lang, name in all_voices.items():
+            if name == voice_name:
+                lang_code = lang
+        self.speech.say_text(something, pitch=None,
+                             rate=None, lang_code=lang_code)
 
     def shut_up(self):
-        self._audio.stop_sound_device()
+        self.speech.stop()
 
     def _size_allocate_cb(self, widget, allocation):
         self._mouthbox.set_size_request(-1, int(allocation.height / 2.5))
