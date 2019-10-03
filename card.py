@@ -372,4 +372,5 @@ class Card(Gtk.EventBox):
 def PIXELS_PANGO(x):
     return x * 1000
 
+
 _text_layout_cache = LRU(50)

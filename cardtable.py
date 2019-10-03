@@ -136,40 +136,43 @@ class CardTable(Gtk.EventBox):
         # even when playing a voice with text to speech (tts)
         try:
             show_robot = self.data['origin'] != 'art4apps'
-        except:
+        except KeyError:
             show_robot = True
 
         for card in self.cards_data:
             if card:
                 if card.get('img', None):
-                    image_path = os.path.join(self.data['pathimg'], card['img'])
+                    image_path = os.path.join(
+                        self.data['pathimg'], card['img'])
                 else:
                     image_path = None
                 props = {}
                 props['front_text'] = {'card_text': card.get('char', ''),
-                                    'speak': card.get('speak')}
+                                       'speak': card.get('speak')}
 
                 if card['ab'] == 'a':
                     props['back_text'] = {'card_text': text1}
                     font_name = font_name1
                     props['back'] = {'fill_color': background_color1,
-                                    'stroke_color': background_color1}
+                                     'stroke_color': background_color1}
                 elif card['ab'] == 'b':
                     props['back_text'] = {'card_text': text2}
                     font_name = font_name2
                     props['back'] = {'fill_color': background_color2,
-                                    'stroke_color': background_color2}
+                                     'stroke_color': background_color2}
 
                 card = Card(
-                    identifier, props, image_path,
-                    self.card_size, self._background_color, font_name, show_robot)
+                    identifier, props, image_path, self.card_size,
+                    self._background_color, font_name, show_robot)
                 card.connect('enter-notify-event', self.mouse_event, [x, y])
                 card.set_events(Gdk.EventMask.TOUCH_MASK |
                                 Gdk.EventMask.BUTTON_PRESS_MASK)
                 card.connect('event', self.__event_cb, [x, y])
             else:
                 card = Gtk.EventBox()
-                card.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse(self._background_color))
+                card.modify_bg(
+                    Gtk.StateType.NORMAL,
+                    Gdk.color_parse(self._background_color))
                 card.set_size_request(self.card_size, self.card_size)
 
             self.table_positions[(x, y)] = 1
