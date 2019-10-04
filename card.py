@@ -352,7 +352,7 @@ class Card(Gtk.EventBox):
         self.props['front_text']['speak'] = value
 
     def get_speak(self):
-        return self.props['front_text'].get('speak')
+        return self.props['front_text'].get('speak') or False
 
     def draw_round_rect(self, context, x, y, w, h, r):
         context.move_to(x + r, y)

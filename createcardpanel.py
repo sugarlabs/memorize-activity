@@ -403,21 +403,15 @@ class CardEditor(Gtk.EventBox):
     def get_speak(self):
         if self.usespeak is None:
             return None
-        if self.usespeak.props.active:
-            return self.usespeak.palette.face.status.voice.language
+        active = 'True' if self.usespeak.props.active else 'False'
+        return active
 
-    def set_speak(self, value):
+    def set_speak(self, active):
         if self.usespeak is None:
             return
-        if value is None:
-            self.usespeak.props.active = False
-        else:
-            try:
-                self.usespeak.handler_block_by_func(self._usespeak_cb)
-                self.usespeak.props.active = True
-            finally:
-                self.usespeak.handler_unblock_by_func(self._usespeak_cb)
-            self.usespeak.palette.voices.resume(value)
+        self.usespeak.handler_block_by_func(self._usespeak_cb)
+        self.usespeak.props.active = active == 'True'
+        self.usespeak.handler_unblock_by_func(self._usespeak_cb)
 
     def get_image_path(self):
         return self.card.get_image_path()
@@ -434,7 +428,7 @@ class CardEditor(Gtk.EventBox):
             destination_path = join(self._game.model.data['pathimg'],
                                     basename(origin_path))
             shutil.copy(origin_path, destination_path)
-            self.set_speak(None)
+            self.set_speak(False)
             self.card.set_image_path(destination_path)
             logging.debug('Picture Loaded: %s', destination_path)
             self.emit('has-picture', True)
@@ -446,7 +440,7 @@ class CardEditor(Gtk.EventBox):
     def _load_audio(self, widget):
         def load(jobject):
             origin_path = jobject.file_path
-            self.set_speak(None)
+            self.set_speak(False)
             self._game.model.mark_modified()
             self._game.model.create_temp_directories()
             destination_path = join(self._game.model.data['pathsnd'],
