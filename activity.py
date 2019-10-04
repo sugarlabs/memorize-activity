@@ -26,15 +26,19 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('PangoCairo', '1.0')
+gi.require_version('TelepathyGLib', '0.12')
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import Gtk
+from gi.repository import TelepathyGLib
+
+CHANNEL_INTERFACE_GROUP = TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP
+CHANNEL_TYPE_TUBES = TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES
+TUBE_STATE_LOCAL_PENDING = TelepathyGLib.TubeState.LOCAL_PENDING
+TUBE_TYPE_DBUS = TelepathyGLib.TubeType.DBUS
 
 # activate threads for gst needs
 GObject.threads_init()
-
-import telepathy
-import telepathy.client
 
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
@@ -374,8 +378,7 @@ class MemorizeActivity(Activity):
         self._sharing_setup()
 
         logging.debug('This is my activity: making a tube...')
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
-            SERVICE, {})
+        self.tubes_chan[CHANNEL_TYPE_TUBES].OfferDBusTube(SERVICE, {})
 
     def _sharing_setup(self):
         if self.get_shared_activity() is None:
@@ -386,7 +389,7 @@ class MemorizeActivity(Activity):
         self.tubes_chan = shared_activity.telepathy_tubes_chan
         self.text_chan = shared_activity.telepathy_text_chan
 
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal(
+        self.tubes_chan[CHANNEL_TYPE_TUBES].connect_to_signal(
             'NewTube', self._new_tube_cb)
 
         shared_activity.connect('buddy-joined', self._buddy_joined_cb)
@@ -417,7 +420,7 @@ class MemorizeActivity(Activity):
         self._sharing_setup()
 
         logging.debug('This is not my activity: waiting for a tube...')
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
+        self.tubes_chan[CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self._list_tubes_reply_cb,
             error_handler=self._list_tubes_error_cb)
 
@@ -427,16 +430,16 @@ class MemorizeActivity(Activity):
                       'params=%r state=%d', identifier, initiator, tube_type,
                       service, params, state)
 
-        if (tube_type == telepathy.TUBE_TYPE_DBUS and
+        if (tube_type == TUBE_TYPE_DBUS and
                 service == SERVICE):
-            if state == telepathy.TUBE_STATE_LOCAL_PENDING:
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(
+            if state == TUBE_STATE_LOCAL_PENDING:
+                self.tubes_chan[CHANNEL_TYPE_TUBES].AcceptDBusTube(
                     identifier)
 
             self.tube_conn = TubeConnection(
                 self.conn,
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], identifier,
-                group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
+                self.tubes_chan[CHANNEL_TYPE_TUBES], identifier,
+                group_iface=self.text_chan[CHANNEL_INTERFACE_GROUP])
 
             self.messenger = messenger.Messenger(self.tube_conn,
                                                  self.initiating,
@@ -446,7 +449,7 @@ class MemorizeActivity(Activity):
 
     def _get_buddy(self, cs_handle):
         """Get a Buddy from a channel specific handle."""
-        group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
+        group = self.text_chan[CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
         if my_csh == cs_handle:
             handle = self.conn.GetSelfHandle()
