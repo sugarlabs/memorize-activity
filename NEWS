@@ -1,3 +1,12 @@
+56
+
+* Add screenshots and metadata (sdziuda),
+* Fix PyGIWarning for Gdk (Aniket Mathur),
+* Add centre tile for 5x5 size (Swarup N),
+* Port to sugar3.speech (Swarup N),
+* flake8 fixes (James Cameron),
+* Fix fail to start when LANG es_PY.utf8 (James Cameron),
+
 55
 
 * Fix GtkBox warnings (Yash Agrawal),
