@@ -33,7 +33,6 @@ from sugar3.graphics.toolbutton import ToolButton
 from sugar3.graphics.icon import Icon
 from sugar3.graphics.palette import Palette
 from sugar3.graphics.toggletoolbutton import ToggleToolButton
-from sugar3.graphics.toolcombobox import ToolComboBox
 from fontcombobox import FontButton
 from port import chooser
 
