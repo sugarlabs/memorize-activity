@@ -30,7 +30,6 @@ import sugar3.graphics.style as style
 import speech
 import eye
 import mouth
-import voice
 
 from gi.repository import Gtk
 
@@ -42,7 +41,6 @@ FACE_PAD = style.GRID_CELL_SIZE
 class Status:
     def __init__(self):
         self.speech = speech.get_speech_manager()
-        self.voice = voice.defaultVoice()
 
         self.eyes = [eye.Eye] * 2
         self.mouth = mouth.Mouth
@@ -52,8 +50,6 @@ class Status:
         mouths = {mouth.Mouth: 1}
 
         return json.dumps({
-            'voice': {'language': self.voice.language,
-                      'name': self.voice.name},
             'eyes': [eyes[i] for i in self.eyes],
             'mouth': mouths[self.mouth]})
 
@@ -62,8 +58,6 @@ class Status:
         mouths = {1: mouth.Mouth}
 
         data = json.loads(buf)
-        self.voice = voice.Voice(data['voice']['language'],
-                                 data['voice']['name'])
         self.eyes = [eyes[i] for i in data['eyes']]
         self.mouth = mouths[data['mouth']]
 
@@ -71,7 +65,6 @@ class Status:
 
     def clone(self):
         new = Status()
-        new.voice = self.voice
         new.eyes = self.eyes
         new.mouth = self.mouth
         return new
@@ -149,27 +142,7 @@ class View(Gtk.EventBox):
         self._mouthbox.add(self._mouth)
 
     def say(self, something):
-        if self._pending is None:
-            voice_name = self.status.voice.name
-        else:
-            voice_name = self._pending.voice.name
-        all_voices = self.speech.get_all_voices()
-        self.say_text(something, voice_name, all_voices)
-
-    def say_notification(self, something):
-        status = (self._pending or self.status).clone()
-        status.voice = voice.defaultVoice()
-        voice_name = status.voice.name
-        all_voices = self.speech.get_all_voices()
-        self.say_text(something, voice_name, all_voices)
-
-    def say_text(self, something, voice_name, all_voices):
-        lang_code = None
-        for lang, name in all_voices.items():
-            if name == voice_name:
-                lang_code = lang
-        self.speech.say_text(something, pitch=None,
-                             rate=None, lang_code=lang_code)
+        self.speech.say_text(something)
 
     def shut_up(self):
         self.speech.stop()

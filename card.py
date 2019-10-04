@@ -31,7 +31,6 @@ from sugar3.util import LRU
 from sugar3.graphics import style
 
 import face
-import speak.voice
 import model
 
 BORDER_WIDTH = style.zoom(10)
@@ -239,8 +238,6 @@ class Card(Gtk.EventBox):
                     if self.show_robot:
                         self.jpeg = GdkPixbuf.Pixbuf.new_from_file_at_size(
                             'icons/speak.svg', image_size, image_size)
-                    speaking_face.face.status.voice = \
-                        speak.voice.by_lang(self.get_speak())
                     speaking_face.face.say(self.get_text())
 
             self._animation_step = 0

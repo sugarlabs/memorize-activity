@@ -37,7 +37,6 @@ from sugar3.graphics.toolcombobox import ToolComboBox
 from fontcombobox import FontButton
 from port import chooser
 
-import speak.widgets
 import speak.face
 
 PAIR_SIZE = min(Gdk.Screen.width() / 4, Gdk.Screen.height() / 3)
@@ -519,9 +518,6 @@ class SpeakPalette(Palette):
         usespeak_play.connect('clicked', lambda button:
                               self.face.say(editor.get_text()))
         toolbar.pack_start(usespeak_play, False, False, 0)
-
-        self.voices = speak.widgets.Voices(self.face)
-        toolbar.pack_start(ToolComboBox(self.voices), True, True, 0)
 
         toolbar.show_all()
         self.set_content(toolbar)
