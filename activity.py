@@ -19,23 +19,16 @@ import logging
 
 from gettext import gettext as _
 import os
-
+import tempfile
 import zipfile
-
+import base64
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('PangoCairo', '1.0')
-gi.require_version('TelepathyGLib', '0.12')
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import Gtk
-from gi.repository import TelepathyGLib
-
-CHANNEL_INTERFACE_GROUP = TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP
-CHANNEL_TYPE_TUBES = TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES
-TUBE_STATE_LOCAL_PENDING = TelepathyGLib.TubeState.LOCAL_PENDING
-TUBE_TYPE_DBUS = TelepathyGLib.TubeType.DBUS
 
 # activate threads for gst needs
 GObject.threads_init()
@@ -45,24 +38,18 @@ from sugar3.activity.widgets import StopButton
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toggletoolbutton import ToggleToolButton
 from sugar3.activity.activity import Activity
-from sugar3.presence import presenceservice
-from sugar3.presence.tubeconn import TubeConnection
 from sugar3.graphics import style
 from sugar3 import profile
 
 import cardtable
 import scoreboard
 import game
-import messenger
 import memorizetoolbar
 import createtoolbar
 import cardlist
 import createcardpanel
 import face
-
-SERVICE = 'org.laptop.Memorize'
-IFACE = SERVICE
-PATH = '/org/laptop/Memorize'
+from collabwrapper import CollabWrapper
 
 _MODE_PLAY = 1
 _MODE_CREATE = 2
@@ -201,34 +188,72 @@ class MemorizeActivity(Activity):
         # to the create toolbar later
         self._change_mode(_MODE_PLAY)
 
-        # Get the Presence Service
-        self.pservice = presenceservice.get_instance()
-        self.initiating = None
+        def on_activity_joined_cb(me):
+            logging.debug('activity joined')
+            self.game.add_buddy(self._collab.props.owner)
+        self.connect('joined', on_activity_joined_cb)
 
-        # Buddy object for you
-        owner = self.pservice.get_owner()
-        self.owner = owner
-        self.current = 0
+        def on_activity_shared_cb(me):
+            logging.debug('activity shared')
+        self.connect('shared', on_activity_shared_cb)
 
-        self.game.set_myself(self.owner)
-        self.connect('shared', self._shared_cb)
+        self._collab = CollabWrapper(self)
+        self.game.set_myself(self._collab.props.owner)
 
-        # Owner.props.key
-        if self.get_shared_activity():
-            # We are joining the activity
-            self.connect('joined', self._joined_cb)
-            if self.get_shared():
-                # We've already joined
-                self._joined_cb(self)
-        elif not self._jobject.file_path:
-            logging.debug('buddy joined - __init__: %s', self.owner.props.nick)
+        def on_message_cb(collab, buddy, msg):
+            logging.debug('on_message_cb buddy %r msg %r' % (buddy, msg))
+            action = msg.get('action')
+            if action == 'flip':
+                n = msg.get('n')
+                self.game.card_flipped(None, n, True)
+            elif action == 'change':
+                self.set_data(msg)
+
+        self._collab.connect('message', on_message_cb)
+
+        def on_joined_cb(collab, msg):
+            logging.debug('joined')
+        self._collab.connect('joined', on_joined_cb, 'joined')
+
+        def on_buddy_joined_cb(collab, buddy, msg):
+            logging.debug('on_buddy_joined_cb buddy %r msg %r' % (buddy, msg))
+            self.game.add_buddy(buddy)
+
+        self._collab.connect('buddy_joined', on_buddy_joined_cb,
+                             'buddy_joined')
+
+        def on_buddy_left_cb(collab, buddy, msg):
+            logging.debug('on_buddy_left_cb buddy %r msg %r' % (buddy, msg))
+            self.game.rem_buddy(buddy)
+
+        self._collab.connect('buddy_left', on_buddy_left_cb, 'buddy_left')
+
+        self._files = {}  # local temporary copies of shared games
+
+        self._collab.setup()
+
+        def on_flip_card_cb(game, n):
+            logging.debug('on_flip_card_cb n %r' % (n))
+            self._collab.post({'action': 'flip', 'n': n})
+
+        self.game.connect('flip-card-signal', on_flip_card_cb)
+
+        def on_change_game_cb(sender, mode, grid, data, waiting_list, zip):
+            logging.debug('on_change_game_cb')
+            blob = self.get_data()
+            blob['action'] = 'change'
+
+            self._collab.post(blob)
+
+        self.game.connect('change_game_signal', on_change_game_cb)
+
+        if self._collab.props.leader:
+            logging.debug('is leader')
             game_file = os.path.join(os.path.dirname(__file__), 'demos',
                                      'addition.zip')
             self.game.load_game(game_file, 4, 'demo')
-            logging.debug('loading conventional')
-            self.game.add_buddy(self.owner)
-        else:
-            self.game.add_buddy(self.owner)
+            self.game.add_buddy(self._collab.props.owner)
+
         self.show_all()
 
     def __configure_cb(self, event):
@@ -249,6 +274,72 @@ class MemorizeActivity(Activity):
             self._change_mode(_MODE_PLAY)
             button.set_icon_name('view-source')
             button.set_tooltip(_('Edit game'))
+
+    def _change_game_receiver(self, mode, grid, data, path):
+        if mode == 'demo':
+            game_name = os.path.basename(data.get('game_file', 'debug-demo'))
+            game_file = os.path.join(
+                os.path.dirname(__file__), 'demos', game_name).encode('ascii')
+            self.game.model.read(game_file)
+
+        if mode == 'art4apps':
+            game_file = data['game_file']
+            category = game_file[:game_file.find('_')]
+            language = data['language']
+            self.game.model.is_demo = True
+            self.game.model.read_art4apps(category, language)
+
+        if mode == 'file':
+            self.game.model.read(self._files[path])
+
+        if 'path' in self.game.model.data:
+            data['path'] = self.game.model.data['path']
+            data['pathimg'] = self.game.model.data['pathimg']
+            data['pathsnd'] = self.game.model.data['pathsnd']
+        self.game.load_remote(grid, data, mode, True)
+
+    def set_data(self, blob):
+        logging.debug("set_data %r" % blob.keys())
+        grid = blob['grid']
+        data = blob['data']
+        current_player = blob['current']
+        path = blob['path']
+
+        if 'zip' in blob:
+            tmp_root = os.path.join(os.environ['SUGAR_ACTIVITY_ROOT'],
+                                    'instance')
+            temp_dir = tempfile.mkdtemp(dir=tmp_root)
+            os.chmod(temp_dir, 0777)
+            temp_file = os.path.join(temp_dir, 'game.zip')
+            self._files[path] = temp_file
+            f = open(temp_file, 'wb')
+
+            f.write(base64.b64decode(blob['zip']))
+            f.close()
+
+        self._change_game_receiver(data['mode'], grid, data, path)
+
+        for i in range(len(self.game.players)):
+            self.game.increase_point(self.game.players[i],
+                                     int(data.get(str(i), '0')))
+
+        self.game.current_player = self.game.players[current_player]
+        self.game.update_turn()
+
+    def get_data(self):
+        data = self.game.collect_data()
+        path = data['game_file']
+
+        blob = {"grid": self.game.get_grid(),
+                "data": data,
+                "current": self.game.players.index(self.game.current_player),
+                "path": path}
+
+        if data['mode'] == 'file':
+            blob['zip'] = base64.b64encode(open(path, 'rb').read())
+
+        logging.debug("get_data %r" % blob.keys())
+        return blob
 
     def read_file(self, file_path):
         if 'icon-color' in self.metadata:
@@ -371,110 +462,6 @@ class MemorizeActivity(Activity):
     def change_equal_pairs(self, widget, state):
         self.cardlist.update_model(self.game.model)
         self.createcardpanel.change_equal_pairs(widget, state)
-
-    def _shared_cb(self, activity):
-        logging.debug('My activity was shared')
-        self.initiating = True
-        self._sharing_setup()
-
-        logging.debug('This is my activity: making a tube...')
-        self.tubes_chan[CHANNEL_TYPE_TUBES].OfferDBusTube(SERVICE, {})
-
-    def _sharing_setup(self):
-        if self.get_shared_activity() is None:
-            logging.error('Failed to share or join activity')
-            return
-        shared_activity = self.get_shared_activity()
-        self.conn = shared_activity.telepathy_conn
-        self.tubes_chan = shared_activity.telepathy_tubes_chan
-        self.text_chan = shared_activity.telepathy_text_chan
-
-        self.tubes_chan[CHANNEL_TYPE_TUBES].connect_to_signal(
-            'NewTube', self._new_tube_cb)
-
-        shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        shared_activity.connect('buddy-left', self._buddy_left_cb)
-
-    def _list_tubes_reply_cb(self, tubes):
-        for tube_info in tubes:
-            self._new_tube_cb(*tube_info)
-
-    def _list_tubes_error_cb(self, e):
-        logging.error('ListTubes() failed: %s', e)
-
-    def _joined_cb(self, activity):
-        if not self.get_shared_activity():
-            return
-
-        logging.debug('Joined an existing shared activity')
-
-        for buddy in self.get_shared_activity().get_joined_buddies():
-            if buddy != self.owner:
-                logging.debug("buddy joined - _joined_cb: %s  "
-                              "(get buddies and add them to my list)",
-                              buddy.props.nick)
-                self.game.add_buddy(buddy)
-
-        self.game.add_buddy(self.owner)
-        self.initiating = False
-        self._sharing_setup()
-
-        logging.debug('This is not my activity: waiting for a tube...')
-        self.tubes_chan[CHANNEL_TYPE_TUBES].ListTubes(
-            reply_handler=self._list_tubes_reply_cb,
-            error_handler=self._list_tubes_error_cb)
-
-    def _new_tube_cb(self, identifier, initiator, tube_type, service,
-                     params, state):
-        logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
-                      'params=%r state=%d', identifier, initiator, tube_type,
-                      service, params, state)
-
-        if (tube_type == TUBE_TYPE_DBUS and
-                service == SERVICE):
-            if state == TUBE_STATE_LOCAL_PENDING:
-                self.tubes_chan[CHANNEL_TYPE_TUBES].AcceptDBusTube(
-                    identifier)
-
-            self.tube_conn = TubeConnection(
-                self.conn,
-                self.tubes_chan[CHANNEL_TYPE_TUBES], identifier,
-                group_iface=self.text_chan[CHANNEL_INTERFACE_GROUP])
-
-            self.messenger = messenger.Messenger(self.tube_conn,
-                                                 self.initiating,
-                                                 self._get_buddy, self.game)
-            self.game.connect('flip-card-signal', self.messenger.flip_sender)
-            self.game.connect('change_game_signal', self.messenger.change_game)
-
-    def _get_buddy(self, cs_handle):
-        """Get a Buddy from a channel specific handle."""
-        group = self.text_chan[CHANNEL_INTERFACE_GROUP]
-        my_csh = group.GetSelfHandle()
-        if my_csh == cs_handle:
-            handle = self.conn.GetSelfHandle()
-        else:
-            handle = group.GetHandleOwners([cs_handle])[0]
-            assert handle != 0
-        return self.pservice.get_buddy_by_telepathy_handle(
-            self.tp_conn_name, self.tp_conn_path, handle)
-
-    def _buddy_joined_cb(self, activity, buddy):
-        if buddy != self.owner:
-            if buddy.props.nick == '':
-                logging.debug("buddy joined: empty nick=%s. Will not add.",
-                              buddy.props.nick)
-            else:
-                logging.debug("buddy joined: %s", buddy.props.nick)
-                self.game.add_buddy(buddy)
-
-    def _buddy_left_cb(self, activity, buddy):
-        if buddy.props.nick == '':
-            logging.debug("buddy joined: empty nick=%s. Will not remove",
-                          buddy.props.nick)
-        else:
-            logging.debug("buddy left: %s", buddy.props.nick)
-            self.game.rem_buddy(buddy)
 
     def _focus_in(self, event, data=None):
         self.game.audio.play()

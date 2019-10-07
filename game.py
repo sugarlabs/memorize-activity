@@ -24,10 +24,6 @@ from gettext import gettext as _
 from model import Model
 from audio import Audio
 
-SERVICE = 'org.laptop.Memorize'
-IFACE = SERVICE
-PATH = '/org/laptop/Memorize'
-
 FLOP_BACK_TIMEOUT = 2000
 
 
@@ -75,7 +71,6 @@ class MemorizeGame(GObject.GObject):
         self.last_flipped = -1
         self.last_highlight = 1
         self._flop_card_timeout = -1
-        self.messenger = None
         self.sentitive = True
 
         self.model = Model()
@@ -349,9 +344,6 @@ class MemorizeGame(GObject.GObject):
 
     def set_load_mode(self, msg):
         self.emit('load_mode', msg)
-
-    def set_messenger(self, messenger):
-        self.messenger = messenger
 
     def set_sensitive(self, status):
         self.sentitive = status
