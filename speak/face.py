@@ -27,9 +27,9 @@ import json
 
 import sugar3.graphics.style as style
 
-import speech
-import eye
-import mouth
+from . import speech
+from . import eye
+from . import mouth
 
 from gi.repository import Gtk
 

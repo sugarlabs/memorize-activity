@@ -116,7 +116,7 @@ class Model(object):
     def __init__(self, game_path=None):
         tmp_root = join(environ['SUGAR_ACTIVITY_ROOT'], 'instance')
         self.temp_folder = tempfile.mkdtemp(dir=tmp_root)
-        chmod(self.temp_folder, 0777)
+        chmod(self.temp_folder, 0o777)
 
         self.data = {}
 
@@ -175,7 +175,7 @@ class Model(object):
                 directory = normpath(join(self.data['path'], root))
                 if not isdir(directory):
                     makedirs(directory)
-                file(join(directory, name), 'wb').write(zipFile.read(each))
+                open(join(directory, name), 'wb').write(zipFile.read(each))
 
         self.pairs = {}
 
@@ -225,7 +225,7 @@ class Model(object):
                 for elem in memorize_elem.getchildren():
                     attributes = elem.attrib
                     pair = Pair()
-                    for attribute in attributes.keys():
+                    for attribute in list(attributes.keys()):
                         if(attribute == 'text'):
                             pass
                         else:
@@ -353,7 +353,7 @@ class Model(object):
                 pair_props["bspeak"] = self.pairs[key].props.bspeak
             SubElement(root, 'pair', pair_props)
 
-        with open(join(self.game_path, 'game.xml'), 'w') as xml_file:
+        with open(join(self.game_path, 'game.xml'), 'wb') as xml_file:
             xml_file.write(tostring(root))
 
     def def_grid(self, size):
@@ -361,7 +361,7 @@ class Model(object):
         and shuffles the grid so they always appear in a different
         place
         '''
-        psize = (size * size / 2)
+        psize = (size * size // 2)
         logging.debug('Size requested: %d', psize)
         self.grid = []
         temp1 = []
@@ -370,7 +370,7 @@ class Model(object):
 
         # shuffle the pairs first to avoid only taking the first ones
         # when there are more pairs in the config file then the grid is using
-        keys = self.pairs.keys()
+        keys = list(self.pairs.keys())
         random.shuffle(keys)
 
         for key in keys:
@@ -447,7 +447,7 @@ class Model(object):
                     makedirs(temp_img_folder)
                 if not exists(temp_snd_folder):
                     makedirs(temp_snd_folder)
-                for key in self.pairs.keys():
+                for key in list(self.pairs.keys()):
                     # all the images exist, but not all the sounds
                     for img in (self.pairs[key].props.aimg,
                                 self.pairs[key].props.bimg):

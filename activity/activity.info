@@ -1,7 +1,7 @@
 [Activity]
 name = Memorize
 bundle_id = org.laptop.Memorize
-exec = sugar-activity activity.MemorizeActivity
+exec = sugar-activity3 activity.MemorizeActivity
 icon = activity-memorize
 activity_version = 56
 mime_types = application/x-memorize-project;

@@ -46,12 +46,12 @@ class PlayerScoreboard(Gtk.EventBox):
                        Gdk.color_parse(self.current_color))
         self.table.set_row_spacings(0)
         self.table.set_col_spacings(0)
-        self.table.set_border_width(style.DEFAULT_SPACING / 2)
+        self.table.set_border_width(style.DEFAULT_SPACING // 2)
 
         # Score table
         self.score_table = Gtk.Table()
-        self.score_table.set_row_spacings(style.DEFAULT_SPACING / 2)
-        self.score_table.set_col_spacings(style.DEFAULT_SPACING / 2)
+        self.score_table.set_row_spacings(style.DEFAULT_SPACING // 2)
+        self.score_table.set_col_spacings(style.DEFAULT_SPACING // 2)
 
         self.scores = []
         self.current_x = 0
@@ -85,9 +85,9 @@ class PlayerScoreboard(Gtk.EventBox):
 
     def _allocate_cb(self, widget, allocation):
         self._score_width = allocation.width - style.STANDARD_ICON_SIZE \
-            - style.DEFAULT_SPACING * 2 - style.DEFAULT_SPACING / 2
-        self._score_cols = self._score_width / \
-            (style.SMALL_ICON_SIZE + style.DEFAULT_SPACING / 2)
+            - style.DEFAULT_SPACING * 2 - style.DEFAULT_SPACING // 2
+        self._score_cols = self._score_width // \
+            (style.SMALL_ICON_SIZE + style.DEFAULT_SPACING // 2)
         self.change_game(self._game_size)
 
     def change_game(self, size):
@@ -95,12 +95,12 @@ class PlayerScoreboard(Gtk.EventBox):
         if self._score_cols == 0:
             return
 
-        rows = int(math.ceil(float(size / 2) / self._score_cols))
+        rows = int(math.ceil(size / (2 * self._score_cols)))
         self.score_table.resize(rows, self._score_cols)
         self.score_table.set_size_request(
             -1,
-            (style.SMALL_ICON_SIZE + style.DEFAULT_SPACING / 2) * rows -
-            style.DEFAULT_SPACING / 2)
+            (style.SMALL_ICON_SIZE + style.DEFAULT_SPACING // 2) * rows -
+            style.DEFAULT_SPACING // 2)
 
     def increase_score(self):
         new_score = Icon(icon_name='score',

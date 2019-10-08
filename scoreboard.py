@@ -34,7 +34,7 @@ class Scoreboard(Gtk.EventBox):
         self.show_all()
 
     def change_game(self, widget, data, grid):
-        for buddy in self.players.keys():
+        for buddy in list(self.players.keys()):
             self.players[buddy].change_game(len(grid))
 
     def add_buddy(self, widget, buddy, score):
@@ -47,7 +47,7 @@ class Scoreboard(Gtk.EventBox):
         # remove widgets and add sorted
         for child in self.hbox.get_children():
             self.hbox.remove(child)
-        for buddy in sorted(self.players.keys(),
+        for buddy in sorted(list(self.players.keys()),
                             key=lambda buddy: buddy.props.nick):
             p = self.players[buddy]
             self.hbox.pack_start(p, True, True, 0)
@@ -75,7 +75,7 @@ class Scoreboard(Gtk.EventBox):
         self.players[buddy].increase_score()
 
     def reset(self, widget):
-        for buddy in self.players.keys():
+        for buddy in list(self.players.keys()):
             self.players[buddy].reset()
 
     def set_wait_mode(self, widget, buddy, status):

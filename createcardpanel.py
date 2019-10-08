@@ -38,7 +38,7 @@ from port import chooser
 
 import speak.face
 
-PAIR_SIZE = min(Gdk.Screen.width() / 4, Gdk.Screen.height() / 3)
+PAIR_SIZE = min(Gdk.Screen.width() // 4, Gdk.Screen.height() // 3)
 
 
 class CreateCardPanel(Gtk.EventBox):

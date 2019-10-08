@@ -197,13 +197,13 @@ class CardTable(Gtk.EventBox):
 
     def change_game(self, widget, data, grid):
         if not self.first_load:
-            for card in self.cards.values():
+            for card in list(self.cards.values()):
                 self.table.remove(card)
                 del card
         self.load_game(None, data, grid)
 
     def get_card_size(self, size_table):
-        x = (self._workspace_size + CARD_PAD * (size_table - 1)) / \
+        x = (self._workspace_size + CARD_PAD * (size_table - 1)) // \
             size_table - CARD_PAD * 2
         return x
 
@@ -280,7 +280,7 @@ class CardTable(Gtk.EventBox):
             self.id2cd.get(identifer).set_highlight(status)
 
     def reset(self, widget):
-        for identifer in self.id2cd.keys():
+        for identifer in list(self.id2cd.keys()):
             self.id2cd[identifer].reset()
 
     def _set_load_mode(self, mode):

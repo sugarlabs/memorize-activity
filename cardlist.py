@@ -27,7 +27,7 @@ from model import Pair
 from sugar3.graphics import style
 from sugar3 import profile
 
-PAIR_SIZE = min(Gdk.Screen.width() / 7, Gdk.Screen.height() / 5)
+PAIR_SIZE = min(Gdk.Screen.width() // 7, Gdk.Screen.height() // 5)
 user_color = profile.get_color()
 
 
@@ -163,7 +163,7 @@ class CardList(Gtk.EventBox):
     def clean_list(self, button=None, load=False):
         if button is not None:
             self.current_game_key = None
-        map(lambda x: self.hbox.remove(x), self.pairs)
+        list(map(lambda x: self.hbox.remove(x), self.pairs))
         del self.pairs
         self.pairs = []
         if not load:

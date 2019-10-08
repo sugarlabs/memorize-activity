@@ -305,7 +305,7 @@ class MemorizeActivity(Activity):
         self.game.load_remote(grid, data, mode, True)
 
     def set_data(self, blob):
-        logging.debug("set_data %r" % blob.keys())
+        logging.debug("set_data %r" % list(blob.keys()))
         grid = blob['grid']
         data = blob['data']
         current_player = blob['current']
@@ -315,7 +315,7 @@ class MemorizeActivity(Activity):
             tmp_root = os.path.join(os.environ['SUGAR_ACTIVITY_ROOT'],
                                     'instance')
             temp_dir = tempfile.mkdtemp(dir=tmp_root)
-            os.chmod(temp_dir, 0777)
+            os.chmod(temp_dir, 0o777)
             temp_file = os.path.join(temp_dir, 'game.zip')
             self._files[path] = temp_file
             f = open(temp_file, 'wb')
@@ -342,9 +342,9 @@ class MemorizeActivity(Activity):
                 "path": path}
 
         if data['mode'] == 'file':
-            blob['zip'] = base64.b64encode(open(path, 'rb').read())
+            blob['zip'] = base64.b64encode(open(path, 'rb').read()).decode()
 
-        logging.debug("get_data %r" % blob.keys())
+        logging.debug("get_data %r" % list(blob.keys()))
         return blob
 
     def read_file(self, file_path):

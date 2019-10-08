@@ -132,7 +132,9 @@ class MemorizeGame(GObject.GObject):
     def add_buddy(self, buddy, score=0):
         logging.debug('Buddy %r was added to game', buddy.props.nick)
         self.players.append(buddy)
-        self.players.sort(lambda a, b: cmp(a.props.nick, b.props.nick))
+        def key(a):
+            return a.props.nick
+        self.players = sorted(self.players, key=key)
         self.players_score[buddy] = score
         self.emit('add_buddy', buddy, score)
         logging.debug(str(buddy))
@@ -184,10 +186,10 @@ class MemorizeGame(GObject.GObject):
         # Handle groups if needed
         if self.model.data.get('divided') == '1':
             if self.last_flipped == -1 and identifier \
-                    >= (len(self.model.grid) / 2):
+                    >= (len(self.model.grid) // 2):
                 return
             if self.last_flipped != -1 and identifier \
-                    < (len(self.model.grid) / 2):
+                    < (len(self.model.grid) // 2):
                 return
 
         # do not process flips when flipping back
@@ -282,10 +284,10 @@ class MemorizeGame(GObject.GObject):
 
         if self.model.data['divided'] == '1':
             if self.last_flipped == -1 and identifier \
-                    >= (len(self.model.grid) / 2):
+                    >= (len(self.model.grid) // 2):
                 return
             if self.last_flipped != -1 and identifier \
-                    < (len(self.model.grid) / 2):
+                    < (len(self.model.grid) // 2):
                 return
 
         if mouse and self.model.grid[identifier]['state'] == '0' or not mouse:
@@ -300,7 +302,7 @@ class MemorizeGame(GObject.GObject):
         return self.model.grid
 
     def collect_data(self):
-        for player, score in self.players_score.items():
+        for player, score in list(self.players_score.items()):
             index = self.players.index(player)
             score = self.players_score[player]
             self.model.data[str(index)] = str(score)
@@ -358,7 +360,7 @@ class MemorizeGame(GObject.GObject):
 
     def get_players_data(self):
         data = []
-        for player, score in self.players_score.items():
+        for player, score in list(self.players_score.items()):
             data.append([player.props.key, player.props.nick,
                          player.props.color, score])
         return data

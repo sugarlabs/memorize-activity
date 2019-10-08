@@ -105,7 +105,7 @@ class Card(Gtk.EventBox):
         flipped = self.flipped
         highlighted = self._highlighted
         if self._on_animation:
-            if self._animation_step > self._animation_steps / 2:
+            if self._animation_step > self._animation_steps // 2:
                 flipped = not self.flipped
 
         if not self._cached_surface[flipped]:
@@ -113,7 +113,7 @@ class Card(Gtk.EventBox):
 
         if self._on_animation:
             scale = self._steps_scales[self._animation_step]
-            context.translate(0, self.size * (1 - scale) / 2)
+            context.translate(0, self.size * (1 - scale) // 2)
             context.scale(1.0, scale)
             self._animation_step += 1
             highlighted = False
@@ -122,7 +122,7 @@ class Card(Gtk.EventBox):
         context.paint()
 
         if highlighted:
-            radio = self.size / 3
+            radio = self.size // 3
             self.draw_round_rect(context, 0, 0, self.size, self.size, radio)
             context.set_source_rgb(1., 1., 1.)
             context.set_line_width(BORDER_WIDTH)
@@ -142,7 +142,7 @@ class Card(Gtk.EventBox):
             icon_data = self.props['back']
 
         cache_context.save()
-        radio = self.size / 3
+        radio = self.size // 3
         self.draw_round_rect(cache_context, 0, 0, self.size, self.size,
                              radio)
         r, g, b, a = icon_data['fill_color'].get_rgba()
@@ -177,8 +177,8 @@ class Card(Gtk.EventBox):
                     self.create_text_layout(text_props['card_text'])
 
             width, height = layout.get_pixel_size()
-            y = (self.size - height) / 2
-            x = (self.size - width) / 2
+            y = (self.size - height) // 2
+            x = (self.size - width) // 2
             cache_context.set_source_rgb(1, 1, 1)
             cache_context.translate(x, y)
             PangoCairo.update_layout(cache_context, layout)
@@ -298,8 +298,8 @@ class Card(Gtk.EventBox):
 
         max_lines_count = len([i for i in text.split(' ') if i])
 
-        for size in range(80, 66, -8) + range(66, 44, -6) + \
-                range(44, 24, -4) + range(24, 15, -2) + range(15, 7, -1):
+        for size in list(range(80, 66, -8)) + list(range(66, 44, -6)) + \
+                list(range(44, 24, -4)) + list(range(24, 15, -2)) + list(range(15, 7, -1)):
 
             card_size = self.size - BORDER_WIDTH * 2
             layout = self.create_pango_layout(text)
