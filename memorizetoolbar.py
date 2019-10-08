@@ -18,6 +18,7 @@ import logging
 from os.path import join, dirname
 
 from gi.repository import GObject
+from gi.repository import GLib
 from gi.repository import Gtk
 
 from gettext import gettext as _
@@ -119,8 +120,13 @@ class MemorizeToolbarBuilder(GObject.GObject):
         self._restart_button.show()
 
     def _game_reset_cb(self, widget):
-        self.activity.game.model.count = 0
-        self.emit('game_changed', None, None, 'reset', None, None)
+        self.activity.get_canvas().hide()
+
+        def momentary_blank_timeout_cb():
+            self.activity.game.model.count = 0
+            self.emit('game_changed', None, None, 'reset', None, None)
+            self.activity.get_canvas().show()
+        GLib.timeout_add(100, momentary_blank_timeout_cb)
 
     def update_controls(self, active):
         self._size_combo.set_sensitive(active)
@@ -128,10 +134,15 @@ class MemorizeToolbarBuilder(GObject.GObject):
         self._restart_button.set_sensitive(active)
 
     def _game_size_cb(self, widget, i):
-        self._selected_game_size = int(self._sizes[i][0])
-        self._size_combo.props.icon_name = self._sizes[i]
-        self.emit('game_changed', None, self._selected_game_size, 'size', None,
-                  None)
+        self.activity.get_canvas().hide()
+
+        def momentary_blank_timeout_cb():
+            self._selected_game_size = int(self._sizes[i][0])
+            self._size_combo.props.icon_name = self._sizes[i]
+            self.emit('game_changed', None, self._selected_game_size,
+                      'size', None, None)
+            self.activity.get_canvas().show()
+        GLib.timeout_add(100, momentary_blank_timeout_cb)
 
     def __activate_art4apps_game_cb(self, menu, category, language):
         self._art4apps_data = (category, language)
@@ -163,7 +174,12 @@ class MemorizeToolbarBuilder(GObject.GObject):
     def __activate_game_cb(self, menu, i):
         self._game_selected_index = i
         if self.activity.game.model.is_demo:
-            self._change_game()
+            self.activity.get_canvas().hide()
+
+            def momentary_blank_timeout_cb():
+                self._change_game()
+                self.activity.get_canvas().show()
+            GLib.timeout_add(100, momentary_blank_timeout_cb)
         else:
             alert = Alert()
             alert.props.title = _('Discard your modified game?')

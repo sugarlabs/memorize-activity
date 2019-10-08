@@ -27,6 +27,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('PangoCairo', '1.0')
 from gi.repository import GObject
+from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import Gtk
 
@@ -207,7 +208,12 @@ class MemorizeActivity(Activity):
                 n = msg.get('n')
                 self.game.card_flipped(None, n, True)
             elif action == 'change':
-                self.set_data(msg)
+                self.get_canvas().hide()
+
+                def momentary_blank_timeout_cb():
+                    self.set_data(msg)
+                    self.get_canvas().show()
+                GLib.timeout_add(100, momentary_blank_timeout_cb)
 
         self._collab.connect('message', on_message_cb)
 
