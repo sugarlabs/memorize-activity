@@ -353,12 +353,8 @@ class Model(object):
                 pair_props["bspeak"] = self.pairs[key].props.bspeak
             SubElement(root, 'pair', pair_props)
 
-        try:
-            with open(join(self.game_path, 'game.xml'), 'w') as xml_file:
-                xml_file.write(tostring(root))
-        except:
-            return 2
-        return 0
+        with open(join(self.game_path, 'game.xml'), 'w') as xml_file:
+            xml_file.write(tostring(root))
 
     def def_grid(self, size):
         ''' create the grid for the play from the pairs information
