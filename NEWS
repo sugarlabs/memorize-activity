@@ -1,3 +1,11 @@
+57
+
+* Port to TelepathyGLib (James Cameron),
+* Port from ExportedGObject and Tubes to CollabWrapper (James Cameron),
+* Add momentary blank on game reload (James Cameron),
+* Report failure to write model (James Cameron),
+* Port to Python 3 (James Cameron),
+
 56
 
 * Add screenshots and metadata (sdziuda),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-04 10:59+1000\n"
+"POT-Creation-Date: 2019-10-12 12:18+1100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,75 +36,87 @@ msgid ""
 "well."
 msgstr ""
 
-#: activity.py:71
+#: activity.py:63
 msgid "Play"
 msgstr ""
 
-#: activity.py:71
+#: activity.py:63
 msgid "Create"
 msgstr ""
 
-#: activity.py:71
+#: activity.py:63
 msgid "Game name:"
 msgstr ""
 
-#: activity.py:71
+#: activity.py:63
 msgid "Equal pairs"
 msgstr ""
 
-#: activity.py:72
+#: activity.py:64
 msgid "addition"
 msgstr ""
 
-#: activity.py:72
+#: activity.py:64
 msgid "letters"
 msgstr ""
 
-#: activity.py:72
+#: activity.py:64
 msgid "sounds"
 msgstr ""
 
-#: activity.py:94 activity.py:247
+#: activity.py:86 activity.py:282
 msgid "Edit game"
 msgstr ""
 
-#: activity.py:243
+#: activity.py:278
 msgid "Play game"
 msgstr ""
 
-#: createcardpanel.py:91
+#: collabwrapper.py:197
+msgid "Joining activity..."
+msgstr ""
+
+#: collabwrapper.py:198 collabwrapper.py:210
+msgid "Please wait for the connection..."
+msgstr ""
+
+#: collabwrapper.py:209
+msgid "Resuming shared activity..."
+msgstr ""
+
+#: createcardpanel.py:90
 msgid "Add as new pair"
 msgstr ""
 
-#: createcardpanel.py:94
+#: createcardpanel.py:93
 msgid "Add"
 msgstr ""
 
-#: createcardpanel.py:98
+#: createcardpanel.py:97
 msgid "Update selected pair"
 msgstr ""
 
-#: createcardpanel.py:101
+#: createcardpanel.py:100
 msgid "Update"
 msgstr ""
 
-#: createcardpanel.py:105
+#: createcardpanel.py:104
 msgid "Remove selected pair"
 msgstr ""
 
-#: createcardpanel.py:108
+#: createcardpanel.py:107
 msgid "Remove"
 msgstr ""
 
-#: createcardpanel.py:355
+#: createcardpanel.py:354
 msgid "Insert picture"
 msgstr ""
 
-#: createcardpanel.py:359
+#: createcardpanel.py:358
 msgid "Insert sound"
 msgstr ""
 
-#: createcardpanel.py:509
+#: createcardpanel.py:502
 msgid "Pronounce text during tile flip"
 msgstr ""
 
@@ -144,50 +156,42 @@ msgstr ""
 msgid "Select font"
 msgstr ""
 
-#: game.py:103
+#: game.py:98
 msgid "Loading game..."
 msgstr ""
 
-#: memorizetoolbar.py:41
+#: memorizetoolbar.py:42
 msgid "Addition"
 msgstr ""
 
-#: memorizetoolbar.py:42
+#: memorizetoolbar.py:43
 msgid "Letters"
 msgstr ""
 
-#: memorizetoolbar.py:43
+#: memorizetoolbar.py:44
 msgid "Sounds"
 msgstr ""
 
-#: memorizetoolbar.py:58
+#: memorizetoolbar.py:59
 msgid "Load demo games"
 msgstr ""
 
-#: memorizetoolbar.py:103
+#: memorizetoolbar.py:104
 msgid "Change size"
 msgstr ""
 
-#: memorizetoolbar.py:117
+#: memorizetoolbar.py:118
 msgid "Restart Game"
 msgstr ""
 
-#: memorizetoolbar.py:142 memorizetoolbar.py:169
+#: memorizetoolbar.py:153 memorizetoolbar.py:185
 msgid "Discard your modified game?"
 msgstr ""
 
-#: memorizetoolbar.py:144 memorizetoolbar.py:171
+#: memorizetoolbar.py:155 memorizetoolbar.py:187
 msgid "Discard"
 msgstr ""
 
-#: memorizetoolbar.py:146 memorizetoolbar.py:173
+#: memorizetoolbar.py:157 memorizetoolbar.py:189
 msgid "Do not discard"
-msgstr ""
-
-#: messenger.py:197
-msgid "Receiving game"
-msgstr ""
-
-#: messenger.py:198
-msgid "done"
 msgstr ""
