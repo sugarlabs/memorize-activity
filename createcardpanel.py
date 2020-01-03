@@ -451,9 +451,9 @@ class CardEditor(Gtk.EventBox):
 
             # add a icon too
             sound_icon_path = join(activity.get_bundle_path(),
-                                   'icons/sound.svg')
+                                   'icons/sounds.svg')
             destination_path = join(self._game.model.data['pathimg'],
-                                    'sound.svg')
+                                    'sounds.svg')
             shutil.copy(sound_icon_path, destination_path)
 
             self.card.set_image_path(destination_path)
