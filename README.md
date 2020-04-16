@@ -58,3 +58,8 @@ Several long term bugs have yet to be resolved;
 * [Forgets game size in journal](https://bugs.sugarlabs.org/ticket/3754),
 * [Cannot restart shared activity](https://bugs.sugarlabs.org/ticket/4453),
 * [Collaboration broken with more than two users](https://bugs.sugarlabs.org/ticket/4719).
+
+Icon
+====
+
+Memorize icon is a [Glider pattern](https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)) from Conway's Game of Life, a cellular automaton.  John Conway (FRS) passed away in 2020.
