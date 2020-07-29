@@ -335,22 +335,13 @@ class Model(object):
 
         for key in self.pairs:
             pair_props = {}
-            if self.pairs[key].props.aimg is not None:
-                pair_props["aimg"] = self.pairs[key].props.aimg
-            if self.pairs[key].props.asnd is not None:
-                pair_props["asnd"] = self.pairs[key].props.asnd
-            if self.pairs[key].props.achar is not None:
-                pair_props["achar"] = self.pairs[key].props.achar
-            if self.pairs[key].props.bimg is not None:
-                pair_props["bimg"] = self.pairs[key].props.bimg
-            if self.pairs[key].props.bsnd is not None:
-                pair_props["bsnd"] = self.pairs[key].props.bsnd
-            if self.pairs[key].props.bchar is not None:
-                pair_props["bchar"] = self.pairs[key].props.bchar
-            if self.pairs[key].props.aspeak is not None:
-                pair_props["aspeak"] = self.pairs[key].props.aspeak
-            if self.pairs[key].props.bspeak is not None:
-                pair_props["bspeak"] = self.pairs[key].props.bspeak
+            for e in ["aimg", "asnd", "achar", "bimg", "bsnd",
+                      "bchar", "aspeak", "bspeak"]:
+                if self.pairs[key].get_property(e) is not None:
+                    if self.pairs[key].get_property(e) is False:
+                        pair_props[e] = ""
+                    else:
+                        pair_props[e] = self.pairs[key].get_property(e)
             SubElement(root, 'pair', pair_props)
 
         with open(join(self.game_path, 'game.xml'), 'wb') as xml_file:
