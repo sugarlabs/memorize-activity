@@ -222,7 +222,7 @@ class Model(object):
                                                     language)
 
                 idpair = 0
-                for elem in memorize_elem.getchildren():
+                for elem in list(memorize_elem):
                     attributes = elem.attrib
                     pair = Pair()
                     for attribute in list(attributes.keys()):
