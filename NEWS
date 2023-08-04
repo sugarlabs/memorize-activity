@@ -1,3 +1,9 @@
+59
+
+* Fix use of getchildren with Element object (Shaan Subbaiah),
+* Fix TypeError due to Bool arguments in ElementTree (Ibiam Chihurumnaya),
+* Add Explain icon (James Cameron),
+
 58
 
 * Fix card-image for sound cards (Martin Abente),
