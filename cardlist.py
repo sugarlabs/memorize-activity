@@ -163,7 +163,8 @@ class CardList(Gtk.EventBox):
     def clean_list(self, button=None, load=False):
         if button is not None:
             self.current_game_key = None
-        list(map(lambda x: self.hbox.remove(x), self.pairs))
+        for pair in self.pairs:
+            self.hbox.remove(pair)
         del self.pairs
         self.pairs = []
         if not load:

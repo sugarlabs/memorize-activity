@@ -87,9 +87,9 @@ class CreateToolbarBuilder(GObject.GObject):
             self.clear_game()
 
     def clear_game(self):
-            self._equal_pairs.set_active(False)
-            self._grouped.set_active(False)
-            self.emit('create_new_game')
+        self._equal_pairs.set_active(False)
+        self._grouped.set_active(False)
+        self.emit('create_new_game')
 
     def update_controls(self, active):
         self._equal_pairs.set_sensitive(active)
