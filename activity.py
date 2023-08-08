@@ -252,12 +252,12 @@ class MemorizeActivity(Activity):
             self._collab.post(blob)
 
         self.game.connect('change_game_signal', on_change_game_cb)
+        self.new_game_file = os.path.join(os.path.dirname(__file__), 'demos',
+                                    'addition.zip')
 
         if self._collab.props.leader:
             logging.debug('is leader')
-            game_file = os.path.join(os.path.dirname(__file__), 'demos',
-                                     'addition.zip')
-            self.game.load_game(game_file, 4, 'demo')
+            self.game.load_game(self.new_game_file, 4, 'demo')
             self.game.add_buddy(self._collab.props.owner)
 
         self.show_all()
@@ -441,11 +441,16 @@ class MemorizeActivity(Activity):
             self.play_mode = False
         else:
             if self.game.model.modified:
-                self.cardlist.update_model(self.game.model)
+                if len(self.cardlist.pairs) == 0:
+                    self.change_game(None, self.new_game_file, 4, 'demo')
+                else:
+                    self.cardlist.update_model(self.game.model)
+                    self.cardlist.load_game(self.game)
+                    self.game.reset_game()
+                    self.cardlist.game_loaded = False
+                    self.table.change_game(None, self.game.model.data,
+                                            self.game.model.grid)
                 self.save()
-                self.game.reset_game()
-                self.table.change_game(None, self.game.model.data,
-                                       self.game.model.grid)
                 self.game.model.modified = False
 
             if not self.play_mode:
