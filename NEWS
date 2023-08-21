@@ -1,3 +1,15 @@
+59
+
+* Explain icon (James Cameron),
+* Fix TypeError due to bool arguments in ElementTree (Shaan Subbaiah),
+* Fix use of getchildren with Element object (Chihurumnaya Ibiam),
+* code cleanup (Sparsh Goenka),
+* Load demo game if all cards cleared in edit-game (Sparsh Goenka),
+* translate.sugarlabs.org synchronization (Chihurumnaya Ibiam),
+* Remove new line character from translated string (Chihurumnaya Ibiam),
+* Use python3 in setup.py (Chihurumnaya Ibiam),
+
+
 58
 
 * Fix card-image for sound cards (Martin Abente),
