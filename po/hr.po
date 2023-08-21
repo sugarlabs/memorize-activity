@@ -1,0 +1,321 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-15 00:31-0400\n"
+"PO-Revision-Date: 2021-11-28 23:27+0000\n"
+"Last-Translator: Milo <mail@milotype.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1638142059.000000\n"
+
+#. TRANS: "name" option from activity.info file
+msgid "Memorize"
+msgstr "Zapamti"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Here you can play games that challenge your memory! But, more importantly, "
+"you can create your own game to test the memory of others!"
+msgstr ""
+"Ovdje možeš igrati igre pamćenja! Ali, što je još važnije, možeš stvoriti "
+"vlastitu igru za testiranje pamćenja drugih!"
+
+#: activity.py:71
+msgid "Play"
+msgstr "Pokreni igru"
+
+#: activity.py:71
+msgid "Create"
+msgstr "Stvori"
+
+#: activity.py:71
+msgid "Game name:"
+msgstr "Ime igre:"
+
+#: activity.py:71
+msgid "Equal pairs"
+msgstr "Jendanki parovi"
+
+#: activity.py:72
+msgid "addition"
+msgstr "dodavanje"
+
+#: activity.py:72
+msgid "letters"
+msgstr "slova"
+
+#: activity.py:72
+msgid "sounds"
+msgstr "Uredi igru"
+
+#: activity.py:96 activity.py:276
+msgid "Edit game"
+msgstr "Uredi igru"
+
+#: activity.py:272
+msgid "Play game"
+msgstr "Igraj igru"
+
+#: createcardpanel.py:82
+msgid "Add as new pair"
+msgstr "Dodaj kao novi par"
+
+#: createcardpanel.py:85
+msgid "Add"
+msgstr "Dodaj"
+
+#: createcardpanel.py:90
+msgid "Update selected pair"
+msgstr "Aktualiziraj odabrani par"
+
+#: createcardpanel.py:93
+msgid "Update"
+msgstr "Akutualiziraj"
+
+#: createcardpanel.py:314
+msgid "Preview:"
+msgstr "Pregled:"
+
+#: createcardpanel.py:330
+msgid "Text:"
+msgstr "Tekst:"
+
+#: createcardpanel.py:342
+msgid "Insert picture"
+msgstr "Umetni sliku"
+
+#: createcardpanel.py:347
+msgid "Insert sound"
+msgstr "Umetni zvuk"
+
+#: createcardpanel.py:504
+msgid "Pronounce text during tile flip"
+msgstr "Izgovori tekst tijekom okretanja pločica"
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr "Uskladi različite pločice"
+
+#: createtoolbar.py:51 createtoolbar.py:119
+msgid "Mixed tiles game"
+msgstr "Igra mješovitih pločica"
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr "Ukloni sve pločice"
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr "Ukloniti sve pločice iz igre?"
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr "Ukloni"
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr "Nemoj ukloniti"
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr "Usporedi jednake pločice"
+
+#: createtoolbar.py:115
+msgid "Grouped tiles game"
+msgstr "Igra grupiranih pločica"
+
+#: fontcombobox.py:42
+msgid "Select font"
+msgstr "Odaberi font"
+
+#: game.py:94
+msgid "Loading game..."
+msgstr "Učitavanje igre …"
+
+#: memorizetoolbar.py:43
+msgid "Addition"
+msgstr "Dodavanje"
+
+#: memorizetoolbar.py:44
+msgid "Letters"
+msgstr "Slova"
+
+#: memorizetoolbar.py:45
+msgid "Sounds"
+msgstr "Zvukovi"
+
+#: memorizetoolbar.py:60
+msgid "Load demo games"
+msgstr "Učitaj demonstracije igara"
+
+#: memorizetoolbar.py:72
+msgid "Change size"
+msgstr "Promijeni veličinu"
+
+#: memorizetoolbar.py:86
+msgid "Restart Game"
+msgstr "Ponovo pokretni igru"
+
+#: memorizetoolbar.py:111
+msgid "Discard your modified game?"
+msgstr "Odbaciti vlastitu modificiranu igru?"
+
+#: memorizetoolbar.py:113
+msgid "Discard"
+msgstr "Odbaci"
+
+#: memorizetoolbar.py:115
+msgid "Do not discard"
+msgstr "Nemoj odabaciti"
+
+#: messenger.py:192
+msgid "Receiving game"
+msgstr "Primanje igre"
+
+#: messenger.py:193
+msgid "done"
+msgstr "gotovo"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "Brazilski"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "Švedski"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "Islandski"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "Rumunjski"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "Swahilski"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "Hindski"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "Nizozemski"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "Latinski"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "Mađarski"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "Makedonski"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "Vališki"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "Francuski"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "Norveški"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "Ruski"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "Afrikanski"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "Finski"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "Standardno"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "Kantoneski"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "Škotski"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "Grčki"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "Vijetnamski"
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "Engleski"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "Lancashire"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "Talijanski"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "Portugalski"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "Njemački"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "Šaputanje"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "Hrvatski"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "Češki"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "Slovački"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "Španjolski"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "Poljski"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "Esperanto"
