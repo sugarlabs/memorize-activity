@@ -1,0 +1,196 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-12 12:18+1100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: activity/activity.info:2
+msgid "Memorize"
+msgstr ""
+
+#: activity/activity.info:3
+msgid ""
+"Here you can play games that challenge your memory! But, more importantly, "
+"you can create your own game to test the memory of others!"
+msgstr ""
+
+#: activity/activity.info:4
+msgid ""
+"Memorize is about finding matching pairs. A pair can be images, sounds and "
+"text and this could be extended to animations or movie snippets as well. "
+"Which pairs match is up to the creator of the game. Memorize is more than a "
+"predefined game you can play, it allows you to create new games yourself as "
+"well."
+msgstr ""
+
+#: activity.py:63
+msgid "Play"
+msgstr ""
+
+#: activity.py:63
+msgid "Create"
+msgstr ""
+
+#: activity.py:63
+msgid "Game name:"
+msgstr ""
+
+#: activity.py:63
+msgid "Equal pairs"
+msgstr ""
+
+#: activity.py:64
+msgid "addition"
+msgstr ""
+
+#: activity.py:64
+msgid "letters"
+msgstr ""
+
+#: activity.py:64
+msgid "sounds"
+msgstr ""
+
+#: activity.py:86 activity.py:282
+msgid "Edit game"
+msgstr ""
+
+#: activity.py:278
+msgid "Play game"
+msgstr ""
+
+#: collabwrapper.py:197
+msgid "Joining activity..."
+msgstr ""
+
+#: collabwrapper.py:198 collabwrapper.py:210
+msgid "Please wait for the connection..."
+msgstr ""
+
+#: collabwrapper.py:209
+msgid "Resuming shared activity..."
+msgstr ""
+
+#: createcardpanel.py:90
+msgid "Add as new pair"
+msgstr ""
+
+#: createcardpanel.py:93
+msgid "Add"
+msgstr ""
+
+#: createcardpanel.py:97
+msgid "Update selected pair"
+msgstr ""
+
+#: createcardpanel.py:100
+msgid "Update"
+msgstr ""
+
+#: createcardpanel.py:104
+msgid "Remove selected pair"
+msgstr ""
+
+#: createcardpanel.py:107
+msgid "Remove"
+msgstr ""
+
+#: createcardpanel.py:354
+msgid "Insert picture"
+msgstr ""
+
+#: createcardpanel.py:358
+msgid "Insert sound"
+msgstr ""
+
+#: createcardpanel.py:502
+msgid "Pronounce text during tile flip"
+msgstr ""
+
+#: createtoolbar.py:46 createtoolbar.py:106
+msgid "Match different tiles"
+msgstr ""
+
+#: createtoolbar.py:51 createtoolbar.py:122
+msgid "Mixed tiles game"
+msgstr ""
+
+#: createtoolbar.py:56
+msgid "Clear all tiles"
+msgstr ""
+
+#: createtoolbar.py:76
+msgid "Clear all the tiles from the game?"
+msgstr ""
+
+#: createtoolbar.py:78
+msgid "Clear"
+msgstr ""
+
+#: createtoolbar.py:80
+msgid "Do not clear"
+msgstr ""
+
+#: createtoolbar.py:102
+msgid "Match identical tiles"
+msgstr ""
+
+#: createtoolbar.py:118
+msgid "Grouped tiles game"
+msgstr ""
+
+#: fontcombobox.py:43
+msgid "Select font"
+msgstr ""
+
+#: game.py:98
+msgid "Loading game..."
+msgstr ""
+
+#: memorizetoolbar.py:42
+msgid "Addition"
+msgstr ""
+
+#: memorizetoolbar.py:43
+msgid "Letters"
+msgstr ""
+
+#: memorizetoolbar.py:44
+msgid "Sounds"
+msgstr ""
+
+#: memorizetoolbar.py:59
+msgid "Load demo games"
+msgstr ""
+
+#: memorizetoolbar.py:104
+msgid "Change size"
+msgstr ""
+
+#: memorizetoolbar.py:118
+msgid "Restart Game"
+msgstr ""
+
+#: memorizetoolbar.py:153 memorizetoolbar.py:185
+msgid "Discard your modified game?"
+msgstr ""
+
+#: memorizetoolbar.py:155 memorizetoolbar.py:187
+msgid "Discard"
+msgstr ""
+
+#: memorizetoolbar.py:157 memorizetoolbar.py:189
+msgid "Do not discard"
+msgstr ""
