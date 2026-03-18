@@ -8,13 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-12 12:18+1100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-03-18 06:28+0000\n"
+"Last-Translator: NF <rkavt@smartprojects.ge>\n"
+"Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
+"sugar-activities/memorize/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4.2\n"
 
 #: activity/activity.info:2
 msgid "Memorize"
@@ -137,7 +140,7 @@ msgstr ""
 
 #: createtoolbar.py:78
 msgid "Clear"
-msgstr ""
+msgstr "გასუფთავება"
 
 #: createtoolbar.py:80
 msgid "Do not clear"
@@ -153,7 +156,7 @@ msgstr ""
 
 #: fontcombobox.py:43
 msgid "Select font"
-msgstr ""
+msgstr "აირჩიეთ ფონტი"
 
 #: game.py:98
 msgid "Loading game..."
