@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-12 12:18+1100\n"
-"PO-Revision-Date: 2026-06-15 07:48+0000\n"
+"PO-Revision-Date: 2026-06-15 16:05+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/memorize/ka/>\n"
@@ -209,3 +209,55 @@ msgstr "ესპანური"
 #: speak/voice.py:47
 msgid "French"
 msgstr "ფრანგული"
+
+#: speak/voice.py:42
+msgid "Dutch"
+msgstr "ჰოლანდიური"
+
+#: speak/voice.py:44
+msgid "Hungarian"
+msgstr "უნგრული"
+
+#: speak/voice.py:48
+msgid "Norwegian"
+msgstr "ნორვეგიული"
+
+#: speak/voice.py:49
+msgid "Russian"
+msgstr "რუსული"
+
+#: speak/voice.py:37
+msgid "Swedish"
+msgstr "შვედური"
+
+#: speak/voice.py:36
+msgid "Brazil"
+msgstr "ბრაზილია"
+
+#: speak/voice.py:62
+msgid "Whisper"
+msgstr "ჩურჩული"
+
+#: speak/voice.py:64
+msgid "Czech"
+msgstr "ჩეხური"
+
+#: speak/voice.py:61
+msgid "German"
+msgstr "გერმანული"
+
+#: speak/voice.py:65
+msgid "Slovak"
+msgstr "სლოვაკური"
+
+#: speak/voice.py:51
+msgid "Finnish"
+msgstr "ფინური"
+
+#: speak/voice.py:59
+msgid "Italian"
+msgstr "იტალიური"
+
+#: speak/voice.py:67
+msgid "Polish"
+msgstr "პოლონური"
