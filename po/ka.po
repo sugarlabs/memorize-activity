@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-12 12:18+1100\n"
-"PO-Revision-Date: 2026-03-18 06:28+0000\n"
+"PO-Revision-Date: 2026-06-15 03:03+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/memorize/ka/>\n"
@@ -197,3 +197,11 @@ msgstr ""
 #: memorizetoolbar.py:157 memorizetoolbar.py:189
 msgid "Do not discard"
 msgstr ""
+
+#: speak/voice.py:57
+msgid "English"
+msgstr "ინგლისური"
+
+#: speak/voice.py:66
+msgid "Spanish"
+msgstr "ესპანური"
