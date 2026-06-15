@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-12 12:18+1100\n"
-"PO-Revision-Date: 2026-06-15 04:31+0000\n"
+"PO-Revision-Date: 2026-06-15 07:48+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/memorize/ka/>\n"
@@ -205,3 +205,7 @@ msgstr "ინგლისური"
 #: speak/voice.py:66
 msgid "Spanish"
 msgstr "ესპანური"
+
+#: speak/voice.py:47
+msgid "French"
+msgstr "ფრანგული"
