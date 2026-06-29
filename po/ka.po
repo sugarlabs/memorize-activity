@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-12 12:18+1100\n"
-"PO-Revision-Date: 2026-06-15 16:05+0000\n"
+"PO-Revision-Date: 2026-06-29 06:56+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/memorize/ka/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Memorize"
-msgstr ""
+msgstr "დამახსოვრება"
 
 #: activity/activity.info:3
 msgid ""
@@ -44,7 +44,7 @@ msgstr "დაკვრა"
 
 #: activity.py:63
 msgid "Create"
-msgstr ""
+msgstr "შექმნა"
 
 #: activity.py:63
 msgid "Game name:"
@@ -56,15 +56,15 @@ msgstr ""
 
 #: activity.py:64
 msgid "addition"
-msgstr ""
+msgstr "დამატება"
 
 #: activity.py:64
 msgid "letters"
-msgstr ""
+msgstr "ასოები"
 
 #: activity.py:64
 msgid "sounds"
-msgstr ""
+msgstr "ხმები"
 
 #: activity.py:86 activity.py:282
 msgid "Edit game"
@@ -92,7 +92,7 @@ msgstr ""
 
 #: createcardpanel.py:93
 msgid "Add"
-msgstr ""
+msgstr "დამატება"
 
 #: createcardpanel.py:97
 msgid "Update selected pair"
@@ -100,7 +100,7 @@ msgstr ""
 
 #: createcardpanel.py:100
 msgid "Update"
-msgstr ""
+msgstr "განახლება"
 
 #: createcardpanel.py:104
 msgid "Remove selected pair"
@@ -164,15 +164,15 @@ msgstr ""
 
 #: memorizetoolbar.py:42
 msgid "Addition"
-msgstr ""
+msgstr "დამატება"
 
 #: memorizetoolbar.py:43
 msgid "Letters"
-msgstr ""
+msgstr "ასოები"
 
 #: memorizetoolbar.py:44
 msgid "Sounds"
-msgstr ""
+msgstr "ხმები"
 
 #: memorizetoolbar.py:59
 msgid "Load demo games"
@@ -192,7 +192,7 @@ msgstr ""
 
 #: memorizetoolbar.py:155 memorizetoolbar.py:187
 msgid "Discard"
-msgstr ""
+msgstr "მოცილება"
 
 #: memorizetoolbar.py:157 memorizetoolbar.py:189
 msgid "Do not discard"
@@ -261,3 +261,83 @@ msgstr "იტალიური"
 #: speak/voice.py:67
 msgid "Polish"
 msgstr "პოლონური"
+
+#: createcardpanel.py:314
+msgid "Preview:"
+msgstr "მინიატურა:"
+
+#: createcardpanel.py:330
+msgid "Text:"
+msgstr "ტექსტი:"
+
+#: messenger.py:193
+msgid "done"
+msgstr "მზადაა"
+
+#: speak/voice.py:38
+msgid "Icelandic"
+msgstr "ისლანდიური"
+
+#: speak/voice.py:39
+msgid "Romanian"
+msgstr "რუმინული"
+
+#: speak/voice.py:40
+msgid "Swahili"
+msgstr "სუაჰილი"
+
+#: speak/voice.py:41
+msgid "Hindi"
+msgstr "ინდური"
+
+#: speak/voice.py:43
+msgid "Latin"
+msgstr "ლათინური"
+
+#: speak/voice.py:45
+msgid "Macedonian"
+msgstr "მაკედონიური"
+
+#: speak/voice.py:46
+msgid "Welsh"
+msgstr "უელსური"
+
+#: speak/voice.py:50
+msgid "Afrikaans"
+msgstr "აფრიკაანსი"
+
+#: speak/voice.py:52 speak/voice.py:125
+msgid "Default"
+msgstr "ნაგულისხმევი"
+
+#: speak/voice.py:63
+msgid "Croatian"
+msgstr "ხორვატული"
+
+#: speak/voice.py:68
+msgid "Esperanto"
+msgstr "ესპერანტო"
+
+#: speak/voice.py:53
+msgid "Cantonese"
+msgstr "კანტონური"
+
+#: speak/voice.py:55
+msgid "Greek"
+msgstr "ბერძნული"
+
+#: speak/voice.py:54
+msgid "Scottish"
+msgstr "შოტლანდიური"
+
+#: speak/voice.py:56
+msgid "Vietnam"
+msgstr "ვიეტნამი"
+
+#: speak/voice.py:60
+msgid "Portugal"
+msgstr "პორტუგალია"
+
+#: speak/voice.py:58
+msgid "Lancashire"
+msgstr "ლანკაშირი"
